@@ -1,5 +1,7 @@
 package com.amihaiemil.wordcount;
 
+import java.util.Scanner;
+
 /**
  * Main class. Entry point of the app.
  * @author Mihai A. (amihaiemil@gmail.com)
@@ -13,7 +15,13 @@ public class Main {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        final ScannedWords game = new ScannedWords(
+            new Scanner(System.in),
+            new IgnoresEmpty(
+                new SimpleCount()
+            )
+        );
+        game.start();
     }
 
 }
