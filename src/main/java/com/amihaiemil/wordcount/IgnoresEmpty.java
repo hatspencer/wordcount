@@ -1,6 +1,12 @@
 package com.amihaiemil.wordcount;
 
-public class IgnoresEmpty implements WordCount{
+/**
+ * WordCount which knows to check for null or empty string and directly return 0.
+ * @author Mihai A.
+ * @version $Id$
+ * @since 0.0.1
+ */
+public class IgnoresEmpty implements WordCount {
 
     /**
      * Original word count.
