@@ -15,15 +15,16 @@ public final class ScannedWords {
     /**
      * The counting strategy to use.
      */
-    private WordCount text;
+    private WordCount counter;
 
     /**
      * Ctor.
      * @param scan Given scanner.
+     * @param strategy The counting strategy to use.
      */
-    public ScannedWords(final Scanner scan, final WordCount count) {
+    public ScannedWords(final Scanner scan, final WordCount strategy) {
         this.scan = scan;
-        this.text = count;
+        this.counter = strategy;
     }
 
 
@@ -31,6 +32,6 @@ public final class ScannedWords {
         System.out.print("Enter text: ");
         String input = this.scan.nextLine();
         System.out.println("Your text is: " + input);
-        System.out.println("Your word count is: " + this.text.count(input));
+        System.out.println("Your word count is: " + this.counter.count(input));
     }
 }

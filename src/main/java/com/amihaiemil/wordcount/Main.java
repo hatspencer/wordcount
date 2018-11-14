@@ -1,11 +1,12 @@
 package com.amihaiemil.wordcount;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -25,8 +26,14 @@ public class Main {
      */
     public static void main(String[] args) {
         try {
+            final InputStream source;
+            if(args.length > 0) {
+                source = new FileInputStream(args[0]);
+            } else {
+                source = System.in;
+            }
             final ScannedWords app = new ScannedWords(
-                new Scanner(System.in),
+                new Scanner(source),
                 new IgnoresEmpty(
                     new SpaceSplitCounter(
                         readStopWords()
