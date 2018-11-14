@@ -15,6 +15,9 @@ import java.util.Set;
  * @author Mihai A. (amihaiemil@gmail.com)
  * @version $Id$
  * @since 0.0.1
+ * @todo #5:30min Reading from a file is not tested yet.
+ *  Add unit tests, possibly refactor.
+ *  See "Puzzle Driven Development" (https://github.com/0pdd).
  */
 public class Main {
 
