@@ -1,22 +1,21 @@
 package com.amihaiemil.wordcount;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
- * A word count which separates the words by spaces.
- * @author Mihai A.
+ * A counter which will only count unique words.
+ * @author MIhai A. (amihaiemil@gmail.com)
  * @version $Id$
  * @since 0.0.1
  */
-public final class SpaceSplitCounter extends AbstractWordCount {
+public final class UniqueWordsCounter extends AbstractWordCount {
 
     /**
      * Ctor. By default no words are ignored.
      */
-    public SpaceSplitCounter() {
+    public UniqueWordsCounter() {
         this(new HashSet<>());
     }
 
@@ -24,19 +23,19 @@ public final class SpaceSplitCounter extends AbstractWordCount {
      * Ctor.
      * @param skipped Given list of ignored words.
      */
-    public SpaceSplitCounter(final Set<String> skipped) {
+    public UniqueWordsCounter(final Set<String> skipped) {
         super(skipped);
     }
 
     @Override
     public long count(final String text) {
-        final String[] words = text.split(" ");
+        final Set<String> unique = new HashSet<>(Arrays.asList(text.split(" ")));
         int count = 0;
-        for(final String word : words) {
+        for(final String word : unique) {
             if(!this.skipped.contains(word)) {
                 count++;
             }
         }
-        return count;
-    }
+        return count;    }
+
 }

@@ -6,7 +6,7 @@ package com.amihaiemil.wordcount;
  * @version $Id$
  * @since 0.0.1
  */
-public class IgnoresEmpty implements WordCount {
+public final class IgnoresEmpty implements WordCount {
 
     /**
      * Original word count.
