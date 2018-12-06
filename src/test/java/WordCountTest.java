@@ -5,9 +5,9 @@ import static org.junit.Assert.assertEquals;
 public class WordCountTest {
 
     @Test
-    public void testGetWordSetAmountOfSplittedWords() {
+    public void testGetWordSetAmountOfSplitedWords() {
         String testString = "aslkdjf asöldkjfa sdklöfj";
-        String[] wordSet = WordCount.getWordSet(testString);
+        String[] wordSet = WordCount.getWords(testString);
 
         assertEquals(3, wordSet.length);
     }
@@ -16,7 +16,7 @@ public class WordCountTest {
     public void testFilteredStopWords() {
         String inputText = "on a plane";
         String[] stopWords = {"on", "a"};
-        String[] wordSet = WordCount.getWordSet(inputText);
+        String[] wordSet = WordCount.getWords(inputText);
         String[] wordsWithoutStopwords = WordCount.filterStopWords(
                 wordSet,
                 stopWords

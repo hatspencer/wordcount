@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -10,22 +9,27 @@ public class WordCount {
         final Scanner scanner = new Scanner(System.in);
         final String words = scanner.nextLine();
 
-        Class clazz = WordCount.class;
-        InputStream inputStream = clazz.getResourceAsStream("/stopwords.txt");
 
+        final String pathToStopWords = "/stopwords.txt";
         final String[] wordSet = filterStopWords(
-                getWordSet(words),
-                getWordSet(
-                        StreamHelper.readFromInputStream(
-                            inputStream
-                    )
-                )
+                getWords(words),
+                getStopWords(pathToStopWords)
         );
 
         System.out.println("Number of Words:" + wordSet.length);
     }
 
-    public static String[] getWordSet(String words) {
+    private static String[] getStopWords(String pathToStopWords) throws IOException {
+        return getWords(
+                StreamHelper.readFromInputStream(
+                    FileHelper.getInputStreamOfResource(
+                            pathToStopWords
+                    )
+            )
+        );
+    }
+
+    public static String[] getWords(String words) {
         return words.split("\\s");
     }
 
