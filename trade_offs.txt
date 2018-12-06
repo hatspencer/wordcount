@@ -3,3 +3,10 @@ Trade-Offs:
 Iteration 1 9:30 - 11:30
 Separation of concerns: UI - BL decoupled only by extracted method
 Invalid alphabet; Current solution splits by white space (all words)
+
+Iteration 2 11:30 - 12:30
+BL is still not extracted
+Missing structure of code
+Rewrite BL to stream pipeline
+ - File IO Helper abstraction DRY
+ - more generic method abstractions it should not matter if the input are an array of words filtered by an array of stopWords.
