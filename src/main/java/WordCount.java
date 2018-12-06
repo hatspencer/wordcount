@@ -49,7 +49,7 @@ public class WordCount {
     }
 
     public static String[] getWords(String words) {
-        return words.split("\\s|-");
+        return words.split("\\s");
     }
 
     public static String[] filterStopWords(String[] wordSet, String[] stopWords) {

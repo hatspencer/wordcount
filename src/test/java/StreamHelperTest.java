@@ -1,21 +1,21 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
 public class StreamHelperTest {
 
+    private static String EXPECTED_DATA = "This is a test";
+
     @Test
     public void testFileHelperReadFromInputStreamReturnsCorrectString() throws IOException {
-        String expectedData = "This is a test";
+        ByteArrayInputStream content = new ByteArrayInputStream(EXPECTED_DATA.getBytes());
 
-        Class clazz = StreamHelperTest.class;
-        InputStream inputStream = clazz.getResourceAsStream("/file_helper_test.txt");
-        String data = StreamHelper.readFromInputStream(inputStream);
+        String data = StreamHelper.readFromInputStream(content);
 
-        Assert.assertThat(data, containsString(expectedData));
+        Assert.assertThat(data, containsString(EXPECTED_DATA));
     }
 }
