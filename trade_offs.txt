@@ -15,3 +15,5 @@ Iteration 3 14:00 - 15:00
 There is no extraction into an adapter pattern for the input IO part (loss of previous functionality)
 switch to command pattern instead of static method call (pipelining)
 
+Iteration 4 15:00 - 16:00
+Same issues as above need for better decoupling and abstraction
