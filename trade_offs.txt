@@ -10,3 +10,8 @@ Missing structure of code
 Rewrite BL to stream pipeline
  - File IO Helper abstraction DRY
  - more generic method abstractions it should not matter if the input are an array of words filtered by an array of stopWords.
+
+Iteration 3 14:00 - 15:00
+There is no extraction into an adapter pattern for the input IO part (loss of previous functionality)
+switch to command pattern instead of static method call (pipelining)
+

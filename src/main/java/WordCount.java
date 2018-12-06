@@ -1,25 +1,21 @@
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class WordCount {
 
     public static void main (String[] args) throws IOException {
-        System.out.println("Please enter a text:");
-        final Scanner scanner = new Scanner(System.in);
-        final String words = scanner.nextLine();
-
+        String pathToInputFile = args[0];
 
         final String pathToStopWords = "/stopwords.txt";
         final String[] wordSet = filterStopWords(
-                getWords(words),
-                getStopWords(pathToStopWords)
+                getWordsFromFile(pathToInputFile),
+                getWordsFromFile(pathToStopWords)
         );
 
         System.out.println("Number of Words:" + wordSet.length);
     }
 
-    private static String[] getStopWords(String pathToStopWords) throws IOException {
+    private static String[] getWordsFromFile(String pathToStopWords) throws IOException {
         return getWords(
                 StreamHelper.readFromInputStream(
                     FileHelper.getInputStreamOfResource(
