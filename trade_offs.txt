@@ -17,3 +17,9 @@ switch to command pattern instead of static method call (pipelining)
 
 Iteration 4 15:00 - 16:00
 Same issues as above need for better decoupling and abstraction
+
+iteration 5 16:00 - 17:00
+missing alphabet precision
+
+iteration 6 16:00 - 17:00
+missing test coverage
