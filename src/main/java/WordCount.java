@@ -7,12 +7,13 @@ public class WordCount {
         Scanner scanner = new Scanner(System.in);
 
         final String words = scanner.nextLine();
-        final String[] wordSet = WordCount.extractWords(words);
+        final String[] wordSet = getWordSet(words);
 
         System.out.println("Number of Words:" + wordSet.length);
     }
 
-    private static String[] extractWords(String words) {
+    public static String[] getWordSet(String words) {
         return words.split(" ");
     }
+
 }
