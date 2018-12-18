@@ -14,14 +14,18 @@ public class StopWordsProviderTest {
 
     private static final List<String> FILE_CONTENT = Arrays.asList("the", "a", "on", "off");
 
+
     @Test
     public void readStopWords() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("stopwords.txt").getFile());
-        System.out.println(file.getAbsolutePath());
+        File file = readFile("stopwords.txt");
 
         List<String> stopWords =  StopWordsProvider.readStopWords(file.getAbsolutePath());
 
         assertThat(stopWords, equalTo(FILE_CONTENT));
+    }
+
+    private File readFile(String fileName) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return new File(classLoader.getResource(fileName).getFile());
     }
 }
