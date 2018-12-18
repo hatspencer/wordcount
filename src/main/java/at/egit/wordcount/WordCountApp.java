@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,17 +17,7 @@ public class WordCountApp {
 
         Scanner scanner = new Scanner(System.in);
 
-        List<String> stopWords;
-
-        try {
-            final URI uri = WordCountApp.class.getClassLoader()
-                    .getResource("stopwords.txt").toURI();
-            stopWords = Files.lines(Paths.get(uri))
-                    .collect(toList());
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-
+        List<String> stopWords = readStopWords("stopwords.txt");
 
         System.out.print("Enter text: ");
 
@@ -38,10 +29,25 @@ public class WordCountApp {
             System.out.println("Only letters and spaces are allowed!");
         } else {
             final WordCount wordCount = new WordCount();
+            wordCount.setStopWords(stopWords);
             final long count = wordCount.countWords(textLine);
 
             System.out.println("Number of words: " + count);
         }
+    }
 
+    private static List<String> readStopWords(String fileName) {
+        List<String> stopWords = new ArrayList<>();
+
+        try {
+            final URI uri = WordCountApp.class.getClassLoader()
+                    .getResource(fileName).toURI();
+            stopWords = Files.lines(Paths.get(uri))
+                    .collect(toList());
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        return stopWords;
     }
 }
