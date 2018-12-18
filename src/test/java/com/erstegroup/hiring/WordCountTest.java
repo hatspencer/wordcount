@@ -2,13 +2,15 @@ package com.erstegroup.hiring;
 
 import org.junit.Test;
 
+import static java.util.Collections.emptyList;
+
 public class WordCountTest {
 
     @Test
     public void wordCount() {
         String text = "Mary had a little lamb";
 
-        int wordCount = WordCount.wordCount(text);
+        long wordCount = WordCount.wordCount(text, emptyList());
 
         org.junit.Assert.assertEquals(5, wordCount);
     }
@@ -17,7 +19,7 @@ public class WordCountTest {
     public void wordCountWithDoubleSpace() {
         String text = "Mary      had  a little lamb";
 
-        int wordCount = WordCount.wordCount(text);
+        long wordCount = WordCount.wordCount(text, emptyList());
 
         org.junit.Assert.assertEquals(5, wordCount);
     }
