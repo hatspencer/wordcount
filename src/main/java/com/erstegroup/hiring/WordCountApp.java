@@ -19,7 +19,7 @@ public class WordCountApp {
         }
 
         if (InputValidator.validate(text)) {
-            List<String> stopWords = new StopWordsProvider().readStopWords();
+            List<String> stopWords = StopWordsProvider.readStopWords();
             System.out.println("Number of words: " + WordCount.wordCount(text, stopWords));
         } else {
             System.err.println("Error input");
