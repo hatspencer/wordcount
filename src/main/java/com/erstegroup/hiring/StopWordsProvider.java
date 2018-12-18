@@ -9,14 +9,16 @@ import java.util.List;
 
 public class StopWordsProvider {
 
+    private static final FileFactory FILE_FACTORY = new FileFactory();
+
     public List<String> readStopWords() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        return readStopWords(classLoader.getResource("stopwords.txt").getFile());
+        File file = FILE_FACTORY.getFileFrom("stopwords.txt");
+        return readStopWords(file.getPath());
     }
 
-    public static List<String> readStopWords(String fileName) throws IOException {
+    public static List<String> readStopWords(String filePath) throws IOException {
         List<String> stopWords = new ArrayList<>();
-        BufferedReader fileBufferedReader = new BufferedReader(new FileReader(fileName));
+        BufferedReader fileBufferedReader = new BufferedReader(new FileReader(filePath));
 
         String line = fileBufferedReader.readLine();
 
@@ -26,10 +28,5 @@ public class StopWordsProvider {
         }
 
         return stopWords;
-    }
-
-    public  File readFile(String fileName) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        return new File(classLoader.getResource(fileName).getFile());
     }
 }

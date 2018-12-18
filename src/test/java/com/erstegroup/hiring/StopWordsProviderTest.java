@@ -13,13 +13,13 @@ import static org.junit.Assert.assertThat;
 public class StopWordsProviderTest {
 
     private static final List<String> FILE_CONTENT = Arrays.asList("the", "a", "on", "off");
-
+    private static final FileFactory FILE_FACTORY = new FileFactory();
 
     @Test
     public void readStopWords() throws IOException {
-        File file = new StopWordsProvider().readFile("stopwords.txt");
+        File file = FILE_FACTORY.getFileFrom("stopwords.txt");
 
-        List<String> stopWords =  StopWordsProvider.readStopWords(file.getAbsolutePath());
+        List<String> stopWords =  StopWordsProvider.readStopWords(file.getPath());
 
         assertThat(stopWords, equalTo(FILE_CONTENT));
     }
