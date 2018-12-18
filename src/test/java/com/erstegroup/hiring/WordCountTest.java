@@ -15,7 +15,7 @@ public class WordCountTest {
 
     @Test
     public void wordCountWithDoubleSpace() {
-        String text = "Mary  had  a little lamb";
+        String text = "Mary      had  a little lamb";
 
         int wordCount = WordCount.wordCount(text);
 

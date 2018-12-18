@@ -10,7 +10,7 @@ public class WordCountApp {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Enter text: ");
         String text = br.readLine();
-        if (text.matches("[a-z,A-Z ]*")) {
+        if (InputValidator.validate(text)) {
             System.out.println("Number of words: " + WordCount.wordCount(text));
         } else {
             System.err.println("Error input");
