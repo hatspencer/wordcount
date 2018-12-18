@@ -8,11 +8,15 @@ import java.util.List;
 
 public class StopWordsProvider {
 
-    private static final String STOP_FILE = "stopwords.txt";
+    private static final String STOP_FILE = "C:\\Erste\\wordcount\\src\\main\\Resources\\stopwords.txt";
 
     public static List<String> readStopWords() throws IOException {
-        List<String> stopWords = new ArrayList<String>();
-        BufferedReader fileBufferedReader = new BufferedReader(new FileReader(STOP_FILE));
+        return readStopWords(STOP_FILE);
+    }
+
+    public static List<String> readStopWords(String fileName) throws IOException {
+        List<String> stopWords = new ArrayList<>();
+        BufferedReader fileBufferedReader = new BufferedReader(new FileReader(fileName));
 
         String line = fileBufferedReader.readLine();
 

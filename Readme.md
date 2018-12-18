@@ -4,4 +4,4 @@
 4) we use only text without special characters like dots
 
 We have added functionality for filtering unneccesary stop words (InputTestValidator)
-Todo: add missing tests for InputTestValidator.
+We have added test for reading stopwords.txt file and providing requested list of stop words.
