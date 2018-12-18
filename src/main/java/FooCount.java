@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class FooCount {
@@ -11,9 +10,9 @@ public class FooCount {
 
         final String textLine = scanner.nextLine();
 
-        final long count = Arrays.stream(textLine.split(" "))
-                .filter(it -> !it.isEmpty())
-                .count();
+        final WordCounter wordCounter = new WordCounter();
+        final String[] words = textLine.split(" ");
+        final long count = wordCounter.countWords(words);
 
         System.out.println("Number of words: " + count);
     }
