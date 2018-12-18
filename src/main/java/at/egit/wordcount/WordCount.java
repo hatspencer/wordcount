@@ -8,12 +8,10 @@ class WordCount {
 
     private List<String> stopWords = new ArrayList<>();
 
-    List<String> getStopWords() {
-        return stopWords;
-    }
-
     void setStopWords(List<String> stopWords) {
-        this.stopWords = stopWords;
+        if (stopWords != null) {
+            this.stopWords = stopWords;
+        }
     }
 
     long countWords(String textToCount) {
