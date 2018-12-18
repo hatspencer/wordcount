@@ -11,7 +11,7 @@ public class StopWordsProvider {
 
     private static final FileFactory FILE_FACTORY = new FileFactory();
 
-    public List<String> readStopWords() throws IOException {
+    public static List<String> readStopWords() throws IOException {
         File file = FILE_FACTORY.getFileFrom("stopwords.txt");
         return readStopWords(file.getPath());
     }

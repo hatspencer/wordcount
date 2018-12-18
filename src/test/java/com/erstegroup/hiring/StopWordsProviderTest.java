@@ -7,7 +7,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class StopWordsProviderTest {
@@ -16,12 +19,19 @@ public class StopWordsProviderTest {
     private static final FileFactory FILE_FACTORY = new FileFactory();
 
     @Test
-    public void readStopWords() throws IOException {
+    public void readStopWordsFromFilePath() throws IOException {
         File file = FILE_FACTORY.getFileFrom("stopwords.txt");
 
         List<String> stopWords =  StopWordsProvider.readStopWords(file.getPath());
 
         assertThat(stopWords, equalTo(FILE_CONTENT));
+    }
+
+    @Test
+    public void readStopWords() throws IOException {
+        List<String> stopWords = StopWordsProvider.readStopWords();
+
+        assertThat(stopWords, is(not(empty())));
     }
 
 }
