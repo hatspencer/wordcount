@@ -1,6 +1,8 @@
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -16,6 +18,15 @@ public class WordCounterTest {
         boolean result = WordCounter.isValidInput(invalidInput);
 
         assertFalse(result);
+    }
+
+    @Test
+    public void isValidInputShouldNotReturnFalseIfInputContainsHyphen() {
+        String hyphenInput = "Humpty-Dumpty";
+
+        boolean result = WordCounter.isValidInput(hyphenInput);
+
+        assertTrue(result);
     }
 
     @Test
@@ -37,49 +48,80 @@ public class WordCounterTest {
     }
 
     @Test
-    public void countWordsReturnsCorrectNumberOfWords() {
+    public void findWordsReturnsCorrectCollectionOfWords() {
         String twoWords = "foo bar";
+        Collection<String> expectedResult = Arrays.asList("foo", "bar");
 
-        long result = WordCounter.countValidWords(twoWords);
+        Collection<String> result = WordCounter.findValidWords(twoWords);
 
-        assertEquals(2, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    public void countWordsReturnsCorrectNumberOfWordsWithMultipleSpaces() {
+    public void findWordsCountsHyphenatedWordsAsSeparateWords() {
+        String hyphenInput = "Humpty-Dumpty";
+        Collection<String> expectedResult = Arrays.asList("Humpty", "Dumpty");
+
+
+        Collection<String> result = WordCounter.findValidWords(hyphenInput);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void findWordsReturnsCorrectCollectionOfWordsWhenInputHasHyphsensAndWhitespaces() {
+        String hyphenInput = "Humpty-Dumpty sat down over-there";
+        Collection<String> expectedResult = Arrays.asList("Humpty", "Dumpty", "sat", "down", "over", "there");
+
+
+        Collection<String> result = WordCounter.findValidWords(hyphenInput);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void findWordsReturnsCorrectCollectionOfWordsWithMultipleSpaces() {
         String twoWords = "foo     bar";
+        Collection<String> expectedResult = Arrays.asList("foo", "bar");
 
-        long result = WordCounter.countValidWords(twoWords);
 
-        assertEquals(2, result);
+        Collection<String> result = WordCounter.findValidWords(twoWords);
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    public void countWordsReturnsZeroOnNoInput() {
+    public void findWordsReturnsZeroOnNoInput() {
         String noInput = "";
+        Collection<String> expectedResult = Collections.emptyList();
 
-        long result = WordCounter.countValidWords(noInput);
 
-        assertEquals(0, result);
+        Collection<String> result = WordCounter.findValidWords(noInput);
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    public void countWordsReturnsZeroOnEmptyInput() {
+    public void findWordsReturnsZeroOnEmptyInput() {
         String emptyInput = " ";
+        Collection<String> expectedResult = Collections.emptyList();
 
-        long result = WordCounter.countValidWords(emptyInput);
 
-        assertEquals(0, result);
+        Collection<String> result = WordCounter.findValidWords(emptyInput);
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
-    public void countWordsReturnsCorrectNumberOfWordsIgnoringStopWords() {
+    public void findWordsReturnsCorrectCollectionOfWordsIgnoringStopWords() {
         List<String> stopWords = Arrays.asList("a", "off", "the", "on");
         String oneInvalidWord = "Mary had a little lamb";
+        Collection<String> expectedResult = Arrays.asList("Mary", "had", "little", "lamb");
 
-        long result = WordCounter.countValidWords(oneInvalidWord, stopWords);
 
-        assertEquals(4, result);
+        Collection<String> result = WordCounter.findValidWords(oneInvalidWord, stopWords);
+
+        assertEquals(expectedResult, result);
     }
 
     @Test
@@ -91,5 +133,6 @@ public class WordCounterTest {
         String expectedResult = "Mary had a little lamb";
         assertEquals(expectedResult, result);
     }
+
 
 }

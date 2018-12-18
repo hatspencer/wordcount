@@ -1,6 +1,7 @@
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
@@ -23,32 +24,34 @@ public class WordCounter {
             input = reader.nextLine();
         }
 
-
         if (isValidInput(input)) {
-            System.out.println("Number of words: " + countValidWords(input, fetchLinesFromFile(stopWordsFilePath)));
+            Collection<String> validWords = findValidWords(input, fetchLinesFromFile(stopWordsFilePath));
+            long uniqueValidWordCount = validWords.stream().distinct().count();
+            System.out.println("Number of words: " + validWords.size() + ", unique: " + uniqueValidWordCount);
         } else {
             System.out.println("Invalid input! Please only enter lower-case, upper-case or whitespace characters only");
         }
     }
 
     static boolean isValidInput(String input) {
-        Pattern alphaAndWhitespaceOnlyPattern = Pattern.compile("^[A-Za-z ]*$");
+        Pattern alphaAndWhitespaceOnlyPattern = Pattern.compile("^[A-Za-z \\-]*$");
         Matcher matcher = alphaAndWhitespaceOnlyPattern.matcher(input);
         return matcher.find();
     }
 
-    static long countValidWords(String text) {
-        return countValidWords(text, Collections.emptyList());
+    static Collection<String> findValidWords(String text) {
+        return findValidWords(text, Collections.emptyList());
     }
 
-    static long countValidWords(String text, Collection<String> stopWords) {
+    static Collection<String> findValidWords(String text, Collection<String> stopWords) {
         if (text.isEmpty()) {
-            return 0;
+            return Collections.emptyList();
         }
 
         return Stream.of(text.split("\\s+"))
+                .flatMap(candidate -> Arrays.stream(candidate.split("-")))
                 .filter(candidate -> !stopWords.contains(candidate))
-                .count();
+                .collect(Collectors.toList());
     }
 
     static String fetchInputStringFromPath(String path) {
