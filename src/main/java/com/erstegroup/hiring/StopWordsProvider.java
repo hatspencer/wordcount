@@ -1,6 +1,7 @@
 package com.erstegroup.hiring;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,10 +9,9 @@ import java.util.List;
 
 public class StopWordsProvider {
 
-    private static final String STOP_FILE = "C:\\Erste\\wordcount\\src\\main\\Resources\\stopwords.txt";
-
-    public static List<String> readStopWords() throws IOException {
-        return readStopWords(STOP_FILE);
+    public List<String> readStopWords() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return readStopWords(classLoader.getResource("stopwords.txt").getFile());
     }
 
     public static List<String> readStopWords(String fileName) throws IOException {
@@ -26,5 +26,10 @@ public class StopWordsProvider {
         }
 
         return stopWords;
+    }
+
+    public  File readFile(String fileName) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return new File(classLoader.getResource(fileName).getFile());
     }
 }
