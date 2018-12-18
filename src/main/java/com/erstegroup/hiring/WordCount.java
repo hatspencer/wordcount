@@ -9,7 +9,7 @@ public class WordCount {
     }
 
     public static long wordCount(String text, final List<String> stopWords) {
-        String[] words = text.split("[ ]+");
+        String[] words = text.split("\\s+");
         return Arrays.asList(words).stream().filter(word -> !stopWords.contains(word)).count();
     }
 }
