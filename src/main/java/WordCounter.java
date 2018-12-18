@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -14,11 +14,18 @@ public class WordCounter {
     private static final String stopWordsFilePath = "stopwords.txt";
 
     public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in);
-        System.out.print("Enter text: ");
-        String input = reader.nextLine();
+        String input;
+        if (args.length > 0) {
+            input = fetchInputStringFromPath(args[0]);
+        } else {
+            Scanner reader = new Scanner(System.in);
+            System.out.print("Enter text: ");
+            input = reader.nextLine();
+        }
+
+
         if (isValidInput(input)) {
-            System.out.println("Number of words: " + countValidWords(input, fetchStopWordsFromPath(stopWordsFilePath)));
+            System.out.println("Number of words: " + countValidWords(input, fetchLinesFromFile(stopWordsFilePath)));
         } else {
             System.out.println("Invalid input! Please only enter lower-case, upper-case or whitespace characters only");
         }
@@ -44,11 +51,18 @@ public class WordCounter {
                 .count();
     }
 
-    static Collection<String> fetchStopWordsFromPath(String path) {
+    static String fetchInputStringFromPath(String path) {
+        return fetchLinesFromFile(path).stream()
+                .collect(Collectors.joining(" "));
+    }
+
+    static Collection<String> fetchLinesFromFile(String path) {
         try {
-            return Files.lines(Paths.get(path)).collect(Collectors.toList());
-        } catch (IOException e) {
+            URL url = WordCounter.class.getResource(path);
+            return Files.lines(Paths.get(url.toURI())).collect(Collectors.toList());
+        } catch (Exception e) {
             throw new RuntimeException("StopWords file could not be read at path " + path + "!", e);
         }
     }
+
 }

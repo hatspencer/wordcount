@@ -82,4 +82,14 @@ public class WordCounterTest {
         assertEquals(4, result);
     }
 
+    @Test
+    public void fetchInputStringFromPathCreatesInputStringFromFile() {
+        String filePath = "myInput.txt";
+
+        String result = WordCounter.fetchInputStringFromPath(filePath);
+
+        String expectedResult = "Mary had a little lamb";
+        assertEquals(expectedResult, result);
+    }
+
 }
