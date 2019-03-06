@@ -1,31 +1,22 @@
 package com.erste.main.io;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 public class FileReader {
 
-    public static List<String> readFileAsLines(String filePath) {
-        List<String> lines = new ArrayList<>();
-
-        InputStream resourceStream = FileReader.class.getResourceAsStream(filePath);
-        InputStreamReader isr = new InputStreamReader(resourceStream);
-        BufferedReader bufferedReader = new BufferedReader(isr);
-
+    public static List<String> readFileAsLines(String fileName) {
         try {
-            String line = bufferedReader.readLine();
-
-            while (line != null) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
+            Path path = Paths.get(FileReader.class.getClassLoader().getResource(fileName).toURI());
+            return Files.readAllLines(path);
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
-
-        return lines;
+        return Collections.EMPTY_LIST;
     }
 }
