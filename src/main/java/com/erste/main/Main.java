@@ -2,6 +2,8 @@ package com.erste.main;
 
 import java.util.Scanner;
 
+import com.erste.main.util.StringUtil;
+
 public class Main {
 
     private static final String ENTER_TEXT = "Enter text: ";
@@ -19,13 +21,9 @@ public class Main {
 
     public int run() {
         System.out.print(ENTER_TEXT);
-        int wordCount = getWordCountInString(scanner.nextLine());
+        int wordCount = StringUtil.getWordCountInString(scanner.nextLine());
         System.out.println(String.format(NUMBER_OF_WORDS, wordCount));
 
         return wordCount;
-    }
-
-    private int getWordCountInString(String input) {
-        return input.split("\\s").length;
     }
 }

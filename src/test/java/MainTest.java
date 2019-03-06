@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class MainTest {
 
-    private static final String TEST_QUOTE = "Hello World";
+    private static final String TEST_QUOTE = "Hello World 5ghghj";
 
     @Test
     public void wordCountTest() {
