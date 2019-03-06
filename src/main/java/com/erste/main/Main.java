@@ -35,9 +35,7 @@ public class Main {
         List<String> filteredWords = new ArrayList<>();
         List<String> stopWords = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
 
-        String[] splitString = input.split("\\s");
-
-        for (String word : splitString) {
+        for (String word : StringUtil.getWhiteSpaceSeparatedWords(input)) {
             if (StringUtil.isAlhabetic(word) && !stopWords.contains(word)) {
                 filteredWords.add(word);
             }

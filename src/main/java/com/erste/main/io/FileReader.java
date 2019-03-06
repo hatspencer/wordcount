@@ -14,7 +14,7 @@ public class FileReader {
         try {
             Path path = Paths.get(FileReader.class.getClassLoader().getResource(fileName).toURI());
             return Files.readAllLines(path);
-        } catch (URISyntaxException | IOException e) {
+        } catch (URISyntaxException | IOException | NullPointerException e) {
             e.printStackTrace();
         }
         return Collections.EMPTY_LIST;
