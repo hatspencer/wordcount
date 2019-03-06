@@ -1,5 +1,6 @@
 package com.erste.main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,19 +15,35 @@ public class Main {
     private static final String STOPWORDS_FILE_NAME = "stopwords.txt";
 
     private Scanner scanner;
+    private String fileName;
 
     public static void main(String[] args) {
-        new Main(new Scanner(System.in)).run();
+        new Main(new Scanner(System.in), args).run();
     }
 
-    public Main(Scanner scanner) {
+    public Main(Scanner scanner, String[] args) {
         this.scanner = scanner;
+
+        if (args.length == 1) {
+            fileName = args[0];
+        } else if (args.length > 1) {
+            System.err.println("Please provide at most one argument: file name");
+            System.exit(0);
+        }
     }
 
     private void run() {
-        System.out.print(ENTER_TEXT);
+        final List<String> processedInputAsWords = new ArrayList<>();
+
+        if (fileName != null) {
+            List<String> fileLines = FileReader.readFileAsLines(fileName);
+            fileLines.forEach(line -> processedInputAsWords.addAll(StringUtil.getWhiteSpaceSeparatedWords(line)));
+        } else {
+            System.out.print(ENTER_TEXT);
+            processedInputAsWords.addAll(StringUtil.getWhiteSpaceSeparatedWords(scanner.nextLine()));
+        }
+
         List<String> readFileLines = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
-        String[] processedInputAsWords = StringUtil.getWhiteSpaceSeparatedWords(scanner.nextLine());
         List<String> wordsWithoutStopWords = new StopWordFilter().filterOutStopWords(readFileLines, processedInputAsWords);
 
         System.out.println(String.format(NUMBER_OF_WORDS, countAlphabeticWords(wordsWithoutStopWords)));

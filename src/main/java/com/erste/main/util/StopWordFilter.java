@@ -5,7 +5,7 @@ import java.util.List;
 
 public class StopWordFilter {
 
-    public List<String> filterOutStopWords(List<String> stopWords, String[] words) {
+    public List<String> filterOutStopWords(List<String> stopWords, List<String> words) {
         List<String> filteredWords = new ArrayList<>();
 
         for (String word : words) {
