@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.erste.main.io.FileReader;
-import com.erste.main.util.StopWordFilter;
 import com.erste.main.util.StringUtil;
 
 public class Main {
@@ -33,6 +32,15 @@ public class Main {
     }
 
     private void run() {
+        List<String> input = processInput();
+        List<String> stopWords = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
+
+        long wordCount = new WordCounter(input, stopWords).countAlphabeticWords();
+
+        System.out.println(String.format(NUMBER_OF_WORDS, wordCount));
+    }
+
+    private List<String> processInput() {
         final List<String> processedInputAsWords = new ArrayList<>();
 
         if (fileName != null) {
@@ -43,13 +51,6 @@ public class Main {
             processedInputAsWords.addAll(StringUtil.getWhiteSpaceSeparatedWords(scanner.nextLine()));
         }
 
-        List<String> readFileLines = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
-        List<String> wordsWithoutStopWords = new StopWordFilter().filterOutStopWords(readFileLines, processedInputAsWords);
-
-        System.out.println(String.format(NUMBER_OF_WORDS, countAlphabeticWords(wordsWithoutStopWords)));
-    }
-
-    private long countAlphabeticWords(List<String> words) {
-        return words.stream().filter(StringUtil::isAlhabetic).count();
+        return processedInputAsWords;
     }
 }
