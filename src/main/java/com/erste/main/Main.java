@@ -10,7 +10,7 @@ import com.erste.main.util.StringUtil;
 public class Main {
 
     private static final String ENTER_TEXT = "Enter text: ";
-    private static final String NUMBER_OF_WORDS = "Number of words: %s";
+    private static final String NUMBER_OF_WORDS = "Number of words: %s, unique %s";
     private static final String STOPWORDS_FILE_NAME = "stopwords.txt";
 
     private Scanner scanner;
@@ -35,9 +35,12 @@ public class Main {
         List<String> input = processInput();
         List<String> stopWords = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
 
-        long wordCount = new WordCounter(input, stopWords).countAlphabeticWords();
+        WordCounter wordCounter = new WordCounter(input, stopWords);
 
-        System.out.println(String.format(NUMBER_OF_WORDS, wordCount));
+        long wordCount = wordCounter.countAlphabeticWords();
+        long uniqueWordCount = wordCounter.countUniqueWords();
+
+        System.out.println(String.format(NUMBER_OF_WORDS, wordCount, uniqueWordCount));
     }
 
     private List<String> processInput() {
