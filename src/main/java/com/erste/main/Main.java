@@ -1,10 +1,10 @@
 package com.erste.main;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.erste.main.io.FileReader;
+import com.erste.main.util.StringFilter;
 import com.erste.main.util.StringUtil;
 
 public class Main {
@@ -25,21 +25,12 @@ public class Main {
 
     public int run() {
         System.out.print(ENTER_TEXT);
-        int wordCount = filterOutStopWords(scanner.nextLine()).size();
+        List<String> readFileLines = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
+        String[] processedInputAsWords = StringUtil.getWhiteSpaceSeparatedWords(scanner.nextLine());
+
+        int wordCount = new StringFilter().filterOutStrings(readFileLines, processedInputAsWords).size();
         System.out.println(String.format(NUMBER_OF_WORDS, wordCount));
 
         return wordCount;
-    }
-
-    private List<String> filterOutStopWords(String input) {
-        List<String> filteredWords = new ArrayList<>();
-        List<String> stopWords = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
-
-        for (String word : StringUtil.getWhiteSpaceSeparatedWords(input)) {
-            if (StringUtil.isAlhabetic(word) && !stopWords.contains(word)) {
-                filteredWords.add(word);
-            }
-        }
-        return filteredWords;
     }
 }
