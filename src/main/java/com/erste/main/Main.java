@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.erste.main.io.FileReader;
-import com.erste.main.util.StringFilter;
+import com.erste.main.util.StopWordFilter;
 import com.erste.main.util.StringUtil;
 
 public class Main {
@@ -16,21 +16,23 @@ public class Main {
     private Scanner scanner;
 
     public static void main(String[] args) {
-        new Main(new Scanner(System.in));
+        new Main(new Scanner(System.in)).run();
     }
 
     public Main(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    public int run() {
+    private void run() {
         System.out.print(ENTER_TEXT);
         List<String> readFileLines = FileReader.readFileAsLines(STOPWORDS_FILE_NAME);
         String[] processedInputAsWords = StringUtil.getWhiteSpaceSeparatedWords(scanner.nextLine());
+        List<String> wordsWithoutStopWords = new StopWordFilter().filterOutStopWords(readFileLines, processedInputAsWords);
 
-        int wordCount = new StringFilter().filterOutStrings(readFileLines, processedInputAsWords).size();
-        System.out.println(String.format(NUMBER_OF_WORDS, wordCount));
+        System.out.println(String.format(NUMBER_OF_WORDS, countAlphabeticWords(wordsWithoutStopWords)));
+    }
 
-        return wordCount;
+    private long countAlphabeticWords(List<String> words) {
+        return words.stream().filter(StringUtil::isAlhabetic).count();
     }
 }
