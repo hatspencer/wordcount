@@ -18,4 +18,8 @@ public class StringUtil {
 
         return wordCount;
     }
+
+    public static boolean isAlhabetic(String string) {
+        return WORD_PATTERN.matcher(string).matches();
+    }
 }
