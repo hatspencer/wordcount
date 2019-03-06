@@ -12,7 +12,7 @@ public class StringUtilTest {
 
     @Test
     public void getWordsByWhitespaceSplit() {
-        List<String> whiteSpaceSeparatedWords = StringUtil.getWhiteSpaceSeparatedWords(TEST_QUOTE);
+        List<String> whiteSpaceSeparatedWords = StringUtil.getWhiteSpaceSeparatedWordsAsList(TEST_QUOTE);
         Assertions.assertEquals(2, whiteSpaceSeparatedWords.size());
         Assertions.assertEquals(whiteSpaceSeparatedWords.get(0), "Hello");
         Assertions.assertEquals(whiteSpaceSeparatedWords.get(1), "World");

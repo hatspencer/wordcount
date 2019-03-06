@@ -8,7 +8,7 @@ public class StringUtil {
 
     private static final Pattern WORD_PATTERN = Pattern.compile("\\p{Alpha}+");
 
-    public static List<String> getWhiteSpaceSeparatedWords(String string) {
+    public static List<String> getWhiteSpaceSeparatedWordsAsList(String string) {
         return Arrays.asList(string.split("\\s"));
     }
 

@@ -45,10 +45,10 @@ public class Main {
 
         if (fileName != null) {
             List<String> fileLines = FileReader.readFileAsLines(fileName);
-            fileLines.forEach(line -> processedInputAsWords.addAll(StringUtil.getWhiteSpaceSeparatedWords(line)));
+            fileLines.forEach(line -> processedInputAsWords.addAll(StringUtil.getWhiteSpaceSeparatedWordsAsList(line)));
         } else {
             System.out.print(ENTER_TEXT);
-            processedInputAsWords.addAll(StringUtil.getWhiteSpaceSeparatedWords(scanner.nextLine()));
+            processedInputAsWords.addAll(StringUtil.getWhiteSpaceSeparatedWordsAsList(scanner.nextLine()));
         }
 
         return processedInputAsWords;

@@ -16,7 +16,7 @@ public class StopWordFilterTest {
 
     @Test
     public void filterOutWords() {
-        List<String> filteredStrings = new StopWordFilter().filterOutStopWords(STOP_WORDS, StringUtil.getWhiteSpaceSeparatedWords(TEXT_WITH_STOP_WORDS));
+        List<String> filteredStrings = new StopWordFilter().filterOutStopWords(STOP_WORDS, StringUtil.getWhiteSpaceSeparatedWordsAsList(TEXT_WITH_STOP_WORDS));
         Assertions.assertEquals(filteredStrings.size(), 1);
         Assertions.assertEquals(filteredStrings.get(0), "Hello");
     }
