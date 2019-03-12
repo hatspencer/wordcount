@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 public class WordCounterTest {
@@ -15,6 +18,8 @@ public class WordCounterTest {
 	private final int EMPTY_STRING_WORD_COUNT = 0;
 	private final String ALPHABETIC_STRING = "This";
 	private final String NON_ALPHABETIC_STRING = "This 1One";
+	private final List<String> LIST_OF_STRINGS = Arrays.asList("one","two","3");
+	private final List<String> LIST_OF_VALID_STRINGS = Arrays.asList("one","two");;
    
 	@Test
 	public void testCharactersOnlyString() {
@@ -45,5 +50,11 @@ public class WordCounterTest {
 		assertFalse(counter.isValidCharacterString(NON_ALPHABETIC_STRING));
 	}
 	
+	@Test
+	public void testFilterValidStringReturnCountOFAlphabeticWords () {
+		 List<String> filteredListOfStrings = counter.filterValidString(LIST_OF_STRINGS);
+		 
+		 assertEquals(LIST_OF_VALID_STRINGS, filteredListOfStrings);
+	}
 	
 }
