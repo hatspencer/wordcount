@@ -1,5 +1,6 @@
 package wordcount;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ public class WordCounter {
 		if (text.isEmpty()) {
 			return 0;
 		}
-		return splitStringBySpace(text).length;
+		return filterValidString(Arrays.asList(splitStringBySpace(text))).size();
 	}
 	
 	public String[] splitStringBySpace(String text) {
