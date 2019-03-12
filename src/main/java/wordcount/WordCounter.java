@@ -29,8 +29,8 @@ public class WordCounter {
 				.collect(Collectors.toList());
 	}
 	
-	public List<String> filterStopWords (List<String> stringList, List<String> stopWords) {
-		return stringList.stream()
+	public List<String> filterStopWords (List<String> wordList, List<String> stopWords) {
+		return wordList.stream()
 				.filter(s -> isNotAStopWord(s, stopWords))
 				.collect(Collectors.toList());
 	}
@@ -39,7 +39,7 @@ public class WordCounter {
 		return text.matches("[a-zA-Z]*");
 	}
 	
-	public boolean isNotAStopWord (String text, List<String> stopWords) {
-		return stopWords.stream().noneMatch(text::equals);
+	public boolean isNotAStopWord (String word, List<String> stopWords) {
+		return stopWords.stream().noneMatch(word::equals);
 	}
 }
