@@ -1,16 +1,19 @@
 import api.InputProvider;
 import api.WordCounter;
 import impl.ConsoleInput;
+import impl.FileInput;
 import impl.FileStopWordsChecker;
 import impl.RegexCounter;
 
-import java.io.IOException;
-
 public class WordCountApplication {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
 		InputProvider inputProvider = new ConsoleInput();
+		if (args != null && args.length == 1) {
+			inputProvider = new FileInput(args[0]);
+		}
+
 		WordCounter wordCounter = new RegexCounter();
 
 		String input = inputProvider.getInput();
