@@ -2,8 +2,6 @@ package api;
 
 public interface WordCounter {
 
-	int count(String input, StopWordChecker stopWordChecker);
-
-	int count(String input);
+	int count(String input, WordsProvider wordsProvider, WordFilter wordFilter);
 }
 

@@ -1,9 +1,8 @@
 import api.InputProvider;
 import api.WordCounter;
-import impl.ConsoleInput;
-import impl.FileInput;
-import impl.FileStopWordsChecker;
-import impl.RegexCounter;
+import api.WordFilter;
+import api.WordsProvider;
+import impl.*;
 
 public class WordCountApplication {
 
@@ -14,11 +13,17 @@ public class WordCountApplication {
 			inputProvider = new FileInput(args[0]);
 		}
 
-		WordCounter wordCounter = new RegexCounter();
+		WordCounter allWordsCounter = new AllWordsCounter();
+		UniqueWordsCounter uniqueWordsCounter = new UniqueWordsCounter();
+
+		WordsProvider wordsProvider = new GetWordsByRegexBoundary();
+		WordFilter wordFilter = new StopWordsFilter();
 
 		String input = inputProvider.getInput();
-		int wordCount = wordCounter.count(input, new FileStopWordsChecker());
 
-		System.out.println("Number of words: " + wordCount);
+		int wordCount = allWordsCounter.count(input, wordsProvider, wordFilter);
+		int uniqueWordCount = uniqueWordsCounter.count(input, wordsProvider, wordFilter);
+
+		System.out.println("Number of words: " + wordCount + ", unique: " + uniqueWordCount);
 	}
 }

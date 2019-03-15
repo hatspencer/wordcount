@@ -1,4 +1,5 @@
-import impl.RegexCounter;
+package impl;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,18 +16,21 @@ public class RegexCounterTest {
 	@ParameterizedTest
 	@ValueSource(strings = {"", "    "})
 	void testEmptyString(String empty) {
-		assertEquals(0, new RegexCounter().count(empty));
+		AllWordsCounter allWordsCounter = new AllWordsCounter();
+		GetWordsByRegexBoundary getWordsByRegexBoundary = new GetWordsByRegexBoundary();
+
+		assertEquals(0, allWordsCounter.count(empty, getWordsByRegexBoundary, null));
 	}
 
 	@Test
 	void testNull() {
-		assertEquals(0, new RegexCounter().count(null));
+		assertEquals(0, new AllWordsCounter().count(null, new GetWordsByRegexBoundary(), null));
 	}
 
 	@ParameterizedTest
 	@MethodSource("wordCountAndInputProvider")
 	void testWordBoundary(int wordCount, String input) {
-		assertEquals(wordCount, new RegexCounter().count(input));
+		assertEquals(wordCount, new AllWordsCounter().count(input, new GetWordsByRegexBoundary(), null));
 	}
 
 	static Stream<Arguments> wordCountAndInputProvider() {

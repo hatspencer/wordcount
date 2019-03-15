@@ -1,4 +1,6 @@
-import impl.FileStopWordsChecker;
+package impl;
+
+import impl.StopWordsFilter;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -15,43 +17,43 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class FileStopWordsCheckerTest {
 
-	private FileStopWordsChecker defaultFileStopWordsChecker = new FileStopWordsChecker();
-	private FileStopWordsChecker customFileStopWordsChecker;
+	private StopWordsFilter defaultFileStopWordsChecker = new StopWordsFilter();
+	private StopWordsFilter customFileStopWordsChecker;
 	private static Path customStopWordsPath;
 
 	@ParameterizedTest
 	@MethodSource("defaultStopWordsProvider")
 	void testDefaultStopWords(boolean expectedResult, String word) {
-		assertEquals(expectedResult, defaultFileStopWordsChecker.isStopWord(word));
+		assertEquals(expectedResult, defaultFileStopWordsChecker.accept(word));
 	}
 
 	static Stream<Arguments> defaultStopWordsProvider() {
 		return Stream.of(
-				arguments(true, "one"),
-				arguments(true, "two"),
-				arguments(true, "three"),
-				arguments(false, "not_a_stop_word")
+				arguments(false, "one"),
+				arguments(false, "two"),
+				arguments(false, "three"),
+				arguments(true, "not_a_stop_word")
 		);
 	}
 
 	@ParameterizedTest
 	@MethodSource("customStopWordsProvider")
 	void testCustomStopWords(boolean expectedResult, String word) throws IOException {
-		assertEquals(expectedResult, getCustomFileStopWordsChecker().isStopWord(word));
+		assertEquals(expectedResult, getCustomFileStopWordsChecker().accept(word));
 	}
 
 	static Stream<Arguments> customStopWordsProvider() {
 		return Stream.of(
-				arguments(true, "four"),
-				arguments(false, "not_a_stop_word")
+				arguments(false, "four"),
+				arguments(true, "not_a_stop_word")
 		);
 	}
 
-	private FileStopWordsChecker getCustomFileStopWordsChecker() throws IOException {
+	private StopWordsFilter getCustomFileStopWordsChecker() throws IOException {
 		if (customFileStopWordsChecker == null) {
 			customStopWordsPath = Files.createTempFile("customstopwords", ".txt");
 			Files.write(customStopWordsPath, Collections.singletonList("four"));
-			customFileStopWordsChecker = new FileStopWordsChecker(customStopWordsPath.toAbsolutePath().toString());
+			customFileStopWordsChecker = new StopWordsFilter(customStopWordsPath.toAbsolutePath().toString());
 		}
 
 		return customFileStopWordsChecker;

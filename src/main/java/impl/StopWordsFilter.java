@@ -1,16 +1,16 @@
 package impl;
 
-import api.StopWordChecker;
+import api.WordFilter;
 
 import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FileStopWordsChecker implements StopWordChecker {
+public class StopWordsFilter implements WordFilter {
 
 	private Set<String> stopWords;
 
-	public FileStopWordsChecker() {
+	public StopWordsFilter() {
 		try {
 			initializeStopWords(getDefaultFileReader());
 		} catch (IOException e) {
@@ -19,7 +19,7 @@ public class FileStopWordsChecker implements StopWordChecker {
 		}
 	}
 
-	public FileStopWordsChecker(String fileName) {
+	public StopWordsFilter(String fileName) {
 		try {
 			initializeStopWords(new BufferedReader(new FileReader(fileName)));
 		} catch (IOException e) {
@@ -45,7 +45,7 @@ public class FileStopWordsChecker implements StopWordChecker {
 
 	private BufferedReader getDefaultFileReader() {
 		String defaultStopWordsFileName = "/stopwords.txt";
-		InputStream stream = FileStopWordsChecker.class.getResourceAsStream(defaultStopWordsFileName);
+		InputStream stream = StopWordsFilter.class.getResourceAsStream(defaultStopWordsFileName);
 		if (stream == null) {
 			return null;
 		}
@@ -54,7 +54,7 @@ public class FileStopWordsChecker implements StopWordChecker {
 	}
 
 	@Override
-	public boolean isStopWord(String word) {
-		return stopWords.contains(word);
+	public boolean accept(String word) {
+		return !stopWords.contains(word);
 	}
 }
