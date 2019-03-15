@@ -1,5 +1,6 @@
 package impl;
 
+import api.StopWordChecker;
 import api.WordCounter;
 
 import java.util.regex.Matcher;
@@ -10,7 +11,7 @@ public class RegexCounter implements WordCounter {
 	// requirements unclear for word boundary, assumption to use regex pattern \b
 	private static final Pattern pattern = Pattern.compile("\\b[a-zA-Z]+\\b");
 
-	public int count(String input) {
+	public int count(String input, StopWordChecker stopWordChecker) {
 		if (input == null) {
 			return 0;
 		}
@@ -18,9 +19,16 @@ public class RegexCounter implements WordCounter {
 		Matcher matcher = pattern.matcher(input);
 		int count = 0;
 		while (matcher.find()) {
-			count++;
+			if (stopWordChecker != null && !stopWordChecker.isStopWord(matcher.group())) {
+				count++;
+			}
 		}
 
 		return count;
+	}
+
+	@Override
+	public int count(String input) {
+		return count(input, null);
 	}
 }
