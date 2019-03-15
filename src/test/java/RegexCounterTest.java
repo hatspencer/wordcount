@@ -36,5 +36,4 @@ public class RegexCounterTest {
 				arguments(2, "one?two")
 		);
 	}
-
 }

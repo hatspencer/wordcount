@@ -10,25 +10,37 @@ public class FileStopWordsChecker implements StopWordChecker {
 
 	private Set<String> stopWords;
 
-	public FileStopWordsChecker() throws IOException {
-		initializeStopWords(getDefaultFileReader());
+	public FileStopWordsChecker() {
+		try {
+			initializeStopWords(getDefaultFileReader());
+		} catch (IOException e) {
+			System.err.println("Failed to initialize stop words checker with default file reader.");
+			throw new RuntimeException(e);
+		}
 	}
 
-	public FileStopWordsChecker(String fileName) throws IOException {
-		initializeStopWords(new BufferedReader(new FileReader(fileName)));
+	public FileStopWordsChecker(String fileName) {
+		try {
+			initializeStopWords(new BufferedReader(new FileReader(fileName)));
+		} catch (IOException e) {
+			System.err.println("Failed to initialize stop words checker with file reader for file '" + fileName + "'");
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void initializeStopWords(BufferedReader reader) throws IOException {
+		stopWords = new HashSet<>();
 		if (reader == null) {
-			System.err.println("No file reader provided.");
-			// TODO handle
+			System.err.println("Failed to obtain file reader, using empty stop words collection.");
+			return;
 		}
 
-		stopWords = new HashSet<>();
 		String line;
 		while ((line = reader.readLine()) != null) {
 			stopWords.add(line.trim());
 		}
+
+		reader.close();
 	}
 
 	private BufferedReader getDefaultFileReader() {
