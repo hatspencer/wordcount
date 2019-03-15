@@ -19,7 +19,7 @@ public class RegexCounter implements WordCounter {
 		Matcher matcher = pattern.matcher(input);
 		int count = 0;
 		while (matcher.find()) {
-			if (stopWordChecker != null && !stopWordChecker.isStopWord(matcher.group())) {
+			if (stopWordChecker == null || !stopWordChecker.isStopWord(matcher.group())) {
 				count++;
 			}
 		}
