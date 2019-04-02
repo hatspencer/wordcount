@@ -4,14 +4,17 @@ public class WordCountApp {
 
     private WordCounter wordCounter = new WordCounter();
     private InputReader inputReader = new InputReader();
+    private OutputWriter outputWriter = new OutputWriter();
 
     public static void main(String[] args) {
-
         WordCountApp app = new WordCountApp();
-        String inputText = app.inputReader.getInput();
-        long numberOfWords = app.wordCounter.count(inputText);
-        System.out.println(String.format("Number of words: %s", numberOfWords));
+        app.count();
     }
 
+    private void count() {
+        String inputText = inputReader.getInput();
+        long numberOfWords = wordCounter.count(inputText);
+        outputWriter.writeOutput(numberOfWords);
+    }
 
 }
