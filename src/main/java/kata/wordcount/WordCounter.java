@@ -20,7 +20,7 @@ class WordCounter {
             return 0;
         }
 
-        String[] words = text.split(" ");
+        String[] words = text.split("[\\s\\n]");
         return Stream.of(words)
                 .filter(this::isValidWord)
                 .filter(this::isNotStopword)

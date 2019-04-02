@@ -9,7 +9,11 @@ public class WordCountApp {
     private OutputWriter outputWriter;
 
     public WordCountApp() {
-        this(new ConsoleInputReader(), new OutputWriter(), new StopwordsLoader());
+        this(new ConsoleInputReader());
+    }
+
+    public WordCountApp(InputReader inputReader) {
+        this(inputReader, new OutputWriter(), new StopwordsLoader());
     }
 
     public WordCountApp(InputReader inputReader, OutputWriter outputWriter, StopwordsLoader stopwordsLoader) {
@@ -20,7 +24,13 @@ public class WordCountApp {
     }
 
     public static void main(String[] args) {
-        WordCountApp app = new WordCountApp();
+        WordCountApp app;
+        if (args.length > 0) {
+            String textFileInput = args[0];
+            app = new WordCountApp(new FileInputReader(textFileInput));
+        } else {
+            app = new WordCountApp();
+        }
         app.count();
     }
 
