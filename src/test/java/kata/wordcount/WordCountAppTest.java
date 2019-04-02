@@ -2,6 +2,7 @@ package kata.wordcount;
 
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -29,5 +30,17 @@ public class WordCountAppTest {
         app.count();
 
         assertThat(outputMock.getNumberOfWords(), is(4L));
+    }
+
+    @Test
+    public void createInputReader_withPathProvided() {
+        InputReader inputReader = WordCountApp.createInputReader(new String[]{"src/test/resources/mytext.txt"});
+        assertThat(inputReader, instanceOf(FileInputReader.class));
+    }
+
+    @Test
+    public void createInputReader_withNoPathProvided() {
+        InputReader inputReader = WordCountApp.createInputReader(new String[]{});
+        assertThat(inputReader, instanceOf(ConsoleInputReader.class));
     }
 }

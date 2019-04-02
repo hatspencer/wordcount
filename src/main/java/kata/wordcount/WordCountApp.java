@@ -24,14 +24,20 @@ public class WordCountApp {
     }
 
     public static void main(String[] args) {
-        WordCountApp app;
+        InputReader inputReader = createInputReader(args);
+        WordCountApp app = new WordCountApp(inputReader);
+        app.count();
+    }
+
+    static InputReader createInputReader(String[] args) {
+        InputReader inputReader;
         if (args.length > 0) {
             String textFileInput = args[0];
-            app = new WordCountApp(new FileInputReader(textFileInput));
+            inputReader = new FileInputReader(textFileInput);
         } else {
-            app = new WordCountApp();
+            inputReader = new ConsoleInputReader();
         }
-        app.count();
+        return inputReader;
     }
 
     void count() {
