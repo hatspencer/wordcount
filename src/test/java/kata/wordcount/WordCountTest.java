@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 public class WordCountTest {
 
     @Test
-    public void countWords_simpleCase() {
+    public void count_inputContainsNoSpecialCharacters() {
 
         String inputText = "Mary had a little lamb";
 
@@ -18,7 +18,7 @@ public class WordCountTest {
     }
 
     @Test
-    public void countWords_lettersOnly() {
+    public void count_inputContainsNumbersAndSpecialCharacters() {
 
         String inputText = "Mary had 5 lambs and payed 100 $ for it.";
 
