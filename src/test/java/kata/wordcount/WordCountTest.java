@@ -41,4 +41,14 @@ public class WordCountTest {
         assertThat(numberOfWords, is(0L));
     }
 
+    @Test
+    public void count_inputContainsDotAsSeparator() {
+
+        String inputText = "Mary.had.a.little.lamb";
+
+        WordCounter wordCounter = new WordCounter();
+        long numberOfWords = wordCounter.count(inputText);
+        assertThat(numberOfWords, is(0L));
+    }
+
 }
