@@ -26,4 +26,11 @@ public class WordCountTest {
         long numberOfWords = wordCounter.count(inputText);
         assertThat(numberOfWords, is(6L));
     }
+
+    @Test
+    public void count_inputIsNull() {
+        WordCounter wordCounter = new WordCounter();
+        long numberOfWords = wordCounter.count(null);
+        assertThat(numberOfWords, is(0L));
+    }
 }
