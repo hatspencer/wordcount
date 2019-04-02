@@ -9,7 +9,7 @@ public class WordCountApp {
     private OutputWriter outputWriter;
 
     public WordCountApp() {
-        this(new InputReader(), new OutputWriter(), new StopwordsLoader());
+        this(new ConsoleInputReader(), new OutputWriter(), new StopwordsLoader());
     }
 
     public WordCountApp(InputReader inputReader, OutputWriter outputWriter, StopwordsLoader stopwordsLoader) {
@@ -25,7 +25,7 @@ public class WordCountApp {
     }
 
     void count() {
-        String inputText = inputReader.getInput();
+        String inputText = inputReader.read();
         long numberOfWords = wordCounter.count(inputText);
         outputWriter.writeOutput(numberOfWords);
     }

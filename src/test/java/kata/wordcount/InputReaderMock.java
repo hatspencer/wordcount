@@ -1,6 +1,6 @@
 package kata.wordcount;
 
-class InputReaderMock extends InputReader {
+class InputReaderMock extends ConsoleInputReader {
 
     private String testInput;
 
@@ -9,7 +9,7 @@ class InputReaderMock extends InputReader {
     }
 
     @Override
-    String getInput() {
+    public String read() {
         return testInput;
     }
 }
