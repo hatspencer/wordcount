@@ -33,4 +33,12 @@ public class WordCountTest {
         long numberOfWords = wordCounter.count(null);
         assertThat(numberOfWords, is(0L));
     }
+
+    @Test
+    public void count_inputIsEmpty() {
+        WordCounter wordCounter = new WordCounter();
+        long numberOfWords = wordCounter.count("");
+        assertThat(numberOfWords, is(0L));
+    }
+
 }
