@@ -14,7 +14,7 @@ public class WordCountTest {
 
         WordCounter wordCounter = new WordCounter();
         long numberOfWords = wordCounter.count(inputText);
-        assertThat(numberOfWords, is(5L));
+        assertThat(numberOfWords, is(4L));
     }
 
     @Test
