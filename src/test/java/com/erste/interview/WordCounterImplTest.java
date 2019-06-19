@@ -1,11 +1,22 @@
 package com.erste.interview;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class WordCounterImplTest {
 
-  private WordCounter wordCounter = new WordCounterImpl();
+  private StopwordRepository stopwordRepository = Mockito.mock(StopwordRepository.class);
+  private WordCounter wordCounter = new WordCounterImpl(stopwordRepository);
+
+  @Before
+  public void setUp() throws Exception {
+    when(stopwordRepository.isStopword(anyString())).thenReturn(false);
+  }
 
   @Test
   public void testMaryHadALittleLamb() {
@@ -34,6 +45,21 @@ public class WordCounterImplTest {
   @Test
   public void testWordsWithInvalidCharacters() {
     int words = wordCounter.countWords("Mary h0d a little l@mb");
+    Assert.assertEquals(3, words);
+  }
+
+  @Test
+  public void testStopwordShouldNotBeCounted() {
+    when(stopwordRepository.isStopword("a")).thenReturn(true);
+    int words = wordCounter.countWords("Mary had a little lamb");
+    Assert.assertEquals(4, words);
+  }
+
+  @Test
+  public void testMultipleStopwordsShouldNotBeCounted() {
+    when(stopwordRepository.isStopword("a")).thenReturn(true);
+    when(stopwordRepository.isStopword("lamb")).thenReturn(true);
+    int words = wordCounter.countWords("Mary had a little lamb");
     Assert.assertEquals(3, words);
   }
 }

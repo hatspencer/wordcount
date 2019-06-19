@@ -4,11 +4,18 @@ import java.util.Arrays;
 
 public class WordCounterImpl implements WordCounter {
 
+  private final StopwordRepository stopwordRepository;
+
+  public WordCounterImpl(StopwordRepository stopwordRepository) {
+    this.stopwordRepository = stopwordRepository;
+  }
+
   public int countWords(String input) {
     String[] elements = input.split("\\s");
     return (int) Arrays.stream(elements)
         .filter(element -> !element.isEmpty())
         .filter(element -> element.chars().allMatch(this::isLetter))
+        .filter(element -> !stopwordRepository.isStopword(element))
         .count();
   }
 
