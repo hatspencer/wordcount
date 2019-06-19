@@ -26,4 +26,10 @@ public class InputStringProviderFactoryTest {
     Assert.assertEquals(FileInputStringProvider.class, inputStringProvider.getClass());
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testMoreThan1ArgShouldThrowException() {
+    final InputStringProviderFactory factory = new InputStringProviderFactory(new String[]{"one", "two"});
+    factory.createInputStringProvider();
+  }
+
 }
