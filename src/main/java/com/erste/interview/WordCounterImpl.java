@@ -1,7 +1,6 @@
 package com.erste.interview;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ public class WordCounterImpl implements WordCounter {
 
   public WordCountResultDto countWords(String input) {
     String[] elements = input.split("[ \\t\\n]");
-    final Set<String> encounteredWords = Collections.synchronizedSet(new HashSet<>());
+    final Set<String> encounteredWords = new HashSet<>();
     final IntermediateResultDto intermediateResultDto = Arrays.stream(elements)
         .filter(element -> !element.isEmpty())
         .filter(element -> element.chars().allMatch(this::isLetter))
