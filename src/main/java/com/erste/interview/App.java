@@ -3,6 +3,8 @@ package com.erste.interview;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 public class App {
@@ -19,7 +21,14 @@ public class App {
   }
 
   private static StopwordRepository createStopwordRepository() {
-    return new StopwordRepository(Paths.get("stopwords.txt"));
+    ClassLoader classLoader = App.class.getClassLoader();
+    URI uri = null;
+    try {
+      uri = classLoader.getResource("stopwords.txt").toURI();
+    } catch (URISyntaxException e) {
+      throw new IllegalStateException("Illegal URI", e);
+    }
+    return new StopwordRepository(Paths.get(uri));
   }
 
 }
