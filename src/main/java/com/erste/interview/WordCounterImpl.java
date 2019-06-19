@@ -14,7 +14,7 @@ public class WordCounterImpl implements WordCounter {
   }
 
   public WordCountResultDto countWords(String input) {
-    String[] elements = input.split("[ \\-\\t\\n]");
+    String[] elements = input.split("[ \\t\\n]");
     final Set<String> encounteredWords = Collections.synchronizedSet(new HashSet<>());
     final IntermediateResultDto intermediateResultDto = Arrays.stream(elements)
         .filter(element -> !element.isEmpty())
@@ -36,8 +36,8 @@ public class WordCounterImpl implements WordCounter {
   private boolean isLetter(int c) {
     boolean isLowercaseLetter = c >= 'a' && c <= 'z';
     boolean isUppercaseLetter = c >= 'A' && c <= 'Z';
-    boolean isDot = c == '.';
-    return isLowercaseLetter || isUppercaseLetter || isDot;
+    boolean isAllowedSpecialCharacter = c == '.' || c == '-';
+    return isLowercaseLetter || isUppercaseLetter || isAllowedSpecialCharacter;
   }
 
   private static class IntermediateResultDto {

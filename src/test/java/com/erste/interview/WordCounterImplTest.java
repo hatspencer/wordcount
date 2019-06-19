@@ -68,14 +68,14 @@ public class WordCounterImplTest {
     when(stopwordRepository.isStopword("a")).thenReturn(true);
     when(stopwordRepository.isStopword("on")).thenReturn(true);
     final WordCountResultDto resultDto = wordCounter.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
-    Assert.assertEquals(7, resultDto.getUniqueWordCount());
-    Assert.assertEquals(9, resultDto.getWordCount());
+    Assert.assertEquals(6, resultDto.getUniqueWordCount());
+    Assert.assertEquals(7, resultDto.getWordCount());
   }
 
   @Test
   public void testUniqueWordCountWithDuplicatedWord() {
     final WordCountResultDto resultDto = wordCounter.countWords("Humpty-Dumpty Humpty-Dumpty");
-    Assert.assertEquals(2, resultDto.getUniqueWordCount());
-    Assert.assertEquals(4, resultDto.getWordCount());
+    Assert.assertEquals(1, resultDto.getUniqueWordCount());
+    Assert.assertEquals(2, resultDto.getWordCount());
   }
 }
