@@ -2,5 +2,5 @@ package com.erste.interview;
 
 public interface WordCounter {
 
-  int countWords(String input);
+  WordCountResultDto countWords(String input);
 }
