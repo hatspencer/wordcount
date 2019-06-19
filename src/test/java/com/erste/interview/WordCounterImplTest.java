@@ -30,4 +30,10 @@ public class WordCounterImplTest {
     int words = wordCounter.countWords("Mary");
     Assert.assertEquals(1, words);
   }
+
+  @Test
+  public void testWordsWithInvalidCharacters() {
+    int words = wordCounter.countWords("Mary h0d a little l@mb");
+    Assert.assertEquals(3, words);
+  }
 }
