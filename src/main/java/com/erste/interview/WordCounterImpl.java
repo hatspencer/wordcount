@@ -23,6 +23,7 @@ public class WordCounterImpl implements WordCounter {
         .collect(IntermediateResultDto::new,
                  (acc, word) -> {
                    acc.incrementWordCount();
+                   acc.incrementTotalLength(word.length());
                    if (!encounteredWords.contains(word)) { //NOSONAR
                      acc.incrementUniqueWordCount();
                      encounteredWords.add(word);
@@ -30,7 +31,7 @@ public class WordCounterImpl implements WordCounter {
                  }, (result1, result2) -> {
               //since we don't use parallel streams we don't need a combiner to do anything
             });
-    return new WordCountResultDto(intermediateResultDto.getWordCount(), intermediateResultDto.getUniqueWordCount());
+    return new WordCountResultDto(intermediateResultDto.getWordCount(), intermediateResultDto.getUniqueWordCount(), intermediateResultDto.getAverageLength());
   }
 
   private boolean isLetter(int c) {
@@ -44,6 +45,7 @@ public class WordCounterImpl implements WordCounter {
 
     private int wordCount = 0;
     private int uniqueWordCount = 0;
+    private int totalLength;
 
     public int getWordCount() {
       return wordCount;
@@ -53,12 +55,27 @@ public class WordCounterImpl implements WordCounter {
       return uniqueWordCount;
     }
 
+    public int getTotalLength() {
+      return totalLength;
+    }
+
+    public double getAverageLength() {
+      if (wordCount == 0) {
+        return 0;
+      }
+      return (double) totalLength / (double) wordCount;
+    }
+
     public void incrementWordCount() {
       wordCount++;
     }
 
     public void incrementUniqueWordCount() {
       uniqueWordCount++;
+    }
+
+    public void incrementTotalLength(int length) {
+      totalLength += length;
     }
   }
 

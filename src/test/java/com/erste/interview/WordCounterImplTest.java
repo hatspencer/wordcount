@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 public class WordCounterImplTest {
 
+  private static final double DELTA = 0.001;
   private StopwordRepository stopwordRepository = Mockito.mock(StopwordRepository.class);
   private WordCounter wordCounter = new WordCounterImpl(stopwordRepository);
 
@@ -78,4 +79,32 @@ public class WordCounterImplTest {
     Assert.assertEquals(1, resultDto.getUniqueWordCount());
     Assert.assertEquals(2, resultDto.getWordCount());
   }
+
+  @Test
+  public void testAverageWordLength() {
+    when(stopwordRepository.isStopword("a")).thenReturn(true);
+    final WordCountResultDto resultDto = wordCounter.countWords("Mary had a little lamb");
+    Assert.assertEquals(4.25, resultDto.getAverageLength(), DELTA);
+  }
+
+  @Test
+  public void testAverageWordLengthForEmptyStringShouldBeZero() {
+    final WordCountResultDto resultDto = wordCounter.countWords("");
+    Assert.assertEquals(0, resultDto.getAverageLength(), DELTA);
+  }
+
+  @Test
+  public void testAverageWordLengthForSingleWordShouldEqualLength() {
+    final String input = "Humpty-Dumpty";
+    final WordCountResultDto resultDto = wordCounter.countWords(input);
+    Assert.assertEquals(input.length(), resultDto.getAverageLength(), DELTA);
+  }
+
+  @Test
+  public void testAverageWordLengthForSingleStopWordShouldBeZero() {
+    when(stopwordRepository.isStopword("a")).thenReturn(true);
+    final WordCountResultDto resultDto = wordCounter.countWords("a");
+    Assert.assertEquals(0, resultDto.getAverageLength(), DELTA);
+  }
+
 }
