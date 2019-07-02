@@ -19,9 +19,15 @@ public class StopWordsReader {
 
 	public Collection<String> readStopWords() {
 		final ClassLoader classLoader = getClass().getClassLoader();
+		
+		final URL fileUrl = classLoader.getResource(stopWordsFile);
+		if(fileUrl == null) {
+			throw new IllegalStateException(String.format("Given file was not found: %s", stopWordsFile));
+		}
+		
 		URI fileUri = null;
 		try {
-			fileUri = classLoader.getResource(stopWordsFile).toURI();
+			fileUri = fileUrl.toURI();
 		} catch (URISyntaxException e1) {
 			e1.printStackTrace();
 			throw new IllegalStateException(e1.getMessage(), e1);

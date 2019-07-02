@@ -1,7 +1,6 @@
 package wordcount;
 
 import java.util.Arrays;
-import java.util.Scanner;
 import java.util.function.Predicate;
 
 public class WordCounter {

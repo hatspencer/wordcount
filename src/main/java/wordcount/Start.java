@@ -13,8 +13,14 @@ public class Start {
 		String line = scanner.nextLine();
 		scanner.close();
 
-		final StopWordsReader stopWordsReader = new StopWordsReader(STOP_WORDS_FILE);
-		final long wordCount = new WordCounter(new StopWordsFilter(stopWordsReader.readStopWords())).countWordsOf(line);
+		
+		final long wordCount = countWords(line);
 		System.out.println(String.format("Number of words: %d", wordCount));
+	}
+	
+	static long countWords(String line) {
+		final StopWordsReader stopWordsReader = new StopWordsReader(STOP_WORDS_FILE);
+		final StopWordsFilter stopWordsFilter = new StopWordsFilter(stopWordsReader.readStopWords());
+		return new WordCounter(stopWordsFilter).countWordsOf(line);
 	}
 }
