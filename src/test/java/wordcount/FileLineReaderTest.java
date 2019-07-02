@@ -10,7 +10,7 @@ public class FileLineReaderTest {
 	
 	@Test
 	public void testExistingFile() {
-		FileLinesReader fileLinesReader = new FileLinesReader("filelinetest.txt");
+		LinesReader fileLinesReader = new FileLinesReader("filelinetest.txt");
 		Collection<String> stopWords = fileLinesReader.readLines();
 		
 		Assert.assertEquals(stopWords, Arrays.asList("the", "a"));
@@ -18,7 +18,7 @@ public class FileLineReaderTest {
 	
 	@Test
 	public void testNotexistingFile() {
-		FileLinesReader fileLinesReader = new FileLinesReader("nonexistingfile.txt");
+		LinesReader fileLinesReader = new FileLinesReader("nonexistingfile.txt");
 		
 		Assert.assertThrows(IllegalStateException.class, fileLinesReader::readLines);
 	}

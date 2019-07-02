@@ -10,13 +10,14 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FileLinesReader {
+public class FileLinesReader implements LinesReader {
 	private final String fileName;
 	
 	public FileLinesReader(String fileName) {
 		this.fileName = fileName;
 	}
 
+	@Override
 	public Collection<String> readLines() {
 		final ClassLoader classLoader = getClass().getClassLoader();
 		

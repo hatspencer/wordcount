@@ -1,26 +1,25 @@
 package wordcount;
 
-import java.util.Scanner;
+import static java.util.Collections.unmodifiableCollection;
+import static wordcount.UserInputReaderFactory.createUserInputReaderFrom;
+
+import java.util.Collection;
 
 public class Start {
 	
 	private static final String STOP_WORDS_FILE = "stopwords.txt";
 	
 	public static void main(String[] args) {
-		System.out.print("Enter text:");
-
-		Scanner scanner = new Scanner(System.in);
-		String line = scanner.nextLine();
-		scanner.close();
-
+		final UserInputReader userInputReader = createUserInputReaderFrom(args);
+		final Collection<String> userInput = unmodifiableCollection(userInputReader.readUserInput());
 		
-		final long wordCount = countWords(line);
+		final long wordCount = countWords(userInput);
 		System.out.println(String.format("Number of words: %d", wordCount));
 	}
 	
-	static long countWords(String line) {
+	static long countWords(Collection<String> userInput) {
 		final FileLinesReader stopWordsReader = new FileLinesReader(STOP_WORDS_FILE);
 		final StopWordsFilter stopWordsFilter = new StopWordsFilter(stopWordsReader.readLines());
-		return new WordCounter(stopWordsFilter).countWordsOf(line);
+		return new WordCounter(stopWordsFilter).countWordsOf(userInput);
 	}
 }

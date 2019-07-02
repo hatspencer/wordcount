@@ -23,7 +23,7 @@ public class WordCounter {
 				.sum();
 	}
 
-	public long countWordsOf(String text) {
+	long countWordsOf(String text) {
 		String[] split = text.split(WHITE_SPACE_REGEX);
 
 		return Arrays.stream(split)
