@@ -7,7 +7,7 @@ public class WordCountTest {
 
 	@Test
 	public void testWordCounter() {
-		WordCounter wordCounter = new WordCounter();
+		WordCounter wordCounter = new WordCounter(x -> true);
 		
 		Assert.assertEquals(1, wordCounter.countWordsOf("a"));
 		Assert.assertEquals(0, wordCounter.countWordsOf("a1"));
