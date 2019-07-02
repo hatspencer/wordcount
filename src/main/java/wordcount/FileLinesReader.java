@@ -10,19 +10,19 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StopWordsReader {
-	private final String stopWordsFile;
+public class FileLinesReader {
+	private final String fileName;
 	
-	public StopWordsReader(String stopWordsFile) {
-		this.stopWordsFile = stopWordsFile;
+	public FileLinesReader(String fileName) {
+		this.fileName = fileName;
 	}
 
-	public Collection<String> readStopWords() {
+	public Collection<String> readLines() {
 		final ClassLoader classLoader = getClass().getClassLoader();
 		
-		final URL fileUrl = classLoader.getResource(stopWordsFile);
+		final URL fileUrl = classLoader.getResource(fileName);
 		if(fileUrl == null) {
-			throw new IllegalStateException(String.format("Given file was not found: %s", stopWordsFile));
+			throw new IllegalStateException(String.format("Given file was not found: %s", fileName));
 		}
 		
 		URI fileUri = null;

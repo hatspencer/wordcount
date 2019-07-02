@@ -19,8 +19,8 @@ public class Start {
 	}
 	
 	static long countWords(String line) {
-		final StopWordsReader stopWordsReader = new StopWordsReader(STOP_WORDS_FILE);
-		final StopWordsFilter stopWordsFilter = new StopWordsFilter(stopWordsReader.readStopWords());
+		final FileLinesReader stopWordsReader = new FileLinesReader(STOP_WORDS_FILE);
+		final StopWordsFilter stopWordsFilter = new StopWordsFilter(stopWordsReader.readLines());
 		return new WordCounter(stopWordsFilter).countWordsOf(line);
 	}
 }
