@@ -13,7 +13,7 @@ public class InputUtils {
         Scanner scanner = new Scanner(System.in);
         String text = scanner.nextLine();
         scanner.close();
-        return new ArrayList<String>(splitToLine(text));
+        return new ArrayList<>(splitToLines(text));
     }
 
     public static List<String> readFromFile(String fileURI) {
@@ -28,11 +28,11 @@ public class InputUtils {
 
     private static List<String> readFile(File file) {
         Scanner scanner;
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<>();
         try {
             scanner = new Scanner(file);
             do {
-                lines.addAll(splitToLine(scanner.nextLine()));
+                lines.addAll(splitToLines(scanner.nextLine()));
             } while (scanner.hasNextLine());
             scanner.close();
         } catch (IOException e) {
@@ -41,9 +41,9 @@ public class InputUtils {
         return lines;
     }
 
-    public static List<String> splitToLine(String toSplit) {
+    public static List<String> splitToLines(String toSplit) {
         if (toSplit == null || toSplit.equals("")) {
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
         return Arrays.asList(toSplit.trim().split("[\\s+,-]"));
     }

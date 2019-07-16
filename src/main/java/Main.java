@@ -1,8 +1,6 @@
 import input.UserInputFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -18,16 +16,21 @@ public class Main {
         return filteredList;
     }
 
-    public static int findNumberOfWords(String inputArgs) {
+    public static List<String> findWords(String inputArgs) {
         ExcludedWords excludedWords = ExcludedWords.getInstance();
         List<String> usersTextList = filterUsersInput(UserInputFactory.getUserInput(inputArgs).getInput());
         usersTextList.removeAll(excludedWords.getExcludedWords());
-        return usersTextList.size();
+        return usersTextList;
+    }
 
+    public static List<String> findUnique(List<String> words) {
+        return new ArrayList<>(new HashSet<>(words));
     }
 
     public static void main(String[] args) {
         String inputArgs = args.length > 0 ? args[0] : "";
-        System.out.println("Number of words: " + findNumberOfWords(inputArgs));
+        List<String> words = findWords(inputArgs);
+        List<String> uniqueWords = findUnique(words);
+        System.out.println("Number of words: " + words.size() + ", unique: " + uniqueWords.size());
     }
 }
