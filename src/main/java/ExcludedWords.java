@@ -1,6 +1,3 @@
-import com.sun.org.apache.xerces.internal.xs.StringList;
-import javafx.application.Application;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,13 +5,27 @@ import java.io.IOException;
 import java.util.*;
 
 public class ExcludedWords {
-    private List<String> excludedWords;
+    public static final String EXCLUDED_FILE_NAME = "stopwords.txt";
 
-    public ExcludedWords(File file) {
+    private List<String> excludedWords;
+    private static ExcludedWords instance;
+
+    private static File getStopWordsFile() {
+        ClassLoader classLoader = new ExcludedWords().getClass().getClassLoader();
+        return new File(classLoader.getResource(EXCLUDED_FILE_NAME).getFile());
+    }
+
+    private ExcludedWords() {
+    }
+
+    public static ExcludedWords getInstance() {
+        if (instance != null) {
+            return instance;
+        }
         BufferedReader reader;
-        excludedWords = new ArrayList<String>();
+        List<String> excludedWords = new ArrayList<String>();
         try {
-            reader = new BufferedReader(new FileReader(file));
+            reader = new BufferedReader(new FileReader(getStopWordsFile()));
             String line = reader.readLine();
             while (line != null) {
                 excludedWords.add(line);
@@ -24,6 +35,10 @@ public class ExcludedWords {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ExcludedWords ew = new ExcludedWords();
+        ew.excludedWords = excludedWords;
+        instance = ew;
+        return ew;
     }
 
     public List<String> getExcludedWords() {
