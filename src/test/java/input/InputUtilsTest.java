@@ -14,14 +14,12 @@ public class InputUtilsTest {
         ByteArrayInputStream in = new ByteArrayInputStream("Humpty-Dumpty sat, on a wall. Humpty-Dumpty had a great fall.".getBytes());
         System.setIn(in);
         List<String> expectedList = new ArrayList<String>() {{
-            add("Humpty");
-            add("Dumpty");
+            add("Humpty-Dumpty");
             add("sat");
             add("on");
             add("a");
             add("wall");
-            add("Humpty");
-            add("Dumpty");
+            add("Humpty-Dumpty");
             add("had");
             add("a");
             add("great");
@@ -33,14 +31,12 @@ public class InputUtilsTest {
     @Test
     public void itReadsFromFile() {
         List<String> expectedList = new ArrayList<String>() {{
-            add("Humpty");
-            add("Dumpty");
+            add("Humpty-Dumpty");
             add("sat");
             add("on");
             add("a");
             add("wall");
-            add("Humpty");
-            add("Dumpty");
+            add("Humpty-Dumpty");
             add("had");
             add("a");
             add("great");

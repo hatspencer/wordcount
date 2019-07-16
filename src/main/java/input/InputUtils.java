@@ -55,7 +55,7 @@ public class InputUtils {
         if (toSplit == null || toSplit.equals("")) {
             return new ArrayList<>();
         }
-        return Arrays.asList(toSplit.trim().split("\\s|-|\\.|,"))
+        return Arrays.asList(toSplit.trim().split("\\s|\\.|,"))
                 .stream()
                 .filter(word -> !word.isEmpty())
                 .collect(Collectors.toList());
