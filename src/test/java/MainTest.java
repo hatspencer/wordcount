@@ -28,4 +28,24 @@ public class MainTest {
         Assert.assertEquals(Main.filterUsersInput(inputStrings), expected);
     }
 
+    @Test
+    public void itFindUniqueWords() {
+        List<String> test = new ArrayList<String>() {{
+            add("abc");
+            add("abc");
+            add("abd");
+            add("abd");
+            add("zyz");
+        }};
+
+        List<String> expected = new ArrayList<String>() {{
+            add("abc");
+            add("abd");
+            add("zyz");
+        }};
+
+        List<String> result = Main.findUnique(test);
+        Assert.assertTrue(expected.containsAll(result) && result.containsAll(expected));
+    }
+
 }
