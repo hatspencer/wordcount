@@ -1,14 +1,9 @@
+import input.UserInputFactory;
+
 import java.util.*;
 
 public class Main {
 
-    private static List<String> readUsersInput() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter text: ");
-        String text = scanner.nextLine();
-        scanner.close();
-        return new ArrayList<String>(Arrays.asList(text.trim().split("\\s+")));
-    }
 
     public static List<String> filterUsersInput(List<String> userInput) {
         List<String> filteredList = new ArrayList<String>(userInput);
@@ -23,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         ExcludedWords excludedWords = ExcludedWords.getInstance();
-        List<String> usersTextList = filterUsersInput(readUsersInput());
+        List<String> usersTextList = filterUsersInput(UserInputFactory.getUserInput(args[1]).getInput());
         usersTextList.removeAll(excludedWords.getExcludedWords());
         System.out.println("Number of words: " + usersTextList.size());
     }
