@@ -11,7 +11,14 @@ public class Main {
         System.out.print("Enter text: ");
         String text = scanner.nextLine();
         scanner.close();
-        return new ArrayList<String>(Arrays.asList(text.trim().split("\\s+")));
+        List<String> input =  new ArrayList<String>(Arrays.asList(text.trim().split("\\s+")));
+        Iterator<String> interator = input.iterator();
+        while (interator.hasNext()){
+            if(!interator.next().matches("[a-zA-Z]+\\.?")){
+                interator.remove();
+            }
+        }
+        return input;
     }
 
     public static void main(String[] args) {
