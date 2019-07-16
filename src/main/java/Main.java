@@ -18,15 +18,16 @@ public class Main {
         return filteredList;
     }
 
-    public static int findNumberOnWords(String inputArgs){
+    public static int findNumberOnWords(String inputArgs) {
         ExcludedWords excludedWords = ExcludedWords.getInstance();
         List<String> usersTextList = filterUsersInput(UserInputFactory.getUserInput(inputArgs).getInput());
         usersTextList.removeAll(excludedWords.getExcludedWords());
         return usersTextList.size();
 
     }
+
     public static void main(String[] args) {
-        String inputArgs= args.length > 0 ? args[0] : "";
+        String inputArgs = args.length > 0 ? args[0] : "";
         System.out.println("Number of words: " + findNumberOnWords(inputArgs));
     }
 }
