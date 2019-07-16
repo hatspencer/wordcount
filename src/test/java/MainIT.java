@@ -7,14 +7,14 @@ public class MainIT {
 
     @Test
     public void itRunsWithConsoleInput() {
-        ByteArrayInputStream in = new ByteArrayInputStream("Mary had a little lamb".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.".getBytes());
         System.setIn(in);
-        Assert.assertEquals(Main.findNumberOnWords(""), 4);
+        Assert.assertEquals(Main.findNumberOfWords(""), 9);
     }
 
     @Test
     public void itRunsWithFileInput() {
-        Assert.assertEquals(Main.findNumberOnWords("test.txt"), 4);
+        Assert.assertEquals(Main.findNumberOfWords("test.txt"), 9);
     }
 }
 

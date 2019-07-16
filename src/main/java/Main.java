@@ -11,14 +11,14 @@ public class Main {
         List<String> filteredList = new ArrayList<String>(userInput);
         Iterator<String> interator = filteredList.iterator();
         while (interator.hasNext()) {
-            if (!interator.next().matches("[a-zA-Z]+\\.?")) {
+            if (!interator.next().matches("[a-zA-Z-]+\\.?")) {
                 interator.remove();
             }
         }
         return filteredList;
     }
 
-    public static int findNumberOnWords(String inputArgs) {
+    public static int findNumberOfWords(String inputArgs) {
         ExcludedWords excludedWords = ExcludedWords.getInstance();
         List<String> usersTextList = filterUsersInput(UserInputFactory.getUserInput(inputArgs).getInput());
         usersTextList.removeAll(excludedWords.getExcludedWords());
@@ -28,6 +28,6 @@ public class Main {
 
     public static void main(String[] args) {
         String inputArgs = args.length > 0 ? args[0] : "";
-        System.out.println("Number of words: " + findNumberOnWords(inputArgs));
+        System.out.println("Number of words: " + findNumberOfWords(inputArgs));
     }
 }

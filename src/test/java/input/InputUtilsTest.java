@@ -6,8 +6,8 @@ import org.junit.Test;
 public class InputUtilsTest {
     @Test
     public void itSplitsToLineCorrectly() {
-        String testString = "This is a test string";
-        Assert.assertEquals(InputUtils.splitToLine(testString).size(), 5);
+        String testString = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+        Assert.assertEquals(InputUtils.splitToLine(testString).size(), 12);
     }
 
     @Test

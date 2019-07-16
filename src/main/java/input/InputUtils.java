@@ -45,6 +45,6 @@ public class InputUtils {
         if (toSplit == null || toSplit.equals("")) {
             return new ArrayList<String>();
         }
-        return Arrays.asList(toSplit.trim().split("\\s+"));
+        return Arrays.asList(toSplit.trim().split("[\\s+,-]"));
     }
 }
