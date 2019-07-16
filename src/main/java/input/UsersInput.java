@@ -2,7 +2,6 @@ package input;
 
 import java.util.List;
 
-public abstract class UsersInput {
-    protected String from;
+public interface UsersInput {
     public abstract List<String> getInput();
 }

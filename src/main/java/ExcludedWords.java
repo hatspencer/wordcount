@@ -1,10 +1,6 @@
 import input.InputUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
+import java.util.List;
 
 public class ExcludedWords {
     private static final String EXCLUDED_FILE_NAME = "stopwords.txt";

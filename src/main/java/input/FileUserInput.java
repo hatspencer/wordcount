@@ -2,12 +2,13 @@ package input;
 
 import java.util.List;
 
-class FileUserInput extends UsersInput {
+class FileUserInput implements UsersInput {
+    protected String from;
     public FileUserInput(String from) {
-        super.from = from;
+        this.from = from;
     }
 
     public List<String> getInput() {
-        return InputUtils.readFromFile(super.from);
+        return InputUtils.readFromFile(this.from);
     }
 }

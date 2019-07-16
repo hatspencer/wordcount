@@ -9,4 +9,10 @@ public class InputUtilsTest {
         String testString = "This is a test string";
         Assert.assertEquals(InputUtils.splitToLine(testString).size(), 5);
     }
+
+    @Test
+    public void itSplitsToLineCorrectlyOnEmpty() {
+        String testString = "";
+        Assert.assertEquals(InputUtils.splitToLine(testString).size(), 0);
+    }
 }

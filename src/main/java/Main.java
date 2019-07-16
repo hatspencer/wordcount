@@ -1,6 +1,8 @@
 import input.UserInputFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class Main {
 
@@ -16,11 +18,15 @@ public class Main {
         return filteredList;
     }
 
-    public static void main(String[] args) {
-        String inputPath = args.length > 0 ? args[0] : "";
+    public static int findNumberOnWords(String inputArgs){
         ExcludedWords excludedWords = ExcludedWords.getInstance();
-        List<String> usersTextList = filterUsersInput(UserInputFactory.getUserInput(inputPath).getInput());
+        List<String> usersTextList = filterUsersInput(UserInputFactory.getUserInput(inputArgs).getInput());
         usersTextList.removeAll(excludedWords.getExcludedWords());
-        System.out.println("Number of words: " + usersTextList.size());
+        return usersTextList.size();
+
+    }
+    public static void main(String[] args) {
+        String inputArgs= args.length > 0 ? args[0] : "";
+        System.out.println("Number of words: " + findNumberOnWords(inputArgs));
     }
 }
