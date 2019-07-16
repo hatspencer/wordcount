@@ -2,7 +2,7 @@ package input;
 
 import java.util.List;
 
-public class FileUserInput extends UsersInput {
+class FileUserInput extends UsersInput {
     public FileUserInput(String from) {
         super.from = from;
     }

@@ -3,14 +3,10 @@ package input;
 public class UserInputFactory {
 
     public static UsersInput getUserInput(String from) {
-        if(from==null){
+        if (from == null || from.equals("")) {
             return new ConsoleUserInput();
-        }
-        switch (from) {
-            case "":
-                return new ConsoleUserInput();
-            default:
-                return new FileUserInput(from);
+        } else {
+            return new FileUserInput(from);
         }
     }
 }

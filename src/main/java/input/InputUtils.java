@@ -1,8 +1,6 @@
 package input;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +13,7 @@ public class InputUtils {
         Scanner scanner = new Scanner(System.in);
         String text = scanner.nextLine();
         scanner.close();
-        return new ArrayList<String>(Arrays.asList(text.trim().split("\\s+")));
+        return new ArrayList<String>(splitToLine(text));
     }
 
     public static List<String> readFromFile(String fileURI) {
@@ -29,19 +27,24 @@ public class InputUtils {
     }
 
     private static List<String> readFile(File file) {
-        BufferedReader reader;
+        Scanner scanner;
         List<String> lines = new ArrayList<String>();
         try {
-            reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-            while (line != null) {
-                lines.add(line);
-                line = reader.readLine();
-            }
-            reader.close();
+            scanner = new Scanner(file);
+            do {
+                lines.addAll(splitToLine(scanner.nextLine()));
+            } while (scanner.hasNextLine());
+            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return lines;
+    }
+
+    public static List<String> splitToLine(String toSplit) {
+        if (toSplit == null || toSplit.equals("")) {
+            return new ArrayList<String>();
+        }
+        return Arrays.asList(toSplit.trim().split("\\s+"));
     }
 }
