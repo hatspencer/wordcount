@@ -1,7 +1,4 @@
-import java.io.File;
-import java.util.Arrays;
 import java.util.*;
-import java.util.Scanner;
 
 public class Main {
 
@@ -26,8 +23,8 @@ public class Main {
 
     public static void main(String[] args) {
         ExcludedWords excludedWords = ExcludedWords.getInstance();
-        List<String> textList = filterUsersInput(readUsersInput());
-        textList.removeAll(excludedWords.getExcludedWords());
-        System.out.println("Number of words: " + textList.size());
+        List<String> usersTextList = filterUsersInput(readUsersInput());
+        usersTextList.removeAll(excludedWords.getExcludedWords());
+        System.out.println("Number of words: " + usersTextList.size());
     }
 }

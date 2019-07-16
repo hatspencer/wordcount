@@ -22,6 +22,7 @@ public class ExcludedWords {
         if (instance != null) {
             return instance;
         }
+
         BufferedReader reader;
         List<String> excludedWords = new ArrayList<String>();
         try {
