@@ -22,7 +22,7 @@ public class WordCounterTest {
 
 
     @Test
-    public void whenFiveWordsAndANumberAreInTheInput_thenReturnThree() {
+    public void whenFiveWordsAndANumberAreInTheInput_thenReturnFive() {
         int expected = 5;
         assertEquals("Number of words should be 5", expected, underTest.countWords("Mary had a little 5 lamb"));
     }
@@ -30,12 +30,12 @@ public class WordCounterTest {
     @Test
     public void whenInputIsNull_thenReturnZero() {
         int expected = 0;
-        assertEquals("Number of words should be 5", expected, underTest.countWords(null));
+        assertEquals("Number of words should be 0", expected, underTest.countWords(null));
     }
 
     @Test
     public void whenInputIsEmpty_thenReturnZero() {
         int expected = 0;
-        assertEquals("Number of words should be 5", expected, underTest.countWords(""));
+        assertEquals("Number of words should be 0", expected, underTest.countWords(""));
     }
 }
