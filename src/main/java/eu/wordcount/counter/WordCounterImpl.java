@@ -1,4 +1,6 @@
-package eu.wordcount;
+package eu.wordcount.counter;
+
+import eu.wordcount.WordCounter;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

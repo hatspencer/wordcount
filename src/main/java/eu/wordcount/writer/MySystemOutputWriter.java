@@ -1,8 +1,10 @@
-package eu.wordcount;
+package eu.wordcount.writer;
+
+import eu.wordcount.MyWriter;
 
 import java.io.PrintStream;
 
-public class MySystemOutputWriter implements MyWriter{
+public class MySystemOutputWriter implements MyWriter {
 
     private PrintStream out;
 

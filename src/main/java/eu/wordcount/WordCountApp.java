@@ -1,5 +1,10 @@
 package eu.wordcount;
 
+import eu.wordcount.counter.StoppableWordCounter;
+import eu.wordcount.reader.FileStopWordsReader;
+import eu.wordcount.reader.InputLineWordReader;
+import eu.wordcount.writer.MySystemOutputWriter;
+
 public class WordCountApp {
 
     private final WordReader reader;
@@ -10,12 +15,13 @@ public class WordCountApp {
         this.reader = reader;
         this.counter = counter;
         this.writer = writer;
+
     }
 
     public static void main(String[] args) {
         new WordCountApp(
                 new InputLineWordReader(System.in),
-                new WordCounterImpl(),
+                new StoppableWordCounter(new FileStopWordsReader("stopwords.txt")),
                 new MySystemOutputWriter(System.out))
                 .countWords();
     }

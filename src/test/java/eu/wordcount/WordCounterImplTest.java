@@ -1,5 +1,6 @@
 package eu.wordcount;
 
+import eu.wordcount.counter.WordCounterImpl;
 import org.junit.Before;
 import org.junit.Test;
 

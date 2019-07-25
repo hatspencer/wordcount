@@ -1,26 +1,36 @@
-package eu.wordcount;
+package eu.wordcount.reader;
+
+import eu.wordcount.StopWordsReader;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileStopListReader implements StopListReader {
+public class FileStopWordsReader implements StopWordsReader {
 
     private final String filePath;
 
-    public FileStopListReader(String filePath) {
+    public FileStopWordsReader(String filePath) {
         this.filePath = filePath;
     }
 
     @Override
     public List<String> readWords() throws CannotReadException {
+
         List<String> stopWords = new ArrayList<>();
 
-        File file = new File(filePath);
+        URL resource = getClass().getClassLoader().getResource(filePath);
+
+        if (resource == null) {
+            throw new CannotReadException(String.format("Cannot find input file %s", filePath));
+        }
+
+        File file = new File(resource.getFile());
         try {
 
             BufferedReader br = null;

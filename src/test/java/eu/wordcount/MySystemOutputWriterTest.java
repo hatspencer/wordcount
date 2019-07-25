@@ -1,5 +1,6 @@
 package eu.wordcount;
 
+import eu.wordcount.writer.MySystemOutputWriter;
 import org.junit.Before;
 import org.junit.Test;
 

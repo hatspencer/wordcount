@@ -1,4 +1,6 @@
-package eu.wordcount;
+package eu.wordcount.reader;
+
+import eu.wordcount.WordReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
