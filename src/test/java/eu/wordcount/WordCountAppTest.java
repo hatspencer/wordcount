@@ -16,7 +16,7 @@ public class WordCountAppTest {
     private WordCounter counterStub;
     private MyWriter writerStub;
 
-    List<String> outputLines;
+    private List<String> outputLines;
 
     @Before
     public void setUp() {
