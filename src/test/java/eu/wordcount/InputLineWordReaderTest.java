@@ -20,7 +20,7 @@ public class InputLineWordReaderTest {
     }
 
     @Test
-    public void readWords() {
+    public void whenInputStreamSuppliesTheSentence_thenItShouldBeReturnedByTheWordReader() {
 
         final String actual = underTest.readWords();
         final String expected = "Mary had a little lamb";
