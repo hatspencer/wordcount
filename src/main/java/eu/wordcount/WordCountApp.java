@@ -1,17 +1,24 @@
 package eu.wordcount;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public class WordCountApp {
 
+    private final WordReader reader;
+    private final WordCounter counter;
+
+    public WordCountApp(WordReader reader, WordCounter counter) {
+        this.reader = reader;
+        this.counter = counter;
+    }
+
     public static void main(String[] args) {
+        new WordCountApp(new InputLineWordReader(System.in), new WordCounter())
+                .countWords();
+    }
 
+    public void countWords() {
         System.out.print("Enter text: ");
-
-        String input = new WordReader().readWords(new BufferedReader(new InputStreamReader(System.in)));
-        int wordsCount = new WordCounter().countWords(input);
-
+        String input = reader.readWords();
+        int wordsCount = counter.countWords(input);
         System.out.println(String.format("Number of words: %d", wordsCount));
     }
 }
