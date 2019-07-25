@@ -11,7 +11,7 @@ public class WordCountApp {
     }
 
     public static void main(String[] args) {
-        new WordCountApp(new InputLineWordReader(System.in), new WordCounter())
+        new WordCountApp(new InputLineWordReader(System.in), new WordCounterImpl())
                 .countWords();
     }
 

@@ -5,13 +5,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WordCounterTest {
+public class WordCounterImplTest {
 
     private WordCounter underTest;
 
     @Before
     public void setUp() {
-        underTest = new WordCounter();
+        underTest = new WordCounterImpl();
     }
 
     @Test
