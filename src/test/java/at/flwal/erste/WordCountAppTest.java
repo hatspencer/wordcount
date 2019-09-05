@@ -25,13 +25,11 @@ public class WordCountAppTest {
 	@Test
 	public void callingAppWithLettersWithNumberBetweenShouldNotCounted() {
 
-		ByteArrayInputStream in = new ByteArrayInputStream(TestData.NOT_A_WORD.getBytes());
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		PrintStream out = new PrintStream(buffer);
+		TestIO io = createIO();
 
-		WordCountApp.logic(in, out, new WordCount(Collections.<String>emptySet()));
+		WordCountApp.logic(io.inputStream, io.outputStream, new WordCount(Collections.<String>emptySet()));
 
-		String s = buffer.toString().substring(SUFFIX.length());
+		String s = io.buffer.toString().substring(SUFFIX.length());
 		Integer integer = Integer.valueOf(s);
 		assertThat(integer, is(0));
 	}
@@ -63,6 +61,43 @@ public class WordCountAppTest {
 		expectedEx.expectMessage("Could not find stopwords file");
 
 		WordCountApp.loadStopwords(Paths.get("src/test/resources/stopwords.text"));
+	}
+
+	@Test
+	public void detectModeWithNoArgsShouldReturnCLIMode() {
+
+		String[] args = new String[0];
+		Mode mode = WordCountApp.detectMode(args);
+		assertThat(mode, is(Mode.CLI));
+	}
+
+	@Test
+	public void detectModeWithOneArgShouldReturnFileMode() {
+
+		String[] args = new String[]{"mytext.txt"};
+		Mode mode = WordCountApp.detectMode(args);
+		assertThat(mode, is(Mode.FILE));
+	}
+
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	@Test(expected = IllegalArgumentException.class)
+	public void detectModeWithTooManyArgumentsShouldFail() {
+		String[] args = new String[]{"mytext.txt", "bla"};
+		WordCountApp.detectMode(args);
+	}
+
+	private static TestIO createIO() {
+		TestIO testIO = new TestIO();
+		testIO.inputStream = new ByteArrayInputStream(TestData.NOT_A_WORD.getBytes());
+		testIO.buffer = new ByteArrayOutputStream();
+		testIO.outputStream = new PrintStream(testIO.buffer);
+		return testIO;
+	}
+
+	private static class TestIO {
+		ByteArrayInputStream inputStream;
+		ByteArrayOutputStream buffer;
+		PrintStream outputStream;
 	}
 
 }

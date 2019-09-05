@@ -16,9 +16,11 @@ public class WordCountApp {
 	static final String RESULT_TEXT = "Number of words: ";
 
 	public static void main(String[] args) {
+
+		Mode mode = detectMode(args);
 		Set<String> stopwords = loadStopwords(Paths.get("stopwords.txt"));
 		WordCount wordCount = new WordCount(stopwords);
-		logic(System.in, System.out, wordCount);
+		callCount(mode, wordCount);
 	}
 
 	static Set<String> loadStopwords(Path path) {
@@ -42,6 +44,18 @@ public class WordCountApp {
 		return stopwords;
 	}
 
+	private static void callCount(Mode mode, WordCount wordCount) {
+		switch (mode) {
+			case CLI:
+				logic(System.in, System.out, wordCount);
+				return;
+			case FILE:
+				throw new UnsupportedOperationException("not yet implemenetd");
+			default:
+				throw new IllegalStateException("Unknown mode: " + mode);
+		}
+	}
+
 	static void logic(InputStream in, PrintStream out, WordCount wordCount) {
 
 		if(wordCount == null) {
@@ -58,4 +72,16 @@ public class WordCountApp {
 		out.print(count);
 	}
 
+	static Mode detectMode(String[] args) {
+
+		if(args.length == 0){
+			return Mode.CLI;
+		}
+
+		if(args.length == 1) {
+			return Mode.FILE;
+		}
+
+		throw new IllegalArgumentException("Expected 0 or 1 arguments (inputfile name), but got: "+ args.length);
+	}
 }
