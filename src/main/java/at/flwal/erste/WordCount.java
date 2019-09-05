@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 class WordCount {
 
-	private static final Pattern WORD_SCHEMA = Pattern.compile("[AZaz]+");
+	private static final Pattern WORD_SCHEMA = Pattern.compile("[A-Za-z]+");
 	private static final String WORD_DELIMITER = "\\s+";
 
 	static int count(String text) {
