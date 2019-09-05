@@ -56,4 +56,13 @@ public class WordCountAppTest {
 		assertThat(stopwords, hasItems("the", "on", "a", "off"));
 	}
 
+	@Test
+	public void loadStopwordsWithInvalidPathShouldFail() {
+
+		expectedEx.expect(IllegalStateException.class);
+		expectedEx.expectMessage("Could not find stopwords file");
+
+		WordCountApp.loadStopwords(Paths.get("src/test/resources/stopwords.text"));
+	}
+
 }
