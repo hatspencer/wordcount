@@ -32,4 +32,14 @@ public class WordCountTest {
 		assertThat(WordCount.count(TWO_WORDS_WITH_MORE_SPACES), is(2));
 	}
 
+	@Test
+	public void nullShouldNotCrash() {
+		assertThat(WordCount.count(null), is(0));
+	}
+
+	@Test
+	public void emptyTextShouldCountAsZero() {
+		assertThat(WordCount.count(""), is(0));
+	}
+
 }
