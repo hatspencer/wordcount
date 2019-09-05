@@ -11,6 +11,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<version.failsafe.plugin>3.0.0-M3</version.failsafe.plugin>
 	</properties>
 
 	<dependencies>
@@ -25,6 +26,7 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<configuration>
@@ -37,8 +39,41 @@
 						</archive>
 					</configuration>
 				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${version.failsafe.plugin}</version>
+					<executions>
+						<execution>
+							<id>integration-test</id>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+							<configuration>
+								<excludes>
+									<exclude>**/*Test.java</exclude>
+								</excludes>
+								<includes>
+									<include>**/*IT.java</include>
+								</includes>
+
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+		</plugins>
+
 	</build>
 
 </project>

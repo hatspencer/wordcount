@@ -63,7 +63,6 @@ public class WordCountApp {
 		return new Scanner(inputStream);
 	}
 
-	//TODO rethink call structure
 	static void callCount(Mode mode, InputStream in, PrintStream out, WordCount wordCount, String[] args) {
 		switch (mode) {
 			case CLI:

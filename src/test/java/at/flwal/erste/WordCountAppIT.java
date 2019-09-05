@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static at.flwal.erste.test.WordCountAssertion.assertWordCount;
 
-public class WordCountAppIntegrationTest {
+public class WordCountAppIT {
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
