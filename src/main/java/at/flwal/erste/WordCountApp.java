@@ -12,8 +12,8 @@ import java.util.Set;
 
 public class WordCountApp {
 
-	static final String PROMPT_TEXT = "Enter text: ";
-	static final String RESULT_PREFIX = "Number of words: ";
+	public static final String PROMPT_TEXT = "Enter text: ";
+	public static final String RESULT_PREFIX = "Number of words: ";
 
 	public static void main(String[] args) {
 
@@ -77,7 +77,7 @@ public class WordCountApp {
 		}
 	}
 
-	static void logic(InputStream in, PrintStream out, WordCount wordCount) {
+	private static void logic(InputStream in, PrintStream out, WordCount wordCount) {
 
 		if (wordCount == null) {
 			throw new IllegalArgumentException("Wordcounter not initialized.");
@@ -93,7 +93,7 @@ public class WordCountApp {
 		out.print(count);
 	}
 
-	static void logicWithInputFile(String arg, WordCount wordCount, PrintStream out) {
+	private static void logicWithInputFile(String arg, WordCount wordCount, PrintStream out) {
 
 		String input = loadInputFile(Paths.get(arg));
 		int count = wordCount.count(input);
