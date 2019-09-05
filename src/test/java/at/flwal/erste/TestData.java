@@ -10,4 +10,7 @@ public class TestData {
 	static final String UMLAUTS_ARE_NOT_A_PART = " abba   cdfg jKLö   ";
 
 	static final String THREE_WORDS_WITH_DESIGNATED_STOPWORD = "he the idea";
+	static final String FOUR_WORDS_WITH_SAME_STOPWORDs = " he the  the  idea ";
+	static final String FOUR_WORDS_WITH_DESIGNATED_STOPWORDs = " he the  has  a ";
+
 }

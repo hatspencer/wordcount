@@ -71,5 +71,22 @@ public class WordCountTest {
 		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(2));
 	}
 
+	@Test
+	public void designatedMultipleStopWordShouldNotBeCounted() {
+		WordCount wordCount = new WordCount(new HashSet<String>(singletonList("the")));
+		assertThat(wordCount.count(TestData.FOUR_WORDS_WITH_SAME_STOPWORDs), is(2));
+	}
+
+	@Test
+	public void designatedStopWordsShouldNotBeFixed() {
+		WordCount wordCount = new WordCount(new HashSet<String>(singletonList("a")));
+		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(3));
+	}
+
+	@Test
+	public void multipleStopwordsShouldWork() {
+		WordCount wordCount = new WordCount(new HashSet<String>(asList("a", "the")));
+		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(2));
+	}
 
 }
