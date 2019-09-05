@@ -33,7 +33,8 @@ public class WordCountAppTest {
 
 		TestIO io = createIO();
 
-		Mode mode = WordCountApp.detectMode(new String[0]);
+		String[] args = new String[0];
+		Mode mode = Mode.fromArgs(args);
 		Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
 		WordCount wordCount = new WordCount(stopwords);
 		//TODO use mode param?
@@ -69,29 +70,6 @@ public class WordCountAppTest {
 		expectedEx.expectMessage("Could not find file for stopwords");
 
 		WordCountApp.loadStopwords(Paths.get(TEST_RESOURCES_PATH + "/fileNotFound.text"));
-	}
-
-	@Test
-	public void detectModeWithNoArgsShouldReturnCLIMode() {
-
-		String[] args = new String[0];
-		Mode mode = WordCountApp.detectMode(args);
-		assertThat(mode, is(Mode.CLI));
-	}
-
-	@Test
-	public void detectModeWithOneArgShouldReturnFileMode() {
-
-		String[] args = new String[]{"mytext.txt"};
-		Mode mode = WordCountApp.detectMode(args);
-		assertThat(mode, is(Mode.FILE));
-	}
-
-	@SuppressWarnings("ResultOfMethodCallIgnored")
-	@Test(expected = IllegalArgumentException.class)
-	public void detectModeWithTooManyArgumentsShouldFail() {
-		String[] args = new String[]{"mytext.txt", "bla"};
-		WordCountApp.detectMode(args);
 	}
 
 	@Test

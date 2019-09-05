@@ -17,7 +17,7 @@ public class WordCountApp {
 
 	public static void main(String[] args) {
 
-		Mode mode = detectMode(args);
+		Mode mode = Mode.fromArgs(args);
 		Set<String> stopwords = loadStopwords(Paths.get("stopwords.txt"));
 		WordCount wordCount = new WordCount(stopwords);
 		callCount(args, mode, wordCount);
@@ -35,7 +35,7 @@ public class WordCountApp {
 		return stopwords;
 	}
 
-	static String loadInputFile(Path path) {
+	private static String loadInputFile(Path path) {
 
 		Scanner scanner = loadFromFile(path, "input");
 
@@ -61,7 +61,7 @@ public class WordCountApp {
 		return new Scanner(inputStream);
 	}
 
-	static void callCount(String[] args, Mode mode, WordCount wordCount) {
+	private static void callCount(String[] args, Mode mode, WordCount wordCount) {
 		switch (mode) {
 			case CLI:
 				logic(System.in, System.out, wordCount);
@@ -96,19 +96,6 @@ public class WordCountApp {
 		int count = wordCount.count(input);
 		out.print(RESULT_PREFIX);
 		out.print(count);
-	}
-
-	static Mode detectMode(String[] args) {
-
-		if (args.length == 0) {
-			return Mode.CLI;
-		}
-
-		if (args.length == 1) {
-			return Mode.FILE;
-		}
-
-		throw new IllegalArgumentException("Expected 0 or 1 arguments (inputfile name), but got: " + args.length);
 	}
 
 }
