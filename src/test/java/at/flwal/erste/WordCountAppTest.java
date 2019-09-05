@@ -6,32 +6,39 @@ import org.junit.rules.ExpectedException;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.Set;
 
+import static java.util.Collections.emptySet;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class WordCountAppTest {
 
-	private static final String SUFFIX = WordCountApp.PROMPT_TEXT + WordCountApp.RESULT_TEXT;
+	private static final String SUFFIX = WordCountApp.PROMPT_TEXT + WordCountApp.RESULT_PREFIX;
+	private static final String TEST_RESOURCES_PATH = "src/test/resources";
+	private static final String TEST_STOPWORDS_PATH = TEST_RESOURCES_PATH + "/stopwords.txt";
+	private static final String TEST_INPUT_FILE_PATH = TEST_RESOURCES_PATH + "/mytext.txt";
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
 	@Test
-	public void callingAppWithLettersWithNumberBetweenShouldNotCounted() {
+	public void mainCallCLIModeWithStopwordsShouldWork() {
 
 		TestIO io = createIO();
 
-		WordCountApp.logic(io.inputStream, io.outputStream, new WordCount(Collections.<String>emptySet()));
+		Mode mode = WordCountApp.detectMode(new String[0]);
+		Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
+		WordCount wordCount = new WordCount(stopwords);
+		//TODO use mode param?
+		WordCountApp.logic(io.inputStream, io.outputStream, wordCount);
 
-		String s = io.buffer.toString().substring(SUFFIX.length());
-		Integer integer = Integer.valueOf(s);
-		assertThat(integer, is(0));
+		assertWordCount(io.buffer, 0);
 	}
 
 	@Test
@@ -50,7 +57,7 @@ public class WordCountAppTest {
 
 	@Test
 	public void loadStopwordsShouldWork() {
-		Set<String> stopwords = WordCountApp.loadStopwords(Paths.get("src/test/resources/stopwords.txt"));
+		Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_RESOURCES_PATH + "/stopwords.txt"));
 		assertThat(stopwords, hasItems("the", "on", "a", "off"));
 	}
 
@@ -60,7 +67,7 @@ public class WordCountAppTest {
 		expectedEx.expect(IllegalStateException.class);
 		expectedEx.expectMessage("Could not find stopwords file");
 
-		WordCountApp.loadStopwords(Paths.get("src/test/resources/stopwords.text"));
+		WordCountApp.loadStopwords(Paths.get(TEST_RESOURCES_PATH + "/fileNotFound.text"));
 	}
 
 	@Test
@@ -86,6 +93,37 @@ public class WordCountAppTest {
 		WordCountApp.detectMode(args);
 	}
 
+	@Test
+	public void logicWithInputFileShouldWork() {
+
+		try(TestIO io = createIO()) {
+			WordCount wordCount = new WordCount(emptySet());
+			WordCountApp.logicWithInputFile(TEST_INPUT_FILE_PATH, wordCount, io.outputStream);
+			assertWordCount(io.buffer, 5);
+		} catch (IOException e){
+			//ignore
+		}
+	}
+
+	@Test
+	public void logicWithInputFileAndStopwordsShouldWork() {
+
+		try(TestIO io = createIO()) {
+			Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
+			WordCount wordCount = new WordCount(stopwords);
+			WordCountApp.logicWithInputFile(TEST_INPUT_FILE_PATH, wordCount, io.outputStream);
+			assertWordCount(io.buffer, 4);
+		} catch (IOException e){
+			//ignore
+		}
+	}
+
+	private static void assertWordCount(ByteArrayOutputStream buffer, int expected) {
+		String printed = buffer.toString().substring(SUFFIX.length());
+		Integer count = Integer.valueOf(printed);
+		assertThat(count, is(expected));
+	}
+
 	private static TestIO createIO() {
 		TestIO testIO = new TestIO();
 		testIO.inputStream = new ByteArrayInputStream(TestData.NOT_A_WORD.getBytes());
@@ -93,11 +131,18 @@ public class WordCountAppTest {
 		testIO.outputStream = new PrintStream(testIO.buffer);
 		return testIO;
 	}
+	private static class TestIO implements Closeable {
 
-	private static class TestIO {
 		ByteArrayInputStream inputStream;
 		ByteArrayOutputStream buffer;
 		PrintStream outputStream;
-	}
 
+		@Override
+		public void close() throws IOException {
+			inputStream.close();
+			outputStream.close();
+			buffer.close();
+		}
+
+	}
 }
