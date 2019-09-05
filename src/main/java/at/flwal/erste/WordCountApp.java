@@ -23,26 +23,28 @@ public class WordCountApp {
 		callCount(args, mode, wordCount);
 	}
 
-	//TODO close inputstream
 	static Set<String> loadStopwords(Path path) {
 
-		Scanner scanner = loadFromFile(path, "stopwords");
-
 		Set<String> stopwords = new HashSet<>();
-		while (scanner.hasNextLine()) {
-			stopwords.add(scanner.nextLine());
+		try (Scanner scanner = loadFromFile(path, "stopwords")) {
+
+			while (scanner.hasNextLine()) {
+				stopwords.add(scanner.nextLine());
+			}
 		}
+
 		return stopwords;
 	}
 
 	private static String loadInputFile(Path path) {
 
-		Scanner scanner = loadFromFile(path, "input");
-
 		StringBuilder input = new StringBuilder();
-		while (scanner.hasNextLine()) {
-			input.append(scanner.nextLine()).append(WordCount.DELIMITER_SAMPLE);
+		try (Scanner scanner = loadFromFile(path, "input")) {
+			while (scanner.hasNextLine()) {
+				input.append(scanner.nextLine()).append(WordCount.DELIMITER_SAMPLE);
+			}
 		}
+
 		return input.toString();
 	}
 
@@ -61,6 +63,7 @@ public class WordCountApp {
 		return new Scanner(inputStream);
 	}
 
+	//TODO rethink call structure
 	private static void callCount(String[] args, Mode mode, WordCount wordCount) {
 		switch (mode) {
 			case CLI:
@@ -68,7 +71,7 @@ public class WordCountApp {
 				return;
 			case FILE:
 				logicWithInputFile(args[0], wordCount, System.out);
-				throw new UnsupportedOperationException("not yet implemenetd");
+				return;
 			default:
 				throw new IllegalStateException("Unknown mode: " + mode);
 		}

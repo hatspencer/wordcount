@@ -29,18 +29,19 @@ public class WordCountAppTest {
 	public ExpectedException expectedEx = ExpectedException.none();
 
 	@Test
-	public void mainCallCLIModeWithStopwordsShouldWork() {
+	public void mainCallCLIModeWithStopwordsShouldWork() throws Exception {
 
-		TestIO io = createIO();
+		try (TestIO io = createIO()) {
 
-		String[] args = new String[0];
-		Mode mode = Mode.fromArgs(args);
-		Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
-		WordCount wordCount = new WordCount(stopwords);
-		//TODO use mode param?
-		WordCountApp.logic(io.inputStream, io.outputStream, wordCount);
+			String[] args = new String[0];
+			Mode mode = Mode.fromArgs(args);
+			Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
+			WordCount wordCount = new WordCount(stopwords);
+			//TODO use mode param?
+			WordCountApp.logic(io.inputStream, io.outputStream, wordCount);
 
-		assertWordCount(io.buffer, 0, Mode.CLI);
+			assertWordCount(io.buffer, 0, Mode.CLI);
+		}
 	}
 
 	@Test
@@ -85,15 +86,13 @@ public class WordCountAppTest {
 	}
 
 	@Test
-	public void logicWithInputFileAndStopwordsShouldWork() {
+	public void logicWithInputFileAndStopwordsShouldWork() throws Exception {
 
 		try (TestIO io = createIO()) {
 			Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
 			WordCount wordCount = new WordCount(stopwords);
 			WordCountApp.logicWithInputFile(TEST_INPUT_FILE_PATH, wordCount, io.outputStream);
 			assertWordCount(io.buffer, 4, Mode.FILE);
-		} catch (IOException e) {
-			//ignore
 		}
 	}
 
