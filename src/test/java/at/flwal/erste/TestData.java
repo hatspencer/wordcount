@@ -8,4 +8,6 @@ public class TestData {
 	static final String TWO_WORDS_WITH_MORE_SPACES = "Ba  r  ";
 	static final String MORE_WORDS = " abba  BABBA cdfg jKL   ";
 	static final String UMLAUTS_ARE_NOT_A_PART = " abba   cdfg jKLö   ";
+
+	static final String THREE_WORDS_WITH_DESIGNATED_STOPWORD = "he the idea";
 }

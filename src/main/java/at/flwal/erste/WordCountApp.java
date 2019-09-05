@@ -2,6 +2,7 @@ package at.flwal.erste;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class WordCountApp {
@@ -19,7 +20,8 @@ public class WordCountApp {
 
 		Scanner input = new Scanner(in);
 		String line = input.nextLine();
-		int count = WordCount.count(line);
+		WordCount wordCount = new WordCount(Collections.<String>emptySet());
+		int count = wordCount.count(line);
 
 		out.print(RESULT_TEXT);
 		out.print(count);
