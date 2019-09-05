@@ -20,7 +20,7 @@ public class WordCountApp {
 		Mode mode = Mode.fromArgs(args);
 		Set<String> stopwords = loadStopwords(Paths.get("stopwords.txt"));
 		WordCount wordCount = new WordCount(stopwords);
-		callCount(args, mode, wordCount);
+		callCount(mode, System.in, System.out, wordCount, args);
 	}
 
 	static Set<String> loadStopwords(Path path) {
@@ -64,13 +64,13 @@ public class WordCountApp {
 	}
 
 	//TODO rethink call structure
-	private static void callCount(String[] args, Mode mode, WordCount wordCount) {
+	static void callCount(Mode mode, InputStream in, PrintStream out, WordCount wordCount, String[] args) {
 		switch (mode) {
 			case CLI:
-				logic(System.in, System.out, wordCount);
+				logic(in, out, wordCount);
 				return;
 			case FILE:
-				logicWithInputFile(args[0], wordCount, System.out);
+				logicWithInputFile(args[0], wordCount, out);
 				return;
 			default:
 				throw new IllegalStateException("Unknown mode: " + mode);

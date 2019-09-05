@@ -74,14 +74,12 @@ public class WordCountAppTest {
 	}
 
 	@Test
-	public void logicWithInputFileShouldWork() {
+	public void logicWithInputFileShouldWork() throws Exception {
 
 		try (TestIO io = createIO()) {
 			WordCount wordCount = new WordCount(emptySet());
-			WordCountApp.logicWithInputFile(TEST_INPUT_FILE_PATH, wordCount, io.outputStream);
+			WordCountApp.callCount(Mode.FILE, io.inputStream, io.outputStream, wordCount, new String[]{TEST_INPUT_FILE_PATH});
 			assertWordCount(io.buffer, 5, Mode.FILE);
-		} catch (IOException e) {
-			//ignore
 		}
 	}
 
@@ -91,10 +89,12 @@ public class WordCountAppTest {
 		try (TestIO io = createIO()) {
 			Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
 			WordCount wordCount = new WordCount(stopwords);
-			WordCountApp.logicWithInputFile(TEST_INPUT_FILE_PATH, wordCount, io.outputStream);
+			WordCountApp.callCount(Mode.FILE, io.inputStream, io.outputStream, wordCount, new String[]{TEST_INPUT_FILE_PATH});
 			assertWordCount(io.buffer, 4, Mode.FILE);
 		}
 	}
+
+
 
 	private static void assertWordCount(ByteArrayOutputStream buffer, int expected, Mode mode) {
 
