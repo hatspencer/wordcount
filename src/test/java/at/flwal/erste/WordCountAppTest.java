@@ -7,10 +7,11 @@ import org.junit.rules.ExpectedException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -46,13 +47,13 @@ public class WordCountAppTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void loadWordCounterWithNoStopwordsPathShouldNotWork() {
-		WordCountApp.loadWordCounter(null);
+		WordCountApp.loadStopwords(null);
 	}
 
 	@Test
-	public void loadWordCounterStopwordsShouldWork() {
-		WordCount wordCount = WordCountApp.loadWordCounter(Paths.get("src/test/resources/stopwords.txt"));
-		assertThat(wordCount.count(TestData.FOUR_WORDS_WITH_DESIGNATED_STOPWORDs), is(2));
+	public void loadStopwordsShouldWork() {
+		Set<String> stopwords = WordCountApp.loadStopwords(Paths.get("src/test/resources/stopwords.txt"));
+		assertThat(stopwords, hasItems("the", "on", "a", "off"));
 	}
 
 }

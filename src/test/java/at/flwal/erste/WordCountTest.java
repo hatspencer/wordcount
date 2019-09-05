@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -17,7 +18,7 @@ public class WordCountTest {
 
 	@Before
 	public void setUp() {
-		wordCount = new WordCount(Collections.<String>emptySet());
+		wordCount = new WordCount(Collections.emptySet());
 	}
 
 	@Test
@@ -67,26 +68,30 @@ public class WordCountTest {
 
 	@Test
 	public void designatedStopWordShouldNotBeCounted() {
-		WordCount wordCount = new WordCount(new HashSet<String>(singletonList("the")));
+		WordCount wordCount = withStopwords(singletonList("the"));
 		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(2));
 	}
 
 	@Test
 	public void designatedMultipleStopWordShouldNotBeCounted() {
-		WordCount wordCount = new WordCount(new HashSet<String>(singletonList("the")));
+		WordCount wordCount = withStopwords(singletonList("the"));
 		assertThat(wordCount.count(TestData.FOUR_WORDS_WITH_SAME_STOPWORDs), is(2));
 	}
 
 	@Test
 	public void designatedStopWordsShouldNotBeFixed() {
-		WordCount wordCount = new WordCount(new HashSet<String>(singletonList("a")));
+		WordCount wordCount = withStopwords(singletonList("a"));
 		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(3));
 	}
 
 	@Test
 	public void multipleStopwordsShouldWork() {
-		WordCount wordCount = new WordCount(new HashSet<String>(asList("a", "the")));
+		WordCount wordCount = withStopwords(asList("a", "the"));
 		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(2));
+	}
+
+	private static WordCount withStopwords(List<String> strings) {
+		return new WordCount(new HashSet<>(strings));
 	}
 
 }
