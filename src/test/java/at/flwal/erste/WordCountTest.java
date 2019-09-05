@@ -70,25 +70,31 @@ public class WordCountTest {
 	@Test
 	public void designatedStopWordShouldNotBeCounted() {
 		WordCount wordCount = withStopwords(singletonList("the"));
-		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(2));
+		assertThat(wordCount.count(TestData.TWO_WORDS_AND_ONE_DESIGNATED_STOPWORD), is(2));
 	}
 
 	@Test
 	public void designatedMultipleStopWordShouldNotBeCounted() {
 		WordCount wordCount = withStopwords(singletonList("the"));
-		assertThat(wordCount.count(TestData.FOUR_WORDS_WITH_SAME_STOPWORDs), is(2));
+		assertThat(wordCount.count(TestData.TWO_WORDS_AND_SAME_STOPWORD_TWICE), is(2));
 	}
 
 	@Test
 	public void designatedStopWordsShouldNotBeFixed() {
 		WordCount wordCount = withStopwords(singletonList("a"));
-		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(3));
+		assertThat(wordCount.count(TestData.TWO_WORDS_AND_ONE_DESIGNATED_STOPWORD), is(3));
 	}
 
 	@Test
-	public void multipleStopwordsShouldWork() {
+	public void multipleStopwordsInListShouldWork() {
 		WordCount wordCount = withStopwords(asList("a", "the"));
-		assertThat(wordCount.count(TestData.THREE_WORDS_WITH_DESIGNATED_STOPWORD), is(2));
+		assertThat(wordCount.count(TestData.TWO_WORDS_AND_ONE_DESIGNATED_STOPWORD), is(2));
+	}
+
+	@Test
+	public void multipleStopwordsInListAndInputShouldWork() {
+		WordCount wordCount = withStopwords(asList("a", "the"));
+		assertThat(wordCount.count(TestData.TWO_WORDS_WITH_TWO_DESIGNATED_STOPWORDs), is(2));
 	}
 
 	private static WordCount withStopwords(List<String> strings) {
