@@ -23,19 +23,10 @@ public class WordCountApp {
 		callCount(args, mode, wordCount);
 	}
 
+	//TODO close inputstream
 	static Set<String> loadStopwords(Path path) {
 
-		if (path == null) {
-			throw new IllegalArgumentException("Stopwords file is mandatory.");
-		}
-
-		InputStream inputStream;
-		try {
-			inputStream = Files.newInputStream(path);
-		} catch (IOException e) {
-			throw new IllegalStateException("Could not find stopwords file", e);
-		}
-		Scanner scanner = new Scanner(inputStream);
+		Scanner scanner = loadFromFile(path, "stopwords");
 
 		Set<String> stopwords = new HashSet<>();
 		while (scanner.hasNextLine()) {
@@ -46,23 +37,28 @@ public class WordCountApp {
 
 	static String loadInputFile(Path path) {
 
+		Scanner scanner = loadFromFile(path, "input");
+
+		StringBuilder input = new StringBuilder();
+		while (scanner.hasNextLine()) {
+			input.append(scanner.nextLine()).append(WordCount.DELIMITER_SAMPLE);
+		}
+		return input.toString();
+	}
+
+	private static Scanner loadFromFile(Path path, String s) {
+
 		if (path == null) {
-			throw new IllegalArgumentException("Input file is mandatory.");
+			throw new IllegalArgumentException(s + " file is mandatory.");
 		}
 
 		InputStream inputStream;
 		try {
 			inputStream = Files.newInputStream(path);
 		} catch (IOException e) {
-			throw new IllegalStateException("Could not find input file", e);
+			throw new IllegalStateException("Could not find file for " + s, e);
 		}
-		Scanner scanner = new Scanner(inputStream);
-
-		StringBuilder input = new StringBuilder();
-		while (scanner.hasNextLine()) {
-			input.append(scanner.nextLine());
-		}
-		return input.toString();
+		return new Scanner(inputStream);
 	}
 
 	static void callCount(String[] args, Mode mode, WordCount wordCount) {
@@ -96,13 +92,10 @@ public class WordCountApp {
 
 	static void logicWithInputFile(String arg, WordCount wordCount, PrintStream out) {
 
-		Path path = Paths.get(arg);
-
-		String input ="";
+		String input = loadInputFile(Paths.get(arg));
 		int count = wordCount.count(input);
 		out.print(RESULT_PREFIX);
 		out.print(count);
-
 	}
 
 	static Mode detectMode(String[] args) {

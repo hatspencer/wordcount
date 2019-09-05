@@ -7,6 +7,7 @@ class WordCount {
 
 	private static final Pattern WORD_SCHEMA = Pattern.compile("[A-Za-z]+");
 	private static final String WORD_DELIMITER = "\\s+";
+	static final String DELIMITER_SAMPLE = " ";
 
 	private Set<String> stopwords;
 

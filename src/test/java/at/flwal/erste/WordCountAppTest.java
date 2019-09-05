@@ -19,7 +19,8 @@ import static org.junit.Assert.assertThat;
 
 public class WordCountAppTest {
 
-	private static final String SUFFIX = WordCountApp.PROMPT_TEXT + WordCountApp.RESULT_PREFIX;
+	private static final String SUFFIX_CLI_MODE = WordCountApp.PROMPT_TEXT + WordCountApp.RESULT_PREFIX;
+	private static final String SUFFIX_FILE_MODE = WordCountApp.RESULT_PREFIX;
 	private static final String TEST_RESOURCES_PATH = "src/test/resources";
 	private static final String TEST_STOPWORDS_PATH = TEST_RESOURCES_PATH + "/stopwords.txt";
 	private static final String TEST_INPUT_FILE_PATH = TEST_RESOURCES_PATH + "/mytext.txt";
@@ -38,7 +39,7 @@ public class WordCountAppTest {
 		//TODO use mode param?
 		WordCountApp.logic(io.inputStream, io.outputStream, wordCount);
 
-		assertWordCount(io.buffer, 0);
+		assertWordCount(io.buffer, 0, Mode.CLI);
 	}
 
 	@Test
@@ -65,7 +66,7 @@ public class WordCountAppTest {
 	public void loadStopwordsWithInvalidPathShouldFail() {
 
 		expectedEx.expect(IllegalStateException.class);
-		expectedEx.expectMessage("Could not find stopwords file");
+		expectedEx.expectMessage("Could not find file for stopwords");
 
 		WordCountApp.loadStopwords(Paths.get(TEST_RESOURCES_PATH + "/fileNotFound.text"));
 	}
@@ -96,11 +97,11 @@ public class WordCountAppTest {
 	@Test
 	public void logicWithInputFileShouldWork() {
 
-		try(TestIO io = createIO()) {
+		try (TestIO io = createIO()) {
 			WordCount wordCount = new WordCount(emptySet());
 			WordCountApp.logicWithInputFile(TEST_INPUT_FILE_PATH, wordCount, io.outputStream);
-			assertWordCount(io.buffer, 5);
-		} catch (IOException e){
+			assertWordCount(io.buffer, 5, Mode.FILE);
+		} catch (IOException e) {
 			//ignore
 		}
 	}
@@ -108,18 +109,30 @@ public class WordCountAppTest {
 	@Test
 	public void logicWithInputFileAndStopwordsShouldWork() {
 
-		try(TestIO io = createIO()) {
+		try (TestIO io = createIO()) {
 			Set<String> stopwords = WordCountApp.loadStopwords(Paths.get(TEST_STOPWORDS_PATH));
 			WordCount wordCount = new WordCount(stopwords);
 			WordCountApp.logicWithInputFile(TEST_INPUT_FILE_PATH, wordCount, io.outputStream);
-			assertWordCount(io.buffer, 4);
-		} catch (IOException e){
+			assertWordCount(io.buffer, 4, Mode.FILE);
+		} catch (IOException e) {
 			//ignore
 		}
 	}
 
-	private static void assertWordCount(ByteArrayOutputStream buffer, int expected) {
-		String printed = buffer.toString().substring(SUFFIX.length());
+	private static void assertWordCount(ByteArrayOutputStream buffer, int expected, Mode mode) {
+
+		String printed;
+		switch (mode) {
+			case CLI:
+				printed = buffer.toString().substring(SUFFIX_CLI_MODE.length());
+				break;
+			case FILE:
+				printed = buffer.toString().substring(SUFFIX_FILE_MODE.length());
+				break;
+			default:
+				throw new IllegalArgumentException("Unknown mode: " + mode);
+		}
+
 		Integer count = Integer.valueOf(printed);
 		assertThat(count, is(expected));
 	}
@@ -131,6 +144,7 @@ public class WordCountAppTest {
 		testIO.outputStream = new PrintStream(testIO.buffer);
 		return testIO;
 	}
+
 	private static class TestIO implements Closeable {
 
 		ByteArrayInputStream inputStream;
