@@ -9,12 +9,28 @@ import java.util.Scanner;
 
 public class WordCountApplication {
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        System.out.print("Enter text:");
-        String input = in.nextLine();
+        String input;
+        if (args.length > 0) {
+            String filename = args[0];
+            input = getSentenceFromFile(filename);
+        } else {
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter text:");
+            input = in.nextLine();
+        }
+
         int numberOfWords = countWordsInText(input);
         System.out.print("Number of words:" + numberOfWords);
 
+    }
+
+    private static String getSentenceFromFile(String filename) {
+        String[] lines = getInvalidWords(filename);
+        StringBuilder builder = new StringBuilder();
+        for (String line : lines) {
+            builder.append(line);
+        }
+        return builder.toString();
     }
 
     static int countWordsInText(String input) {
@@ -22,7 +38,7 @@ public class WordCountApplication {
         int countOfWords = 0;
         List<String> invalidWords = Arrays.asList(getInvalidWords("stopwords.txt"));
         for (String s : wordsInInput) {
-            if (!invalidWords.contains(s.toLowerCase()) && s.toLowerCase().matches("[a-z]+") ) countOfWords++;
+            if (!invalidWords.contains(s.toLowerCase()) && s.toLowerCase().matches("[a-z]+")) countOfWords++;
         }
         return countOfWords;
     }
