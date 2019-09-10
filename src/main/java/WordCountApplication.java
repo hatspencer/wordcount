@@ -19,9 +19,10 @@ public class WordCountApplication {
         System.out.println("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords + "; average word length: " + counter.getAverageWordLength() + " characters");
         if (shouldPrintIndex) {
             System.out.println("Index:");
-            List<String> sortedWords = counter.getValidWords();
-            sortedWords.sort(Comparator.comparing(String::toLowerCase));
-            for (String word : sortedWords) {
+            List<Word> sortedWords = counter.getValidWords();
+            //noinspection unchecked
+            Collections.sort(sortedWords);
+            for (Word word : sortedWords) {
                 System.out.println(word);
             }
         }

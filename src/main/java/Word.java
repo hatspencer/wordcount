@@ -1,8 +1,8 @@
-public class Word {
+public class Word implements Comparable{
     private String word;
     private boolean isKnown;
 
-    public Word(String word) {
+    Word(String word, boolean isKnown) {
         this.word = word;
     }
 
@@ -10,7 +10,15 @@ public class Word {
         return isKnown;
     }
 
-    public void setKnown(boolean known) {
+    String getWord() {
+        return word;
+    }
+
+    void setWord(String word) {
+        this.word = word;
+    }
+
+    void setKnown(boolean known) {
         isKnown = known;
     }
 
@@ -18,4 +26,10 @@ public class Word {
     public String toString() {
         return word + ((isKnown)?"":"*");
     }
+
+    @Override
+    public int compareTo(Object o) {
+        return word.toLowerCase().compareTo(((Word)o).word.toLowerCase());
+    }
+
 }
