@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+
 import org.junit.Test;
 
 public class WordCountApplicationTest {
@@ -58,6 +59,17 @@ public class WordCountApplicationTest {
         String input = "A character11 on sentence the";
         int numberOfWords = WordCountApplication.countWordsInText(input);
         assertEquals(1, numberOfWords);
+    }
+
+    @Test
+    public void stopwordsDoesntExists(){
+        String[] invalidWords = WordCountApplication.getInvalidWords("stringwords.txt");
+        assertEquals(0,invalidWords.length);
+    }
+    @Test
+    public void stopwordsExists(){
+        String[] invalidWords = WordCountApplication.getInvalidWords("stopwords.txt");
+        assertEquals(4,invalidWords.length);
     }
 
 }

@@ -20,17 +20,17 @@ public class WordCountApplication {
     static int countWordsInText(String input) {
         String[] wordsInInput = input.split(" ");
         int countOfWords = 0;
-        List<String> invalidWords = Arrays.asList(getInvalidWords());
+        List<String> invalidWords = Arrays.asList(getInvalidWords("stopwords.txt"));
         for (String s : wordsInInput) {
             if (!invalidWords.contains(s.toLowerCase()) && s.toLowerCase().matches("[a-z]+") ) countOfWords++;
         }
         return countOfWords;
     }
 
-    private static String[] getInvalidWords() {
+    static String[] getInvalidWords(String filename) {
         List<String> invalidWords = new ArrayList<>();
         String line;
-        try (BufferedReader reader = new BufferedReader(new FileReader("stopwords.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             while ((line = reader.readLine()) != null) {
                 invalidWords.add(line);
             }
