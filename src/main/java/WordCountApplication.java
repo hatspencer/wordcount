@@ -3,23 +3,31 @@ import java.util.*;
 public class WordCountApplication {
 
     public static void main(String[] args) {
-        List<String> arguments = Arrays.asList(args);
+        List<String> arguments = new ArrayList<>(Arrays.asList(args));
         boolean shouldPrintIndex = arguments.contains("-index");
-        String input = getInput(arguments.get(arguments.size()-1));
+        if (shouldPrintIndex) arguments.remove("-index");
+        boolean hasFilename = arguments.size() == 1;
+        String input;
+        if (hasFilename) {
+            input = getInput(arguments.get(0));
+        } else {
+            input = getInput();
+        }
         WordCounter counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
         int numberOfUniqueWords = counter.getUniqueWordsCountInText();
-        System.out.println("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords + "; average word length: "+counter.getAverageWordLength()+" characters");
-        if(shouldPrintIndex){
+        System.out.println("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords + "; average word length: " + counter.getAverageWordLength() + " characters");
+        if (shouldPrintIndex) {
             System.out.println("Index:");
             List<String> sortedWords = counter.getValidWords();
-            for(String word: sortedWords){
+            sortedWords.sort(Comparator.comparing(String::toLowerCase));
+            for (String word : sortedWords) {
                 System.out.println(word);
             }
         }
     }
 
-    static String getInput(String... args){
+    static String getInput(String... args) {
         String input;
         if (args.length > 0) {
             String filename = args[0];
