@@ -3,11 +3,20 @@ import java.util.*;
 public class WordCountApplication {
 
     public static void main(String[] args) {
-        String input = getInput(args);
+        List<String> arguments = Arrays.asList(args);
+        boolean shouldPrintIndex = arguments.contains("-index");
+        String input = getInput(arguments.get(arguments.size()-1));
         WordCounter counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
         int numberOfUniqueWords = counter.getUniqueWordsCountInText();
-        System.out.print("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords + "; average word length: "+counter.getAverageWordLength()+" characters");
+        System.out.println("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords + "; average word length: "+counter.getAverageWordLength()+" characters");
+        if(shouldPrintIndex){
+            System.out.println("Index:");
+            List<String> sortedWords = counter.getValidWords();
+            for(String word: sortedWords){
+                System.out.println(word);
+            }
+        }
     }
 
     static String getInput(String... args){
