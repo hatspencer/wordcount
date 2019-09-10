@@ -6,15 +6,19 @@ class WordCounter {
     }
 
     private List<Word> validWords;
-    WordCounter(String input) {
+    private String invalidWordsFilename;
+    private String dictionaryFilename;
+    WordCounter(String input, String invalidWordsFilename, String dictionaryFilename) {
         validWords = new ArrayList<>();
+        this.invalidWordsFilename = invalidWordsFilename;
+        this.dictionaryFilename = dictionaryFilename;
         processInputAndFillingValidWordsList(input);
     }
 
     private void processInputAndFillingValidWordsList(String input) {
         String[] wordsInInput = input.split(" ");
-        Dictionary invalidWords = new Dictionary("stopwords.txt");
-        Dictionary dictionary = new Dictionary(WordCountApplication.dictionaryFilename);
+        Dictionary invalidWords = new Dictionary(invalidWordsFilename);
+        Dictionary dictionary = new Dictionary(dictionaryFilename);
         for (String word : wordsInInput) {
             if (!invalidWords.hasWord(word.toLowerCase()) && word.toLowerCase().matches("[a-z,\\-,.]+"))
                 validWords.add(new Word(word, dictionary.hasWord(word)));
