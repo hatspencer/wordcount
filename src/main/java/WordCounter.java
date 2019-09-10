@@ -1,6 +1,10 @@
 import java.util.*;
 
 class WordCounter {
+    public List<String> getValidWords() {
+        return validWords;
+    }
+
     private List<String> validWords;
 
     WordCounter(String input) {
