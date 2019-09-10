@@ -137,4 +137,23 @@ public class WordCountApplicationTest {
         counter = new WordCounter(input);
         assertEquals(1, counter.getWordsCountInText());
     }
+
+    @Test
+    public void avgLengthTestWithOneWord(){
+        String input = "word";
+        counter = new WordCounter(input);
+        assertEquals(4.0,counter.getAverageWordLength(),0.0);
+    }
+    @Test
+    public void avgLengthTestWithEmptyString(){
+        String input = "";
+        counter = new WordCounter(input);
+        assertEquals(0.0,counter.getAverageWordLength(),0.0);
+    }
+    @Test
+    public void avgLengthTestWithMultipleWord(){
+        String input = "more word to test functi";
+        counter = new WordCounter(input);
+        assertEquals(4,counter.getAverageWordLength(),0.0);
+    }
 }
