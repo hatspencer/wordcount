@@ -115,11 +115,7 @@ public class WordCountApplicationTest {
         assertEquals(7, numberOfUniqueWords);
     }
 
-    @Test
-    public void testInputWithArgument() {
-        String input = WordCountApplication.getInput("mytext.txt");
-        assertEquals("Mary had a little lamb", input);
-    }
+
 
     @Test
     public void testIteration5Input() {
