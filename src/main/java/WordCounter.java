@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 class WordCounter {
     private List<String> validWords;
@@ -22,5 +19,13 @@ class WordCounter {
     }
     int getUniqueWordsCountInText() {
         return new HashSet<>(validWords).size();
+    }
+    double getAverageWordLength(){
+        double avgLength = 0;
+        Set<String> uniqueWords = new HashSet<>(validWords);
+        for (String word: uniqueWords) {
+            avgLength += word.length();
+        }
+        return avgLength/uniqueWords.size();
     }
 }
