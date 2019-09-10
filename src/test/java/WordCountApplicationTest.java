@@ -53,4 +53,11 @@ public class WordCountApplicationTest {
         assertEquals(2, numberOfWords);
     }
 
+    @Test
+    public void callWithInputContainsInvalidWordListenInFile(){
+        String input = "A character11 on sentence the";
+        int numberOfWords = WordCountApplication.countWordsInText(input);
+        assertEquals(1, numberOfWords);
+    }
+
 }
