@@ -7,7 +7,7 @@ public class WordCountApplication {
         WordCounter counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
         int numberOfUniqueWords = counter.getUniqueWordsCountInText();
-        System.out.print("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords);
+        System.out.print("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords + "; average word length: "+counter.getAverageWordLength()+" characters");
     }
 
     static String getInput(String... args){
