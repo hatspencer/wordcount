@@ -20,7 +20,7 @@ public class WordCountApplication {
         String[] wordsInInput = input.split(" ");
         int countOfWords = 0;
         for (String s : wordsInInput) {
-            if (s.matches("[A-z]+")) countOfWords++;
+            if (s.toLowerCase().matches("[a-z]+")) countOfWords++;
         }
         return countOfWords;
     }
