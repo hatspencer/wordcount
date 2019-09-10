@@ -23,6 +23,7 @@ class WordCounter {
     double getAverageWordLength(){
         double avgLength = 0;
         Set<String> uniqueWords = new HashSet<>(validWords);
+        if(uniqueWords.size()==0) return 0.0;
         for (String word: uniqueWords) {
             avgLength += word.length();
         }
