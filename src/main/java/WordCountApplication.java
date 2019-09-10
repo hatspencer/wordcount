@@ -24,11 +24,11 @@ public class WordCountApplication {
 
     }
 
-    private static String getSentenceFromFile(String filename) {
+    static String getSentenceFromFile(String filename) {
         String[] lines = getInvalidWords(filename);
         StringBuilder builder = new StringBuilder();
         for (String line : lines) {
-            builder.append(line);
+            builder.append(line).append(" ");
         }
         return builder.toString();
     }

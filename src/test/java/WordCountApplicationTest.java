@@ -71,5 +71,12 @@ public class WordCountApplicationTest {
         String[] invalidWords = WordCountApplication.getInvalidWords("stopwords.txt");
         assertEquals(4,invalidWords.length);
     }
+    @Test
+    public void getSentenceFromFile(){
+        String filename = "mytext.txt";
+        String input = WordCountApplication.getSentenceFromFile(filename);
+        int numberOfWords = WordCountApplication.countWordsInText(input);
+        assertEquals(4, numberOfWords);
 
+    }
 }
