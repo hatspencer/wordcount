@@ -4,9 +4,10 @@ public class Word implements Comparable{
 
     Word(String word, boolean isKnown) {
         this.word = word;
+        this.isKnown = isKnown;
     }
 
-    public boolean isKnown() {
+    boolean isKnown() {
         return isKnown;
     }
 
