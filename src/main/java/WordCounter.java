@@ -9,16 +9,16 @@ class WordCounter {
 
     WordCounter(String input) {
         validWords = new ArrayList<>();
-        processInput(input);
+        processInputAndFillingValidWordsList(input);
     }
 
-    private void processInput(String input) {
+    private void processInputAndFillingValidWordsList(String input) {
         String[] wordsInInput = input.split(" ");
         List<String> invalidWords = Arrays.asList(FileUtils.readWordsFromFile("stopwords.txt"));
-        List<String> dictionaryWords = Arrays.asList(FileUtils.readWordsFromFile("dict.txt"));
-        for (String s : wordsInInput) {
-            if (!invalidWords.contains(s.toLowerCase()) && s.toLowerCase().matches("[a-z,\\-,.]+"))
-                validWords.add(new Word(s, dictionaryWords.contains(s)));
+        List<String> dictionaryWords = (WordCountApplication.shouldCheckAgainstDictionary)?new ArrayList<>(Arrays.asList(FileUtils.readWordsFromFile(WordCountApplication.dictionaryFilename))):new ArrayList<>();
+        for (String word : wordsInInput) {
+            if (!invalidWords.contains(word.toLowerCase()) && word.toLowerCase().matches("[a-z,\\-,.]+"))
+                validWords.add(new Word(word, dictionaryWords.contains(word)));
         }
     }
 
