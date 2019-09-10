@@ -1,15 +1,17 @@
 import java.util.*;
 
 public class WordCountApplication {
+    private static boolean shouldPrintIndex;
+    private static boolean hasFilename;
+    private static String filename;
+    static String dictionaryFilename;
+    static boolean shouldCheckAgainstDictionary;
 
     public static void main(String[] args) {
-        List<String> arguments = new ArrayList<>(Arrays.asList(args));
-        boolean shouldPrintIndex = arguments.contains("-index");
-        if (shouldPrintIndex) arguments.remove("-index");
-        boolean hasFilename = arguments.size() == 1;
+        handleOptionalArguments(args);
         String input;
         if (hasFilename) {
-            input = getInput(arguments.get(0));
+            input = getInput(filename);
         } else {
             input = getInput();
         }
@@ -18,8 +20,12 @@ public class WordCountApplication {
         int numberOfUniqueWords = counter.getUniqueWordsCountInText();
         System.out.println("Number of words:" + numberOfWords + ", unique:" + numberOfUniqueWords + "; average word length: " + counter.getAverageWordLength() + " characters");
         if (shouldPrintIndex) {
-            System.out.println("Index:");
+            int numberOfUnknownWords = 0;
             List<Word> sortedWords = counter.getValidWords();
+            for (Word sortedWord : sortedWords) {
+                if(!sortedWord.isKnown()) numberOfUnknownWords++;
+            }
+            System.out.println("Index (Unknown: "+numberOfUnknownWords+"):");
             //noinspection unchecked
             Collections.sort(sortedWords);
             for (Word word : sortedWords) {
@@ -28,10 +34,23 @@ public class WordCountApplication {
         }
     }
 
+    static void handleOptionalArguments(String... args) {
+        List<String> arguments = new ArrayList<>(Arrays.asList(args));
+        for (String argument : arguments) {
+            if (argument.equals("-index")) shouldPrintIndex = true;
+            else if (argument.contains("-dictionary")) {
+                shouldCheckAgainstDictionary = true;
+                dictionaryFilename = argument.split("=")[1];
+            } else {
+                hasFilename = true;
+                filename = argument;
+            }
+        }
+    }
+
     static String getInput(String... args) {
         String input;
-        if (args.length > 0) {
-            String filename = args[0];
+        if (hasFilename) {
             input = FileUtils.getSentenceFromFile(filename);
         } else {
             Scanner in = new Scanner(System.in);
