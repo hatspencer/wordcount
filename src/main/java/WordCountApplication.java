@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,13 +20,14 @@ public class WordCountApplication {
     static int countWordsInText(String input) {
         String[] wordsInInput = input.split(" ");
         int countOfWords = 0;
+        List<String> invalidWords = Arrays.asList(getInvalidWords());
         for (String s : wordsInInput) {
-            if (s.toLowerCase().matches("[a-z]+")) countOfWords++;
+            if (!invalidWords.contains(s.toLowerCase()) && s.toLowerCase().matches("[a-z]+") ) countOfWords++;
         }
         return countOfWords;
     }
 
-    static String[] getInvalidWords() {
+    private static String[] getInvalidWords() {
         List<String> invalidWords = new ArrayList<>();
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader("stopwords.txt"))) {
