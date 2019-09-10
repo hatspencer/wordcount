@@ -51,7 +51,7 @@ public class WordCountApplicationTest {
     }
 
     @Test
-    public void callWithOtherDelimiterContained(){
+    public void callWithOtherDelimiterContained() {
         String input = "1nvalid.character in sentence";
         counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
@@ -59,7 +59,7 @@ public class WordCountApplicationTest {
     }
 
     @Test
-    public void callWithInvalidCharacterAndNumbers(){
+    public void callWithInvalidCharacterAndNumbers() {
         String input = "$nvalid character11 in sentence";
         counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
@@ -67,7 +67,7 @@ public class WordCountApplicationTest {
     }
 
     @Test
-    public void callWithInputContainsInvalidWordListenInFile(){
+    public void callWithInputContainsInvalidWordListenInFile() {
         String input = "A character11 on sentence the";
         counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
@@ -75,17 +75,19 @@ public class WordCountApplicationTest {
     }
 
     @Test
-    public void stopwordsDoesntExists(){
+    public void stopwordsDoesntExists() {
         String[] invalidWords = FileUtils.readWordsFromFile("stringwords.txt");
-        assertEquals(0,invalidWords.length);
+        assertEquals(0, invalidWords.length);
     }
+
     @Test
-    public void stopwordsExists(){
+    public void stopwordsExists() {
         String[] invalidWords = FileUtils.readWordsFromFile("stopwords.txt");
-        assertEquals(4,invalidWords.length);
+        assertEquals(4, invalidWords.length);
     }
+
     @Test
-    public void getSentenceFromFile(){
+    public void getSentenceFromFile() {
         String filename = "mytext.txt";
         String input = FileUtils.getSentenceFromFile(filename);
         counter = new WordCounter(input);
@@ -94,7 +96,7 @@ public class WordCountApplicationTest {
     }
 
     @Test
-    public void inputAsEveryWordAsUnique(){
+    public void inputAsEveryWordAsUnique() {
         String input = "Every word is unique";
         counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
@@ -102,8 +104,9 @@ public class WordCountApplicationTest {
         assertEquals(4, numberOfWords);
         assertEquals(4, numberOfUniqueWords);
     }
+
     @Test
-    public void inputContainingDuplicateWords(){
+    public void inputContainingDuplicateWords() {
         String input = "Every word is unique but this is a duplicate word";
         counter = new WordCounter(input);
         int numberOfWords = counter.getWordsCountInText();
@@ -113,9 +116,25 @@ public class WordCountApplicationTest {
     }
 
     @Test
-    public void testInputWithArgument(){
-        String input  = WordCountApplication.getInput("mytext.txt");
+    public void testInputWithArgument() {
+        String input = WordCountApplication.getInput("mytext.txt");
         assertEquals("Mary had a little lamb", input);
     }
 
+    @Test
+    public void testIteration5Input() {
+        String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+        counter = new WordCounter(input);
+        int numberOfWords = counter.getWordsCountInText();
+        int numberOfUniqueWords = counter.getUniqueWordsCountInText();
+        assertEquals(7, numberOfWords);
+        assertEquals(6, numberOfUniqueWords);
+    }
+
+    @Test
+    public void wordEndsWithDot() {
+        String input = "Humpty-Dumpty";
+        counter = new WordCounter(input);
+        assertEquals(1, counter.getWordsCountInText());
+    }
 }
