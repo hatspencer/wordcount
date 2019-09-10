@@ -3,9 +3,13 @@ import java.util.Scanner;
 public class WordCountApplication {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        String input = in.next();
+        System.out.print("Enter text:");
+        String input = in.nextLine();
+        int numberOfWords = countWordsInText(input);
+        System.out.print("Number of words:" + numberOfWords);
+
     }
-    public static int countWordsInText(String input){
+    static int countWordsInText(String input){
         String[] wordsInInput = input.split(" ");
         int countOfWords = 0;
         for (String s : wordsInInput) {
