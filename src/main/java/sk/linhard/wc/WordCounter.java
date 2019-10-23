@@ -5,7 +5,9 @@ import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Reads the text input given in the constructor char-by-char till the end and
@@ -93,27 +95,35 @@ public class WordCounter {
 		this.sumOfLengths += word.length();
 	}
 
-	public int count() {
+	private void processIfNecessary() {
 		if (count == NOT_KNOWN) {
 			processInput();
 		}
+	}
+
+	public int count() {
+		processIfNecessary();
 		return count;
 	}
 
 	public int uniqueCount() {
-		if (count == NOT_KNOWN) {
-			processInput();
-		}
+		processIfNecessary();
 		return words.size();
 	}
 
 	public double averageLength() {
-		if (count == NOT_KNOWN) {
-			processInput();
-		}
+		processIfNecessary();
 		double sum = (double) this.sumOfLengths;
 		double count = (double) this.count;
 		return sum / count;
+	}
+
+	/**
+	 * @return Alphabetically sorted list of counted words.
+	 */
+	public List<String> getIndex() {
+		processIfNecessary();
+		return this.words.stream().sorted().collect(Collectors.toList());
 	}
 
 	private int processInput() {
