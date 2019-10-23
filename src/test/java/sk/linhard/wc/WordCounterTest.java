@@ -3,11 +3,14 @@ package sk.linhard.wc;
 import static org.junit.Assert.assertEquals;
 
 import java.io.StringReader;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import org.junit.Test;
 
 public class WordCounterTest {
+
+	private static final DecimalFormat AVG_FORMAT = new DecimalFormat("0.00");
 
 	@Test
 	public void testInitialExample() {
@@ -99,13 +102,23 @@ public class WordCounterTest {
 		assertCount(2, 2, "aaa.aaa-aaa");
 	}
 
+	@Test
+	public void testAverageLength() {
+		assertEquals("3.00", AVG_FORMAT.format(createCounter("aaaa aa aaaa aa").averageLength()));
+		assertEquals("3.25", AVG_FORMAT.format(createCounter("aaaa aaa aaaa aa").averageLength()));
+	}
+
+	private WordCounter createCounter(String input, String... stopWords) {
+		StringReader testInput = new StringReader(input);
+		return new WordCounter(testInput, Arrays.asList(stopWords));
+	}
+
 	private void assertCountWithStopWords(int expectedCount, String input, String... stopWords) {
 		assertCount(expectedCount, expectedCount, input, stopWords);
 	}
 
 	private void assertCount(int expectedCount, int expectedUniqueCount, String input, String... stopWords) {
-		StringReader testInput = new StringReader(input);
-		WordCounter wc = new WordCounter(testInput, Arrays.asList(stopWords));
+		WordCounter wc = createCounter(input, stopWords);
 		int actualCount = wc.count();
 		int actualUniqueCount = wc.uniqueCount();
 		assertEquals("Word count", expectedCount, actualCount);

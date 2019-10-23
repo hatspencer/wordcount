@@ -27,6 +27,7 @@ public class WordCounter {
 	private Reader input;
 	private boolean lastWordLegal;
 	private StringBuilder lastWord;
+	private int sumOfLengths;
 
 	/**
 	 * 
@@ -85,9 +86,10 @@ public class WordCounter {
 	}
 
 	private void recordLastWord() {
-		if (lastWord != null) {
-			this.words.add(lastWord.toString());
-		}
+		count++;
+		String word = lastWord.toString();
+		this.words.add(word);
+		this.sumOfLengths += word.length();
 	}
 
 	public int count() {
@@ -104,6 +106,15 @@ public class WordCounter {
 		return words.size();
 	}
 
+	public double averageLength() {
+		if (count == NOT_KNOWN) {
+			processInput();
+		}
+		double sum = (double) this.sumOfLengths;
+		double count = (double) this.count;
+		return sum / count;
+	}
+
 	private int processInput() {
 		try {
 			this.count = 0;
@@ -113,7 +124,6 @@ public class WordCounter {
 				if (isSeparator(c)) {
 					if (!inSeparator) {
 						if (lastWordCounts()) {
-							count++;
 							recordLastWord();
 						}
 						inSeparator = true;
@@ -129,7 +139,6 @@ public class WordCounter {
 				}
 			}
 			if (!inSeparator && lastWordCounts()) {
-				count++;
 				recordLastWord();
 			}
 			return count;
