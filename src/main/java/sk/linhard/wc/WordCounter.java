@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.UncheckedIOException;
 
+/**
+ * Reads the text input given in the constructor char-by-char till the end and
+ * counts the words.
+ */
 public class WordCounter {
 
 	private static final int SEPARATOR = 32;
@@ -14,6 +18,11 @@ public class WordCounter {
 
 	private Reader input;
 
+	/**
+	 * 
+	 * @param input The input reader. Won't be closed by running {@link #count()}
+	 *              method.
+	 */
 	public WordCounter(Reader input) {
 		this.input = input;
 	}
