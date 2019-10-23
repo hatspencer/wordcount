@@ -79,6 +79,16 @@ public class WordCounterTest {
 		assertCount(9, 7, "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", "the", "a", "on", "off");
 	}
 
+	@Test
+	public void testUniqueCountCaseSensitive() {
+		assertCount(4, 3, "aaa aaa Bbb bbb");
+	}
+
+	@Test
+	public void testDashDotSeparators() {
+		assertCount(3, 1, "aaa.aaa-aaa");
+	}
+
 	private void assertCountWithStopWords(int expectedCount, String input, String... stopWords) {
 		assertCount(expectedCount, expectedCount, input, stopWords);
 	}
