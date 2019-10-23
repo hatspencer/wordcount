@@ -7,6 +7,10 @@ import java.io.UncheckedIOException;
 public class WordCounter {
 
 	private static final int SEPARATOR = 32;
+	private static final int LOWER_A = 97;
+	private static final int LOWER_Z = 122;
+	private static final int UPPER_A = 65;
+	private static final int UPPER_Z = 90;
 
 	private Reader input;
 
@@ -14,20 +18,33 @@ public class WordCounter {
 		this.input = input;
 	}
 
+	private boolean isLegalChar(int character) {
+		return (character >= LOWER_A && character <= LOWER_Z) || (character >= UPPER_A && character <= UPPER_Z);
+	}
+
 	public int count() {
 		try {
 			int count = 0;
-			boolean separator = true;
+			boolean inSeparator = true;
+			boolean legalCharSequence = true;
 			int c;
 			while ((c = input.read()) != -1) {
 				if (c == SEPARATOR) {
-					if (!separator) {
-						count++;
+					if (!inSeparator) {
+						if (legalCharSequence) {
+							count++;
+						}
+						inSeparator = true;
 					}
-					separator = true;
 				} else {
-					separator = false;
+					if (!isLegalChar(c)) {
+						legalCharSequence = false;
+					}
+					inSeparator = false;
 				}
+			}
+			if (!inSeparator && legalCharSequence) {
+				count++;
 			}
 			return count;
 		} catch (IOException e) {
