@@ -6,12 +6,15 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class Main {
 
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
+	private static final String STOPWORDS_FILE_NAME = "stopwords.txt";
 
 	public static void main(String[] args) {
 		try {
@@ -26,8 +29,8 @@ public class Main {
 		}
 	}
 
-	private static Collection<String> readStopWords() {
-		return Collections.emptyList();
+	private static Collection<String> readStopWords() throws IOException {
+		return Files.lines(Paths.get(STOPWORDS_FILE_NAME), UTF_8).collect(Collectors.toList());
 	}
 
 	private static Reader createInputReader() throws IOException {
