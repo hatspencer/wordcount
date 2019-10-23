@@ -39,9 +39,13 @@ public class WordCountApp {
 		}
 	}
 
-	public String computeOutput() throws IOException {
+	private WordCounter createCounter() throws IOException {
 		Collection<String> stopWords = readStopWords();
-		WordCounter wordCounter = new WordCounter(inputReader, stopWords);
+		return new WordCounter(inputReader, stopWords);
+	}
+
+	public String computeOutput() throws IOException {
+		WordCounter wordCounter = createCounter();
 		int count = wordCounter.count();
 		int uniqueCount = wordCounter.uniqueCount();
 		double averageLength = wordCounter.averageLength();

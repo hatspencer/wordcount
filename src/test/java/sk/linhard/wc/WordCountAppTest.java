@@ -3,6 +3,10 @@ package sk.linhard.wc;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -25,12 +29,31 @@ public class WordCountAppTest {
 				createAppWithDefaultStopWords("Mary had a little lamb").computeOutput());
 	}
 
+	@Test
+	public void testConsoleOutputWithFileInput() throws Exception {
+		assertEquals(
+				"Number of words: 4, unique: 4; average word length: 4.25 characters\nIndex:\nMary\nhad\nlamb\nlittle",
+				createAppWithDefaultInputAndStopWords().computeOutput());
+	}
+
 	private WordCountApp createApp(String input) {
 		return createApp(input, Optional.empty());
 	}
 
+	private WordCountApp createAppWithDefaultInputAndStopWords() throws IOException {
+		return new WordCountApp(getDefaultInputReader(), UTF_8, getDefaultStopWords());
+	}
+
+	private Reader getDefaultInputReader() throws IOException {
+		return new InputStreamReader(new FileInputStream(new File("src/test/resources/mytext.txt")), UTF_8);
+	}
+
+	private Optional<File> getDefaultStopWords() {
+		return Optional.of(new File("src/test/resources/stopwords.txt"));
+	}
+
 	private WordCountApp createAppWithDefaultStopWords(String input) {
-		return createApp(input, Optional.of(new File("src/test/resources/stopwords.txt")));
+		return createApp(input, getDefaultStopWords());
 	}
 
 	private WordCountApp createApp(String input, Optional<File> stopwords) {
