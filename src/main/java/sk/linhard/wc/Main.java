@@ -8,12 +8,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class Main {
 
@@ -22,21 +17,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		try (Reader inputReader = createInputReader(args)) {
-			Collection<String> stopWords = readStopWords();
-			WordCounter wordCounter = new WordCounter(inputReader, stopWords);
-			int count = wordCounter.count();
-			int uniqueCount = wordCounter.uniqueCount();
-			System.out.print("Number of words: " + count + ", unique: " + uniqueCount);
+			WordCountApp app = new WordCountApp(inputReader, UTF_8, Optional.of(new File(STOPWORDS_FILE_NAME)));
+			System.out.print(app.computeOutput());
 		} catch (Throwable e) {
 			System.err.println("ERROR: " + e.getMessage());
-		}
-	}
-
-	private static Collection<String> readStopWords() throws IOException {
-		try {
-			return Files.lines(Paths.get(STOPWORDS_FILE_NAME), UTF_8).collect(Collectors.toList());
-		} catch (NoSuchFileException e) {
-			return Collections.emptyList();
 		}
 	}
 
