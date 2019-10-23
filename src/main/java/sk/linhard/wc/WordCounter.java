@@ -13,14 +13,15 @@ import java.util.Set;
  */
 public class WordCounter {
 
-	private static final int SEPARATOR = 32;
-	private static final int LOWER_A = 97;
-	private static final int LOWER_Z = 122;
-	private static final int UPPER_A = 65;
-	private static final int UPPER_Z = 90;
+	private static final int SEPARATOR = (int) ' ';
+	private static final int LOWER_A = (int) 'a';
+	private static final int LOWER_Z = (int) 'z';
+	private static final int UPPER_A = (int) 'A';
+	private static final int UPPER_Z = (int) 'Z';
 
 	private Set<String> stopwords;
 	private Reader input;
+	private boolean lastWordLegal;
 	private StringBuilder lastWord;
 
 	/**
@@ -34,6 +35,7 @@ public class WordCounter {
 		this.stopwords = new HashSet<String>(stopwords);
 		this.input = input;
 		this.lastWord = null;
+		this.lastWordLegal = true;
 	}
 
 	private boolean isLegalChar(int character) {
@@ -62,31 +64,34 @@ public class WordCounter {
 		this.lastWord = null;
 	}
 
+	private boolean lastWordCounts() {
+		return lastWordLegal && !isLastWordStopWord();
+	}
+
 	public int count() {
 		try {
 			int count = 0;
 			boolean inSeparator = true;
-			boolean legalCharSequence = true;
 			int c;
 			while ((c = input.read()) != -1) {
 				if (c == SEPARATOR) {
 					if (!inSeparator) {
-						if (legalCharSequence && !isLastWordStopWord()) {
+						if (lastWordCounts()) {
 							count++;
 						}
 						inSeparator = true;
-						legalCharSequence = true;
+						lastWordLegal = true;
 						discardLastWord();
 					}
 				} else {
 					if (!isLegalChar(c)) {
-						legalCharSequence = false;
+						lastWordLegal = false;
 					}
 					inSeparator = false;
 					appendToLastWord(c);
 				}
 			}
-			if (!inSeparator && legalCharSequence && !isLastWordStopWord()) {
+			if (!inSeparator && lastWordCounts()) {
 				count++;
 			}
 			return count;
