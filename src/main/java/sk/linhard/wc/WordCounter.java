@@ -26,6 +26,7 @@ public class WordCounter {
 	private int count;
 	private Set<String> words;
 	private Set<String> stopwords;
+	private Set<String> dictWords;
 	private Reader input;
 	private boolean lastWordLegal;
 	private StringBuilder lastWord;

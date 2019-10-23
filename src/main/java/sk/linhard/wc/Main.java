@@ -19,7 +19,8 @@ public class Main {
 		try {
 			Arguments parsedArgs = Arguments.parse(args);
 			try (Reader inputReader = createInputReader(parsedArgs.inputFile())) {
-				WordCountApp app = new WordCountApp(inputReader, UTF_8, Optional.of(new File(STOPWORDS_FILE_NAME)));
+				WordCountApp app = new WordCountApp(inputReader, UTF_8, Optional.of(new File(STOPWORDS_FILE_NAME)),
+						parsedArgs.dictionaryFile());
 				System.out.print(parsedArgs.printIndex() ? app.computeOutputWithIndex() : app.computeOutput());
 			}
 		} catch (Throwable e) {

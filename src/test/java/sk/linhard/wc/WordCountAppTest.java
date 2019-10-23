@@ -47,7 +47,7 @@ public class WordCountAppTest {
 	}
 
 	private WordCountApp createAppWithDefaultInputAndStopWords() throws IOException {
-		return new WordCountApp(getDefaultInputReader(), UTF_8, getDefaultStopWords());
+		return new WordCountApp(getDefaultInputReader(), UTF_8, getDefaultStopWords(), Optional.empty());
 	}
 
 	private Reader getDefaultInputReader() throws IOException {
@@ -58,11 +58,19 @@ public class WordCountAppTest {
 		return Optional.of(new File("src/test/resources/stopwords.txt"));
 	}
 
+	private Optional<File> getDefaultDictionary() {
+		return Optional.of(new File("src/test/resources/dict.txt"));
+	}
+
 	private WordCountApp createAppWithDefaultStopWords(String input) {
 		return createApp(input, getDefaultStopWords());
 	}
 
+	private WordCountApp createAppWithDictAndStopWords(String input) {
+		return new WordCountApp(new StringReader(input), UTF_8, getDefaultStopWords(), getDefaultDictionary());
+	}
+
 	private WordCountApp createApp(String input, Optional<File> stopwords) {
-		return new WordCountApp(new StringReader(input), UTF_8, stopwords);
+		return new WordCountApp(new StringReader(input), UTF_8, stopwords, Optional.empty());
 	}
 }

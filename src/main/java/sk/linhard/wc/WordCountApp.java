@@ -3,13 +3,17 @@ package sk.linhard.wc;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WordCountApp {
@@ -19,12 +23,15 @@ public class WordCountApp {
 	private Charset charset;
 	private Reader inputReader;
 	private Optional<File> stopWordsFile;
+	private Optional<File> dictionaryFile;
 
-	public WordCountApp(Reader inputReader, Charset charset, Optional<File> stopWordsFile) {
+	public WordCountApp(Reader inputReader, Charset charset, Optional<File> stopWordsFile,
+			Optional<File> dictionaryFile) {
 		super();
 		this.charset = charset;
 		this.inputReader = inputReader;
 		this.stopWordsFile = stopWordsFile;
+		this.dictionaryFile = dictionaryFile;
 	}
 
 	private Collection<String> readStopWords() throws IOException {
@@ -36,6 +43,16 @@ public class WordCountApp {
 		} catch (NoSuchFileException e) {
 			return Collections.emptyList();
 		}
+	}
+
+	private Optional<Collection<String>> readDictionary() throws IOException {
+		return dictionaryFile.map(dictFile -> {
+			try {
+				return Files.lines(dictFile.toPath(), charset).collect(Collectors.toList());
+			} catch (IOException e) {
+				throw new UncheckedIOException(e);
+			}
+		});
 	}
 
 	private WordCounter createCounter() throws IOException {
@@ -57,7 +74,14 @@ public class WordCountApp {
 
 	public String computeOutputWithIndex() throws IOException {
 		WordCounter wordCounter = createCounter();
-		return formatCountsLine(wordCounter) + "\nIndex:\n" + String.join("\n", wordCounter.index());
+		Optional<Collection<String>> dictWords = readDictionary();
+		List<String> index = wordCounter.index();
+		if (dictWords.isPresent()) {
+			Set<String> dictionarySet = new HashSet<String>(dictWords.get());
+			index = wordCounter.index().stream().map(w -> dictionarySet.contains(w) ? w : w + "*")
+					.collect(Collectors.toList());
+		}
+		return formatCountsLine(wordCounter) + "\nIndex:\n" + String.join("\n", index);
 	}
 
 }

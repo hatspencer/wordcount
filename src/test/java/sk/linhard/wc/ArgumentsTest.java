@@ -3,14 +3,27 @@ package sk.linhard.wc;
 import java.io.File;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class ArgumentsTest {
 
+	@Rule
+	public ExpectedException exceptionRule = ExpectedException.none();
+
+	@Test
+	public void testMoreInputs() {
+		exceptionRule.expect(IllegalArgumentException.class);
+		exceptionRule.expectMessage("can't have two input files");
+		Arguments.parse("foo.txt", "blah.txt");
+	}
+
 	@Test
 	public void testBasicArguments() {
-		Arguments args = Arguments.parse("-index", "blah.txt");
+		Arguments args = Arguments.parse("-index", "blah.txt", "-dictionary=dict.txt");
 		Assert.assertEquals(new File("blah.txt"), args.inputFile().get());
+		Assert.assertEquals(new File("dict.txt"), args.dictionaryFile().get());
 		Assert.assertEquals(true, args.printIndex());
 	}
 
@@ -18,6 +31,7 @@ public class ArgumentsTest {
 	public void testEmptyArguments() {
 		Arguments args = Arguments.parse();
 		Assert.assertEquals(false, args.inputFile().isPresent());
+		Assert.assertEquals(false, args.dictionaryFile().isPresent());
 		Assert.assertEquals(false, args.printIndex());
 	}
 
