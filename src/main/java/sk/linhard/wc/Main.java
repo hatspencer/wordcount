@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Main {
 
@@ -15,12 +17,17 @@ public class Main {
 		try {
 			System.out.print("Enter text: ");
 			Reader inputReader = createInputReader();
-			WordCounter wordCounter = new WordCounter(inputReader);
+			Collection<String> stopWords = readStopWords();
+			WordCounter wordCounter = new WordCounter(inputReader, stopWords);
 			int count = wordCounter.count();
 			System.out.print("Number of words: " + count);
 		} catch (Throwable e) {
 			System.err.println("ERROR: " + e.getMessage());
 		}
+	}
+
+	private static Collection<String> readStopWords() {
+		return Collections.emptyList();
 	}
 
 	private static Reader createInputReader() throws IOException {
