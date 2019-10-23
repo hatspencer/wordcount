@@ -1,17 +1,13 @@
 package sk.linhard.wc;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.StringReader;
 import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class WordCounterTest {
-
-	@Test
-	public void testFileInput() {
-
-	}
 
 	@Test
 	public void testInitialExample() {
@@ -77,10 +73,23 @@ public class WordCounterTest {
 		assertCountWithStopWords(2, "foo bar", "Bar");
 	}
 
+	@Test
+	public void testUniqueCount() {
+		assertCount(4, 2, "aaa aaa bbb bbb");
+		assertCount(9, 7, "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", "the", "a", "on", "off");
+	}
+
 	private void assertCountWithStopWords(int expectedCount, String input, String... stopWords) {
+		assertCount(expectedCount, expectedCount, input, stopWords);
+	}
+
+	private void assertCount(int expectedCount, int expectedUniqueCount, String input, String... stopWords) {
 		StringReader testInput = new StringReader(input);
 		WordCounter wc = new WordCounter(testInput, Arrays.asList(stopWords));
-		Assert.assertEquals(expectedCount, wc.count());
+		int actualCount = wc.count();
+		int actualUniqueCount = wc.uniqueCount();
+		assertEquals("Word count", expectedCount, actualCount);
+		assertEquals("Unique word count", expectedUniqueCount, actualUniqueCount);
 	}
 
 	private void assertCount(int expectedCount, String input) {

@@ -18,8 +18,10 @@ public class WordCounter {
 	private static final int LOWER_Z = (int) 'z';
 	private static final int UPPER_A = (int) 'A';
 	private static final int UPPER_Z = (int) 'Z';
+	private static final int NOT_KNOWN = -1;
 
-	private HashSet<String> words;
+	private int count;
+	private Set<String> words;
 	private Set<String> stopwords;
 	private Reader input;
 	private boolean lastWordLegal;
@@ -38,6 +40,7 @@ public class WordCounter {
 		this.input = input;
 		this.lastWord = null;
 		this.lastWordLegal = true;
+		this.count = NOT_KNOWN;
 	}
 
 	private boolean isSeparator(int character) {
@@ -79,9 +82,29 @@ public class WordCounter {
 		return lastWordLegal && !isLastWordStopWord();
 	}
 
+	private void recordLastWord() {
+		if (lastWord != null) {
+			this.words.add(lastWord.toString());
+		}
+	}
+
 	public int count() {
+		if (count == NOT_KNOWN) {
+			processInput();
+		}
+		return count;
+	}
+
+	public int uniqueCount() {
+		if (count == NOT_KNOWN) {
+			processInput();
+		}
+		return words.size();
+	}
+
+	private int processInput() {
 		try {
-			int count = 0;
+			this.count = 0;
 			boolean inSeparator = true;
 			int c;
 			while ((c = input.read()) != -1) {
@@ -89,6 +112,7 @@ public class WordCounter {
 					if (!inSeparator) {
 						if (lastWordCounts()) {
 							count++;
+							recordLastWord();
 						}
 						inSeparator = true;
 						lastWordLegal = true;
@@ -104,6 +128,7 @@ public class WordCounter {
 			}
 			if (!inSeparator && lastWordCounts()) {
 				count++;
+				recordLastWord();
 			}
 			return count;
 		} catch (IOException e) {
