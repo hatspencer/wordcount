@@ -24,6 +24,13 @@ public class WordCounterTest {
 	}
 
 	@Test
+	public void testOtherIllegalCharSegments() {
+		assertCount(1, "foo b0ar");
+		assertCount(1, "foo b_ar");
+		assertCount(1, "foo b|ar");
+	}
+
+	@Test
 	public void testSpecialChar() {
 		assertCount(1, "foo");
 		assertCount(1, "foo bar$");
