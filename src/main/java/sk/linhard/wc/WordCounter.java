@@ -13,14 +13,13 @@ import java.util.Set;
  */
 public class WordCounter {
 
-	private static final int SPACE = (int) ' ';
-	private static final int LF = (int) '\n';
-	private static final int CR = (int) '\r';
+	private static final int[] SEPARATORS = { (int) ' ', (int) '\n', (int) '\r', (int) '.', (int) '-' };
 	private static final int LOWER_A = (int) 'a';
 	private static final int LOWER_Z = (int) 'z';
 	private static final int UPPER_A = (int) 'A';
 	private static final int UPPER_Z = (int) 'Z';
 
+	private HashSet<String> words;
 	private Set<String> stopwords;
 	private Reader input;
 	private boolean lastWordLegal;
@@ -34,6 +33,7 @@ public class WordCounter {
 	 *                  will be ignored.
 	 */
 	public WordCounter(Reader input, Collection<String> stopwords) {
+		this.words = new HashSet<String>();
 		this.stopwords = new HashSet<String>(stopwords);
 		this.input = input;
 		this.lastWord = null;
@@ -41,7 +41,12 @@ public class WordCounter {
 	}
 
 	private boolean isSeparator(int character) {
-		return character == SPACE || character == LF || character == CR;
+		for (int separator : SEPARATORS) {
+			if (character == separator) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isLegalChar(int character) {
