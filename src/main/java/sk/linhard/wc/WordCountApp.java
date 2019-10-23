@@ -28,7 +28,7 @@ public class WordCountApp {
 	}
 
 	private Collection<String> readStopWords() throws IOException {
-		if (stopWordsFile.isEmpty()) {
+		if (!stopWordsFile.isPresent()) {
 			return Collections.emptyList();
 		}
 		try {

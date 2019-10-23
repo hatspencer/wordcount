@@ -16,26 +16,24 @@ public class Main {
 	private static final String STOPWORDS_FILE_NAME = "stopwords.txt";
 
 	public static void main(String[] args) {
-		try (Reader inputReader = createInputReader(args)) {
-			boolean printIndex = true;
-			
-			WordCountApp app = new WordCountApp(inputReader, UTF_8, Optional.of(new File(STOPWORDS_FILE_NAME)));
-			System.out.print(printIndex ? app.computeOutputWithIndex() : app.computeOutput());
+		try {
+			Arguments parsedArgs = Arguments.parse(args);
+			try (Reader inputReader = createInputReader(parsedArgs.inputFile())) {
+				WordCountApp app = new WordCountApp(inputReader, UTF_8, Optional.of(new File(STOPWORDS_FILE_NAME)));
+				System.out.print(parsedArgs.printIndex() ? app.computeOutputWithIndex() : app.computeOutput());
+			}
 		} catch (Throwable e) {
 			System.err.println("ERROR: " + e.getMessage());
 		}
 	}
 
-	private static Reader createInputReader(String[] args) throws IOException {
-		if (args.length == 0) {
+	private static Reader createInputReader(Optional<File> inputFile) throws IOException {
+		if (!inputFile.isPresent()) {
 			System.out.print("Enter text: ");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, UTF_8));
 			return new StringReader(reader.readLine());
-		} else if (args.length == 1) {
-			File inputFile = new File(args[0]);
-			return new InputStreamReader(new FileInputStream(inputFile), UTF_8);
 		} else {
-			throw new IllegalArgumentException("Illegal number of arguments");
+			return new InputStreamReader(new FileInputStream(inputFile.get()), UTF_8);
 		}
 	}
 
