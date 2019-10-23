@@ -76,7 +76,7 @@ public class WordCounterTest {
 	@Test
 	public void testUniqueCount() {
 		assertCount(4, 2, "aaa aaa bbb bbb");
-		assertCount(9, 7, "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", "the", "a", "on", "off");
+		assertCount(7, 6, "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", "the", "a", "on", "off");
 	}
 
 	@Test
@@ -85,8 +85,18 @@ public class WordCounterTest {
 	}
 
 	@Test
-	public void testDashDotSeparators() {
-		assertCount(3, 1, "aaa.aaa-aaa");
+	public void testSeparators() {
+		assertCount(4, 1, "aaa.aaa\naaa aaa");
+	}
+
+	@Test
+	public void testHyphenWords() {
+		assertCount(3, 1, "--- . --- . ---");
+	}
+
+	@Test
+	public void testDashNoLongerSeparator() {
+		assertCount(2, 2, "aaa.aaa-aaa");
 	}
 
 	private void assertCountWithStopWords(int expectedCount, String input, String... stopWords) {

@@ -13,11 +13,12 @@ import java.util.Set;
  */
 public class WordCounter {
 
-	private static final int[] SEPARATORS = { (int) ' ', (int) '\n', (int) '\r', (int) '.', (int) '-' };
+	private static final int[] SEPARATORS = { (int) ' ', (int) '\n', (int) '\r', (int) '.' };
 	private static final int LOWER_A = (int) 'a';
 	private static final int LOWER_Z = (int) 'z';
 	private static final int UPPER_A = (int) 'A';
 	private static final int UPPER_Z = (int) 'Z';
+	private static final int DASH = (int) '-';
 	private static final int NOT_KNOWN = -1;
 
 	private int count;
@@ -53,7 +54,8 @@ public class WordCounter {
 	}
 
 	private boolean isLegalChar(int character) {
-		return (character >= LOWER_A && character <= LOWER_Z) || (character >= UPPER_A && character <= UPPER_Z);
+		return character == DASH || (character >= LOWER_A && character <= LOWER_Z)
+				|| (character >= UPPER_A && character <= UPPER_Z);
 	}
 
 	private char toChar(int codePoint) {

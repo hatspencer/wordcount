@@ -25,7 +25,8 @@ public class Main {
 			Collection<String> stopWords = readStopWords();
 			WordCounter wordCounter = new WordCounter(inputReader, stopWords);
 			int count = wordCounter.count();
-			System.out.print("Number of words: " + count);
+			int uniqueCount = wordCounter.uniqueCount();
+			System.out.print("Number of words: " + count + ", unique: " + uniqueCount);
 		} catch (Throwable e) {
 			System.err.println("ERROR: " + e.getMessage());
 		}
