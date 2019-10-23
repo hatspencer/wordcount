@@ -9,6 +9,11 @@ import org.junit.Test;
 public class WordCounterTest {
 
 	@Test
+	public void testFileInput() {
+
+	}
+
+	@Test
 	public void testInitialExample() {
 		assertCount(5, "Mary had a little lamb");
 	}
@@ -48,6 +53,13 @@ public class WordCounterTest {
 		assertCount(0, " ");
 		assertCount(0, "\t");
 		assertCount(0, "foo\tbar");
+	}
+
+	@Test
+	public void testMultiLineInput() {
+		assertCount(5, "Mary had\na little\nlamb");
+		assertCount(5, "Mary had\ra little\rlamb");
+		assertCount(5, "Mary had\r\na little\r\nlamb");
 	}
 
 	@Test

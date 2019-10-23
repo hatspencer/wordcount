@@ -13,7 +13,9 @@ import java.util.Set;
  */
 public class WordCounter {
 
-	private static final int SEPARATOR = (int) ' ';
+	private static final int SPACE = (int) ' ';
+	private static final int LF = (int) '\n';
+	private static final int CR = (int) '\r';
 	private static final int LOWER_A = (int) 'a';
 	private static final int LOWER_Z = (int) 'z';
 	private static final int UPPER_A = (int) 'A';
@@ -36,6 +38,10 @@ public class WordCounter {
 		this.input = input;
 		this.lastWord = null;
 		this.lastWordLegal = true;
+	}
+
+	private boolean isSeparator(int character) {
+		return character == SPACE || character == LF || character == CR;
 	}
 
 	private boolean isLegalChar(int character) {
@@ -74,7 +80,7 @@ public class WordCounter {
 			boolean inSeparator = true;
 			int c;
 			while ((c = input.read()) != -1) {
-				if (c == SEPARATOR) {
+				if (isSeparator(c)) {
 					if (!inSeparator) {
 						if (lastWordCounts()) {
 							count++;
