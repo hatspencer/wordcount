@@ -45,7 +45,7 @@ public class WordCountApp {
 		int count = wordCounter.count();
 		int uniqueCount = wordCounter.uniqueCount();
 		double averageLength = wordCounter.averageLength();
-		List<String> index = wordCounter.getIndex();
+		List<String> index = wordCounter.index();
 		String countsLine = String.format("Number of words: %d, unique: %d; average word length: %s characters", count,
 				uniqueCount, AVG_FORMAT.format(averageLength));
 

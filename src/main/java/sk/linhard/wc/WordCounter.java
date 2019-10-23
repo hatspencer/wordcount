@@ -121,7 +121,7 @@ public class WordCounter {
 	/**
 	 * @return Alphabetically sorted list of counted words.
 	 */
-	public List<String> getIndex() {
+	public List<String> index() {
 		processIfNecessary();
 		return this.words.stream().sorted().collect(Collectors.toList());
 	}

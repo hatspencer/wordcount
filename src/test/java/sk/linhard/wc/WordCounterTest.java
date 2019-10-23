@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.StringReader;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -106,6 +107,16 @@ public class WordCounterTest {
 	public void testAverageLength() {
 		assertEquals("3.00", AVG_FORMAT.format(createCounter("aaaa aa aaaa aa").averageLength()));
 		assertEquals("3.25", AVG_FORMAT.format(createCounter("aaaa aaa aaaa aa").averageLength()));
+	}
+
+	@Test
+	public void testIndices() {
+		WordCounter wc = createCounter("cc aa bb");
+		List<String> index = wc.index();
+		assertEquals("aa", index.get(0));
+		assertEquals("bb", index.get(1));
+		assertEquals("cc", index.get(2));
+		assertEquals(3, index.size());
 	}
 
 	private WordCounter createCounter(String input, String... stopWords) {
