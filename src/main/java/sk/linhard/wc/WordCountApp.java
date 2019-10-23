@@ -9,7 +9,6 @@ import java.nio.file.NoSuchFileException;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -44,16 +43,21 @@ public class WordCountApp {
 		return new WordCounter(inputReader, stopWords);
 	}
 
-	public String computeOutput() throws IOException {
-		WordCounter wordCounter = createCounter();
+	private String formatCountsLine(WordCounter wordCounter) {
 		int count = wordCounter.count();
 		int uniqueCount = wordCounter.uniqueCount();
 		double averageLength = wordCounter.averageLength();
-		List<String> index = wordCounter.index();
-		String countsLine = String.format("Number of words: %d, unique: %d; average word length: %s characters", count,
-				uniqueCount, AVG_FORMAT.format(averageLength));
+		return String.format("Number of words: %d, unique: %d; average word length: %s characters", count, uniqueCount,
+				AVG_FORMAT.format(averageLength));
+	}
 
-		return countsLine + "\nIndex:\n" + String.join("\n", index);
+	public String computeOutput() throws IOException {
+		return formatCountsLine(createCounter());
+	}
+
+	public String computeOutputWithIndex() throws IOException {
+		WordCounter wordCounter = createCounter();
+		return formatCountsLine(wordCounter) + "\nIndex:\n" + String.join("\n", wordCounter.index());
 	}
 
 }

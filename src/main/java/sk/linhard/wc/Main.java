@@ -17,8 +17,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		try (Reader inputReader = createInputReader(args)) {
+			boolean printIndex = true;
+			
 			WordCountApp app = new WordCountApp(inputReader, UTF_8, Optional.of(new File(STOPWORDS_FILE_NAME)));
-			System.out.print(app.computeOutput());
+			System.out.print(printIndex ? app.computeOutputWithIndex() : app.computeOutput());
 		} catch (Throwable e) {
 			System.err.println("ERROR: " + e.getMessage());
 		}

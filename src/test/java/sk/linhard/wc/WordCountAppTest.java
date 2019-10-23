@@ -17,23 +17,29 @@ public class WordCountAppTest {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	@Test
+	public void testConsoleOutputNoIndex() throws Exception {
+		assertEquals("Number of words: 4, unique: 3; average word length: 3.25 characters",
+				createApp("aaaa aaa aaaa aa").computeOutput());
+	}
+
+	@Test
 	public void testConsoleOutput() throws Exception {
 		assertEquals("Number of words: 4, unique: 3; average word length: 3.25 characters\nIndex:\naa\naaa\naaaa",
-				createApp("aaaa aaa aaaa aa").computeOutput());
+				createApp("aaaa aaa aaaa aa").computeOutputWithIndex());
 	}
 
 	@Test
 	public void testConsoleOutputFromExample() throws Exception {
 		assertEquals(
 				"Number of words: 4, unique: 4; average word length: 4.25 characters\nIndex:\nMary\nhad\nlamb\nlittle",
-				createAppWithDefaultStopWords("Mary had a little lamb").computeOutput());
+				createAppWithDefaultStopWords("Mary had a little lamb").computeOutputWithIndex());
 	}
 
 	@Test
 	public void testConsoleOutputWithFileInput() throws Exception {
 		assertEquals(
 				"Number of words: 4, unique: 4; average word length: 4.25 characters\nIndex:\nMary\nhad\nlamb\nlittle",
-				createAppWithDefaultInputAndStopWords().computeOutput());
+				createAppWithDefaultInputAndStopWords().computeOutputWithIndex());
 	}
 
 	private WordCountApp createApp(String input) {
