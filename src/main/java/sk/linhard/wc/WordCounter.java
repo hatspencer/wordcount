@@ -43,6 +43,7 @@ public class WordCounter {
 		this.lastWord = null;
 		this.lastWordLegal = true;
 		this.count = NOT_KNOWN;
+		this.sumOfLengths = 0;
 	}
 
 	private boolean isSeparator(int character) {
