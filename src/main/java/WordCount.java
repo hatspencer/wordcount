@@ -34,7 +34,7 @@ public class WordCount {
     }
 
     public CountingResult count() {
-        List<String> inputWords = new InputTextParser().parse(userInput);
+        List<String> inputWords = new InputTextParser().findWords(userInput);
         List<String> withoutStopWords = new StopWordsFilter(stopWords).filter(inputWords);
 
         long wordsCount = withoutStopWords.size();

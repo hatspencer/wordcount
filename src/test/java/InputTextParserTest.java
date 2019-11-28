@@ -17,43 +17,43 @@ public class InputTextParserTest {
 
     @Test
     public void countWordsShouldHandleSpaces() {
-        List<String> result = inputTextParser.parse("a b  c   d  ");
+        List<String> result = inputTextParser.findWords("a b  c   d  ");
         assertEquals(4, result.size());
     }
 
     @Test
     public void countWordsShouldHandleTabs() {
-        List<String> result = inputTextParser.parse("\ta\tb\t\tc\t");
+        List<String> result = inputTextParser.findWords("\ta\tb\t\tc\t");
         assertEquals(3, result.size());
     }
 
     @Test
     public void countWordsShouldHandleEmptyLine() {
-        List<String> result = inputTextParser.parse("");
+        List<String> result = inputTextParser.findWords("");
         assertEquals(0, result.size());
 
-        result = inputTextParser.parse(" ");
+        result = inputTextParser.findWords(" ");
         assertEquals(0, result.size());
 
-        result = inputTextParser.parse("\t");
+        result = inputTextParser.findWords("\t");
         assertEquals(0, result.size());
 
-        result = inputTextParser.parse("\n");
+        result = inputTextParser.findWords("\n");
         assertEquals(0, result.size());
     }
 
     @Test
     public void countWordsShouldCountOnlyWords() {
-        List<String> result = inputTextParser.parse("1 1a f` don't g;");
+        List<String> result = inputTextParser.findWords("1 1a f` don't g;");
         assertEquals(4, result.size());
 
-        result = inputTextParser.parse(" 1 1a\tValid \t WORD");
+        result = inputTextParser.findWords(" 1 1a\tValid \t WORD");
         assertEquals(2, result.size());
     }
 
     @Test
     public void countWordsShouldRecognizeNonWordCharacters() {
-        List<String> result = inputTextParser.parse("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+        List<String> result = inputTextParser.findWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
         List<String> expected = Arrays.asList("Humpty", "Dumpty", "sat", "on", "a", "wall", "Humpty", "Dumpty", "had", "a", "great", "fall");
 
         assertEquals(expected, result);

@@ -10,7 +10,7 @@ public class Application {
 
     public static void main(String[] args) {
         // IO
-        Set<String> stopWords = new StopWordsReader(STOPWORDS_RESOURCE).getStopWords();
+        Set<String> stopWords = new StopWordsFileReader(STOPWORDS_RESOURCE).getStopWords();
 
         // IO
         InputReader inputReader = getInputReader(args);
@@ -21,9 +21,9 @@ public class Application {
         }
 
         // IO
-        String inputText;
+        String userInput;
         try {
-            inputText = inputReader.readInput();
+            userInput = inputReader.readInput();
         } catch (IOException e) {
             System.out.println("An error occurred.");
 
@@ -31,7 +31,7 @@ public class Application {
         }
 
         // BL
-        WordCount.CountingResult countingResult = new WordCount(inputText, stopWords).count();
+        WordCount.CountingResult countingResult = new WordCount(userInput, stopWords).count();
 
         // IO
         System.out.println("Number of words: " + countingResult.getWordsCount() + ", unique: " + countingResult.getUniqueWordsCount());

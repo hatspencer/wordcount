@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  */
 public class InputTextParser {
 
-    public List<String> parse(String inputText) {
+    public List<String> findWords(String inputText) {
         String trimmed = inputText.trim();
 
         if ("".equals(trimmed)) {

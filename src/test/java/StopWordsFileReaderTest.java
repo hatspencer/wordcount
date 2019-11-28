@@ -4,18 +4,18 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-public class StopWordsReaderTest {
+public class StopWordsFileReaderTest {
 
     private static final String PATH_TO_RESOURCE = "stopwords.txt";
 
     @Test
     public void shouldFindFileInResources() {
-        new StopWordsReader(PATH_TO_RESOURCE).getStopWords();
+        new StopWordsFileReader(PATH_TO_RESOURCE).getStopWords();
     }
 
     @Test
     public void shouldReadStopWords() {
-        Set<String> stopwords = new StopWordsReader(PATH_TO_RESOURCE).getStopWords();
+        Set<String> stopwords = new StopWordsFileReader(PATH_TO_RESOURCE).getStopWords();
 
         assertEquals(3, stopwords.size());
     }
