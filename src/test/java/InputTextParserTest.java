@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -43,11 +44,19 @@ public class InputTextParserTest {
 
     @Test
     public void countWordsShouldCountOnlyWords() {
-        List<String> result = inputTextParser.parse("1 1a f` g;");
-        assertEquals(0, result.size());
+        List<String> result = inputTextParser.parse("1 1a f` don't g;");
+        assertEquals(4, result.size());
 
         result = inputTextParser.parse(" 1 1a\tValid \t WORD");
         assertEquals(2, result.size());
+    }
+
+    @Test
+    public void countWordsShouldRecognizeNonWordCharacters() {
+        List<String> result = inputTextParser.parse("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+        List<String> expected = Arrays.asList("Humpty", "Dumpty", "sat", "on", "a", "wall", "Humpty", "Dumpty", "had", "a", "great", "fall");
+
+        assertEquals(expected, result);
     }
 
 }

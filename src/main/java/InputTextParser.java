@@ -15,7 +15,7 @@ public class InputTextParser {
             return Collections.emptyList();
         }
 
-        return Arrays.stream(trimmed.split("\\s+"))
+        return Arrays.stream(trimmed.split("\\W+"))
             .filter(token -> token.matches("[a-zA-Z]+"))
             .collect(Collectors.toList());
     }
