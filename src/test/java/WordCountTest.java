@@ -5,19 +5,19 @@ import static org.junit.Assert.*;
 public class WordCountTest {
 
     @Test
-    public void countWordsSpaces() {
+    public void countWordsShouldHandleSpaces() {
         long result = WordCount.countWords("a b  c   d  ");
         assertEquals(4, result);
     }
 
     @Test
-    public void countWordsTabs() {
+    public void countWordsShouldHandleTabs() {
         long result = WordCount.countWords("\ta\tb\t\tc\t");
         assertEquals(3, result);
     }
 
     @Test
-    public void countWordsEmptyLine() {
+    public void countWordsShouldHandleEmptyLine() {
         long result = WordCount.countWords("");
         assertEquals(0, result);
 
@@ -29,5 +29,14 @@ public class WordCountTest {
 
         result = WordCount.countWords("\n");
         assertEquals(0, result);
+    }
+
+    @Test
+    public void countWordsShouldCountOnlyWords() {
+        long result = WordCount.countWords("1 1a f` g;");
+        assertEquals(0, result);
+
+        result = WordCount.countWords(" 1 1a\tValid \t WORD");
+        assertEquals(2, result);
     }
 }

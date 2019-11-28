@@ -1,5 +1,6 @@
+import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.StreamSupport;
 
 /**
  * @author <a href="mailto:tibor@thinkcreatix.com">Tibor Koma</a>
@@ -10,11 +11,13 @@ public class WordCount {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter text: ");
 
-        String inputText = scanner.nextLine();
-
-        long wordCount = countWords(inputText);
-
-        System.out.println("Number of words: " + wordCount);
+        try {
+            String inputText = scanner.nextLine();
+            long wordCount = countWords(inputText);
+            System.out.println("Number of words: " + wordCount);
+        } catch (NoSuchElementException e) {
+            System.out.println("No correct input");
+        }
     }
 
     static long countWords(String inputString) {
@@ -24,6 +27,8 @@ public class WordCount {
             return 0;
         }
 
-        return trimmed.split("\\s+").length;
+        return Arrays.stream(trimmed.split("\\s+"))
+            .filter(token -> token.matches("[a-zA-Z]+"))
+            .count();
     }
 }
