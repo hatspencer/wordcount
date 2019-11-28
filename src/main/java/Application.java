@@ -9,10 +9,8 @@ public class Application {
     private static final String STOPWORDS_RESOURCE = "stopwords.txt";
 
     public static void main(String[] args) {
-        // IO
         Set<String> stopWords = new StopWordsFileReader(STOPWORDS_RESOURCE).getStopWords();
 
-        // IO
         InputReader inputReader = getInputReader(args);
         if (inputReader == null) {
             System.out.println("Invalid number of arguments");
@@ -20,7 +18,6 @@ public class Application {
             return;
         }
 
-        // IO
         String userInput;
         try {
             userInput = inputReader.readInput();
@@ -30,10 +27,8 @@ public class Application {
             return;
         }
 
-        // BL
         WordCount.CountingResult countingResult = new WordCount(userInput, stopWords).count();
 
-        // IO
         System.out.println("Number of words: " + countingResult.getWordsCount() + ", unique: " + countingResult.getUniqueWordsCount());
     }
 
