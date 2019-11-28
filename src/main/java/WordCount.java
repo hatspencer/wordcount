@@ -2,8 +2,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:tibor@thinkcreatix.com">Tibor Koma</a>
@@ -13,8 +11,10 @@ public class WordCount {
     private static final String STOPWORDS_RESOURCE = "stopwords.txt";
 
     public static void main(String[] args) {
+        // IO
         Set<String> stopWords = new StopWordsReader(STOPWORDS_RESOURCE).getStopWords();
 
+        // IO
         InputReader inputReader = getInputReader(args);
         if (inputReader == null) {
             System.out.println("Invalid number of arguments");
@@ -22,18 +22,25 @@ public class WordCount {
             return;
         }
 
-        List<String> inputWords;
+        // IO
+        String inputText;
         try {
-            inputWords = new InputTextParser().parse(inputReader.readInput());
+            inputText = inputReader.readInput();
         } catch (IOException e) {
             System.out.println("An error occurred.");
 
             return;
         }
 
+        // BL
+        List<String> inputWords = new InputTextParser().parse(inputText);
         List<String> withoutStopWords = new StopWordsFilter(stopWords).filter(inputWords);
 
-        System.out.println("Number of words: " + withoutStopWords.size() + ", unique: " + new HashSet<>(withoutStopWords).size());
+        long wordsCount = withoutStopWords.size();
+        long uniqueWordsCount = new HashSet<>(withoutStopWords).size();
+
+        // IO
+        System.out.println("Number of words: " + wordsCount + ", unique: " + uniqueWordsCount);
     }
 
     static InputReader getInputReader(String[] args) {
