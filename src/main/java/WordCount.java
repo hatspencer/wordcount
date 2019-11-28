@@ -1,5 +1,5 @@
+import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -25,17 +25,29 @@ public class WordCount {
 
     public static void main(String[] args) {
         Set<String> stopWords = new StopWordsReader(STOPWORDS_RESOURCE).getStopWords();
-        List<String> inputWords;
 
-        try {
-            String inputText = new InputTextReader().readInput();
-            inputWords = new InputTextParser().parse(inputText);
-        } catch (NoSuchElementException e) {
-            System.out.println("No correct input");
+        InputReader inputReader = getInputReader(args);
+        if (inputReader == null) {
+            System.out.println("Invalid number of arguments");
 
             return;
         }
 
-        System.out.println("Number of words: " + new WordCount(stopWords, inputWords).getWordCount());
+        try {
+            List<String> inputWords = new InputTextParser().parse(inputReader.readInput());
+            System.out.println("Number of words: " + new WordCount(stopWords, inputWords).getWordCount());
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        }
+    }
+
+    static InputReader getInputReader(String[] args) {
+        if (args.length == 0) {
+            return new CommandLineInputReader();
+        } else if (args.length == 1) {
+            return new FileInputReader(args[0]);
+        } else {
+            return null;
+        }
     }
 }

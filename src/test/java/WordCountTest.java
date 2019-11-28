@@ -19,4 +19,25 @@ public class WordCountTest {
         assertEquals(2, result);
     }
 
+    @Test
+    public void getInputReaderShouldReturnNullForTooManyArguments() {
+        InputReader result = WordCount.getInputReader(new String[]{"one", "two"});
+
+        assertNull(result);
+    }
+
+    @Test
+    public void getInputReaderShouldReturnCommandLineInputReaderForZeroArguments() {
+        InputReader result = WordCount.getInputReader(new String[]{});
+
+        assertTrue(result instanceof CommandLineInputReader);
+    }
+
+    @Test
+    public void getInputReaderShouldReturnFileInputReaderForSingleArgument() {
+        InputReader result = WordCount.getInputReader(new String[]{"one"});
+
+        assertTrue(result instanceof FileInputReader);
+    }
+
 }
