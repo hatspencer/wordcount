@@ -14,14 +14,20 @@ class StopWordsReader {
     }
 
     Set<String> getStopWords() {
-        // TODO catch NPE
-        Scanner fileScanner = new Scanner(StopWordsReader.class.getResourceAsStream(filePath), "UTF-8").useDelimiter("\n");
-        Set<String> stopwords = new HashSet<>();
+        try {
+            Scanner fileScanner = new Scanner(
+                StopWordsReader.class.getResourceAsStream(filePath),
+                "UTF-8"
+            ).useDelimiter("\n");
+            Set<String> stopwords = new HashSet<>();
 
-        while (fileScanner.hasNext()) {
-            stopwords.add(fileScanner.next());
+            while (fileScanner.hasNext()) {
+                stopwords.add(fileScanner.next());
+            }
+
+            return stopwords;
+        } catch (NullPointerException | IllegalArgumentException e) {
+            throw new RuntimeException("Error reading file");
         }
-
-        return stopwords;
     }
 }
