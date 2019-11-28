@@ -16,19 +16,19 @@ public class InputTextParserTest {
     }
 
     @Test
-    public void countWordsShouldHandleSpaces() {
+    public void findWordsShouldHandleSpaces() {
         List<String> result = inputTextParser.findWords("a b  c   d  ");
         assertEquals(4, result.size());
     }
 
     @Test
-    public void countWordsShouldHandleTabs() {
+    public void findWordsShouldHandleTabs() {
         List<String> result = inputTextParser.findWords("\ta\tb\t\tc\t");
         assertEquals(3, result.size());
     }
 
     @Test
-    public void countWordsShouldHandleEmptyLine() {
+    public void findWordsShouldHandleEmptyLine() {
         List<String> result = inputTextParser.findWords("");
         assertEquals(0, result.size());
 
@@ -43,7 +43,7 @@ public class InputTextParserTest {
     }
 
     @Test
-    public void countWordsShouldCountOnlyWords() {
+    public void findWordsShouldCountOnlyWords() {
         List<String> result = inputTextParser.findWords("1 1a f` don't g;");
         assertEquals(4, result.size());
 
@@ -52,7 +52,7 @@ public class InputTextParserTest {
     }
 
     @Test
-    public void countWordsShouldRecognizeNonWordCharacters() {
+    public void findWordsShouldRecognizeNonWordCharacters() {
         List<String> result = inputTextParser.findWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
         List<String> expected = Arrays.asList("Humpty", "Dumpty", "sat", "on", "a", "wall", "Humpty", "Dumpty", "had", "a", "great", "fall");
 

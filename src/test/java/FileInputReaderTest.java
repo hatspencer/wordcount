@@ -7,15 +7,13 @@ import static org.junit.Assert.assertEquals;
 public class FileInputReaderTest {
 
     @Test
-    public void readInputShouldOpenFile() throws Exception {
-
+    public void readInputShouldOpenFileWithoutThrowingAnException() throws Exception {
         FileInputReader fileInputReader = new FileInputReader(getStopWordsPath());
         fileInputReader.readInput();
     }
 
-
     @Test
-    public void readInputShouldReadFile() throws Exception {
+    public void readInputShouldReadFileContentsCorrectly() throws Exception {
         FileInputReader fileInputReader = new FileInputReader(getStopWordsPath());
         String result = fileInputReader.readInput();
 

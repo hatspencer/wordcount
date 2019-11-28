@@ -4,7 +4,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-public class StopWordsFileReaderTest {
+public class StopWordsReaderTest {
 
     private static final String PATH_TO_RESOURCE = "stopwords.txt";
 
