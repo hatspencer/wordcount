@@ -1,29 +1,36 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class WordCountTest {
 
     @Test
-    public void getInputReaderShouldReturnNullForTooManyArguments() {
-        InputReader result = WordCount.getInputReader(new String[]{"one", "two"});
+    public void countShouldCountWords() {
+        String userInput = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+        Set<String> stopWords = new HashSet<>(Arrays.asList("the", "a", "on", "off"));
 
-        assertNull(result);
+        WordCount wordCount = new WordCount(userInput, stopWords);
+        WordCount.CountingResult result = wordCount.count();
+
+        assertEquals(9, result.getWordsCount());
+        assertEquals(7, result.getUniqueWordsCount());
     }
 
     @Test
-    public void getInputReaderShouldReturnCommandLineInputReaderForZeroArguments() {
-        InputReader result = WordCount.getInputReader(new String[]{});
+    public void countShouldCountWordsNoStopWords() {
+        String userInput = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+        Set<String> stopWords = Collections.emptySet();
 
-        assertTrue(result instanceof CommandLineInputReader);
-    }
+        WordCount wordCount = new WordCount(userInput, stopWords);
+        WordCount.CountingResult result = wordCount.count();
 
-    @Test
-    public void getInputReaderShouldReturnFileInputReaderForSingleArgument() {
-        InputReader result = WordCount.getInputReader(new String[]{"one"});
-
-        assertTrue(result instanceof FileInputReader);
+        assertEquals(12, result.getWordsCount());
+        assertEquals(9, result.getUniqueWordsCount());
     }
 
 }

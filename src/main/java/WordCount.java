@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,48 +7,39 @@ import java.util.Set;
  */
 public class WordCount {
 
-    private static final String STOPWORDS_RESOURCE = "stopwords.txt";
+    static class CountingResult {
+        private long wordsCount;
+        private long uniqueWordsCount;
 
-    public static void main(String[] args) {
-        // IO
-        Set<String> stopWords = new StopWordsReader(STOPWORDS_RESOURCE).getStopWords();
-
-        // IO
-        InputReader inputReader = getInputReader(args);
-        if (inputReader == null) {
-            System.out.println("Invalid number of arguments");
-
-            return;
+        public CountingResult(long wordsCount, long uniqueWordsCount) {
+            this.wordsCount = wordsCount;
+            this.uniqueWordsCount = uniqueWordsCount;
         }
 
-        // IO
-        String inputText;
-        try {
-            inputText = inputReader.readInput();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-
-            return;
+        public long getWordsCount() {
+            return wordsCount;
         }
 
-        // BL
-        List<String> inputWords = new InputTextParser().parse(inputText);
+        public long getUniqueWordsCount() {
+            return uniqueWordsCount;
+        }
+    }
+
+    private final String userInput;
+    private final Set<String> stopWords;
+
+    public WordCount(String userInput, Set<String> stopWords) {
+        this.userInput = userInput;
+        this.stopWords = stopWords;
+    }
+
+    public CountingResult count() {
+        List<String> inputWords = new InputTextParser().parse(userInput);
         List<String> withoutStopWords = new StopWordsFilter(stopWords).filter(inputWords);
 
         long wordsCount = withoutStopWords.size();
         long uniqueWordsCount = new HashSet<>(withoutStopWords).size();
 
-        // IO
-        System.out.println("Number of words: " + wordsCount + ", unique: " + uniqueWordsCount);
-    }
-
-    static InputReader getInputReader(String[] args) {
-        if (args.length == 0) {
-            return new CommandLineInputReader();
-        } else if (args.length == 1) {
-            return new FileInputReader(args[0]);
-        } else {
-            return null;
-        }
+        return new CountingResult(wordsCount, uniqueWordsCount);
     }
 }
