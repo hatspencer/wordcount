@@ -1,5 +1,5 @@
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -7,22 +7,35 @@ import java.util.Set;
  */
 public class WordCount {
 
-    public static void main(String[] args) {
-        Set<String> stopwords = new StopWordsReader("stopwords.txt").getStopWords();
+    private static final String STOPWORDS_RESOURCE = "stopwords.txt";
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter text: ");
+    private final Set<String> stopWords;
+    private final List<String> inputWords;
+
+    WordCount(Set<String> stopWords, List<String> inputWords) {
+        this.stopWords = stopWords;
+        this.inputWords = inputWords;
+    }
+
+    long getWordCount() {
+        return inputWords.stream()
+            .filter(word -> !stopWords.contains(word))
+            .count();
+    }
+
+    public static void main(String[] args) {
+        Set<String> stopWords = new StopWordsReader(STOPWORDS_RESOURCE).getStopWords();
+        List<String> inputWords;
 
         try {
-            String inputText = scanner.nextLine();
-
-            long wordCount = new InputTextParser().parse(inputText).stream()
-                .filter(word -> !stopwords.contains(word))
-                .count();
-
-            System.out.println("Number of words: " + wordCount);
+            String inputText = new InputTextReader().readInput();
+            inputWords = new InputTextParser().parse(inputText);
         } catch (NoSuchElementException e) {
             System.out.println("No correct input");
+
+            return;
         }
+
+        System.out.println("Number of words: " + new WordCount(stopWords, inputWords).getWordCount());
     }
 }
