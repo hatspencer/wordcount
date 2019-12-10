@@ -50,7 +50,9 @@ public class ValidWordTokenizer implements Tokenizer {
                 case WORD:
                     if (isWhiteSpaceChar) {
                         return Optional.of(sb.toString());
-                    } else if (!isWordChar) {
+                    } else if (isWordChar) {
+                        sb.append(character);
+                    } else {
                         sb.setLength(0);
                         state = State.OTHER;
                     }
