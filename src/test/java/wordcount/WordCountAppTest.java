@@ -15,7 +15,14 @@ public class WordCountAppTest {
     @Test
     public void testRun() throws IOException {
         StringWriter sw = new StringWriter();
-        WordCountApp.run(new StringReader("Mary had a little lamb"), new PrintWriter(sw));
+        new WordCountApp(new StringReader("Mary had a little lamb"), new PrintWriter(sw));
+        assertEquals("Enter text: Number of words: 4\n", sw.toString());
+    }
+
+    @Test
+    public void testInputProvidedFromCommandLine() throws IOException {
+        StringWriter sw = new StringWriter();
+        new WordCountApp(new StringReader(""), new PrintWriter(sw), "src/test/resources/wordcount/mytext.txt");
         assertEquals("Enter text: Number of words: 4\n", sw.toString());
     }
 

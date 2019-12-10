@@ -3,6 +3,7 @@ package wordcount;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,12 +26,12 @@ public class StopWordsPredicateTest {
 
     @Test
     public void testBuildFromClasspath() throws IOException {
-        final StopWordsPredicate predicate = StopWordsPredicate.fromInputStream(
-            getClass().getResourceAsStream("StopWordsPredicateTest.txt")
-        );
-        
-        assertTrue("dog, fox, lazy should all be stop words", Arrays.asList("dog", "fox", "lazy")
-            .stream()
-            .noneMatch(predicate));
+        try (InputStream inputStream = getClass().getResourceAsStream("StopWordsPredicateTest.txt")) {
+            final StopWordsPredicate predicate = StopWordsPredicate.fromInputStream(inputStream);
+
+            assertTrue("dog, fox, lazy should all be stop words", Arrays.asList("dog", "fox", "lazy")
+                .stream()
+                .noneMatch(predicate));
+        }
     }
 }

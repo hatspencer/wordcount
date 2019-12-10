@@ -28,7 +28,8 @@ public class ValidWordTokenizer implements Tokenizer {
     }
 
     private boolean isWhiteSpace(char input) {
-        return ' ' == input;
+        return ' ' == input
+            || '\n' == input;
     }
 
     @Override
