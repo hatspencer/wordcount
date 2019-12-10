@@ -1,6 +1,5 @@
 package wordcount;
 
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -17,8 +16,8 @@ public interface Tokenizer {
      * is returned.
      *
      * @return an String token wrapped in an Optional
-     * @throws IOException if an error occurred while reading the input stream
+     * @throws TokenizerException if an error occurred while parsing
      */
-    Optional<String> nextToken() throws IOException;
+    Optional<String> nextToken();
 
 }

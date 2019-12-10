@@ -25,7 +25,7 @@ public class WordCounterTest {
         }
 
         @Override
-        public Optional<String> nextToken() throws IOException {
+        public Optional<String> nextToken() {
             if (tokenQueue.isEmpty()) {
                 return empty();
             } else {
@@ -33,18 +33,18 @@ public class WordCounterTest {
             }
         }
     }
-    private void testWordCounter(long expected, String... tokens) throws IOException {
+    private void testWordCounter(long expected, String... tokens) {
         assertEquals(expected, new WordCounter().wordCount(new DummyTokenizer(tokens)));
     }
 
 
     @Test
-    public void emptyTest() throws IOException {
+    public void emptyTest() {
         testWordCounter(0);
     }
 
     @Test
-    public void nonEmptyTest() throws IOException {
+    public void nonEmptyTest() {
         testWordCounter(1, "one");
         testWordCounter(2, "one", "two");
     }

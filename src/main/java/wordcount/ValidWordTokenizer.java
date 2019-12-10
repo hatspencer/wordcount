@@ -2,18 +2,19 @@ package wordcount;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Collections;
 import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
+ * Tokenizer implementation that reads tokens from a reader.
+ * <p>
+ * It considers words as valid tokens, words being defined as
+ * blocks of characters delimited by whitespace (' '), containing only lowercase or uppercase latin characters.
+ * <p>
+ * The start and end of the stream are considered as whitespace.
+ *
  * @author Nándor Előd Fekete
  */
 public class ValidWordTokenizer implements Tokenizer {
-
-    private static enum State { WHITESPACE, WORD, OTHER }
 
     private final Reader reader;
 
@@ -22,7 +23,7 @@ public class ValidWordTokenizer implements Tokenizer {
     }
 
     private boolean isWordChar(char input) {
-        return 'a' <= input && input <='z'
+        return 'a' <= input && input <= 'z'
             || 'A' <= input && input <= 'Z';
     }
 
@@ -31,8 +32,15 @@ public class ValidWordTokenizer implements Tokenizer {
     }
 
     @Override
-    public Optional<String> nextToken() throws IOException {
+    public Optional<String> nextToken() {
+        try {
+            return tryNextToken();
+        } catch (IOException e) {
+            throw new TokenizerException(e);
+        }
+    }
 
+    private Optional<String> tryNextToken() throws IOException {
         State state = State.WHITESPACE;
         int readResult;
 
@@ -74,4 +82,6 @@ public class ValidWordTokenizer implements Tokenizer {
             return Optional.empty();
         }
     }
+
+    private static enum State {WHITESPACE, WORD, OTHER}
 }

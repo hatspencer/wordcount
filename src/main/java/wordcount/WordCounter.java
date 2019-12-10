@@ -1,19 +1,20 @@
 package wordcount;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.io.StreamTokenizer;
 
 /**
+ * Counts the words returned by the {@link Tokenizer}
+ * 
  * @author Nándor Előd Fekete
  */
 public class WordCounter {
 
-    public long wordCount(final Tokenizer tokenizer) throws IOException {
+    public long wordCount(final Tokenizer tokenizer) {
         long wordCount = 0;
         while (tokenizer.nextToken().isPresent()) {
             wordCount++;
         }
         return wordCount;
     }
+    
 }

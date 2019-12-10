@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ * Counts the words in the text read from standard input.
+ * 
  * @author Nándor Előd Fekete
  */
 public class WordCountApp {

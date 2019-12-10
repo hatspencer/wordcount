@@ -5,19 +5,16 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ValidWordTokenizerTest {
 
-    private void testTokenizer(final String input, final List<String> tokens) throws IOException {
+    private void testTokenizer(final String input, final List<String> tokens) {
         final ValidWordTokenizer tokenizer = new ValidWordTokenizer(new StringReader(input));
         final List<String> result = new ArrayList<>();
         Optional<String> tokenOpt;
@@ -28,27 +25,27 @@ public class ValidWordTokenizerTest {
     }
 
     @Test
-    public void empty() throws IOException {
+    public void empty() {
         testTokenizer("", emptyList());
     }
 
     @Test
-    public void singleValidWord() throws IOException {
+    public void singleValidWord() {
         testTokenizer("FooBar", asList("FooBar"));
     }
 
     @Test
-    public void blockOfCharsWithoutWordChars() throws IOException {
+    public void blockOfCharsWithoutWordChars() {
         testTokenizer("  @!#@#$923874897 ", emptyList());
     }
 
     @Test
-    public void blockWithBothWordAndNonWordChars() throws IOException {
+    public void blockWithBothWordAndNonWordChars() {
         testTokenizer("Foo$Bar", emptyList());
     }
 
     @Test
-    public void multipleWords() throws IOException {
+    public void multipleWords() {
         testTokenizer("Quick brown Fox", asList("Quick", "brown", "Fox"));
         testTokenizer("Quick  brown Fox", asList("Quick", "brown", "Fox"));
         testTokenizer(" Quick brown Fox", asList("Quick", "brown", "Fox"));
@@ -56,7 +53,7 @@ public class ValidWordTokenizerTest {
     }
 
     @Test
-    public void multipleWordsAndNonWords() throws IOException {
+    public void multipleWordsAndNonWords() {
         testTokenizer("$Quick brown Fox", asList("brown", "Fox"));
         testTokenizer("Quick brown Fox$", asList("Quick", "brown"));
         testTokenizer("Quick $brown Fox", asList("Quick", "Fox"));
