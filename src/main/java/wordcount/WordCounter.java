@@ -1,6 +1,5 @@
 package wordcount;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -15,7 +14,7 @@ public class WordCounter {
     private final Predicate<String> filter;
 
     public WordCounter() {
-        this(new StopWordsFilter(Collections.emptyList()));
+        this(new StopWordsPredicate(Collections.emptyList()));
     }
 
     public WordCounter(Predicate<String> filter) {
