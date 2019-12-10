@@ -32,17 +32,44 @@ public class ValidWordTokenizer implements Tokenizer {
 
     @Override
     public Optional<String> nextToken() throws IOException {
+
+        State state = State.WHITESPACE;
         int readResult;
 
-        State state = State.OTHER;
+        final StringBuilder sb = new StringBuilder();
         while ((readResult = reader.read()) != -1) {
             final char character = (char) readResult;
             boolean isWordChar = isWordChar(character);
             boolean isWhiteSpaceChar = isWhiteSpace(character);
-//            switch (state) {
-//                case OTHER:
-//            }
+            switch (state) {
+                case OTHER:
+                    if (isWhiteSpaceChar) {
+                        state = State.WHITESPACE;
+                    }
+                    break;
+                case WORD:
+                    if (isWhiteSpaceChar) {
+                        return Optional.of(sb.toString());
+                    } else if (!isWordChar) {
+                        sb.setLength(0);
+                        state = State.OTHER;
+                    }
+                    break;
+                case WHITESPACE:
+                    if (isWordChar) {
+                        sb.append(character);
+                        state = State.WORD;
+                    } else if (!isWhiteSpaceChar) {
+                        state = State.OTHER;
+                    }
+                    break;
+            }
         }
-        return Optional.empty();
+        if (state == State.WORD) {
+            return Optional.of(sb.toString());
+        } else {
+            //we only return empty when the stream ended
+            return Optional.empty();
+        }
     }
 }

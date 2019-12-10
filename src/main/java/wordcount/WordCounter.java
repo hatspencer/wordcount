@@ -9,20 +9,11 @@ import java.io.StreamTokenizer;
  */
 public class WordCounter {
 
-    public long wordCount(Reader reader) throws IOException {
-        StreamTokenizer tokenizer = new StreamTokenizer(reader);
-        tokenizer.resetSyntax();
-        tokenizer.wordChars('a', 'z');
-        tokenizer.wordChars('A', 'Z');
-        tokenizer.whitespaceChars(' ', ' ');
-
-        long counter = 0;
-        int tokenType;
-        while ((tokenType = tokenizer.nextToken()) != StreamTokenizer.TT_EOF) {
-            if (tokenType == StreamTokenizer.TT_WORD) {
-                counter++;
-            }
+    public long wordCount(final Tokenizer tokenizer) throws IOException {
+        long wordCount = 0;
+        while (tokenizer.nextToken().isPresent()) {
+            wordCount++;
         }
-        return counter;
+        return wordCount;
     }
 }

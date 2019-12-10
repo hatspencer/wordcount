@@ -10,7 +10,7 @@ public class WordCountApp {
 
     public static void main(String[] args) throws IOException {
         final WordCounter wordCounter = new WordCounter();
-        final long wordCount = wordCounter.wordCount(new InputStreamReader(System.in));
+        final long wordCount = wordCounter.wordCount(new ValidWordTokenizer(new InputStreamReader(System.in)));
         System.out.printf("Number of words: %d", wordCount);
     }
 
