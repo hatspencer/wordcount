@@ -1,4 +1,4 @@
-package regexutils;
+package wordcounter;
 
 import org.junit.Assert;
 import org.junit.Test;

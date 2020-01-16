@@ -1,6 +1,6 @@
-package regexutils;
+package wordcounter;
 
-import consoleprinter.WordCounter;
+import processor.WordCounter;
 
 import java.util.Arrays;
 import java.util.Set;
