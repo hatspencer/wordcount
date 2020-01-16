@@ -7,22 +7,20 @@ import java.util.Set;
 
 public class SimpleWordCounter implements WordCounter {
 
-    private String userInput;
     private String delimiters = "[\\s.,]";
     private Set<String> stopWords;
 
-    public SimpleWordCounter(String userInput, Set<String> stopWords) {
-        this.userInput = userInput;
+    public SimpleWordCounter(Set<String> stopWords) {
         this.stopWords = stopWords;
     }
 
     @Override
-    public int countWords() {
+    public int countWords(String userInput) {
 
         if ("".equals(userInput.trim()))
             return 0;
 
-        String[] splitInput = this.userInput.split(this.delimiters);
+        String[] splitInput = userInput.split(this.delimiters);
         return Long.valueOf(Arrays.stream(splitInput)
                 .filter(s -> !s.isEmpty())
                 .filter(s -> !stopWords.contains(s))

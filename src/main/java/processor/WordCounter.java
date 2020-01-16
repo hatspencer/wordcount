@@ -1,5 +1,5 @@
 package processor;
 
 public interface WordCounter {
-    int countWords();
+    int countWords(String userInput);
 }

@@ -1,7 +1,5 @@
 package processor;
 
-import wordcounter.SimpleWordCounter;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,16 +7,17 @@ import java.nio.file.Paths;
 public class FileInputOrchestrator extends WordCountOrchestrator{
 
     private String filename;
+    private WordCounter wordCounter;
 
-    public FileInputOrchestrator(StopWordReader stopWordReader, String filename){
+    public FileInputOrchestrator(StopWordReader stopWordReader, WordCounter wordCounter, String filename){
         this.stopWordReader = stopWordReader;
         this.filename = filename;
+        this.wordCounter = wordCounter;
     }
 
     @Override
     public void process(){
-        WordCounter wordCounter = new SimpleWordCounter(readUserInput(), stopWordReader.getStopWords());
-        printResultMessage(String.valueOf(wordCounter.countWords()));
+        printResultMessage(String.valueOf(wordCounter.countWords(readUserInput())));
     }
 
     private String readUserInput(){

@@ -1,20 +1,20 @@
 package processor;
 
-import wordcounter.SimpleWordCounter;
-
 import java.util.Scanner;
 
 public class ConsoleInputOrchestrator extends WordCountOrchestrator{
 
-    public ConsoleInputOrchestrator(StopWordReader stopWordReader){
+    private WordCounter wordCounter;
+
+    public ConsoleInputOrchestrator(StopWordReader stopWordReader, WordCounter wordCounter){
         this.stopWordReader = stopWordReader;
+        this.wordCounter = wordCounter;
     }
 
     @Override
     public void process(){
         printWelcomeMessage();
-        WordCounter wordCounter = new SimpleWordCounter(readUserInput(), stopWordReader.getStopWords());
-        printResultMessage(String.valueOf(wordCounter.countWords()));
+        printResultMessage(String.valueOf(wordCounter.countWords(readUserInput())));
     }
 
     private String readUserInput(){
