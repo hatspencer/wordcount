@@ -1,20 +1,23 @@
 import processor.*;
 import stopwords.StopWordsFileReader;
+import userinput.ConsoleInputReader;
+import userinput.FileInputReader;
+import userinput.UserInputReader;
 import wordcounter.SimpleWordCounter;
 
 public class WordCountApp {
 
     public static void main(String[] args){
-        WordCountOrchestrator orchestrator;
         StopWordReader stopWordReader = new StopWordsFileReader();
-        WordCounter wordCounter = new SimpleWordCounter(stopWordReader.getStopWords());
-
+        WordCounter wordCounter = new SimpleWordCounter(stopWordReader.getStopWords("stopwords.txt"));
+        UserInputReader reader;
 
         if(args.length == 0){
-            orchestrator = new ConsoleInputOrchestrator(stopWordReader, wordCounter);
+            reader = new ConsoleInputReader();
         } else {
-            orchestrator = new FileInputOrchestrator(stopWordReader, wordCounter, args[0]);
+            reader = new FileInputReader(args[0]);
         }
-        orchestrator.process();
+
+        new WordCountOrchestrator(reader, wordCounter).process();
     }
 }

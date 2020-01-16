@@ -2,7 +2,6 @@ package wordcounter;
 
 import org.junit.Assert;
 import org.junit.Test;
-import processor.WordCounter;
 
 import java.util.Arrays;
 import java.util.HashSet;

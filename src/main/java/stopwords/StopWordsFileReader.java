@@ -12,11 +12,11 @@ import java.util.Set;
 public class StopWordsFileReader implements StopWordReader {
 
     @Override
-    public Set<String> getStopWords() {
+    public Set<String> getStopWords(String filename) {
         try {
-            File stopwordsFile = new File(this.getClass().getClassLoader().getResource("stopwords.txt").getFile());
+            File stopwordsFile = new File(this.getClass().getClassLoader().getResource(filename).getFile());
             return new HashSet<>(Files.readAllLines(stopwordsFile.toPath()));
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             System.out.println("Could not read stop words file.");
             return Collections.emptySet();
         }

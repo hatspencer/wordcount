@@ -4,5 +4,5 @@ import java.util.Set;
 
 public interface StopWordReader {
 
-    Set<String> getStopWords();
+    Set<String> getStopWords(String filename);
 }
