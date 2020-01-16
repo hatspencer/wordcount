@@ -1,6 +1,6 @@
 package wordcounter;
 
-import processor.WordCounter;
+import orchestrator.WordCounter;
 
 import java.util.Arrays;
 import java.util.Set;

@@ -1,10 +1,9 @@
-package processor;
+package orchestrator;
 
 import userinput.UserInputReader;
 
 public class WordCountOrchestrator {
 
-    private String outputText = "Number of words: ";
     private WordCounter wordCounter;
     private UserInputReader userInputReader;
 
@@ -14,7 +13,8 @@ public class WordCountOrchestrator {
     }
 
     private void printResultMessage(String result){
-        System.out.printf("%s%s", this.outputText, result);
+        String outputText = "Number of words: ";
+        System.out.printf("%s%s", outputText, result);
         System.out.println();
     }
 

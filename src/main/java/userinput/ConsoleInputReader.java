@@ -1,17 +1,23 @@
 package userinput;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class ConsoleInputReader implements UserInputReader {
 
+    private Scanner scanner;
+
+    public ConsoleInputReader(InputStream inputStream) {
+        this.scanner = new Scanner(inputStream);
+    }
+
     @Override
-    public String readUserInput(){
+    public String readUserInput() {
         printWelcomeMessage();
-        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    private void printWelcomeMessage(){
+    private void printWelcomeMessage() {
         String welcomeText = "Enter text: ";
         System.out.print(welcomeText);
     }

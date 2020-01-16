@@ -1,4 +1,6 @@
-import processor.*;
+import orchestrator.StopWordReader;
+import orchestrator.WordCountOrchestrator;
+import orchestrator.WordCounter;
 import stopwords.StopWordsFileReader;
 import userinput.ConsoleInputReader;
 import userinput.FileInputReader;
@@ -13,7 +15,7 @@ public class WordCountApp {
         UserInputReader reader;
 
         if(args.length == 0){
-            reader = new ConsoleInputReader();
+            reader = new ConsoleInputReader(System.in);
         } else {
             reader = new FileInputReader(args[0]);
         }

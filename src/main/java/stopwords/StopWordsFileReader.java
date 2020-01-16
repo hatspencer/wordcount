@@ -1,6 +1,6 @@
 package stopwords;
 
-import processor.StopWordReader;
+import orchestrator.StopWordReader;
 
 import java.io.File;
 import java.io.IOException;
