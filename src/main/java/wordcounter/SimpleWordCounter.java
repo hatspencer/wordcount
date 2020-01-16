@@ -21,6 +21,8 @@ public class SimpleWordCounter implements WordCounter {
             return 0;
 
         String[] splitInput = userInput.split(this.delimiters);
+        // create a reduce stream over the words, accumulating results in a single object
+        // with two fields - list and a hashset, and then calling size on both of them
         return Long.valueOf(Arrays.stream(splitInput)
                 .filter(s -> !s.isEmpty())
                 .filter(s -> !stopWords.contains(s))

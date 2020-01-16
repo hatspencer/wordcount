@@ -19,6 +19,6 @@ public class WordCountOrchestrator {
     }
 
     public void process(){
-        printResultMessage(String.valueOf(wordCounter.countWords(userInputReader.readUserInput())));
+        printResultMessage(String.valueOf(wordCounter.countAllWords(userInputReader.readUserInput())));
     }
 }

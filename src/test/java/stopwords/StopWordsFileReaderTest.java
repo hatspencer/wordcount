@@ -12,7 +12,7 @@ public class StopWordsFileReaderTest {
 
     private StopWordReader toTest = new StopWordsFileReader();
     private Set<String> controlStopWords = new HashSet<>(Arrays.asList("the", "a", "on", "off"));
-    
+
     @Test
     public void testNonemptyFile(){
         Set<String> actualStopWords = toTest.getStopWords("stopwords.txt");
