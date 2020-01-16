@@ -1,22 +1,19 @@
 package regexutils;
 
-import consoleprinter.Parser;
+import consoleprinter.WordCounter;
 
 import java.util.Arrays;
+import java.util.Set;
 
-public class RegexParser implements Parser {
+public class SimpleWordCounter implements WordCounter {
 
     private String userInput;
     private String delimiters = "[\\s.,]";
+    private Set<String> stopWords;
 
-
-    public RegexParser(String userInput) {
+    public SimpleWordCounter(String userInput, Set<String> stopWords) {
         this.userInput = userInput;
-    }
-
-    public RegexParser(String userInput, String delimiters) {
-        this(userInput);
-        this.delimiters = delimiters;
+        this.stopWords = stopWords;
     }
 
     @Override
@@ -27,8 +24,15 @@ public class RegexParser implements Parser {
 
         String[] splitInput = this.userInput.split(this.delimiters);
         return Long.valueOf(Arrays.stream(splitInput)
-                .filter(s -> !"".equals(s))
+                .filter(s -> !s.isEmpty())
+                .filter(s -> !stopWords.contains(s))
                 .count())
                 .intValue();
     }
+
+    public void setDelimiters(String delimiters) {
+        this.delimiters = delimiters;
+    }
+
+
 }

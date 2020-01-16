@@ -1,6 +1,5 @@
 package consoleprinter;
 
-public interface Parser {
-
+public interface WordCounter {
     int countWords();
 }
