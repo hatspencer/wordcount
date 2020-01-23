@@ -4,20 +4,21 @@ import java.util.Scanner;
 
 public class WordCount {
 
+    private static final String PROMPT = "Enter text: ";
+    private static final String OUTPUT_PREFIX = "Number of words: ";
+    private static int wordCount = 0;
+
     public static void main(String[] args) {
-        int wordCount = 0;
-        System.out.print("Enter text:");
+        System.out.print(PROMPT);
         Scanner userInput = new Scanner(System.in);
         String inputString = userInput.nextLine();
-
-        List<String> potentialWords = Arrays.asList(inputString.split("\\s"));
+        String[] potentialWords = inputString.split("\\s");
 
         for (String word : potentialWords) {
             if (!word.isEmpty()) {
                 wordCount++;
             }
         }
-
-        System.out.println("Number of words: " + wordCount);
+        System.out.println(OUTPUT_PREFIX.concat(String.valueOf(wordCount)));
     }
 }
