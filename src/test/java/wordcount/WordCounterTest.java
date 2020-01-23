@@ -3,10 +3,15 @@ package wordcount;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 
 public class WordCounterTest {
 
-    private final WordCounter wordCounter = new WordCounter();
+    public static final List<String> EMPTY_STOPWORDS = Collections.emptyList();
+    private final WordCounter wordCounter = new WordCounter(EMPTY_STOPWORDS);
 
     @Test
     public void expectEmptyStringNotToIncreaseWordCount() {
@@ -38,4 +43,10 @@ public class WordCounterTest {
         Assertions.assertEquals(0, wordCounter.countWordsInUserInput(userInputString));
     }
 
+    @Test
+    public void expectStopwordToBeIgnoredAndWordCountToBeOne() {
+        WordCounter wordCounter = new WordCounter(Arrays.asList("Stopword"));
+        String userInputString = "Stopword Foo";
+        Assertions.assertEquals(1, wordCounter.countWordsInUserInput(userInputString));
+    }
 }

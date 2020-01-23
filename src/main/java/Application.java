@@ -1,5 +1,7 @@
 import wordcount.WordCounter;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -11,8 +13,14 @@ public class Application {
         System.out.print(PROMPT);
         Scanner userInput = new Scanner(System.in);
         String inputString = userInput.nextLine();
-        int wordCount = new WordCounter().countWordsInUserInput(inputString);
+        List<String> stopwords = getStopwords();
+        int wordCount = new WordCounter(stopwords).countWordsInUserInput(inputString);
         System.out.println(OUTPUT_PREFIX.concat(String.valueOf(wordCount)));
+    }
+
+    private static List<String> getStopwords() {
+        //TODO - Read stopwords from file.
+        return Collections.emptyList();
     }
 
 }
