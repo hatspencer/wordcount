@@ -25,7 +25,7 @@ public class FileReaderTest {
     }
 
     @Test
-    public void expectNoSuchFileExceptionWhenFileDoesNotExist() throws IOException {
+    public void expectNoSuchFileExceptionWhenFileDoesNotExist() {
         Assertions.assertThrows(NoSuchFileException.class, () ->
                 new FileReader().getStopwords("foo.txt"));
     }
