@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class WordCounter {
 
-    public static int countWordsInUserInput(String userInput) {
+    public int countWordsInUserInput(String userInput) {
         List<String> potentialWords = Arrays.asList(userInput.split("(\\s)"));
 
         List<String> words = potentialWords.stream()

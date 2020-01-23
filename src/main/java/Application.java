@@ -2,7 +2,7 @@ import wordcount.WordCounter;
 
 import java.util.Scanner;
 
-public class WordCount {
+public class Application {
 
     private static final String PROMPT = "Enter text: ";
     private static final String OUTPUT_PREFIX = "Number of words: ";
@@ -11,7 +11,7 @@ public class WordCount {
         System.out.print(PROMPT);
         Scanner userInput = new Scanner(System.in);
         String inputString = userInput.nextLine();
-        int wordCount = WordCounter.countWordsInUserInput(inputString);
+        int wordCount = new WordCounter().countWordsInUserInput(inputString);
         System.out.println(OUTPUT_PREFIX.concat(String.valueOf(wordCount)));
     }
 
