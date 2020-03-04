@@ -1,13 +1,12 @@
 package wordcount;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
 import wordcount.exlusions.ExclusionLoader;
 import wordcount.exlusions.FileExclusionLoader;
+import wordcount.input.FileInputProvider;
 import wordcount.io.console.Console;
 import wordcount.io.console.ConsoleInterface;
 
@@ -22,7 +21,7 @@ public class WordCounterApp {
 		String input;
 		if (args.length > 0) {
 			try {
-				input = loadInputFromFile(Paths.get(args[0]));
+				input = new FileInputProvider(args[0]).getInput();
 			} catch (IOException io) {
 				console.write("Error reading configured file, enter text manually");
 				input = console.getInput("Enter text: ");
@@ -31,12 +30,6 @@ public class WordCounterApp {
 			input = console.getInput("Enter text: ");
 		}
 		console.write("Number of words: " + counter.countWords(input, exceptions));
-	}
-	
-	private static String loadInputFromFile(Path path) throws IOException {
-		StringBuffer sb = new StringBuffer();
-		Files.lines(path).forEach(line -> sb.append(line + " "));
-		return sb.toString();
 	}
 
 }
