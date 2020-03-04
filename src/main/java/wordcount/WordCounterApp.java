@@ -8,10 +8,11 @@ import wordcount.io.console.ConsoleInterface;
 public class WordCounterApp {
 
 	private static ConsoleInterface console = new Console();
+	private static WordCounter counter = new WordCounter();
 	
 	public static void main(String[] args) throws IOException {
-		console.getInput("Enter text:");
-		console.write("");
+		String input = console.getInput("Enter text: ");
+		console.write("Number of words: " + counter.countWords(input));
 	}
 
 }
