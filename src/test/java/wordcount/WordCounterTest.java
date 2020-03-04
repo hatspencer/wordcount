@@ -2,11 +2,15 @@ package wordcount;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 public class WordCounterTest {
 	
 	WordCounter counter = new WordCounter();
+	List<String> exlusions = Arrays.asList("the", "a", "on", "off");
 	
 	@Test
 	public void empty() {
@@ -38,6 +42,11 @@ public class WordCounterTest {
 	public void moreWords() {
 		assertEquals(3, counter.countWords("  Foo Bar      Zoo   "));
 		assertEquals(5, counter.countWords("Mary had a little lamb"));
+	}
+	
+	@Test
+	public void exclusions() {
+		assertEquals(4, counter.countWords("Mary had a little lamb", exlusions));
 	}
 
 }
