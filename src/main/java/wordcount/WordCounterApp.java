@@ -2,7 +2,6 @@ package wordcount;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.List;
 
 import wordcount.exclusions.ExclusionLoader;
 import wordcount.exclusions.FileExclusionLoader;
@@ -13,11 +12,10 @@ import wordcount.io.console.ConsoleInterface;
 public class WordCounterApp {
 
 	private static ConsoleInterface console = new Console();
-	private static WordCounter counter = new WordCounter();
 	private static ExclusionLoader exclusionLoader = new FileExclusionLoader(Paths.get("stopwords.txt"));
+	private static WordCounter counter = new WordCounter(exclusionLoader.loadExclusions());
 	
 	public static void main(String[] args) throws IOException {
-		List<String> exceptions = exclusionLoader.loadExclusions();
 		String input;
 		if (args.length > 0) {
 			try {
@@ -29,7 +27,7 @@ public class WordCounterApp {
 		} else {
 			input = console.getInput("Enter text: ");
 		}
-		console.write("Number of words: " + counter.countWords(input, exceptions));
+		console.write("Number of words: " + counter.countWords(input) + ", unique:" + counter.countUniqueWords(input));
 	}
 
 }

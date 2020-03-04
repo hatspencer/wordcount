@@ -1,23 +1,34 @@
 package wordcount;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class WordCounter {
 	
-	public int countWords(String input) {
-		return countWords(input, new ArrayList<>());
+	private List<String> exclusionWords;
+	
+	public WordCounter(List<String> exclusionWords) {
+		super();
+		this.exclusionWords = exclusionWords;
 	}
 
-	public int countWords(String input, List<String> exclusionWords) {
+	public int countWords(String input) {
+		return (int) getWordsStream(input).count();
+	}
+	
+	public int countUniqueWords(String input) {
+		return (int) getWordsStream(input).distinct().count();
+	}
+	
+	private Stream<String> getWordsStream(String input) {
 		if (input == null || input.trim().isEmpty()) {
-			return 0;
+			return Stream.empty();
 		}
-		return (int) Arrays.asList(input.split(" ")).stream()
+		Stream<String> stream = Arrays.asList(input.split("[ -]")).stream()
 						.filter(block -> isValidWord(block))
-						.filter(block -> !exclusionWords.contains(block))
-						.count();
+						.filter(block -> !exclusionWords.contains(block));
+		return stream;
 	}
 
 	private boolean isValidWord(String block) {
@@ -31,7 +42,7 @@ public class WordCounter {
 	}
 	
 	private boolean isLetter(char c) {
-		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '.';
 	}
 	
 }
