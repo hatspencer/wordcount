@@ -11,11 +11,17 @@ import wordcount.io.console.ConsoleInterface;
 
 public class WordCounterApp {
 
-	private static ConsoleInterface console = new Console();
-	private static ExclusionLoader exclusionLoader = new FileExclusionLoader(Paths.get("stopwords.txt"));
-	private static WordCounter counter = new WordCounter(exclusionLoader.loadExclusions());
+	private ConsoleInterface console;
+	private WordCounter counter;
+	private String[] args;
 	
-	public static void main(String[] args) throws IOException {
+	public WordCounterApp(ConsoleInterface console, WordCounter counter, String[] args) {
+		this.console = console;
+		this.counter = counter;
+		this.args = args;
+	}
+	
+	public void execute() throws IOException {
 		String input;
 		if (args.length > 0) {
 			try {
@@ -28,6 +34,12 @@ public class WordCounterApp {
 			input = console.getInput("Enter text: ");
 		}
 		console.write("Number of words: " + counter.countWords(input) + ", unique:" + counter.countUniqueWords(input));
+	}
+
+	public static void main(String[] args) throws IOException {
+		ExclusionLoader exclusionLoader = new FileExclusionLoader(Paths.get("stopwords.txt"));
+		WordCounterApp app = new WordCounterApp(new Console(), new WordCounter(exclusionLoader.loadExclusions()), args);
+		app.execute();
 	}
 
 }
