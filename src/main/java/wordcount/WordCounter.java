@@ -25,7 +25,7 @@ public class WordCounter {
 		if (input == null || input.trim().isEmpty()) {
 			return Stream.empty();
 		}
-		Stream<String> stream = Arrays.asList(input.split("[ -]")).stream()
+		Stream<String> stream = Arrays.asList(input.split(" ")).stream()
 						.filter(block -> isValidWord(block))
 						.filter(block -> !exclusionWords.contains(block));
 		return stream;
@@ -42,7 +42,7 @@ public class WordCounter {
 	}
 	
 	private boolean isLetter(char c) {
-		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '.';
+		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '.' || c == '-';
 	}
 	
 }

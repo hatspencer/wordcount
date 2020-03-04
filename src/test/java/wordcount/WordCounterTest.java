@@ -24,6 +24,7 @@ public class WordCounterTest {
 	public void oneWord() {
 		assertEquals(1, counter.countWords("Foo"));
 		assertEquals(1, counter.countWords("FooBar"));
+		assertEquals(1, counter.countWords("Humpty-Dumpty"));
 	}
 	
 	@Test
@@ -39,7 +40,6 @@ public class WordCounterTest {
 	public void twoWords() {
 		assertEquals(2, counter.countWords("Foo Bar"));
 		assertEquals(2, counter.countWords("Foo Bar."));
-		assertEquals(2, counter.countWords("Humpty-Dumpty"));
 	}
 	
 	@Test
@@ -51,7 +51,7 @@ public class WordCounterTest {
 	@Test
 	public void exclusions() {
 		assertEquals(4, counterWithExclusions.countWords("Mary had a little lamb"));
-		assertEquals(9, counterWithExclusions.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."));
+		assertEquals(7, counterWithExclusions.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."));
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ public class WordCounterTest {
 	
 	@Test
 	public void exclusionsUnique() {
-		assertEquals(7, counterWithExclusions.countUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."));
+		assertEquals(6, counterWithExclusions.countUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."));
 	}
 
 }
