@@ -1,4 +1,4 @@
-package wordcount.exlusions;
+package wordcount.exclusions;
 
 import java.io.IOException;
 import java.nio.file.Files;

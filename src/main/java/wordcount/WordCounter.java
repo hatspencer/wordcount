@@ -21,7 +21,7 @@ public class WordCounter {
 	}
 
 	private boolean isValidWord(String block) {
-		if (block == null || block.isEmpty())
+		if (block.isEmpty())
 			return false;
 		for (char c : block.toCharArray()) {
 			if (!isLetter(c))

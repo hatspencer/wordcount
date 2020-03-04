@@ -21,7 +21,8 @@ public class FileInputProvider implements InputProvider {
 	public String getInput() throws IOException {
 		StringBuffer sb = new StringBuffer();
 		Files.lines(path).forEach(line -> sb.append(line + " "));
-		return sb.toString();
+		String result = sb.toString();
+		return result.length() > 0 ? result.substring(0, result.length() - 1) : result;
 	}
 	
 }

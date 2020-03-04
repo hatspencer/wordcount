@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
-import wordcount.exlusions.ExclusionLoader;
-import wordcount.exlusions.FileExclusionLoader;
+import wordcount.exclusions.ExclusionLoader;
+import wordcount.exclusions.FileExclusionLoader;
 import wordcount.input.FileInputProvider;
 import wordcount.io.console.Console;
 import wordcount.io.console.ConsoleInterface;
