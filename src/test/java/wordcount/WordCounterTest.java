@@ -37,6 +37,7 @@ public class WordCounterTest {
 	@Test
 	public void moreWords() {
 		assertEquals(3, counter.countWords("  Foo Bar      Zoo   "));
+		assertEquals(5, counter.countWords("Mary had a little lamb"));
 	}
 
 }

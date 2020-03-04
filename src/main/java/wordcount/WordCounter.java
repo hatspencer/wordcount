@@ -27,7 +27,7 @@ public class WordCounter {
 		return count;
 	}
 	
-	private static boolean isLetter(char c) {
+	private boolean isLetter(char c) {
 		return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 	}
 	
