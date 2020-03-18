@@ -94,6 +94,23 @@ public class WordCounterTest {
 		assertEquals(1, count);			
 	}
 	
+	@Test 
+	public void shouldReturnTheAverageCount() {
+		
+		String[] excluded = new String[] { "one", "two" };
+		List<String> excludedWords = Arrays.asList(excluded);
+		
+		String message = "one abc";
+		WordCounter counter = getWordCounter(message);
+		counter.setExcludedWords(excludedWords);
+				
+		int count = counter.wordsCount();
+		
+		double result = counter.getAverageWordSize();
+		
+		assertEquals(3.0, result, 0.00001);		
+	}
+	
 	@Test
 	public void shouldReturnTheUniqueWordsCount()
 	{

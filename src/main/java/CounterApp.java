@@ -52,9 +52,11 @@ public class CounterApp {
 		int count =  counter.wordsCount();
 		
 		int uniqueWordsCount = counter.getUniqueWordsCount();
+		double avgSize = counter.getAverageWordSize();
 		
 		System.out.println("Number of words: " + count + 
-				           ", unique: " + uniqueWordsCount);
+				           ", unique: " + uniqueWordsCount +
+				           ", average word length: " + avgSize );
 	}
 
 	private static String readInput() {

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
@@ -9,9 +10,26 @@ public class WordCounter implements Counter {
 	private String message;
 	private List<String> excludedWords;	
 	private HashSet<String> uniqueWords;
+	private List<String> allWords;
 		
 	public int getUniqueWordsCount() {
 		return uniqueWords.size();
+	}
+	
+	public double getAverageWordSize() {
+		
+		double result = 0.0;
+		
+		for(String word : allWords) {
+			result += word.length();
+		}
+		
+		int countOfWords = allWords.size();
+	
+		
+		return countOfWords != 0 ? 
+				result / countOfWords :
+				0.0;
 	}
 
 	public void setExcludedWords(List<String> excludedWords) {
@@ -29,6 +47,7 @@ public class WordCounter implements Counter {
 		this.excludedWords = excludedWords;
 		
 		uniqueWords = new HashSet<String>();
+		allWords = new ArrayList<String>();
 	}	
 	
 	public int wordsCount() {		
@@ -45,6 +64,7 @@ public class WordCounter implements Counter {
 						
 			if(isCountable(token)) {			
 				addUniqueWordToUniqueWordsDictionary(token);
+				allWords.add(token);
 				count++;			   
 			}
 		}		
