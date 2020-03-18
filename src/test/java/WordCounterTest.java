@@ -1,5 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -87,7 +88,7 @@ public class WordCounterTest {
 		
 		
 		String message = "one abc";
-		WordCounter counter = new WordCounter(message);
+		WordCounter counter = getWordCounter((message));
 		counter.setExcludedWords(excludedWords);
 				
 		int count = counter.wordsCount();		
@@ -95,11 +96,14 @@ public class WordCounterTest {
 	}
 	
 	private int getCountOfWords(String message) {
-		WordCounter counter = new WordCounter(message);
+		WordCounter counter = getWordCounter(message);
 		return counter.wordsCount();
 	}
 	
-	
+	private WordCounter getWordCounter(String message) 
+	{
+		return new WordCounter(message, new ArrayList<String>());
+	}	
 }
 	
 	
