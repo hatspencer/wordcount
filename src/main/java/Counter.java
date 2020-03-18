@@ -1,6 +1,5 @@
-import java.util.List;
-
 public interface Counter {
 	
 	public int wordsCount();
+	public int getUniqueWordsCount();
 }

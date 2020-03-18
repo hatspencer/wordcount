@@ -87,11 +87,24 @@ public class WordCounterTest {
 		List<String> excludedWords = Arrays.asList(excluded);
 		
 		String message = "one abc";
-		WordCounter counter = getWordCounter((message));
+		WordCounter counter = getWordCounter(message);
 		counter.setExcludedWords(excludedWords);
 				
 		int count = counter.wordsCount();		
 		assertEquals(1, count);			
+	}
+	
+	@Test
+	public void shouldReturnTheUniqueWordsCount()
+	{
+		String[] excluded = new String[0]; // { "the", "a", "on", "off" };
+		final String message = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+		WordCounter counter = new WordCounter(message, Arrays.asList(excluded));
+		int count = counter.wordsCount();
+		int result = counter.getUniqueWordsCount();
+		
+		//assertEquals(9, count);
+		assertEquals(7, result);
 	}
 	
 	private int getCountOfWords(String message) {

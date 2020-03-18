@@ -49,9 +49,12 @@ public class CounterApp {
 
 	private static void printWorldCountOutput(String message, List<String> excludedWords) {
 		Counter counter = new WordCounter(message, excludedWords);
-		int count =  counter.wordsCount();		
+		int count =  counter.wordsCount();
 		
-		System.out.println("Number of words: " + count);
+		int uniqueWordsCount = counter.getUniqueWordsCount();
+		
+		System.out.println("Number of words: " + count + 
+				           ", unique: " + uniqueWordsCount);
 	}
 
 	private static String readInput() {
