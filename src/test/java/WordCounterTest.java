@@ -1,5 +1,8 @@
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 public class WordCounterTest {
@@ -76,11 +79,27 @@ public class WordCounterTest {
 		
 	}
 	
+	@Test 
+	public void shouldExcludeTheWordsFromTheBlacklist() {
+		
+		String[] excluded = new String[] { "one", "two" };
+		List<String> excludedWords = Arrays.asList(excluded);
+		
+		
+		String message = "one abc";
+		WordCounter counter = new WordCounter(message);
+		counter.setExcludedWords(excludedWords);
+				
+		int count = counter.wordsCount();		
+		assertEquals(1, count);			
+	}
 	
 	private int getCountOfWords(String message) {
 		WordCounter counter = new WordCounter(message);
 		return counter.wordsCount();
 	}
+	
+	
 }
 	
 	

@@ -8,7 +8,7 @@ public class CounterApp {
 		Scanner scanner = new Scanner(System.in);			
 		String message = scanner.nextLine();
 		
-		WordCounter counter = new WordCounter(message);
+		Counter counter = new WordCounter(message);
 		int count =  counter.wordsCount();
 		
 		System.out.println("Number of words: " + count);
