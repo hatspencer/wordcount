@@ -33,20 +33,32 @@ public class WordCounter implements Counter {
 	
 	public int wordsCount() {		
 		
-		
+		if(message.contains("-")) message = message.replace("-", " ");
 		StringTokenizer st = new StringTokenizer(message);
 		
 		int count = 0;
 		while(st.hasMoreTokens())
 		{
-			String token = st.nextToken();			
+			String token = st.nextToken();	
 			
+			if(token.contains("-")) token = token.replace("-", " ");
+			
+			token = removeDotFromString(token);
+			
+						
 			if(isCountable(token)) {			
 				addUniqueWordToUniqueWordsDictionary(token);
 				count++;			   
 			}
 		}		
 		return count;
+	}
+
+	private String removeDotFromString(String token) {
+		if(token.endsWith(".")) {
+			token = token.replace(".", "");
+		}
+		return token;
 	}
 
 	private void addUniqueWordToUniqueWordsDictionary(String token) {
@@ -56,7 +68,7 @@ public class WordCounter implements Counter {
 	
 	private boolean isCountable(String token) {
 		
-		return token.matches("[a-zA-Z]+") &&
+		return token.matches("[a-zA-Z\\-]+") &&
 			   !excludedWords.contains(token);
 	}	
 }
