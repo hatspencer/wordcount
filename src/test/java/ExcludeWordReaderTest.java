@@ -12,7 +12,7 @@ public class ExcludeWordReaderTest {
 	@Test
 	public void shouldReadFile() throws FileNotFoundException{
 		
-		ExcludedWordsReader reader = new ExcludedWordsReaderImpl(fileName);
+		WordsReader reader = new ExcludedWordsReaderImpl(fileName);
 		
 		List<String> result = reader.readFromFile();
 		
@@ -22,7 +22,7 @@ public class ExcludeWordReaderTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldThrowExcetionIfFileNameIsNull() throws FileNotFoundException {
 		
-		ExcludedWordsReader reader = new ExcludedWordsReaderImpl(null);
+		WordsReader reader = new ExcludedWordsReaderImpl(null);
 		
 		List<String> result = reader.readFromFile();		
 			
@@ -31,7 +31,7 @@ public class ExcludeWordReaderTest {
 	@Test(expected = FileNotFoundException.class)
 	public void shouldThrowExcetionIfFileNameIsWrong() throws FileNotFoundException{
 		
-		ExcludedWordsReader reader = new ExcludedWordsReaderImpl("abcde.txt");
+		WordsReader reader = new ExcludedWordsReaderImpl("abcde.txt");
 		
 		List<String> result = reader.readFromFile();		
 			

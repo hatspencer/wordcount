@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+
 public class WordCounterTest {
-	
-		
+				
 	@Test
 	public void shouldReturnWordCount() {
 		
@@ -85,7 +85,6 @@ public class WordCounterTest {
 		
 		String[] excluded = new String[] { "one", "two" };
 		List<String> excludedWords = Arrays.asList(excluded);
-		
 		
 		String message = "one abc";
 		WordCounter counter = getWordCounter((message));

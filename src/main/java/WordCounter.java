@@ -22,7 +22,9 @@ public class WordCounter implements Counter {
 		this.excludedWords = excludedWords;			
 	}	
 	
-	public int wordsCount() {				
+	public int wordsCount() {		
+		
+		
 		StringTokenizer st = new StringTokenizer(message);
 		
 		int count = 0;
@@ -36,6 +38,7 @@ public class WordCounter implements Counter {
 		}		
 		return count;
 	}
+	
 	
 	private boolean isCountable(String token) {
 		

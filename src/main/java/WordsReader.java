@@ -1,6 +1,6 @@
 import java.util.List;
 
-public interface ExcludedWordsReader {
+public interface WordsReader {
 
 	public List<String> readFromFile();
 }
