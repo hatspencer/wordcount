@@ -97,14 +97,14 @@ public class WordCounterTest {
 	@Test
 	public void shouldReturnTheUniqueWordsCount()
 	{
-		String[] excluded = new String[0]; // { "the", "a", "on", "off" };
+		String[] excluded = new String[]{ "the", "a", "on", "off" };
 		final String message = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
 		WordCounter counter = new WordCounter(message, Arrays.asList(excluded));
 		int count = counter.wordsCount();
 		int result = counter.getUniqueWordsCount();
 		
-		//assertEquals(9, count);
-		assertEquals(7, result);
+		assertEquals(7, count);
+		assertEquals(6, result);
 	}
 	
 	private int getCountOfWords(String message) {

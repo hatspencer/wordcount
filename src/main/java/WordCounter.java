@@ -32,17 +32,14 @@ public class WordCounter implements Counter {
 	}	
 	
 	public int wordsCount() {		
-		
-		if(message.contains("-")) message = message.replace("-", " ");
+				
 		StringTokenizer st = new StringTokenizer(message);
 		
 		int count = 0;
 		while(st.hasMoreTokens())
 		{
 			String token = st.nextToken();	
-			
-			if(token.contains("-")) token = token.replace("-", " ");
-			
+						
 			token = removeDotFromString(token);
 			
 						
