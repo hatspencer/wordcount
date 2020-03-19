@@ -1,3 +1,5 @@
+package WordsCount;
+
 import WordsCount.WordProvider;
 import org.junit.Test;
 

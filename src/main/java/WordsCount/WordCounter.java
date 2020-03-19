@@ -19,17 +19,19 @@ public class WordCounter {
     }
 
     public int countWords(String[] words) {
-        Predicate<String> predicate = (blackList != null) ?
-                pattern.asPredicate().and((word) -> !blackList.contains(word)) :
-                pattern.asPredicate();
+        Predicate<String> predicate = this.getPredicate();
         return Filter.filterWords(predicate, words).size();
     }
 
     public int countUniqueWords(String[] words) {
-        Predicate<String> predicate = (blackList != null) ?
+        Predicate<String> predicate = this.getPredicate();
+        return Filter.filterUniqueWords(Filter.filterWords(predicate, words)).size();
+    }
+
+    private Predicate<String> getPredicate() {
+        return (blackList != null) ?
                 pattern.asPredicate().and((word) -> !blackList.contains(word)) :
                 pattern.asPredicate();
-        return Filter.filterUniqueWords(Filter.filterWords(predicate, words)).size();
     }
 
 }
