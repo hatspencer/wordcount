@@ -27,7 +27,7 @@ public class App {
             words = wp.getWords(text);
         }
 
-        Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
+        Pattern pattern = Pattern.compile("^[a-zA-Z\\-]+$");
 
         List<String> stopwords = InputProvider.getInputFromResourceFile("stopwords.txt");
 

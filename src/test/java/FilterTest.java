@@ -13,9 +13,9 @@ public class FilterTest {
 
     @Test
     public void testFilterWithPatternPredicate() {
-        Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
-        String[] words = new String[]{"abc", "ABC", "123", "ab1", "1AB", "$$$", "$aB", "$1aB"};
-        String[] expected = new String[]{"abc", "ABC" };
+        Pattern pattern = Pattern.compile("^[a-zA-Z\\-]+$");
+        String[] words = new String[]{"abc", "ABC", "123", "ab1", "1AB", "$$$", "$aB", "$1aB", "aaa-bbb"};
+        String[] expected = new String[]{"abc", "ABC", "aaa-bbb" };
 
         List<String> result = Filter.filterWords(pattern.asPredicate(), words);
 
