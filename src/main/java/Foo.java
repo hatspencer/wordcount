@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class Foo {
@@ -27,9 +28,9 @@ public class Foo {
         List<String> stopwords = FileProvider.getInputFromResourceFile("stopwords.txt");
 
         List<String> matching = Filter.filterWords(pattern.asPredicate().and((word) -> !stopwords.contains(word)), words);
+        Set<String> unique = Filter.filterUniqueWords(matching);
 
-        System.out.print("Number of words: ");
-        System.out.println(matching.size());
+        System.out.printf("Number of words: %s, unique: %s\n", matching.size(), unique.size());
 
     }
 }

@@ -8,7 +8,7 @@ public class WordProvider {
 
 
     public String[] getWords(String text) {
-        return text.trim().split("\\s+");
+        return text.trim().replace(".", "").split("\\s+|-");
     }
 
 }

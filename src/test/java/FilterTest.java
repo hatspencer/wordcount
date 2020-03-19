@@ -3,9 +3,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class FilterTest {
 
@@ -29,6 +31,15 @@ public class FilterTest {
         List<String> result = Filter.filterWords((word) -> !stopWords.contains(word), words);
 
         assertArrayEquals(expected, result.toArray());
+    }
+
+    @Test
+    public void testFilterUniqueWords() {
+        List<String> words = Arrays.asList("aaa", "bbb", "aaa", "bbb");
+
+        Set<String> result = Filter.filterUniqueWords(words);
+
+        assertEquals(2, result.size());
     }
 
 }
