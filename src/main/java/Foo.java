@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class Foo {
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter text: ");
@@ -14,11 +15,18 @@ public class Foo {
 
         String[] words = text.trim().split("\\s+");
 
-        Pattern pattern = Pattern.compile("[a-zA-Z]");
+        Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
 
-        List<String> matching = Arrays.stream(words).filter(pattern.asPredicate()).collect(Collectors.toList());
+        List<String> matching = findMatchingWords(pattern, words);
 
-        System.out.println(matching);
+        System.out.print("Number of words: ");
+        System.out.println(matching.size());
 
+    }
+
+    public static List<String> findMatchingWords(Pattern pattern, String[] words) {
+        return Arrays.stream(words)
+                .filter(pattern.asPredicate())
+                .collect(Collectors.toList());
     }
 }
