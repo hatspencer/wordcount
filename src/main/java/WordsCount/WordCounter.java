@@ -1,5 +1,7 @@
 package WordsCount;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
@@ -36,6 +38,13 @@ public class WordCounter {
             lengthOfAllWords += wordsList.get(i).length();
         }
         return lengthOfAllWords / wordsList.size();
+    }
+
+    public List<String> sortWords(String[] words) {
+        Predicate<String> predicate = this.getPredicate();
+        List<String> wordsList = new ArrayList<>(Filter.filterUniqueWords(Filter.filterWords(predicate, words)));
+        Collections.sort(wordsList, String.CASE_INSENSITIVE_ORDER);
+        return wordsList;
     }
 
     private Predicate<String> getPredicate() {
