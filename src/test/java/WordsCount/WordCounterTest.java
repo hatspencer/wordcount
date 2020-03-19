@@ -17,7 +17,6 @@ public class WordCounterTest {
         WordCounter wc = new WordCounter(blackList);
 
         assertEquals(3, wc.countWords(input));
-
     }
 
     @Test
@@ -28,7 +27,24 @@ public class WordCounterTest {
         WordCounter wc = new WordCounter(blackList);
 
         assertEquals(3, wc.countUniqueWords(input));
+    }
 
+    @Test
+    public void countWordsWithoutBlacklistTest() {
+        String[] input = new String[]{"abc", "ABC", "123", "ab1", "1AB", "$$$", "$aB", "$1aB", "aaa-bbb", "the"};
+
+        WordCounter wc = new WordCounter();
+
+        assertEquals(4, wc.countWords(input));
+    }
+
+    @Test
+    public void countUniqueWordsWithoutBlacklistTest() {
+        String[] input = new String[]{"abc", "ABC", "123", "ab1", "1AB", "$$$", "$aB", "$1aB", "aaa-bbb", "the", "abc", "ABC", "123", "ab1", "1AB", "$$$", "$aB", "$1aB", "aaa-bbb", "the"};
+
+        WordCounter wc = new WordCounter();
+
+        assertEquals(4, wc.countUniqueWords(input));
     }
 
 }
