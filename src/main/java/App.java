@@ -1,11 +1,9 @@
 import WordsCount.InputProvider;
-import WordsCount.Filter;
+import WordsCount.WordCounter;
 import WordsCount.WordProvider;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 public class App {
 
@@ -27,14 +25,11 @@ public class App {
             words = wp.getWords(text);
         }
 
-        Pattern pattern = Pattern.compile("^[a-zA-Z\\-]+$");
-
         List<String> stopwords = InputProvider.getInputFromResourceFile("stopwords.txt");
 
-        List<String> matching = Filter.filterWords(pattern.asPredicate().and((word) -> !stopwords.contains(word)), words);
-        Set<String> unique = Filter.filterUniqueWords(matching);
+        WordCounter wc = new WordCounter(stopwords);
 
-        System.out.printf("Number of words: %s, unique: %s\n", matching.size(), unique.size());
+        System.out.printf("Number of words: %s, unique: %s\n", wc.countWords(words), wc.countUniqueWords(words));
 
     }
 }
