@@ -1,3 +1,5 @@
+package WordsCount;
+
 import java.util.List;
 
 public class WordProvider {

@@ -1,3 +1,5 @@
+package WordsCount;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -6,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class FileProvider {
+public class InputProvider {
 
     public static List<String> getInputFromResourceFile(String resource) {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();

@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class FileProviderTest {
+public class InputProviderTest {
 
 //    @Test
 

@@ -1,9 +1,13 @@
+import WordsCount.InputProvider;
+import WordsCount.Filter;
+import WordsCount.WordProvider;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class Foo {
+public class App {
 
     public static void main(String[] args) {
 
@@ -13,7 +17,7 @@ public class Foo {
 
         if (args.length >= 1) {
             String path = args[0];
-            List<String> input = FileProvider.getInputFromFile(path);
+            List<String> input = InputProvider.getInputFromFile(path);
             words = wp.getWords(input);
         } else {
             Scanner scanner = new Scanner(System.in);
@@ -25,7 +29,7 @@ public class Foo {
 
         Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
 
-        List<String> stopwords = FileProvider.getInputFromResourceFile("stopwords.txt");
+        List<String> stopwords = InputProvider.getInputFromResourceFile("stopwords.txt");
 
         List<String> matching = Filter.filterWords(pattern.asPredicate().and((word) -> !stopwords.contains(word)), words);
         Set<String> unique = Filter.filterUniqueWords(matching);
