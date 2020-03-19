@@ -47,4 +47,10 @@ public class WordCounterTest {
         assertEquals(4, wc.countUniqueWords(input));
     }
 
+    @Test
+    public void countAverageWordLengthTest() {
+        String[] input = new String[]{"a", "aa", "aaa"};
+        WordCounter wc = new WordCounter();
+        assertEquals(2.0, wc.countAverageWordLength(input), 0.0);
+    }
 }

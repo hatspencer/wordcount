@@ -29,7 +29,7 @@ public class App {
 
         WordCounter wc = new WordCounter(stopwords);
 
-        System.out.printf("Number of words: %s, unique: %s\n", wc.countWords(words), wc.countUniqueWords(words));
+        System.out.printf("Number of words: %s, unique: %s; average word length: %s characters\n", wc.countWords(words), wc.countUniqueWords(words), wc.countAverageWordLength(words));
 
     }
 }

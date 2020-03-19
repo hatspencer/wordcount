@@ -28,6 +28,16 @@ public class WordCounter {
         return Filter.filterUniqueWords(Filter.filterWords(predicate, words)).size();
     }
 
+    public Double countAverageWordLength(String[] words) {
+        Predicate<String> predicate = this.getPredicate();
+        List<String> wordsList = Filter.filterWords(predicate, words);
+        Double lengthOfAllWords = 0.0;
+        for (int i=0; i< wordsList.size(); i++){
+            lengthOfAllWords += wordsList.get(i).length();
+        }
+        return lengthOfAllWords / wordsList.size();
+    }
+
     private Predicate<String> getPredicate() {
         return (blackList != null) ?
                 pattern.asPredicate().and((word) -> !blackList.contains(word)) :

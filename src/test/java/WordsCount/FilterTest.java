@@ -1,6 +1,5 @@
 package WordsCount;
 
-import WordsCount.Filter;
 import org.junit.Test;
 
 import java.util.Arrays;
