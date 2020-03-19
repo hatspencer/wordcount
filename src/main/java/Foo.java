@@ -1,27 +1,30 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Foo {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        String[] words;
 
-        System.out.print("Enter text: ");
-        String text = scanner.nextLine();
+        WordProvider wp = new WordProvider();
 
-        String[] words = text.trim().split("\\s+");
+        if (args.length >= 1) {
+            String path = args[0];
+            List<String> input = FileProvider.getInputFromFile(path);
+            words = wp.getWords(input);
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter text: ");
+            String text = scanner.nextLine();
+
+            words = wp.getWords(text);
+        }
 
         Pattern pattern = Pattern.compile("^[a-zA-Z]+$");
 
-        List<String> stopwords = getStopWordsFromResourceFile("stopwords.txt");
+        List<String> stopwords = FileProvider.getInputFromResourceFile("stopwords.txt");
 
         List<String> matching = Filter.filterWords(pattern.asPredicate().and((word) -> !stopwords.contains(word)), words);
 
@@ -29,15 +32,4 @@ public class Foo {
         System.out.println(matching.size());
 
     }
-
-    private static List<String> getStopWordsFromResourceFile(String resource) {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        try (Stream<String> words = Files.lines(Paths.get(classloader.getResource(resource).getPath()))) {
-            return words.collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return Collections.emptyList();
-    }
-
 }
