@@ -28,7 +28,7 @@ public class WordCount {
 		return collectValidWords(input).stream().mapToInt(s -> s.length()).average().getAsDouble();
 	}
 	
-	protected List<String> collectValidWords(String input) {
+	public List<String> collectValidWords(String input) {
 		if (input == null)
 			return Collections.emptyList();
 		String[] inputWords = input.split(wordsSeparator);

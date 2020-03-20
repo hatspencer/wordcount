@@ -1,5 +1,6 @@
 package iterations.iteration.wordcount;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -14,14 +15,13 @@ public class WordCountUnique extends WordCount{
 	public WordCountUnique() {
 		this(null);
 	}
-
-	@Override
-	public int countWords(String input) {
-		return new TreeSet<String>(collectValidWords(input)).size();
-	}
 	
 	@Override
-	protected List<String> collectValidWords(String input) {
+	public List<String> collectValidWords(String input) {
+		return new ArrayList<String>(new TreeSet<String>(collectValidWordsInternal(input)));
+	}
+	
+	private List<String> collectValidWordsInternal(String input) {
 		if (other != null)
 			return other.collectValidWords(input);
 		return super.collectValidWords(input);

@@ -2,6 +2,8 @@ package iterations.iteration.wordcount;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,6 +59,23 @@ public class WordCountTest {
 		assertEquals(wordCount.averageWordLength("a aa aaa abab aba dinosaur"), 3.5, DOUBLE_COMPARISON_DELTA);
 		assertEquals(wordCount.averageWordLength("a aa aaa abab abcde abcdef"), 3.5, DOUBLE_COMPARISON_DELTA);
 		assertEquals(wordCount.averageWordLength("a aa aaa abab abcde abcdef ggggggg"), 4.0, DOUBLE_COMPARISON_DELTA);
+	}
+
+	@Test
+	public void collectWordsTest() {
+		
+		wordCount.addStopWords("df", "aabb", "dfgdf");
+		
+		List<String> words = wordCount.collectValidWords("word1 word2 wordDrei");
+		assertTrue(words.contains("wordDrei"));
+		assertTrue(!words.contains("word1"));
+		
+		words = wordCount.collectValidWords("aabb ccff dfgndjkf 4dfg48 rr$");
+		assertTrue(!words.contains("aabb"));
+		assertTrue(words.contains("dfgndjkf"));
+		assertTrue(words.contains("ccff"));
+		assertTrue(!words.contains("4dfg48"));
+		assertTrue(!words.contains("rr$"));
 	}
 
 }
