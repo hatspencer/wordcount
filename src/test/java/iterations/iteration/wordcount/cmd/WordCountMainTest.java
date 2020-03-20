@@ -34,8 +34,10 @@ public class WordCountMainTest {
 		wcm.init();
 		List<String> index = wcm.getIndex();
 
+		assertEquals(index.indexOf("-sat"), 0);
 		assertEquals(index.indexOf("fall"), 1);
 		assertEquals(index.indexOf("had"), 3);
+		assertEquals(index.indexOf("Humpty-Dumpty"), 4);
 		assertEquals(index.indexOf("wall"), 6);
 	}
 	
