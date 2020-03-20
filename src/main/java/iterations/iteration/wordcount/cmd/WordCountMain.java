@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
 
 import iterations.iteration.wordcount.WordCount;
 
@@ -30,16 +32,22 @@ public class WordCountMain {
 		}
 	}
 	
-	private static void initStopWords(WordCount wordCount, String stopWordsFileName) {
-		File stopWordsFile = new File(stopWordsFileName);
-		if (stopWordsFile.exists()) {
+	/**
+	 * 
+	 * @param fileName
+	 * @return null if file doesn't exist, otherwise the content (lines separated by 'nl' char)
+	 */
+	private static List<String> readLinesFromFile(String fileName) {
+		File file = new File(fileName);
+		if (file.exists()) {
+			LinkedList<String> lines = new LinkedList<String>();
 			FileInputStream inputFileStream = null;
 			try {
-				inputFileStream = new FileInputStream(stopWordsFile);
-				BufferedReader stopWordsReader = new BufferedReader(new InputStreamReader(inputFileStream));
-				String stopWord;
-				while((stopWord = stopWordsReader.readLine()) != null) {
-					wordCount.addStopWords(stopWord);
+				inputFileStream = new FileInputStream(file);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(inputFileStream));
+				String line;
+				while((line = reader.readLine()) != null) {
+					lines.add(line);
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -55,6 +63,15 @@ public class WordCountMain {
 					}
 				}
 			}
+			return lines;
+		}
+		return null;
+	}
+	
+	private static void initStopWords(WordCount wordCount, String stopWordsFileName) {
+		List<String> stopWords = readLinesFromFile(stopWordsFileName);
+		if (stopWords != null) {
+			wordCount.addStopWords(stopWords);
 		}
 	}
 
