@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,36 +17,48 @@ public class WordCountMain {
 
 	private static final String STOP_WORDS_DEFAULT_LOCATION = "stopwords.txt";
 
+	private DecimalFormat df2Places = new DecimalFormat("#.##");
 
 	public static void main(String[] args) {
 		new WordCountMain().run(args);
 	}
 	
+	String singleLine = null;
+	WordCount wordCount;
+	WordCountUnique wordCountUnique;
+	
 	public void run(String[] inputArgs) {
-		WordCount wordCount = createWordCount();
-		WordCountUnique wordCountUnique = new WordCountUnique(wordCount);
-		
-		String singleLine = null;
+		wordCount = createWordCount();
+		wordCountUnique = new WordCountUnique(wordCount);
 		
 		if (inputArgs.length > 0) {
 			singleLine = getTextFileContent(inputArgs[0]);
 		}
-		
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		
 		try {
 			if (singleLine == null) {
-				System.out.println("Enter text: ");
-				singleLine = reader.readLine();
+				requestInput();
 			}
-			System.out.print("Number of words: ");
-			System.out.print(wordCount.countWords(singleLine));
-			System.out.print(", unique: ");
-			System.out.println(wordCountUnique.countWords(singleLine));
+			countAndWriteOutput();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("Reading your command line input failed");
 		}
+	}
+	
+	private void countAndWriteOutput() {
+		System.out.print("Number of words: ");
+		System.out.print(wordCount.countWords(singleLine));
+		System.out.print(", unique: ");
+		System.out.print(wordCountUnique.countWords(singleLine));
+		System.out.print("; average word length: ");
+		System.out.print(df2Places.format(wordCount.averageWordLength(singleLine)));
+		System.out.println(" characters");
+	}
+	
+	private void requestInput() throws IOException {
+		System.out.println("Enter text: ");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		singleLine = reader.readLine();
 	}
 	
 	public WordCount createWordCount() {
