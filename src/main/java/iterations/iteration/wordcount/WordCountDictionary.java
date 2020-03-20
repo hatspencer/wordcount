@@ -2,16 +2,17 @@ package iterations.iteration.wordcount;
 
 import java.util.Set;
 
-public class WordCountDictionary extends WordCount {
+public class WordCountDictionary extends WordCountDecorator {
 	
 	Set<String> dictionary;
 	
-	public WordCountDictionary(Set<String> dictionary) {
+	public WordCountDictionary(Set<String> dictionary, WordCount other) {
+		super(other);
 		this.dictionary = dictionary;
 	}
 	
 	@Override
-	protected boolean isValidWord(String word) {
+	public boolean isValidWord(String word) {
 		return dictionary.contains(word);
 	}
 }
