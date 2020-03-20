@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,8 +29,7 @@ public class WordCountMain {
 	WordCountUnique wordCountUnique;
 	
 	public void run(String[] inputArgs) {
-		wordCount = createWordCount();
-		wordCountUnique = new WordCountUnique(wordCount);
+		init();
 		
 		if (inputArgs.length > 0) {
 			singleLine = getTextFileContent(inputArgs[0]);
@@ -39,10 +39,16 @@ public class WordCountMain {
 				requestInput();
 			}
 			countAndWriteOutput();
+			printIndex();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("Reading your command line input failed");
 		}
+	}
+	
+	public void init() {
+		createWordCount();
+		wordCountUnique = new WordCountUnique(wordCount);
 	}
 	
 	private void countAndWriteOutput() {
@@ -55,6 +61,20 @@ public class WordCountMain {
 		System.out.println(" characters");
 	}
 	
+	private void printIndex() {
+		List<String> uniqueWords = getIndex();
+		System.out.println("Index:");
+		for (String word : uniqueWords) {
+			System.out.println(word);
+		}
+	}
+
+	public List<String> getIndex() {
+		List<String> uniqueWords = wordCountUnique.collectValidWords(singleLine);
+		Collections.sort(uniqueWords, String::compareToIgnoreCase);
+		return uniqueWords;
+	}
+	
 	private void requestInput() throws IOException {
 		System.out.println("Enter text: ");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -62,7 +82,7 @@ public class WordCountMain {
 	}
 	
 	public WordCount createWordCount() {
-		WordCount wordCount = new WordCount();
+		wordCount = new WordCount();
 		wordCount.setValidWordExp("[a-zA-Z\\-]+");
 		wordCount.setWordsSeparator("[ ,\\t, \\.]+");
 		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
