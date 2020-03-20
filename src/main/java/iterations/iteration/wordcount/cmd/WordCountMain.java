@@ -16,15 +16,14 @@ import iterations.iteration.wordcount.io.TextConfigurationReader;
 
 public class WordCountMain {
 
-	private static final String STOP_WORDS_DEFAULT_LOCATION = "stopwords.txt";
-
 	private DecimalFormat df2Places = new DecimalFormat("#.##");
 
 	public static void main(String[] args) {
 		WordCountMain app = new WordCountMain();
-		app.configurationReader = new TextConfigurationReader(new FileTextResourceReader(STOP_WORDS_DEFAULT_LOCATION));
+		app.parameters = SettingsParameters.parse(args);
+		app.configurationReader = new TextConfigurationReader(new FileTextResourceReader(app.parameters.getStopWordsFileName()));
 		if (args.length > 0) {
-			app.inputReader = new FileTextResourceReader(args[0]);
+			app.inputReader = new FileTextResourceReader(app.parameters.getInputFileName());
 		}
 		app.run();
 	}
@@ -33,6 +32,7 @@ public class WordCountMain {
 	WordCount wordCount;
 	WordCountUnique wordCountUnique;
 
+	SettingsParameters parameters;
 	IConfigurationReader configurationReader;
 	ITextResourceReader inputReader;
 	
@@ -45,7 +45,9 @@ public class WordCountMain {
 				requestInput();
 			}
 			countAndWriteOutput();
-			printIndex();
+			if (parameters.isIndex()) {
+				printIndex();
+			}
 		} catch (IOException e) {
 			System.err.println("Reading your command line input failed");
 		}
