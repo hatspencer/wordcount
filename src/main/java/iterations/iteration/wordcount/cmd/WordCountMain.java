@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import iterations.iteration.wordcount.WordCount;
+import iterations.iteration.wordcount.WordCountUnique;
 
 public class WordCountMain {
 
@@ -17,6 +18,7 @@ public class WordCountMain {
 
 	public static void main(String[] args) {
 		WordCount wordCount = new WordCount();
+		WordCountUnique wordCountUnique = new WordCountUnique(wordCount);
 		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
 		
 		String singleLine = null;
@@ -33,7 +35,9 @@ public class WordCountMain {
 				singleLine = reader.readLine();
 			}
 			System.out.print("Number of words: ");
-			System.out.println(wordCount.countWords(singleLine));
+			System.out.print(wordCount.countWords(singleLine));
+			System.out.print(", unique: ");
+			System.out.println(wordCountUnique.countWords(singleLine));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("Reading your command line input failed");
