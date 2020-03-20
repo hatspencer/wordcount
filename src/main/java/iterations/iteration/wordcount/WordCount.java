@@ -10,7 +10,15 @@ import java.util.Set;
 
 public class WordCount {
 	
+	public final static String EMPTY_CHARS_REGEX = "[ ,\\t]+";
+
+	public static final String VALID_WORD_DEFAULT_EXPRESSION = "[a-zA-Z]+";
+	
 	final Set<String> stopWords = new HashSet<String>();
+	
+	private String validWordExp = VALID_WORD_DEFAULT_EXPRESSION;
+	
+	private String wordsSeparator = EMPTY_CHARS_REGEX;
 
 	public int countWords(String input) {
 		return collectValidWords(input).size();
@@ -19,7 +27,7 @@ public class WordCount {
 	protected List<String> collectValidWords(String input) {
 		if (input == null)
 			return Collections.emptyList();
-		String[] inputWords = input.split("[ ,\\t]+");
+		String[] inputWords = input.split(wordsSeparator);
 		List<String> validWords = new LinkedList<String>();
 		for (int i = 0; i < inputWords.length; i++) {
 			if (isValidWord(inputWords[i])) {
@@ -44,7 +52,15 @@ public class WordCount {
 	}
 	
 	private boolean isValidWord(String word) {
-		return word.matches("[a-zA-Z]+") && !stopWords.contains(word);
+		return word.matches(validWordExp) && !stopWords.contains(word);
+	}
+
+	public void setValidWordExp(String validWordExp) {
+		this.validWordExp = validWordExp;
+	}
+
+	public void setWordsSeparator(String wordsSeparator) {
+		this.wordsSeparator = wordsSeparator;
 	}
 	
 }
