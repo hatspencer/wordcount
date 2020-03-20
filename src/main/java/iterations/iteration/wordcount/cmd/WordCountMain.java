@@ -16,7 +16,12 @@ public class WordCountMain {
 
 	private static final String STOP_WORDS_DEFAULT_LOCATION = "stopwords.txt";
 
+
 	public static void main(String[] args) {
+		new WordCountMain().run(args);
+	}
+	
+	public void run(String[] inputArgs) {
 		WordCount wordCount = new WordCount();
 		wordCount.setValidWordExp("[a-zA-Z]+");
 		wordCount.setWordsSeparator("[ ,\\t,\\-, \\.]+");
@@ -25,8 +30,8 @@ public class WordCountMain {
 		
 		String singleLine = null;
 		
-		if (args.length > 0) {
-			singleLine = getTextFileContent(args[0]);
+		if (inputArgs.length > 0) {
+			singleLine = getTextFileContent(inputArgs[0]);
 		}
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -46,7 +51,7 @@ public class WordCountMain {
 		}
 	}
 	
-	private static String getTextFileContent(String fileName) {
+	private String getTextFileContent(String fileName) {
 		List<String> input = readLinesFromFile(fileName);
 		if (input == null || input.isEmpty())
 			return null;
@@ -58,7 +63,7 @@ public class WordCountMain {
 	 * @param fileName
 	 * @return null if file doesn't exist, otherwise the content (lines separated by 'nl' char)
 	 */
-	private static List<String> readLinesFromFile(String fileName) {
+	private List<String> readLinesFromFile(String fileName) {
 		File file = new File(fileName);
 		if (file.exists()) {
 			LinkedList<String> lines = new LinkedList<String>();
@@ -89,7 +94,7 @@ public class WordCountMain {
 		return null;
 	}
 	
-	private static void initStopWords(WordCount wordCount, String stopWordsFileName) {
+	private void initStopWords(WordCount wordCount, String stopWordsFileName) {
 		List<String> stopWords = readLinesFromFile(stopWordsFileName);
 		if (stopWords != null) {
 			wordCount.addStopWords(stopWords);
