@@ -20,6 +20,16 @@ public class SettingsParametersTest {
 		params = SettingsParameters.parse(new String[]{"-index", "stopwords.txt"});
 		assertEquals(params.getInputFileName(), "stopwords.txt");
 		assertTrue(params.isIndex());
+		
+		params = SettingsParameters.parse(new String[]{"-index", "stopwords.txt", "-dictionary=dict.txt"});
+		assertEquals(params.getInputFileName(), "stopwords.txt");
+		assertEquals(params.getDictFileName(), "dict.txt");
+		assertTrue(params.isIndex());
+		
+		params = SettingsParameters.parse(new String[]{"-index", "stopwords.txt", "-dictionary="});
+		assertEquals(params.getInputFileName(), "stopwords.txt");
+		assertEquals(params.getDictFileName(), "");
+		assertTrue(params.isIndex());
 	}
 	
 }
