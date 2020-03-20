@@ -1,18 +1,18 @@
 package iterations.iteration.wordcount.cmd;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import iterations.iteration.wordcount.WordCount;
 import iterations.iteration.wordcount.WordCountUnique;
+import iterations.iteration.wordcount.io.FileTextResourceReader;
+import iterations.iteration.wordcount.io.IConfigurationReader;
+import iterations.iteration.wordcount.io.ITextResourceReader;
+import iterations.iteration.wordcount.io.TextConfigurationReader;
 
 public class WordCountMain {
 
@@ -21,19 +21,25 @@ public class WordCountMain {
 	private DecimalFormat df2Places = new DecimalFormat("#.##");
 
 	public static void main(String[] args) {
-		new WordCountMain().run(args);
+		WordCountMain app = new WordCountMain();
+		app.configurationReader = new TextConfigurationReader(new FileTextResourceReader(STOP_WORDS_DEFAULT_LOCATION));
+		if (args.length > 0) {
+			app.inputReader = new FileTextResourceReader(args[0]);
+		}
+		app.run();
 	}
 	
 	String singleLine = null;
 	WordCount wordCount;
 	WordCountUnique wordCountUnique;
+
+	IConfigurationReader configurationReader;
+	ITextResourceReader inputReader;
 	
-	public void run(String[] inputArgs) {
+	public void run() {
 		init();
 		
-		if (inputArgs.length > 0) {
-			singleLine = getTextFileContent(inputArgs[0]);
-		}
+		readInputFileContent();
 		try {
 			if (singleLine == null) {
 				requestInput();
@@ -41,7 +47,6 @@ public class WordCountMain {
 			countAndWriteOutput();
 			printIndex();
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.err.println("Reading your command line input failed");
 		}
 	}
@@ -85,15 +90,14 @@ public class WordCountMain {
 		wordCount = new WordCount();
 		wordCount.setValidWordExp("[a-zA-Z\\-]+");
 		wordCount.setWordsSeparator("[ ,\\t, \\.]+");
-		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
+		initStopWords();
 		return wordCount;
 	}
 	
-	private String getTextFileContent(String fileName) {
-		List<String> input = readLinesFromFile(fileName);
-		if (input == null || input.isEmpty())
-			return null;
-		return String.join(" ", input);
+	private void readInputFileContent() {
+		if (inputReader != null) {
+			singleLine = inputReader.readContent();
+		}
 	}
 	
 	/**
@@ -101,39 +105,8 @@ public class WordCountMain {
 	 * @param fileName
 	 * @return null if file doesn't exist, otherwise the content (lines separated by 'nl' char)
 	 */
-	private List<String> readLinesFromFile(String fileName) {
-		File file = new File(fileName);
-		if (file.exists()) {
-			LinkedList<String> lines = new LinkedList<String>();
-			FileInputStream inputFileStream = null;
-			try {
-				inputFileStream = new FileInputStream(file);
-				BufferedReader reader = new BufferedReader(new InputStreamReader(inputFileStream));
-				String line;
-				while((line = reader.readLine()) != null) {
-					lines.add(line);
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			finally {
-				if (inputFileStream != null) {
-					try {
-						inputFileStream.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			return lines;
-		}
-		return null;
-	}
-	
-	private void initStopWords(WordCount wordCount, String stopWordsFileName) {
-		List<String> stopWords = readLinesFromFile(stopWordsFileName);
+	private void initStopWords() {
+		List<String> stopWords = configurationReader.readStopWords();
 		if (stopWords != null) {
 			wordCount.addStopWords(stopWords);
 		}
