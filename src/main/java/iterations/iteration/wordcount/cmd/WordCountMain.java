@@ -50,8 +50,8 @@ public class WordCountMain {
 	
 	public WordCount createWordCount() {
 		WordCount wordCount = new WordCount();
-		wordCount.setValidWordExp("[a-zA-Z]+");
-		wordCount.setWordsSeparator("[ ,\\t,\\-, \\.]+");
+		wordCount.setValidWordExp("[a-zA-Z\\-]+");
+		wordCount.setWordsSeparator("[ ,\\t, \\.]+");
 		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
 		return wordCount;
 	}

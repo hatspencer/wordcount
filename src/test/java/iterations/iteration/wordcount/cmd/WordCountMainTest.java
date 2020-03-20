@@ -14,10 +14,12 @@ public class WordCountMainTest {
 		WordCountMain wcm = new WordCountMain();
 		WordCount wc = wcm.createWordCount();
 		
-		assertEquals(wc.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."), 9);
+		assertEquals(wc.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."), 7);
 		
 		WordCountUnique wcu = new WordCountUnique(wc);
-		assertEquals(wcu.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."), 7);
+		assertEquals(wcu.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."), 6);
+		
+		assertEquals(wcu.countWords("Humpty-Dumpty -sat on a wall. Humpty-Dumpty- had a great fall."), 7);
 	}
 	
 }
