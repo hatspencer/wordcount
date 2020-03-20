@@ -19,17 +19,32 @@ public class WordCountMain {
 		WordCount wordCount = new WordCount();
 		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
 		
+		String singleLine = null;
+		
+		if (args.length > 0) {
+			singleLine = getTextFileContent(args[0]);
+		}
+		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("Enter text: ");
 		try {
-			String singleLine = reader.readLine();
+			if (singleLine == null) {
+				System.out.println("Enter text: ");
+				singleLine = reader.readLine();
+			}
 			System.out.print("Number of words: ");
 			System.out.println(wordCount.countWords(singleLine));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.err.println("Reading your command line input failed");
 		}
+	}
+	
+	private static String getTextFileContent(String fileName) {
+		List<String> input = readLinesFromFile(fileName);
+		if (input == null || input.isEmpty())
+			return null;
+		return String.join(" ", input);
 	}
 	
 	/**
