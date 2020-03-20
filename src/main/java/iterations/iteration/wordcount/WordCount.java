@@ -55,7 +55,7 @@ public class WordCount {
 		}
 	}
 	
-	private boolean isValidWord(String word) {
+	protected boolean isValidWord(String word) {
 		return word.matches(validWordExp) && !stopWords.contains(word);
 	}
 
