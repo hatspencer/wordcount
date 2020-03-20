@@ -22,11 +22,8 @@ public class WordCountMain {
 	}
 	
 	public void run(String[] inputArgs) {
-		WordCount wordCount = new WordCount();
-		wordCount.setValidWordExp("[a-zA-Z]+");
-		wordCount.setWordsSeparator("[ ,\\t,\\-, \\.]+");
+		WordCount wordCount = createWordCount();
 		WordCountUnique wordCountUnique = new WordCountUnique(wordCount);
-		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
 		
 		String singleLine = null;
 		
@@ -49,6 +46,14 @@ public class WordCountMain {
 			e.printStackTrace();
 			System.err.println("Reading your command line input failed");
 		}
+	}
+	
+	public WordCount createWordCount() {
+		WordCount wordCount = new WordCount();
+		wordCount.setValidWordExp("[a-zA-Z]+");
+		wordCount.setWordsSeparator("[ ,\\t,\\-, \\.]+");
+		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
+		return wordCount;
 	}
 	
 	private String getTextFileContent(String fileName) {
