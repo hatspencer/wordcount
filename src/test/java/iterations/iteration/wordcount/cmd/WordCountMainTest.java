@@ -15,7 +15,8 @@ public class WordCountMainTest {
 	public void createWordCountTest() {
 		WordCountMain wcm = new WordCountMain();
 		WordCount wc = wcm.createWordCount();
-		
+		wcm.wordCount.addStopWords("the", "a", "on", "off");
+
 		assertEquals(wc.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."), 7);
 		
 		WordCountUnique wcu = new WordCountUnique(wc);
@@ -32,6 +33,7 @@ public class WordCountMainTest {
 		// expect: -sat fall great had Humpty-Dumpty Humpty-Dumpty- wall
 		wcm.singleLine = "Humpty-Dumpty -sat on a wall. Humpty-Dumpty- had a great fall.";
 		wcm.init();
+		wcm.wordCount.addStopWords("the", "a", "on", "off");
 		List<String> index = wcm.getIndex();
 
 		assertEquals(index.indexOf("-sat"), 0);
