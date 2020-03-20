@@ -18,6 +18,8 @@ public class WordCountMain {
 
 	public static void main(String[] args) {
 		WordCount wordCount = new WordCount();
+		wordCount.setValidWordExp("[a-zA-Z]+");
+		wordCount.setWordsSeparator("[ ,\\t,\\-, \\.]+");
 		WordCountUnique wordCountUnique = new WordCountUnique(wordCount);
 		initStopWords(wordCount, STOP_WORDS_DEFAULT_LOCATION);
 		

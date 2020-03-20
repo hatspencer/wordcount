@@ -40,5 +40,13 @@ public class WordCountTest {
 		assertEquals(wordCount.countWords("  dfgdf	dfgdfg	dfgdfgdfgfg "), 2);
 		assertEquals(wordCount.countWords("  dfgdf	 	 	dfgdfg	dfgdfgdfgfg "), 2);
 	}
+	
+	@Test
+	public void countWordWithDashAsSeparator() {
+		wordCount.setWordsSeparator("[ ,\\t,\\-]");
+		assertEquals(wordCount.countWords("Humpty-Dumpty-blabla  -  hallo-world"), 5);
+		wordCount.setWordsSeparator("[ ,\\t,\\-,\\.]");
+		assertEquals(wordCount.countWords("Humpty-Dumpty-blabla  -  hallo-world"), 5);
+	}
 
 }
