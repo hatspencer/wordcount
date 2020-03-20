@@ -9,6 +9,8 @@ public class WordCountTest {
 	
 	WordCount wordCount;
 	
+	public final static double DOUBLE_COMPARISON_DELTA = 0.0000000001;
+	
 	@Before
 	public void setUp() {
 		wordCount = new WordCount();
@@ -47,6 +49,14 @@ public class WordCountTest {
 		assertEquals(wordCount.countWords("Humpty-Dumpty-blabla  -  hallo-world"), 5);
 		wordCount.setWordsSeparator("[ ,\\t,\\-,\\.]");
 		assertEquals(wordCount.countWords("Humpty-Dumpty-blabla  -  hallo-world"), 5);
+	}
+
+	@Test
+	public void averageWordsLengthTest() {
+		assertEquals(wordCount.averageWordLength("aa aa bb gg ee gg ds"), 2.0, DOUBLE_COMPARISON_DELTA);
+		assertEquals(wordCount.averageWordLength("a aa aaa abab aba dinosaur"), 3.5, DOUBLE_COMPARISON_DELTA);
+		assertEquals(wordCount.averageWordLength("a aa aaa abab abcde abcdef"), 3.5, DOUBLE_COMPARISON_DELTA);
+		assertEquals(wordCount.averageWordLength("a aa aaa abab abcde abcdef ggggggg"), 4.0, DOUBLE_COMPARISON_DELTA);
 	}
 
 }

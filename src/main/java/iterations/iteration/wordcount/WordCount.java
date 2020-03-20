@@ -24,6 +24,10 @@ public class WordCount {
 		return collectValidWords(input).size();
 	}
 	
+	public double averageWordLength(String input) {
+		return collectValidWords(input).stream().mapToInt(s -> s.length()).average().getAsDouble();
+	}
+	
 	protected List<String> collectValidWords(String input) {
 		if (input == null)
 			return Collections.emptyList();
