@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.DecimalFormat;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import iterations.iteration.wordcount.WordCount;
+import iterations.iteration.wordcount.WordCountDictionary;
 import iterations.iteration.wordcount.WordCountUnique;
 import iterations.iteration.wordcount.io.FileTextResourceReader;
 import iterations.iteration.wordcount.io.IConfigurationReader;
@@ -22,19 +25,20 @@ public class WordCountMain {
 		WordCountMain app = new WordCountMain();
 		app.parameters = SettingsParameters.parse(args);
 		app.configurationReader = new TextConfigurationReader(new FileTextResourceReader(app.parameters.getStopWordsFileName()));
-		if (args.length > 0) {
-			app.inputReader = new FileTextResourceReader(app.parameters.getInputFileName());
-		}
+		app.inputReader = new FileTextResourceReader(app.parameters.getInputFileName());
+		app.dictionaryReader = new FileTextResourceReader(app.parameters.getDictFileName());
 		app.run();
 	}
 	
 	String singleLine = null;
 	WordCount wordCount;
 	WordCountUnique wordCountUnique;
+	WordCountDictionary wordCountDictionary;
 
 	SettingsParameters parameters;
 	IConfigurationReader configurationReader;
 	ITextResourceReader inputReader;
+	ITextResourceReader dictionaryReader;
 	
 	public void run() {
 		init();
@@ -56,6 +60,15 @@ public class WordCountMain {
 	public void init() {
 		createWordCount();
 		wordCountUnique = new WordCountUnique(wordCount);
+	}
+	
+	public void initDictionary() {
+		if (dictionaryReader != null) {
+			Set<String> dictWords = new HashSet<String>(dictionaryReader.readLines());
+			if (!dictWords.isEmpty()) {
+				wordCountDictionary = new WordCountDictionary(dictWords);
+			}
+		}
 	}
 	
 	private void countAndWriteOutput() {
@@ -108,9 +121,11 @@ public class WordCountMain {
 	 * @return null if file doesn't exist, otherwise the content (lines separated by 'nl' char)
 	 */
 	private void initStopWords() {
-		List<String> stopWords = configurationReader.readStopWords();
-		if (stopWords != null) {
-			wordCount.addStopWords(stopWords);
+		if (configurationReader != null) {
+			List<String> stopWords = configurationReader.readStopWords();
+			if (stopWords != null) {
+				wordCount.addStopWords(stopWords);
+			}
 		}
 	}
 
