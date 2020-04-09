@@ -13,7 +13,7 @@ public class InputReaderTest {
         System.setIn(new ByteArrayInputStream("Word Word".getBytes()));
 
         InputReader sut = new InputReader();
-        String stringFromSystemIn = sut.readFromSystemIn();
+        String stringFromSystemIn = sut.readFromSystemIn("Enter text: ");
 
         assertEquals("Word Word", stringFromSystemIn);
     }

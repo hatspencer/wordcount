@@ -2,41 +2,69 @@ package wordcounter;
 
 import org.junit.Assert;
 import org.junit.Test;
-import wordcounter.WordCounter;
 
 public class WordCounterTest {
 
     @Test
+    public void shouldCountNoWordInEmptyString(){
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("");
+
+        Assert.assertEquals(0, actualCount);
+    }
+
+    @Test
+    public void shouldCountNoWordWhenNoValidWordExist(){
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("W3dhk KF*");
+
+        Assert.assertEquals(0, actualCount);
+    }
+
+    @Test
     public void shouldCountOneWord(){
-        int actualCount = WordCounter.countWords("Word");
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("Word");
 
         Assert.assertEquals(1, actualCount);
     }
 
     @Test
     public void shouldCountMoreWords(){
-        int actualCount = WordCounter.countWords("Word Word");
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("Word Word");
+
+        Assert.assertEquals(2, actualCount);
+    }
+
+    @Test
+    public void shouldCountMoreWordsUsingTabs(){
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("Word Word");
 
         Assert.assertEquals(2, actualCount);
     }
 
     @Test
     public void shouldCountMoreWordsAndIgnoreMoreWhitespaces(){
-        int actualCount = WordCounter.countWords("Word     Word");
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("Word     Word");
 
         Assert.assertEquals(2, actualCount);
     }
 
     @Test
     public void shouldCountMoreWordsAndIgnoreNumbersInWord(){
-        int actualCount = WordCounter.countWords("Word W0rd");
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("Word W0rd");
 
         Assert.assertEquals(1, actualCount);
     }
 
     @Test
     public void shouldCountMoreWordsAndIgnoreSpecialCharactersInWord(){
-        int actualCount = WordCounter.countWords("Word W$rd");
+        WordCounter sut = new WordCounter();
+        int actualCount = sut.countValidWords("Word W$rd");
 
         Assert.assertEquals(1, actualCount);
     }

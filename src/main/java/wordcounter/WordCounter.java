@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class WordCounter {
 
-    public static int countWords(String sentence) {
+    public int countValidWords(String sentence) {
 
         String[] words = sentence.split("\\s+");
         List<String> validWords = Arrays.stream(words).filter(w -> w.matches("^[a-zA-Z]+$")).collect(Collectors.toList());
