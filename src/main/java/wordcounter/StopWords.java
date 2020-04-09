@@ -15,6 +15,10 @@ public class StopWords {
 
     public StopWords() { }
 
+    public StopWords(List<String> stopWords) {
+        this.stopWords = stopWords;
+    }
+
     public StopWords(File file) {
         if(file == null) {
             return;
@@ -39,9 +43,5 @@ public class StopWords {
 
     public boolean isNoStopword(String word) {
         return !isStopword(word);
-    }
-
-    public void setStopWords(List<String> stopWords){
-        this.stopWords = stopWords;
     }
 }

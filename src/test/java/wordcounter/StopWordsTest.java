@@ -4,12 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.List;
 
 public class StopWordsTest {
 
@@ -33,9 +29,7 @@ public class StopWordsTest {
 
     @Test
     public void shouldDetectAStopword() {
-        StopWords sut = new StopWords();
-        List<String> stopwords = Arrays.asList("the", "a", "on", "off");
-        sut.setStopWords(stopwords);
+        StopWords sut = new StopWords(Arrays.asList("the", "a", "on", "off"));
         boolean isStopword = sut.isStopword("a");
 
         Assert.assertTrue(isStopword);
@@ -43,9 +37,7 @@ public class StopWordsTest {
 
     @Test
     public void shouldDetectNoStopword() {
-        StopWords sut = new StopWords();
-        List<String> stopwords = Arrays.asList("the", "a", "on", "off");
-        sut.setStopWords(stopwords);
+        StopWords sut = new StopWords(Arrays.asList("the", "a", "on", "off"));
         boolean isStopword = sut.isStopword("abc");
 
         Assert.assertFalse(isStopword);
@@ -53,9 +45,7 @@ public class StopWordsTest {
 
     @Test
     public void emptyStringShouldNotBeAStopword() {
-        StopWords sut = new StopWords();
-        List<String> stopwords = Arrays.asList("the", "a", "on", "off");
-        sut.setStopWords(stopwords);
+        StopWords sut = new StopWords(Arrays.asList("the", "a", "on", "off"));
 
         boolean isStopword = sut.isStopword("");
 

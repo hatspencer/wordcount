@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 public class WordCounterTest {
 
@@ -73,8 +75,8 @@ public class WordCounterTest {
     }
 
     @Test
-    public void shouldExcludeStopwords() throws URISyntaxException {
-        StopWords stopWords = new StopWords(Paths.get(this.getClass().getResource("/stopwords.txt").toURI()).toFile());
+    public void shouldExcludeStopwords() {
+        StopWords stopWords = new StopWords(Arrays.asList("the", "a", "on", "off"));
         WordCounter sut = new WordCounter(stopWords);
         int actualCount = sut.countValidWords("Word a");
 
