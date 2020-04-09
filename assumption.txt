@@ -1,3 +1,4 @@
 Iteration 2:
 stopwords.txt -> each line has only one Word!
-stopwords -> loading a second file overrides the old stopwords
+stopwords -> loading a second file overrides the old stopwords -> IsReverted
+stopwords -> the user should be able to provide a file himself

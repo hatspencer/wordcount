@@ -2,6 +2,9 @@ package wordcounter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,14 +13,14 @@ public class StopWords {
 
     private List<String> stopWords = new ArrayList<>();
 
-    public StopWords() {
-    }
+    public StopWords() { }
 
-    public List<String> readFromFile(String fileName) {
-        stopWords.clear();
+    public StopWords(File file) {
+        if(file == null) {
+            return;
+        }
 
         try {
-            File file = new File(fileName);
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
@@ -25,9 +28,16 @@ public class StopWords {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.printf(" %s: file was not found", fileName);
+            System.out.printf(" %s: file was not found", file);
             e.printStackTrace();
         }
-        return stopWords;
+    }
+
+    public boolean isStopword(String word) {
+        return stopWords.contains(word);
+    }
+
+    public boolean isNoStopword(String word) {
+        return !isStopword(word);
     }
 }
