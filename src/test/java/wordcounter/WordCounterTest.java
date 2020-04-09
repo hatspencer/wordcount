@@ -3,6 +3,9 @@ package wordcounter;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
 public class WordCounterTest {
 
     @Test
@@ -65,6 +68,15 @@ public class WordCounterTest {
     public void shouldCountMoreWordsAndIgnoreSpecialCharactersInWord(){
         WordCounter sut = new WordCounter();
         int actualCount = sut.countValidWords("Word W$rd");
+
+        Assert.assertEquals(1, actualCount);
+    }
+
+    @Test
+    public void shouldExcludeStopwords() throws URISyntaxException {
+        StopWords stopWords = new StopWords(Paths.get(this.getClass().getResource("/stopwords.txt").toURI()).toFile());
+        WordCounter sut = new WordCounter(stopWords);
+        int actualCount = sut.countValidWords("Word a");
 
         Assert.assertEquals(1, actualCount);
     }

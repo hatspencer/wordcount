@@ -40,4 +40,8 @@ public class StopWords {
     public boolean isNoStopword(String word) {
         return !isStopword(word);
     }
+
+    public void setStopWords(List<String> stopWords){
+        this.stopWords = stopWords;
+    }
 }

@@ -20,7 +20,10 @@ public class WordCounter {
     public int countValidWords(String sentence) {
 
         String[] words = sentence.split("\\s+");
-        List<String> validWords = Arrays.stream(words).filter(isValidWord()).filter(isNoStopword()).collect(Collectors.toList());
+        List<String> validWords = Arrays.stream(words)
+                                        .filter(isValidWord())
+                                        .filter(isNoStopword())
+                                        .collect(Collectors.toList());
 
         return validWords.size();
     }
