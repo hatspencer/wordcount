@@ -1,6 +1,7 @@
 package wordcounter;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -17,24 +18,31 @@ public class WordCounter {
         this.stopWords = stopWords;
     }
 
-    public int countValidWords(List<String> sentences){
-        int countedWords = 0;
-        for (String sentence : sentences) {
-            countedWords += countValidWords(sentence);
-        }
-        return  countedWords;
-    }
-
     public int countValidWords(String sentence) {
-
-        String[] words = sentence.split("\\s+");
-        List<String> validWords = Arrays.stream(words)
-                                        .filter(isValidWord())
-                                        .filter(isNoStopword())
-                                        .collect(Collectors.toList());
-
-        return validWords.size();
+        return getListFromSentence(sentence).size();
     }
+
+    public int countValidUniqueWords(String sentence) {
+        List<String> validWords = getListFromSentence(sentence);
+        return new LinkedHashSet<>(validWords).size();
+    }
+
+    private List<String> getListFromSentence(String sentence) {
+        String cleanedSentence = removeSpecialCharacters(sentence);
+
+        String[] words = cleanedSentence.split("\\s+");
+        return Arrays.stream(words)
+                .filter(isValidWord())
+                .filter(isNoStopword())
+                .collect(Collectors.toList());
+    }
+
+    private String removeSpecialCharacters(String sentence){
+        return sentence.replace(".","")
+                .replace(",","")
+                .replace("-"," ");
+    }
+
 
     private Predicate<? super String> isNoStopword() {
         return s -> stopWords.isNoStopword(s);

@@ -16,17 +16,18 @@ public class InputReader {
         return inputReader.nextLine();
     }
 
-    public List<String> readFromFile(String filename) throws FileNotFoundException {
+    public String readFromFile(String filename) throws FileNotFoundException {
         URL url = getClass().getClassLoader().getResource(filename);
         if(url == null){
             throw new FileNotFoundException(filename);
         }
         File file = new File(url.getFile());
-        List<String> lines = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
         try {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
-                lines.add(reader.nextLine());
+                sb.append(reader.nextLine());
+                sb.append(" ");
             }
             reader.close();
         } catch (FileNotFoundException e) {
@@ -34,6 +35,6 @@ public class InputReader {
             e.printStackTrace();
         }
 
-        return lines;
+        return sb.toString().trim();
     }
 }

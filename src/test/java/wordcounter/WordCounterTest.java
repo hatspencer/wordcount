@@ -87,9 +87,27 @@ public class WordCounterTest {
     public void shouldProcessListOfSentences() {
         StopWords stopWords = new StopWords(Arrays.asList("the", "a", "on", "off"));
         WordCounter sut = new WordCounter(stopWords);
-        List<String> sentences = Arrays.asList("Mary had", "a little", "lamb");
+        String sentences = "Mary had a little lamb";
         int actualCount = sut.countValidWords(sentences);
 
         Assert.assertEquals(4, actualCount);
+    }
+
+    @Test
+    public void shouldIgnoreSpecialCharacters() {
+        StopWords stopWords = new StopWords(Arrays.asList("the", "a", "on", "off"));
+        WordCounter sut = new WordCounter(stopWords);
+        int actualCount = sut.countValidWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+
+        Assert.assertEquals(9, actualCount);
+    }
+
+    @Test
+    public void shouldCountUniqueWords() {
+        StopWords stopWords = new StopWords(Arrays.asList("the", "a", "on", "off"));
+        WordCounter sut = new WordCounter(stopWords);
+        int actualCount = sut.countValidUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+
+        Assert.assertEquals(7, actualCount);
     }
 }

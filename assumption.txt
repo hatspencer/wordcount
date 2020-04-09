@@ -4,3 +4,5 @@ stopwords -> loading a second file overrides the old stopwords -> IsReverted
 stopwords -> the user should be able to provide a file himself
 Iteration 3:
 if no file is not found it will throw an exception and quit
+Iteration 4:
+'-', '.' and ',' are special character and should be ignored

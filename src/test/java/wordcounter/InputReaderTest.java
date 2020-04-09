@@ -24,8 +24,8 @@ public class InputReaderTest {
     @Test
     public void readFromFile() throws FileNotFoundException {
         InputReader sut = new InputReader();
-        List<String> lines = sut.readFromFile("mytext.txt");
+        String line = sut.readFromFile("mytext.txt");
 
-        assertEquals(Arrays.asList("Mary had", "a little", "lamb"), lines);
+        assertEquals("Mary had a little lamb", line);
     }
 }
