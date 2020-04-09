@@ -1,18 +1,28 @@
 package wordcounter;
 
-import java.io.File;
-import java.nio.file.Paths;
+import java.io.FileNotFoundException;
+import java.util.List;
 
-public class Main{
+public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        String filename = null;
+        if (args.length > 0) {
+            filename = args[0];
+        }
 
-        String input = new InputReader().readFromSystemIn("Enter text: ");
-        new StopWords();
-        WordCounter wordCounter = new WordCounter();
+        System.out.printf("Number of words: %s", getValidWordsCount(filename));
+    }
 
-        int validWordsCount = wordCounter.countValidWords(input);
+    private static int getValidWordsCount(String filename) throws FileNotFoundException {
+        WordCounter wordCounter = new WordCounter(new StopWords("stopwords.txt"));
+        if (filename != null && !filename.isEmpty()) {
+            List<String> lines = new InputReader().readFromFile(filename);
+            return wordCounter.countValidWords(lines);
+        } else {
 
-        System.out.printf( "Number of words: %s", validWordsCount);
+            String line = new InputReader().readFromSystemIn("Enter text: ");
+            return wordCounter.countValidWords(line);
+        }
     }
 }

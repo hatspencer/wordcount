@@ -17,6 +17,14 @@ public class WordCounter {
         this.stopWords = stopWords;
     }
 
+    public int countValidWords(List<String> sentences){
+        int countedWords = 0;
+        for (String sentence : sentences) {
+            countedWords += countValidWords(sentence);
+        }
+        return  countedWords;
+    }
+
     public int countValidWords(String sentence) {
 
         String[] words = sentence.split("\\s+");

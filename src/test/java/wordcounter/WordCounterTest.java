@@ -82,4 +82,14 @@ public class WordCounterTest {
 
         Assert.assertEquals(1, actualCount);
     }
+
+    @Test
+    public void shouldProcessListOfSentences() {
+        StopWords stopWords = new StopWords(Arrays.asList("the", "a", "on", "off"));
+        WordCounter sut = new WordCounter(stopWords);
+        List<String> sentences = Arrays.asList("Mary had", "a little", "lamb");
+        int actualCount = sut.countValidWords(sentences);
+
+        Assert.assertEquals(4, actualCount);
+    }
 }
