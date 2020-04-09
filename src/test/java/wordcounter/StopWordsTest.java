@@ -10,9 +10,8 @@ import java.util.Arrays;
 public class StopWordsTest {
 
     @Test
-    public void shouldNotCrashOnNullFile() {
-        File file = null;
-        StopWords sut = new StopWords(file);
+    public void shouldNotCrashOnEmptyFilename() {
+        StopWords sut = new StopWords("");
         boolean isStopword = sut.isStopword("a");
 
         Assert.assertFalse(isStopword);
@@ -20,11 +19,18 @@ public class StopWordsTest {
 
     @Test
     public void shouldNotCrashOnWrongFile() {
-        File file = new File("NonExistingFile.void");
-        StopWords sut = new StopWords(file);
+        StopWords sut = new StopWords("NonExistingFile.void");
         boolean isStopword = sut.isStopword("a");
 
         Assert.assertFalse(isStopword);
+    }
+
+    @Test
+    public void shouldDetectAStopwordFromAFile() {
+        StopWords sut = new StopWords("stopwords.txt");
+        boolean isStopword = sut.isStopword("a");
+
+        Assert.assertTrue(isStopword);
     }
 
     @Test
