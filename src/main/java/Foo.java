@@ -1,4 +1,7 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,6 +20,17 @@ public class Foo {
     String[] words = text.split(" ");
     List<String> validWords = wordsFilter(words);
     return validWords.size();
+  }
+
+  public List<String> readFile(String pathName) throws IOException {
+    File file = new File(pathName);
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    String st;
+    List<String> textContent = new ArrayList<>();
+    while ((st = br.readLine()) != null) {
+      textContent.add(st);
+    }
+    return textContent;
   }
 
   private List<String> wordsFilter(String[] words) {

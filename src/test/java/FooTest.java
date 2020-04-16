@@ -1,13 +1,15 @@
 import java.io.IOException;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class FooTest {
 
+  Foo foo = new Foo();
+
   @Test
   public void splitterTest() {
     String str1 = "word wor4r 75";
-    Foo foo = new Foo();
     int result = foo.countWords(str1);
     Assert.assertEquals(result, 1);
 
@@ -22,6 +24,13 @@ public class FooTest {
     String str4 = "hff'[- hggg ty*/`";
     result=foo.countWords(str4);
     Assert.assertEquals(result, 1);
+  }
+
+  @Test
+  public void readFileTest() throws IOException {
+    String path = "stopwords.txt";
+    List<String> fileContent = foo.readFile(path);
+    Assert.assertEquals(fileContent.size(), 4);
   }
 
 }
