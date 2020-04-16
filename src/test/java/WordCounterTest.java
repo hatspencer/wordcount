@@ -61,6 +61,10 @@ public class WordCounterTest {
   @Test
   public void uniqueWordsTest() throws IOException{
     String str = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+
+    int validWordsCount = wordCounter.countWords(str, stopWordsFilePath);
+    Assert.assertEquals(9, validWordsCount);
+
     List<String> uniqueWords = wordCounter.uniqueWords(str, stopWordsFilePath);
     Assert.assertEquals(7, uniqueWords.size());
   }

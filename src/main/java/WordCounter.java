@@ -27,14 +27,16 @@ public class WordCounter {
   }
 
   public int countWords(String text, String pathname) throws IOException {
-    String[] words = text.split(" ");
+    String str1 = text.replace(".", "").replace("-", " ");
+    String[] words = str1.split(" ");
     List<String> wordsToExclude = readStopWordsFile(pathname);
     List<String> validWords = wordsFilter(words, wordsToExclude);
     return validWords.size();
   }
 
   public List<String> uniqueWords(String text, String pathname) throws IOException{
-    String[] words = text.split(" ");
+    String str1 = text.replace(".", "").replace("-", " ");
+    String[] words = str1.split(" ");
     List<String> wordsToExclude = readStopWordsFile(pathname);
     List<String> validWords = wordsFilter(words, wordsToExclude);
 
@@ -44,7 +46,7 @@ public class WordCounter {
         uniqueWords.add(validWord);
       }
     }
-    return validWords;
+    return uniqueWords;
   }
 
   public List<String> readStopWordsFile(String pathName) throws IOException {
