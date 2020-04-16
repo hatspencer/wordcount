@@ -5,11 +5,22 @@ import org.junit.Test;
 public class FooTest {
 
   @Test
-  public void splitterTest() throws IOException {
-//    String str = "word wor4r 75";
+  public void splitterTest() {
+    String str1 = "word wor4r 75";
     Foo foo = new Foo();
-    String text = foo.inputText();
-    int result = foo.countWords(text);
+    int result = foo.countWords(str1);
+    Assert.assertEquals(result, 1);
+
+    String str2 = "wor1 qor2 dse3";
+    result = foo.countWords(str2);
+    Assert.assertEquals(result, 0);
+
+    String str3 = " hff jggj kgg ";
+    result=foo.countWords(str3);
+    Assert.assertEquals(result, 3);
+
+    String str4 = "hff'[- hggg ty*/`";
+    result=foo.countWords(str4);
     Assert.assertEquals(result, 1);
   }
 

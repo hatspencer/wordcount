@@ -10,9 +10,9 @@ public class Foo {
     System.out.println("Enter text: ");
     BufferedReader reader =
         new BufferedReader(new InputStreamReader(System.in));
-     return reader.readLine();
+    return reader.readLine();
   }
-  
+
   public int countWords(String text) {
     String[] words = text.split(" ");
     List<String> validWords = wordsFilter(words);
@@ -20,7 +20,7 @@ public class Foo {
   }
 
   private List<String> wordsFilter(String[] words) {
-    List<String> validWords = new ArrayList<String>();
+    List<String> validWords = new ArrayList<>();
     for (String s : words) {
       if (s.matches("[a-zA-Z]+")) {
         validWords.add(s);
@@ -29,5 +29,9 @@ public class Foo {
     return validWords;
   }
 
-  //output to terminal
+  public void displayResult(int result) {
+    String s = "Number of words: " + result;
+    System.console().writer().println(s);
+  }
+
 }
