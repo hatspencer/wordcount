@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,26 +34,34 @@ public class Foo {
   }
 
   private List<String> wordsFilter(String[] text, List<String> wordsToExclude) {
+    List<String> validWords = getOnlyLettersWords(text);
+    return filterNotRelevantWords(wordsToExclude, validWords);
+  }
+
+  private List<String> getOnlyLettersWords(String[] text) {
     List<String> validWords = new ArrayList<>();
     for (String s : text) {
       if (s.matches("[a-zA-Z]+")) {
         validWords.add(s);
       }
     }
+    return validWords;
+  }
 
+  private List<String> filterNotRelevantWords(List<String> wordsToExclude,
+      List<String> validWords) {
     List<String> relevantWords = new ArrayList<>();
     for (String validWord : validWords) {
       if (!wordsToExclude.contains(validWord)) {
         relevantWords.add(validWord);
       }
     }
-
     return relevantWords;
   }
 
   public void displayResult(int result) {
-    String s = "Number of words: " + result;
-    System.console().writer().println(s);
+    System.out.printf("Number of words: %s", result);
   }
-
 }
+
+

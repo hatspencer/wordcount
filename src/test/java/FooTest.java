@@ -5,8 +5,8 @@ import org.junit.Test;
 
 public class FooTest {
 
-  Foo foo = new Foo();
   String path = "stopwords.txt";
+  Foo foo = new Foo();
 
   @Test
   public void splitterTest() throws IOException {
