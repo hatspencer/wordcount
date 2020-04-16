@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.List;
 
 public class App {
 
@@ -7,9 +8,11 @@ public class App {
     String stopWordsFilePath = "stopwords.txt";
     String startFilePath = "startfile.txt";
 
-    String text = wordCounter.readStartFile(startFilePath);
-    int validWordsCount = wordCounter.countWords(text, stopWordsFilePath);
+//    String text = wordCounter.readStartFile(startFilePath);
+    String text = wordCounter.inputText();
+    int validWordsCount = wordCounter.getWordsCount(text, stopWordsFilePath);
+    List<String> uniqueWords = wordCounter.getUniqueWords(text, stopWordsFilePath);
 
-    wordCounter.displayResult(validWordsCount);
+    wordCounter.displayResult(validWordsCount, uniqueWords.size());
   }
 }

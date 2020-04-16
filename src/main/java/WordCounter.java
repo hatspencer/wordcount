@@ -9,7 +9,7 @@ import java.util.List;
 public class WordCounter {
 
   public String inputText() throws IOException {
-    System.out.println("Enter text: ");
+    System.out.print("Enter text: ");
     BufferedReader reader =
         new BufferedReader(new InputStreamReader(System.in));
     return reader.readLine();
@@ -26,20 +26,13 @@ public class WordCounter {
     return stringBuilder.toString().replaceAll("\\s+$", "");
   }
 
-  public int countWords(String text, String pathname) throws IOException {
-    String str1 = text.replace(".", "").replace("-", " ");
-    String[] words = str1.split(" ");
-    List<String> wordsToExclude = readStopWordsFile(pathname);
-    List<String> validWords = wordsFilter(words, wordsToExclude);
+  public int getWordsCount(String text, String pathname) throws IOException {
+    List<String> validWords = getValidWords(text, pathname);
     return validWords.size();
   }
 
-  public List<String> uniqueWords(String text, String pathname) throws IOException{
-    String str1 = text.replace(".", "").replace("-", " ");
-    String[] words = str1.split(" ");
-    List<String> wordsToExclude = readStopWordsFile(pathname);
-    List<String> validWords = wordsFilter(words, wordsToExclude);
-
+  public List<String> getUniqueWords(String text, String pathname) throws IOException{
+    List<String> validWords = getValidWords(text, pathname);
     List<String> uniqueWords =  new ArrayList<>();
     for(String validWord : validWords){
       if(!uniqueWords.contains(validWord)){
@@ -47,6 +40,13 @@ public class WordCounter {
       }
     }
     return uniqueWords;
+  }
+
+  private List<String> getValidWords(String text, String pathname) throws IOException {
+    String str1 = text.replace(".", "").replace("-", " ");
+    String[] words = str1.split(" ");
+    List<String> wordsToExclude = readStopWordsFile(pathname);
+    return wordsFilter(words, wordsToExclude);
   }
 
   public List<String> readStopWordsFile(String pathName) throws IOException {
@@ -86,8 +86,8 @@ public class WordCounter {
     return relevantWords;
   }
 
-  public void displayResult(int result) {
-    System.out.printf("Number of words: %s", result);
+  public void displayResult(int validWords, int uniqueWords) {
+    System.out.printf("Number of words: %s, unique: %s ", validWords, uniqueWords);
   }
 }
 

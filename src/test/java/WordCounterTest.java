@@ -12,30 +12,30 @@ public class WordCounterTest {
   @Test
   public void invalidCharactersTest() throws IOException {
     String invalidText1 = "word wor4r 75";
-    int validWordsCount = wordCounter.countWords(invalidText1, stopWordsFilePath);
+    int validWordsCount = wordCounter.getWordsCount(invalidText1, stopWordsFilePath);
     Assert.assertEquals(1, validWordsCount);
 
     String invalidText2 = "wor1 qor2 dse3";
-    validWordsCount = wordCounter.countWords(invalidText2, stopWordsFilePath);
+    validWordsCount = wordCounter.getWordsCount(invalidText2, stopWordsFilePath);
     Assert.assertEquals(0, validWordsCount);
 
     String invalidText3 = " hff jggj kgg ";
-    validWordsCount= wordCounter.countWords(invalidText3, stopWordsFilePath);
+    validWordsCount= wordCounter.getWordsCount(invalidText3, stopWordsFilePath);
     Assert.assertEquals(3, validWordsCount);
 
     String invalidText4 = "hff'[- hggg ty*/`";
-    validWordsCount= wordCounter.countWords(invalidText4, stopWordsFilePath);
+    validWordsCount= wordCounter.getWordsCount(invalidText4, stopWordsFilePath);
     Assert.assertEquals(1, validWordsCount);
   }
 
   @Test
   public void stopWordsTest() throws IOException {
     String oneStopWord = "Mary had a little lamb";
-    int validWords = wordCounter.countWords(oneStopWord, stopWordsFilePath);
+    int validWords = wordCounter.getWordsCount(oneStopWord, stopWordsFilePath);
     Assert.assertEquals(4, validWords);
 
     String twoStopWords = "Mary a the lamb";
-    validWords = wordCounter.countWords(twoStopWords, stopWordsFilePath);
+    validWords = wordCounter.getWordsCount(twoStopWords, stopWordsFilePath);
     Assert.assertEquals(2, validWords);
   }
 
@@ -48,7 +48,7 @@ public class WordCounterTest {
   @Test
   public void countWordsFromStartFile() throws IOException{
     String startFileContent = wordCounter.readStartFile(startFilePath);
-    int validWordsCount = wordCounter.countWords(startFileContent, stopWordsFilePath);
+    int validWordsCount = wordCounter.getWordsCount(startFileContent, stopWordsFilePath);
     Assert.assertEquals(4, validWordsCount);
   }
 
@@ -62,10 +62,10 @@ public class WordCounterTest {
   public void uniqueWordsTest() throws IOException{
     String str = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
 
-    int validWordsCount = wordCounter.countWords(str, stopWordsFilePath);
+    int validWordsCount = wordCounter.getWordsCount(str, stopWordsFilePath);
     Assert.assertEquals(9, validWordsCount);
 
-    List<String> uniqueWords = wordCounter.uniqueWords(str, stopWordsFilePath);
+    List<String> uniqueWords = wordCounter.getUniqueWords(str, stopWordsFilePath);
     Assert.assertEquals(7, uniqueWords.size());
   }
 
