@@ -4,10 +4,11 @@ public class App {
 
   public static void main(String[] args) throws IOException {
     WordCounter wordCounter = new WordCounter();
-    String path = "stopwords.txt";
+    String stopWordsFilePath = "stopwords.txt";
+    String startFilePath = "startfile.txt";
 
-    String text = wordCounter.inputText();
-    int validWordsCount = wordCounter.countWords(text, path);
+    String text = wordCounter.readStartFile(startFilePath);
+    int validWordsCount = wordCounter.countWords(text, stopWordsFilePath);
 
     wordCounter.displayResult(validWordsCount);
   }

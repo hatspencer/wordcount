@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +13,17 @@ public class WordCounter {
     BufferedReader reader =
         new BufferedReader(new InputStreamReader(System.in));
     return reader.readLine();
+  }
+
+  public String readStartFile(String pathname) throws IOException {
+    File file = new File(pathname);
+    BufferedReader br = new BufferedReader(new FileReader(file));
+    String st;
+    StringBuilder stringBuilder = new StringBuilder();
+    while ((st = br.readLine()) != null) {
+      stringBuilder.append(st).append(" ");
+    }
+    return stringBuilder.toString().replaceAll("\\s+$", "");
   }
 
   public int countWords(String text, String pathname) throws IOException {
@@ -34,24 +44,12 @@ public class WordCounter {
     return textContent;
   }
 
-  public String readStartFile(String pathname) throws IOException {
-    File file = new File(pathname);
-    BufferedReader br = new BufferedReader(new FileReader(file));
-    String st;
-    StringBuilder stringBuilder = new StringBuilder();
-    while ((st = br.readLine()) != null) {
-      stringBuilder.append(st).append(" ");
-    }
-    String s = stringBuilder.toString();
-    return s.replaceAll("\\s+$", "");
-  }
-
   private List<String> wordsFilter(String[] text, List<String> wordsToExclude) {
-    List<String> validWords = getOnlyLettersWords(text);
-    return filterNotRelevantWords(wordsToExclude, validWords);
+    List<String> validWords = nonAlphabeticalWordsFilter(text);
+    return stopWordsFilter(wordsToExclude, validWords);
   }
 
-  private List<String> getOnlyLettersWords(String[] text) {
+  private List<String> nonAlphabeticalWordsFilter(String[] text) {
     List<String> validWords = new ArrayList<>();
     for (String s : text) {
       if (s.matches("[a-zA-Z]+")) {
@@ -61,7 +59,7 @@ public class WordCounter {
     return validWords;
   }
 
-  private List<String> filterNotRelevantWords(List<String> wordsToExclude,
+  private List<String> stopWordsFilter(List<String> wordsToExclude,
       List<String> validWords) {
     List<String> relevantWords = new ArrayList<>();
     for (String validWord : validWords) {

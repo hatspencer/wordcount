@@ -6,7 +6,7 @@ import org.junit.Test;
 public class WordCounterTest {
 
   String stopWordsFilePath = "stopwords.txt";
-  String startFilePath = "mytext.txt";
+  String startFilePath = "startfile.txt";
   WordCounter wordCounter = new WordCounter();
 
   @Test
@@ -46,16 +46,16 @@ public class WordCounterTest {
   }
 
   @Test
-  public void readStartFileTest() throws IOException {
-    String startFileContent = wordCounter.readStartFile(startFilePath);
-    Assert.assertEquals(startFileContent, "Mary had a little lamb");
-  }
-
-  @Test
   public void countWordsFromStartFile() throws IOException{
     String startFileContent = wordCounter.readStartFile(startFilePath);
     int validWordsCount = wordCounter.countWords(startFileContent, stopWordsFilePath);
     Assert.assertEquals(4, validWordsCount);
+  }
+
+  @Test
+  public void readStartFileTest() throws IOException {
+    String startFileContent = wordCounter.readStartFile(startFilePath);
+    Assert.assertEquals(startFileContent, "Mary had a little lamb");
   }
 
 }
