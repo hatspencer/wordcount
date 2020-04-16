@@ -16,9 +16,10 @@ public class Foo {
     return reader.readLine();
   }
 
-  public int countWords(String text) {
+  public int countWords(String text, String pathname) throws IOException {
     String[] words = text.split(" ");
-    List<String> validWords = wordsFilter(words);
+    List<String> wordsToExclude = readFile(pathname);
+    List<String> validWords = wordsFilter(words, wordsToExclude);
     return validWords.size();
   }
 
@@ -33,14 +34,22 @@ public class Foo {
     return textContent;
   }
 
-  private List<String> wordsFilter(String[] words) {
+  private List<String> wordsFilter(String[] text, List<String> wordsToExclude) {
     List<String> validWords = new ArrayList<>();
-    for (String s : words) {
+    for (String s : text) {
       if (s.matches("[a-zA-Z]+")) {
         validWords.add(s);
       }
     }
-    return validWords;
+
+    List<String> relevantWords = new ArrayList<>();
+    for (String validWord : validWords) {
+      if (!wordsToExclude.contains(validWord)) {
+        relevantWords.add(validWord);
+      }
+    }
+
+    return relevantWords;
   }
 
   public void displayResult(int result) {
