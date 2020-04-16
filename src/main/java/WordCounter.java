@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Foo {
+public class WordCounter {
 
   public String inputText() throws IOException {
     System.out.println("Enter text: ");

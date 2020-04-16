@@ -3,12 +3,12 @@ import java.io.IOException;
 public class App {
 
   public static void main(String[] args) throws IOException {
-    Foo foo = new Foo();
+    WordCounter wordCounter = new WordCounter();
     String path = "stopwords.txt";
 
-    String text = foo.inputText();
-    int validWordsCount = foo.countWords(text, path);
+    String text = wordCounter.inputText();
+    int validWordsCount = wordCounter.countWords(text, path);
 
-    foo.displayResult(validWordsCount);
+    wordCounter.displayResult(validWordsCount);
   }
 }
