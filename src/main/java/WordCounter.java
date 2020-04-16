@@ -33,6 +33,20 @@ public class WordCounter {
     return validWords.size();
   }
 
+  public List<String> uniqueWords(String text, String pathname) throws IOException{
+    String[] words = text.split(" ");
+    List<String> wordsToExclude = readStopWordsFile(pathname);
+    List<String> validWords = wordsFilter(words, wordsToExclude);
+
+    List<String> uniqueWords =  new ArrayList<>();
+    for(String validWord : validWords){
+      if(!uniqueWords.contains(validWord)){
+        uniqueWords.add(validWord);
+      }
+    }
+    return validWords;
+  }
+
   public List<String> readStopWordsFile(String pathName) throws IOException {
     File file = new File(pathName);
     BufferedReader br = new BufferedReader(new FileReader(file));
