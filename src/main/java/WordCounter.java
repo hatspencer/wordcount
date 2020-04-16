@@ -1,38 +1,22 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class WordCounter {
 
-  public String inputText() throws IOException {
-    System.out.print("Enter text: ");
-    BufferedReader reader =
-        new BufferedReader(new InputStreamReader(System.in));
-    return reader.readLine();
+  private WordCounterInputReader wordCounterInputReader;
+
+  public WordCounter(WordCounterInputReader wordCounterInputReader) {
+    this.wordCounterInputReader = wordCounterInputReader;
   }
 
-  public String readStartFile(String pathname) throws IOException {
-    File file = new File(pathname);
-    BufferedReader br = new BufferedReader(new FileReader(file));
-    String st;
-    StringBuilder stringBuilder = new StringBuilder();
-    while ((st = br.readLine()) != null) {
-      stringBuilder.append(st).append(" ");
-    }
-    return stringBuilder.toString().replaceAll("\\s+$", "");
-  }
-
-  public int getWordsCount(String text, String pathname) throws IOException {
-    List<String> validWords = getValidWords(text, pathname);
+  public int getWordsCount(String text) throws IOException {
+    List<String> validWords = getValidWords(text);
     return validWords.size();
   }
 
-  public List<String> getUniqueWords(String text, String pathname) throws IOException{
-    List<String> validWords = getValidWords(text, pathname);
+  public List<String> getUniqueWords(String text) throws IOException{
+    List<String> validWords = getValidWords(text);
     List<String> uniqueWords =  new ArrayList<>();
     for(String validWord : validWords){
       if(!uniqueWords.contains(validWord)){
@@ -42,22 +26,11 @@ public class WordCounter {
     return uniqueWords;
   }
 
-  private List<String> getValidWords(String text, String pathname) throws IOException {
+  private List<String> getValidWords(String text) throws IOException {
     String str1 = text.replace(".", "").replace("-", " ");
     String[] words = str1.split(" ");
-    List<String> wordsToExclude = readStopWordsFile(pathname);
+    List<String> wordsToExclude = wordCounterInputReader.readStopWordsFile();
     return wordsFilter(words, wordsToExclude);
-  }
-
-  public List<String> readStopWordsFile(String pathName) throws IOException {
-    File file = new File(pathName);
-    BufferedReader br = new BufferedReader(new FileReader(file));
-    String st;
-    List<String> textContent = new ArrayList<>();
-    while ((st = br.readLine()) != null) {
-      textContent.add(st);
-    }
-    return textContent;
   }
 
   private List<String> wordsFilter(String[] text, List<String> wordsToExclude) {

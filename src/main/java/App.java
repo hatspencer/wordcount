@@ -3,23 +3,29 @@ import java.util.List;
 
 public class App {
 
+  private WordCounterInputReader wordCounterInputReader =new WordCounterInputReader();
+  private WordCounter wordCounter = new WordCounter(wordCounterInputReader);
+
   public static void main(String[] args) throws IOException {
-    WordCounter wordCounter = new WordCounter();
-    String stopWordsFilePath = "stopwords.txt";
-    String text;
-    String startFilePath;
+    App app = new App();
+    app.start(args);
+  }
 
-    if(args.length==0){
-      text = wordCounter.inputText();
-    }
-    else {
-      startFilePath = args[0];
-      text = wordCounter.readStartFile(startFilePath);
-    }
-
-    int validWordsCount = wordCounter.getWordsCount(text, stopWordsFilePath);
-    List<String> uniqueWords = wordCounter.getUniqueWords(text, stopWordsFilePath);
-
+  private void start(String[] args) throws IOException {
+    String text = getText(args);
+    int validWordsCount = wordCounter.getWordsCount(text);
+    List<String> uniqueWords = wordCounter.getUniqueWords(text);
     wordCounter.displayResult(validWordsCount, uniqueWords.size());
   }
+
+  private String getText(String[] args) throws IOException {
+    String text;
+    if (args.length == 0) {
+      text = wordCounterInputReader.inputText();
+    } else {
+      text = wordCounterInputReader.readStartFile(args[0]);
+    }
+    return text;
+  }
+
 }
