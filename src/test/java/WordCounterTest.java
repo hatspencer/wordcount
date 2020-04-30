@@ -40,6 +40,9 @@ public class WordCounterTest {
     public void stopWordTest() {
 
         assertEquals(4, wordCounter.countWords("Mary had a little lamb"));
+        assertEquals(1, wordCounter.countWords("  the   a b on off"));
+        assertEquals(0, wordCounter.countWords("the the the"));
+        assertEquals(1, wordCounter.countWords("the Mary the"));
 
     }
 
