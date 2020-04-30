@@ -64,4 +64,11 @@ public class WordCounterTest {
         assertEquals(7, wordCounter.countUniqueWords(fileWordReader.readWords()));
     }
 
+    @Test
+    public void uniqueFileExcessiveTest() {
+        FileWordReader fileWordReaderExcessive = new FileWordReader("src/main/resources/uniquewords-excessive.txt");
+        assertEquals(17, wordCounter.countWords(fileWordReaderExcessive.readWords()));
+        assertEquals(7, wordCounter.countUniqueWords(fileWordReaderExcessive.readWords()));
+    }
+
 }
