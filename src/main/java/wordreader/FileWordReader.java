@@ -7,17 +7,15 @@ import java.util.*;
 public class FileWordReader implements WordReader {
 
     private final String fileName;
-    private final List<String> words;
 
     public FileWordReader(String fileName) {
-        this.words = new ArrayList<>();
         this.fileName = fileName;
    }
 
     @Override
     public Collection<String> readWords() {
 
-        words.clear();
+        List<String> words = new ArrayList<>();
 
         try {
             File myObj = new File(fileName);

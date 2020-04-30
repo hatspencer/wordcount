@@ -1,5 +1,7 @@
 import org.junit.Test;
 import wordreader.FileWordReader;
+import wordreader.StopWordReader;
+import wordreader.WordReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class WordCounterTest {
 
     public WordCounterTest() {
 
-        FileWordReader stopWordReader = new FileWordReader(WordCounterApp.STOP_WORDS_FILENAME); // we can also mock this
+        WordReader stopWordReader = new StopWordReader(); // we can also mock this
         wordCounter = new WordCounter(stopWordReader);
     }
 
@@ -48,6 +50,12 @@ public class WordCounterTest {
         assertEquals(0, wordCounter.countWords(List.of("the", "the", "the")));
         assertEquals(1, wordCounter.countWords(List.of("the", " Mary", "the")));
 
+    }
+
+    @Test
+    public void customFileTest() {
+        FileWordReader fileWordReader = new FileWordReader("src/main/resources/mytext.txt");
+        assertEquals(4, wordCounter.countWords(fileWordReader.readWords()));
     }
 
 }
