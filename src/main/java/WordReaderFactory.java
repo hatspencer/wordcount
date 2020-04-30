@@ -1,3 +1,5 @@
+import wordreader.FileWordReader;
+import wordreader.UserInputWordReader;
 import wordreader.WordReader;
 
 public class WordReaderFactory implements IsWordReaderFactory {
@@ -8,8 +10,11 @@ public class WordReaderFactory implements IsWordReaderFactory {
     @Override
     public WordReader getReader(String[] args) {
 
-        // TODO instantitate reader based on args
+        if (args.length == 1) {
+            return new FileWordReader(args[0].trim());
+        }
 
-        return null;
+        return new UserInputWordReader(); // default
+
     }
 }

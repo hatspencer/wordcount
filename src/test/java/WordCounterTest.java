@@ -1,6 +1,9 @@
 import org.junit.Test;
 import wordreader.FileWordReader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class WordCounterTest {
@@ -27,24 +30,24 @@ public class WordCounterTest {
         assertFalse(wordCounter.isWord("  "));
     }
 
-//    @Test
-//    public void wordCountTest() {
-//
-//        assertEquals(1, wordCounter.countWords("word"));
-//        assertEquals(2, wordCounter.countWords("word word"));
-//        assertEquals(2, wordCounter.countWords("  word    6fdf  uionj"));
-//        assertEquals(0, wordCounter.countWords("   "));
-//
-//    }
-//
-//    @Test
-//    public void stopWordTest() {
-//
-//        assertEquals(4, wordCounter.countWords("Mary had a little lamb"));
-//        assertEquals(1, wordCounter.countWords("  the   a b on off"));
-//        assertEquals(0, wordCounter.countWords("the the the"));
-//        assertEquals(1, wordCounter.countWords("the Mary the"));
-//
-//    }
+    @Test
+    public void wordCountTest() {
+
+        assertEquals(1, wordCounter.countWords(List.of("word")));
+        assertEquals(2, wordCounter.countWords(List.of("word", "word")));
+        assertEquals(2, wordCounter.countWords(List.of("word", "6fdf", "uionj")));
+        assertEquals(0, wordCounter.countWords(List.of("   ")));
+
+    }
+
+    @Test
+    public void stopWordTest() {
+
+        assertEquals(4, wordCounter.countWords(List.of("Mary", "had", "a", "little", "lamb")));
+        assertEquals(1, wordCounter.countWords(List.of("  ", "the", "   ", "a", "b", " on", "off")));
+        assertEquals(0, wordCounter.countWords(List.of("the", "the", "the")));
+        assertEquals(1, wordCounter.countWords(List.of("the", " Mary", "the")));
+
+    }
 
 }

@@ -21,6 +21,7 @@ public class WordCounter {
         }
 
         long numWords = words.stream()
+                .map(word -> word.trim())
                 .filter(WordCounter::isWord)
                 .filter(this::isNotStopWord)
                 .count();
@@ -32,7 +33,10 @@ public class WordCounter {
         if (word == null || word.trim().isEmpty()) {
             return false;
         }
-        return word.replaceAll("[a-zA-Z]", "").length() == 0;
+
+        String trimmedWord = word.trim();
+
+        return trimmedWord.replaceAll("[a-zA-Z]", "").length() == 0;
     }
 
     public boolean isNotStopWord(String word) {
