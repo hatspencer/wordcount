@@ -1,3 +1,4 @@
+import org.junit.Ignore;
 import org.junit.Test;
 import wordreader.FileWordReader;
 import wordreader.StopWordReader;
@@ -57,5 +58,12 @@ public class WordCounterTest {
         FileWordReader fileWordReader = new FileWordReader("src/main/resources/mytext.txt");
         assertEquals(4, wordCounter.countWords(fileWordReader.readWords()));
     }
+
+//    @Test
+//    public void uniqueFileTest() {
+//        FileWordReader fileWordReader = new FileWordReader("src/main/resources/uniquewords.txt");
+//        assertEquals(9, wordCounter.countWords(fileWordReader.readWords()));
+//        assertEquals(7, wordCounter.countUniqueWords(fileWordReader.readWords()));
+//    }
 
 }

@@ -2,6 +2,8 @@ import wordreader.FileWordReader;
 import wordreader.StopWordReader;
 import wordreader.WordReader;
 
+import java.util.Collection;
+
 public class WordCounterApp {
 
     public static void main(String[] args) {
@@ -13,7 +15,13 @@ public class WordCounterApp {
         WordReader stopWordReader = new StopWordReader();
         WordCounter wordCounter = new WordCounter(stopWordReader);
 
-        System.out.println("Number of words: " + wordCounter.countWords(wordReader.readWords()));
+        Collection<String> words = wordReader.readWords();
+
+        System.out.println("Number of words: " + wordCounter.countWords(words)
+
+                // TODO not finished
+//                + ", unique: " + wordCounter.countUniqueWords(words)
+        );
 
     }
 

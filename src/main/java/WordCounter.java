@@ -2,7 +2,10 @@ import wordreader.WordReader;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WordCounter {
 
@@ -14,19 +17,44 @@ public class WordCounter {
 
     }
 
+    public long countUniqueWords(Collection<String> words) {
+            return countWords(words, true);
+    }
+
     public long countWords(Collection<String> words) {
+        return countWords(words, false);
+    }
+
+    /**
+     *
+     * @param words
+     * @param unique true to count only unique words, false otherwise
+     * @return
+     */
+    private long countWords(Collection<String> words, boolean unique) {
 
         if (words == null) {
             return 0;
         }
 
-        long numWords = words.stream()
+        Stream<String> wordsStream = words.stream()
                 .map(word -> word.trim())
                 .filter(WordCounter::isWord)
-                .filter(this::isNotStopWord)
-                .count();
+                .filter(this::isNotStopWord);
 
-        return numWords;
+        if (unique) {
+
+            // TODO
+            assert false : "TBD";
+            List<String> allWords = wordsStream.collect(Collectors.toList());
+            Set<String> uniqueWords = new HashSet<>();
+            uniqueWords.addAll(allWords);
+
+            return uniqueWords.size();
+        } else {
+
+            return wordsStream.count();
+        }
     }
 
     public static boolean isWord(String word) {
@@ -35,6 +63,10 @@ public class WordCounter {
         }
 
         String trimmedWord = word.trim();
+
+        trimmedWord = trimmedWord.replace(".", "");
+        trimmedWord = trimmedWord.replace("-", "");
+        trimmedWord = trimmedWord.replace(",", ""); //TODO other characters to ignore
 
         return trimmedWord.replaceAll("[a-zA-Z]", "").length() == 0;
     }
