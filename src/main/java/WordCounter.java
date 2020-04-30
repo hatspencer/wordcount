@@ -1,25 +1,26 @@
-import java.util.Arrays;
+import wordreader.WordReader;
+
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 public class WordCounter {
 
     private final Set<String> stopWords;
 
-    public WordCounter(StopWordReader stopWordReader) {
+    public WordCounter(WordReader stopWordReader) {
 
-        this.stopWords = stopWordReader.readStopWords();
+        this.stopWords = new HashSet<>(stopWordReader.readWords());
 
     }
 
-    public long countWords(String sentence) {
+    public long countWords(Collection<String> words) {
 
-        if (sentence == null) {
-            sentence = "";
+        if (words == null) {
+            return 0;
         }
 
-        String[] words = sentence.split(" ");
-
-        long numWords = Arrays.stream(words)
+        long numWords = words.stream()
                 .filter(WordCounter::isWord)
                 .filter(this::isNotStopWord)
                 .count();
