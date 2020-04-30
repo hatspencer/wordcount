@@ -5,24 +5,28 @@ public class Foo {
 
     public static void main(String[] args) {
 
-        System.out.println("Enter text: ");
+        System.out.print("Enter text: ");
 
         Scanner scanner = new Scanner(System.in);
 
         String sentence = scanner.nextLine();
 
+        System.out.println("Number of words: " + countWords(sentence));
+
+        scanner.close();
+    }
+
+    public static long countWords(String sentence) {
         String[] words = sentence.split(" ");
 
         long numWords = Arrays.stream(words)
                 .filter(Foo::isWord)
                 .count();
 
-        System.out.println("Number of words: " + numWords);
-
-        scanner.close();
+        return numWords;
     }
 
-    private static boolean isWord(String word) {
+    public static boolean isWord(String word) {
         if (word == null || word.trim().isEmpty()) {
             return false;
         }
