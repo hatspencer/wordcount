@@ -17,10 +17,9 @@ public class WordCounterApp {
 
         Collection<String> words = wordReader.readWords();
 
-        System.out.println("Number of words: " + wordCounter.countWords(words)
-
-                // TODO not finished
-//                + ", unique: " + wordCounter.countUniqueWords(words)
+        System.out.println(
+                "Number of words: " + wordCounter.countWords(words)
+                + ", unique: " + wordCounter.countUniqueWords(words)
         );
 
     }

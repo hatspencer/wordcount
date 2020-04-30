@@ -2,7 +2,7 @@ package wordreader;
 
 import java.util.Collection;
 
-public class StopWordReader implements WordReader {
+public class StopWordReader extends ReaderBase {
 
     public static final String STOP_WORDS_FILENAME = "src/main/resources/stopwords.txt";
 

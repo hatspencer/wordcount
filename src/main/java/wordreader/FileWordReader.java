@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class FileWordReader implements WordReader {
+public class FileWordReader extends ReaderBase {
 
     private final String fileName;
 
     public FileWordReader(String fileName) {
         this.fileName = fileName;
-   }
+    }
 
     @Override
     public Collection<String> readWords() {
@@ -22,7 +22,7 @@ public class FileWordReader implements WordReader {
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                words.addAll(Arrays.asList(data.split(" ")));
+                words.addAll(getWordsFromSentence(data));
             }
             myReader.close();
         } catch (FileNotFoundException e) {

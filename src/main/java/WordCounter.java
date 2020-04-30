@@ -43,9 +43,6 @@ public class WordCounter {
                 .filter(this::isNotStopWord);
 
         if (unique) {
-
-            // TODO
-            assert false : "TBD";
             List<String> allWords = wordsStream.collect(Collectors.toList());
             Set<String> uniqueWords = new HashSet<>();
             uniqueWords.addAll(allWords);
@@ -64,9 +61,9 @@ public class WordCounter {
 
         String trimmedWord = word.trim();
 
-        trimmedWord = trimmedWord.replace(".", "");
-        trimmedWord = trimmedWord.replace("-", "");
-        trimmedWord = trimmedWord.replace(",", ""); //TODO other characters to ignore
+//        trimmedWord = trimmedWord.replace(".", "");
+//        trimmedWord = trimmedWord.replace("-", "");
+//        trimmedWord = trimmedWord.replace(",", ""); //TODO other characters to ignore
 
         return trimmedWord.replaceAll("[a-zA-Z]", "").length() == 0;
     }

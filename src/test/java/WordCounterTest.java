@@ -1,10 +1,8 @@
-import org.junit.Ignore;
 import org.junit.Test;
 import wordreader.FileWordReader;
 import wordreader.StopWordReader;
 import wordreader.WordReader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -59,11 +57,11 @@ public class WordCounterTest {
         assertEquals(4, wordCounter.countWords(fileWordReader.readWords()));
     }
 
-//    @Test
-//    public void uniqueFileTest() {
-//        FileWordReader fileWordReader = new FileWordReader("src/main/resources/uniquewords.txt");
-//        assertEquals(9, wordCounter.countWords(fileWordReader.readWords()));
-//        assertEquals(7, wordCounter.countUniqueWords(fileWordReader.readWords()));
-//    }
+    @Test
+    public void uniqueFileTest() {
+        FileWordReader fileWordReader = new FileWordReader("src/main/resources/uniquewords.txt");
+        assertEquals(9, wordCounter.countWords(fileWordReader.readWords()));
+        assertEquals(7, wordCounter.countUniqueWords(fileWordReader.readWords()));
+    }
 
 }

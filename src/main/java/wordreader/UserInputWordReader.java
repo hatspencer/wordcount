@@ -2,7 +2,7 @@ package wordreader;
 
 import java.util.*;
 
-public class UserInputWordReader implements WordReader {
+public class UserInputWordReader extends ReaderBase {
 
     @Override
     public Collection<String> readWords() {
@@ -15,7 +15,7 @@ public class UserInputWordReader implements WordReader {
 
         scanner.close();
 
-        return Arrays.asList(sentence.split(" "));
+        return getWordsFromSentence(sentence);
     }
 
 
