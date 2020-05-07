@@ -15,17 +15,48 @@ import word.match.impl.AzWordMatcherImpl;
 
 public class Main {
 
+    private final OutputWriter outputWriter;
+    private final InputReader stdInInputReader;
+    private final TextObtainer textObtainer;
+    private final WordMatcher wordMatcher;
+    private final TextSplitter textSplitter;
+    private final WordCounter wordCounter;
+
+    public Main(
+            OutputWriter outputWriter, InputReader stdInInputReader, TextObtainer textObtainer, WordMatcher wordMatcher,
+            TextSplitter textSplitter, WordCounter wordCounter
+    ) {
+        this.outputWriter = outputWriter;
+        this.stdInInputReader = stdInInputReader;
+        this.textObtainer = textObtainer;
+        this.wordMatcher = wordMatcher;
+        this.textSplitter = textSplitter;
+        this.wordCounter = wordCounter;
+    }
+
     public static void main(String[] args) {
         OutputWriter outputWriter = initOutputWriter();
         InputReader stdInInputReader = initStdInInputReader();
         TextObtainer textObtainer = initTextObtainer(outputWriter, stdInInputReader);
 
-        String text = textObtainer.obtainText("Enter text: ");
-
         WordMatcher wordMatcher = initWordMatcher();
         TextSplitter textSplitter = initTextSplitter();
         WordCounter wordCounter = initWordCounter(wordMatcher, textSplitter);
 
+        Main main = new Main(
+            outputWriter,
+            stdInInputReader,
+            textObtainer,
+            wordMatcher,
+            textSplitter,
+            wordCounter
+        );
+
+        main.run();
+    }
+
+    public void run() {
+        String text = textObtainer.obtainText("Enter text: ");
         long wordCount = wordCounter.count(text);
         outputWriter.write("Number of words: ");
         outputWriter.write(String.valueOf(wordCount));
