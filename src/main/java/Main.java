@@ -34,18 +34,41 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         TextObtainer inputTextObtainer = initTextObtainerBasedOnArguments(args);
-
         OutputWriter resultOutputWriter = new StdOutOutputWriter();
-
         WordCounter wordCounter = initWordCounter("stopwords.txt");
 
-        Main main = new Main(
-            resultOutputWriter,
-            inputTextObtainer,
-            wordCounter
-        );
-
+        Main main = new Main(resultOutputWriter, inputTextObtainer, wordCounter);
         main.run();
+    }
+
+    public void run() {
+        String text = inputTextObtainer.obtainText();
+        long wordCount = wordCounter.count(text);
+        resultOutputWriter.write("Number of words: ");
+        resultOutputWriter.write(String.valueOf(wordCount));
+    }
+
+    private static TextObtainer initTextObtainerBasedOnArguments(String[] args) throws FileNotFoundException {
+        return args.length > 0 ? initTextObtainerForFile(args[0]) : initTextObtainerForStdIn();
+    }
+
+    private static TextObtainer initTextObtainerForFile(String fileName) throws FileNotFoundException {
+        InputReader fileInputReader = initFileInputReader(fileName);
+        return new TextObtainerImpl(fileInputReader);
+    }
+
+    private static TextObtainer initTextObtainerForStdIn() {
+        OutputWriter stdOutOutputWriter = new StdOutOutputWriter();
+        InputReader stdInInputReader = initStdInInputReader();
+        return new TextObtainerWithIntroTextImpl(stdInInputReader, stdOutOutputWriter, "Enter text: ");
+    }
+
+    private static InputReader initFileInputReader(String fileName) throws FileNotFoundException {
+        return new WholeInputReaderImpl(new Scanner(new FileInputStream(fileName)));
+    }
+
+    private static InputReader initStdInInputReader() {
+        return new OneLineInputReaderImpl(new Scanner(System.in));
     }
 
     private static WordCounter initWordCounter(String stopWordsFileName) throws FileNotFoundException {
@@ -59,36 +82,6 @@ public class Main {
         InputReader fileInputReader = initFileInputReader("stopwords.txt");
         List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
         return new ExcludeStopWordMatcherImpl(stopWords);
-    }
-
-    private static TextObtainer initTextObtainerBasedOnArguments(String[] args) throws FileNotFoundException {
-        return args.length > 0 ? initTextObtainerForFile(args[0]) : initTextObtainerForStdIn();
-    }
-
-    private static TextObtainer initTextObtainerForFile(String fileName) throws FileNotFoundException {
-        InputReader fileInputReader = initFileInputReader(fileName);
-        return new TextObtainerImpl(fileInputReader);
-    }
-
-    public void run() {
-        String text = inputTextObtainer.obtainText();
-        long wordCount = wordCounter.count(text);
-        resultOutputWriter.write("Number of words: ");
-        resultOutputWriter.write(String.valueOf(wordCount));
-    }
-
-    private static InputReader initStdInInputReader() {
-        return new OneLineInputReaderImpl(new Scanner(System.in));
-    }
-
-    private static InputReader initFileInputReader(String fileName) throws FileNotFoundException {
-        return new WholeInputReaderImpl(new Scanner(new FileInputStream(fileName)));
-    }
-
-    private static TextObtainer initTextObtainerForStdIn() {
-        OutputWriter stdOutOutputWriter = new StdOutOutputWriter();
-        InputReader stdInInputReader = initStdInInputReader();
-        return new TextObtainerWithIntroTextImpl(stdInInputReader, stdOutOutputWriter, "Enter text: ");
     }
 
 }
