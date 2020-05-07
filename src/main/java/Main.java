@@ -1,3 +1,5 @@
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 import input.InputReader;
@@ -41,7 +43,7 @@ public class Main {
 
         WordMatcher wordMatcher = initWordMatcher();
         TextSplitter textSplitter = initTextSplitter();
-        WordCounter wordCounter = initWordCounter(wordMatcher, textSplitter);
+        WordCounter wordCounter = initWordCounter(Collections.singleton(wordMatcher), textSplitter);
 
         Main main = new Main(
             outputWriter,
@@ -82,8 +84,8 @@ public class Main {
         return new WhiteSpaceTextSplitterImpl();
     }
 
-    private static WordCounter initWordCounter(WordMatcher wordMatcher, TextSplitter textSplitter) {
-        return new WordCounterImpl(wordMatcher, textSplitter);
+    private static WordCounter initWordCounter(Collection<WordMatcher> wordMatchers, TextSplitter textSplitter) {
+        return new WordCounterImpl(wordMatchers, textSplitter);
     }
 
 }

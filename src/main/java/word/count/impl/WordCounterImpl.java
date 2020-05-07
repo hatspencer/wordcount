@@ -1,16 +1,18 @@
 package word.count.impl;
 
+import java.util.Collection;
+
 import text.split.TextSplitter;
 import word.count.WordCounter;
 import word.match.WordMatcher;
 
 public class WordCounterImpl implements WordCounter {
 
-    private final WordMatcher wordMatcher;
+    private final Collection<WordMatcher> wordMatchers;
     private final TextSplitter textSplitter;
 
-    public WordCounterImpl(WordMatcher wordMatcher, TextSplitter textSplitter) {
-        this.wordMatcher = wordMatcher;
+    public WordCounterImpl(Collection<WordMatcher> wordMatchers, TextSplitter textSplitter) {
+        this.wordMatchers = wordMatchers;
         this.textSplitter = textSplitter;
     }
 
@@ -21,7 +23,12 @@ public class WordCounterImpl implements WordCounter {
         }
 
         return textSplitter.split(text).stream()
-                .filter(wordMatcher::match)
+                .filter(this::matchesAllMatchers)
                 .count();
+    }
+
+    private boolean matchesAllMatchers(String word) {
+        return wordMatchers.stream()
+                .allMatch(matcher -> matcher.match(word));
     }
 }
