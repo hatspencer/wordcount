@@ -1,4 +1,4 @@
-import input.UserInputReader;
+import input.InputReader;
 import input.impl.StdInUserInputReaderImpl;
 import output.OutputWriter;
 import output.impl.StdOutOutputWriter;
@@ -15,8 +15,8 @@ public class Main {
 
     public static void main(String[] args) {
         OutputWriter outputWriter = initOutputWriter();
-        UserInputReader userInputReader = initUserInputReader();
-        TextObtainer textObtainer = initTextObtainer(outputWriter, userInputReader);
+        InputReader inputReader = initInputReader();
+        TextObtainer textObtainer = initTextObtainer(outputWriter, inputReader);
 
         String text = textObtainer.obtainText("Enter text: ");
 
@@ -33,12 +33,12 @@ public class Main {
         return new StdOutOutputWriter();
     }
 
-    private static UserInputReader initUserInputReader() {
+    private static InputReader initInputReader() {
         return new StdInUserInputReaderImpl();
     }
 
-    private static TextObtainer initTextObtainer(OutputWriter outputWriter, UserInputReader userInputReader) {
-        return new TextObtainerImpl(userInputReader, outputWriter);
+    private static TextObtainer initTextObtainer(OutputWriter outputWriter, InputReader inputReader) {
+        return new TextObtainerImpl(inputReader, outputWriter);
     }
 
     private static WordMatcher initWordMatcher() {

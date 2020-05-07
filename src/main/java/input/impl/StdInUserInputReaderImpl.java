@@ -2,9 +2,9 @@ package input.impl;
 
 import java.util.Scanner;
 
-import input.UserInputReader;
+import input.InputReader;
 
-public class StdInUserInputReaderImpl implements UserInputReader {
+public class StdInUserInputReaderImpl implements InputReader {
 
     @Override
     public String getInputLine() {

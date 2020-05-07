@@ -1,22 +1,22 @@
 package text.obtain.impl;
 
-import input.UserInputReader;
+import input.InputReader;
 import output.OutputWriter;
 import text.obtain.TextObtainer;
 
 public class TextObtainerImpl implements TextObtainer {
 
-    private final UserInputReader userInputReader;
+    private final InputReader inputReader;
     private final OutputWriter outputWriter;
 
-    public TextObtainerImpl(UserInputReader userInputReader, OutputWriter outputWriter) {
-        this.userInputReader = userInputReader;
+    public TextObtainerImpl(InputReader inputReader, OutputWriter outputWriter) {
+        this.inputReader = inputReader;
         this.outputWriter = outputWriter;
     }
 
     @Override
     public String obtainText(String introText) {
         outputWriter.write(introText);
-        return userInputReader.getInputLine();
+        return inputReader.getInputLine();
     }
 }

@@ -1,6 +1,6 @@
 package input;
 
-public interface UserInputReader {
+public interface InputReader {
 
     String getInputLine();
 }
