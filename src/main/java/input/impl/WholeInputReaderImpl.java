@@ -2,26 +2,26 @@ package input.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import input.InputReader;
-import input.WholeInputReader;
 
-public class WholeInputReaderImpl implements WholeInputReader {
+public class WholeInputReaderImpl implements InputReader {
 
-    private final InputReader inputReader;
+    private final Scanner scanner;
 
-    public WholeInputReaderImpl(InputReader inputReader) {
-        this.inputReader = inputReader;
+    public WholeInputReaderImpl(Scanner scanner) {
+        this.scanner = scanner;
     }
 
     @Override
-    public List<String> readLines() {
+    public String getInput() {
         List<String> lines = new ArrayList<>();
-        while (inputReader.hasNewLine()) {
-            String line = inputReader.getInputLine();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
             lines.add(line);
         }
 
-        return lines;
+        return String.join("\n", lines);
     }
 }

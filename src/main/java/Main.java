@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import input.InputReader;
-import input.WholeInputReader;
-import input.impl.InputReaderImpl;
+import input.impl.OneLineInputReaderImpl;
 import input.impl.WholeInputReaderImpl;
 import output.OutputWriter;
 import output.impl.StdOutOutputWriter;
@@ -48,8 +47,7 @@ public class Main {
         TextObtainer textObtainer = initTextObtainer(outputWriter, stdInInputReader);
 
         InputReader fileInputReader = initFileInputReader("stopwords.txt");
-        WholeInputReader wholeFileInputReader = initWholeInputReader(fileInputReader);
-        List<String> stopWords = wholeFileInputReader.readLines();
+        List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
 
         WordMatcher excludeStopWordMatcher = initExcludeStopWordMatcher(stopWords);
         WordMatcher azWordMatcher = initAzWordMatcher();
@@ -80,15 +78,11 @@ public class Main {
     }
 
     private static InputReader initStdInInputReader() {
-        return new InputReaderImpl(new Scanner(System.in));
+        return new OneLineInputReaderImpl(new Scanner(System.in));
     }
 
     private static InputReader initFileInputReader(String fileName) throws FileNotFoundException {
-        return new InputReaderImpl(new Scanner(new FileInputStream(fileName)));
-    }
-
-    private static WholeInputReader initWholeInputReader(InputReader inputReader) {
-        return new WholeInputReaderImpl(inputReader);
+        return new WholeInputReaderImpl(new Scanner(new FileInputStream(fileName)));
     }
 
     private static TextObtainer initTextObtainer(OutputWriter outputWriter, InputReader inputReader) {
