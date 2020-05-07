@@ -2,6 +2,12 @@ import java.util.Arrays;
 
 public class WordCounterImpl implements WordCounter {
 
+    private final WordMatcher wordMatcher;
+
+    public WordCounterImpl(WordMatcher wordMatcher) {
+        this.wordMatcher = wordMatcher;
+    }
+
     @Override
     public long count(String text) {
         if (text == null) {
@@ -11,15 +17,11 @@ public class WordCounterImpl implements WordCounter {
         String[] splitText = text.split("\\s+");
         return Arrays.stream(splitText)
                 .filter(this::isNotBlank)
-                .filter(this::hasOnlyAzChars)
+                .filter(wordMatcher::match)
                 .count();
     }
 
     private boolean isNotBlank(String str) {
         return !str.isEmpty() && !str.matches("\\s+");
-    }
-
-    private boolean hasOnlyAzChars(String str) {
-        return str.matches("([a-z]|[A-Z])+");
     }
 }
