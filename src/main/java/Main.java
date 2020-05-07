@@ -23,21 +23,12 @@ import word.match.impl.ExcludeStopWordMatcherImpl;
 public class Main {
 
     private final OutputWriter outputWriter;
-    private final InputReader stdInInputReader;
     private final TextObtainer textObtainer;
-    private final WordMatcher wordMatcher;
-    private final TextSplitter textSplitter;
     private final WordCounter wordCounter;
 
-    public Main(
-            OutputWriter outputWriter, InputReader stdInInputReader, TextObtainer textObtainer, WordMatcher wordMatcher,
-            TextSplitter textSplitter, WordCounter wordCounter
-    ) {
+    public Main(OutputWriter outputWriter, TextObtainer textObtainer, WordCounter wordCounter) {
         this.outputWriter = outputWriter;
-        this.stdInInputReader = stdInInputReader;
         this.textObtainer = textObtainer;
-        this.wordMatcher = wordMatcher;
-        this.textSplitter = textSplitter;
         this.wordCounter = wordCounter;
     }
 
@@ -56,10 +47,7 @@ public class Main {
 
         Main main = new Main(
             outputWriter,
-            stdInInputReader,
             textObtainer,
-            azWordMatcher,
-            textSplitter,
             wordCounter
         );
 
