@@ -15,8 +15,8 @@ public class TextObtainerImpl implements TextObtainer {
     }
 
     @Override
-    public String obtainText() {
-        outputWriter.write("Enter text: ");
+    public String obtainText(String introText) {
+        outputWriter.write(introText);
         return userInputReader.getInputLine();
     }
 }
