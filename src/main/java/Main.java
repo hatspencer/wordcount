@@ -22,6 +22,10 @@ import word.match.impl.ExcludeStopWordMatcherImpl;
 
 public class Main {
 
+    private static final String STOPWORDS_FILENAME = "stopwords.txt";
+    private static final String WORDS_COUNT_INTRO_TEXT = "Number of words: ";
+    private static final String INPUT_TEXT_READING_INTRO_TEXT = "Enter text: ";
+
     private final OutputWriter resultOutputWriter;
     private final TextObtainer inputTextObtainer;
     private final WordCounter wordCounter;
@@ -35,7 +39,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         TextObtainer inputTextObtainer = initTextObtainerBasedOnArguments(args);
         OutputWriter resultOutputWriter = new StdOutOutputWriter();
-        WordCounter wordCounter = initWordCounter("stopwords.txt");
+        WordCounter wordCounter = initWordCounter(STOPWORDS_FILENAME);
 
         Main main = new Main(resultOutputWriter, inputTextObtainer, wordCounter);
         main.run();
@@ -44,7 +48,7 @@ public class Main {
     public void run() {
         String text = inputTextObtainer.obtainText();
         long wordCount = wordCounter.count(text);
-        resultOutputWriter.write("Number of words: ");
+        resultOutputWriter.write(WORDS_COUNT_INTRO_TEXT);
         resultOutputWriter.write(String.valueOf(wordCount));
     }
 
@@ -60,7 +64,7 @@ public class Main {
     private static TextObtainer initTextObtainerForStdIn() {
         OutputWriter stdOutOutputWriter = new StdOutOutputWriter();
         InputReader stdInInputReader = initStdInInputReader();
-        return new TextObtainerWithIntroTextImpl(stdInInputReader, stdOutOutputWriter, "Enter text: ");
+        return new TextObtainerWithIntroTextImpl(stdInInputReader, stdOutOutputWriter, INPUT_TEXT_READING_INTRO_TEXT);
     }
 
     private static InputReader initFileInputReader(String fileName) throws FileNotFoundException {
