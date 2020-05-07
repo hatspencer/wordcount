@@ -1,16 +1,17 @@
 package word.count.impl;
 
-import java.util.Arrays;
-
+import text.split.TextSplitter;
 import word.count.WordCounter;
 import word.match.WordMatcher;
 
 public class WordCounterImpl implements WordCounter {
 
     private final WordMatcher wordMatcher;
+    private final TextSplitter textSplitter;
 
-    public WordCounterImpl(WordMatcher wordMatcher) {
+    public WordCounterImpl(WordMatcher wordMatcher, TextSplitter textSplitter) {
         this.wordMatcher = wordMatcher;
+        this.textSplitter = textSplitter;
     }
 
     @Override
@@ -19,14 +20,8 @@ public class WordCounterImpl implements WordCounter {
             return 0;
         }
 
-        String[] splitText = text.split("\\s+");
-        return Arrays.stream(splitText)
-                .filter(this::isNotBlank)
+        return textSplitter.split(text).stream()
                 .filter(wordMatcher::match)
                 .count();
-    }
-
-    private boolean isNotBlank(String str) {
-        return !str.isEmpty() && !str.matches("\\s+");
     }
 }
