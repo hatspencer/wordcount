@@ -11,7 +11,7 @@ public class UniqueWordFilterImpl implements WordFilter {
 
     @Override
     public boolean filter(String word) {
-        boolean isWordUnique = uniqueWords.contains(word);
+        boolean isWordUnique = !uniqueWords.contains(word);
         uniqueWords.add(word);
         return isWordUnique;
     }
