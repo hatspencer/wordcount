@@ -11,6 +11,7 @@ import input.impl.WholeInputReaderImpl;
 import output.OutputWriter;
 import output.impl.StdOutOutputWriter;
 import text.obtain.TextObtainer;
+import text.obtain.impl.TextObtainerImpl;
 import text.obtain.impl.TextObtainerWithIntroTextImpl;
 import text.split.TextSplitter;
 import text.split.impl.WhiteSpaceTextSplitterImpl;
@@ -33,8 +34,14 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
+        TextObtainer textObtainer;
+        if (args.length > 0) {
+            textObtainer = initTextObtainerForFile(args[0]);
+        } else {
+            textObtainer = initTextObtainerForStdIn();
+        }
+
         OutputWriter outputWriter = initOutputWriter();
-        TextObtainer textObtainer = initTextObtainerForStdIn();
 
         InputReader fileInputReader = initFileInputReader("stopwords.txt");
         List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
@@ -51,6 +58,11 @@ public class Main {
         );
 
         main.run();
+    }
+
+    private static TextObtainer initTextObtainerForFile(String fileName) throws FileNotFoundException {
+        InputReader fileInputReader = initFileInputReader(fileName);
+        return new TextObtainerImpl(fileInputReader);
     }
 
     public void run() {
