@@ -22,7 +22,7 @@ import word.filter.impl.ExcludedWordFilterImpl;
 
 public class Main {
 
-    private static final String STOPWORDS_FILENAME = "stopwords.txt";
+    private static final String EXCLUDED_WORDS_FILENAME = "stopwords.txt";
     private static final String WORDS_COUNT_INTRO_TEXT = "Number of words: ";
     private static final String INPUT_TEXT_READING_INTRO_TEXT = "Enter text: ";
 
@@ -39,7 +39,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         TextObtainer inputTextObtainer = initTextObtainerBasedOnArguments(args);
         OutputWriter resultOutputWriter = new StdOutOutputWriter();
-        WordCounter wordCounter = initWordCounter(STOPWORDS_FILENAME);
+        WordCounter wordCounter = initWordCounter(EXCLUDED_WORDS_FILENAME);
 
         Main main = new Main(resultOutputWriter, inputTextObtainer, wordCounter);
         main.run();
@@ -75,17 +75,17 @@ public class Main {
         return new OneLineInputReaderImpl(new Scanner(System.in));
     }
 
-    private static WordCounter initWordCounter(String stopWordsFileName) throws FileNotFoundException {
-        WordFilter excludeStopWordFilter = initExcludeStopWordMatcher(stopWordsFileName);
+    private static WordCounter initWordCounter(String excludedWordsFileName) throws FileNotFoundException {
+        WordFilter excludedWordFilter = initExcludeStopWordFilter(excludedWordsFileName);
         WordFilter azWordFilter = new AzWordFilterImpl();
         TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
-        return new WordCounterImpl(Arrays.asList(azWordFilter, excludeStopWordFilter), textSplitter);
+        return new WordCounterImpl(Arrays.asList(azWordFilter, excludedWordFilter), textSplitter);
     }
 
-    private static WordFilter initExcludeStopWordMatcher(String stopWordsFileName) throws FileNotFoundException {
-        InputReader fileInputReader = initFileInputReader(stopWordsFileName);
-        List<String> stopWords = fileInputReader.getInputByLines();
-        return new ExcludedWordFilterImpl(stopWords);
+    private static WordFilter initExcludeStopWordFilter(String excludedWordsFileName) throws FileNotFoundException {
+        InputReader fileInputReader = initFileInputReader(excludedWordsFileName);
+        List<String> excludedWords = fileInputReader.getInputByLines();
+        return new ExcludedWordFilterImpl(excludedWords);
     }
 
 }
