@@ -1,11 +1,11 @@
 package word.match.impl;
 
-import word.match.WordMatcher;
+import word.match.WordFilter;
 
-public class AzWordMatcherImpl implements WordMatcher {
+public class AzWordFilterImpl implements WordFilter {
 
     @Override
-    public boolean match(String word) {
+    public boolean filter(String word) {
         return word != null && hasOnlyAzChars(word);
     }
 

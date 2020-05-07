@@ -4,15 +4,15 @@ import java.util.Collection;
 
 import text.split.TextSplitter;
 import word.count.WordCounter;
-import word.match.WordMatcher;
+import word.match.WordFilter;
 
 public class WordCounterImpl implements WordCounter {
 
-    private final Collection<WordMatcher> wordMatchers;
+    private final Collection<WordFilter> wordFilters;
     private final TextSplitter textSplitter;
 
-    public WordCounterImpl(Collection<WordMatcher> wordMatchers, TextSplitter textSplitter) {
-        this.wordMatchers = wordMatchers;
+    public WordCounterImpl(Collection<WordFilter> wordFilters, TextSplitter textSplitter) {
+        this.wordFilters = wordFilters;
         this.textSplitter = textSplitter;
     }
 
@@ -28,7 +28,7 @@ public class WordCounterImpl implements WordCounter {
     }
 
     private boolean matchesAllMatchers(String word) {
-        return wordMatchers.stream()
-                .allMatch(matcher -> matcher.match(word));
+        return wordFilters.stream()
+                .allMatch(matcher -> matcher.filter(word));
     }
 }

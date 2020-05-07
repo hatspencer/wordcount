@@ -11,67 +11,67 @@ import org.junit.Test;
 
 import text.split.TextSplitter;
 import word.count.WordCounter;
-import word.match.WordMatcher;
+import word.match.WordFilter;
 
 public class WordCounterImplTest {
 
     @Test
     public void testWithEmptyListTextSplitter() {
-        WordMatcher wordMatcher = new WordMatcherTrueMock();
+        WordFilter wordFilter = new WordFilterTrueMock();
         TextSplitter textSplitter = new TextSplitterEmptyListMock();
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordMatcher), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
         long count = wordCounter.count("any");
         assertEquals(0L, count);
     }
 
     @Test
     public void testWithOneItemTextSplitter() {
-        WordMatcher wordMatcher = new WordMatcherTrueMock();
+        WordFilter wordFilter = new WordFilterTrueMock();
         TextSplitter textSplitter = new TextSplitterExactListMock(Collections.singletonList("any"));
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordMatcher), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
         long count = wordCounter.count("any");
         assertEquals(1L, count);
     }
 
     @Test
     public void testWithNullText() {
-        WordMatcher wordMatcher = new WordMatcherTrueMock();
+        WordFilter wordFilter = new WordFilterTrueMock();
         TextSplitter textSplitter = new TextSplitterEmptyListMock();
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordMatcher), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
         long count = wordCounter.count(null);
         assertEquals(0L, count);
     }
 
     @Test
     public void testWithFalseWordMatcher() {
-        WordMatcher wordMatcher = new WordMatcherFalseMock();
+        WordFilter wordFilter = new WordFilterFalseMock();
         TextSplitter textSplitter = new TextSplitterEmptyListMock();
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordMatcher), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
         long count = wordCounter.count("text text");
         assertEquals(0L, count);
     }
 
     @Test
     public void testWithMultipleExcludingWordMatchers() {
-        WordMatcher wordMatcher1 = new WordMatcherExactWordMock("one");
-        WordMatcher wordMatcher2 = new WordMatcherExactWordMock("two");
+        WordFilter wordFilter1 = new WordMatcherExactWordMock("one");
+        WordFilter wordFilter2 = new WordMatcherExactWordMock("two");
         TextSplitter textSplitter = new TextSplitterExactListMock(Arrays.asList("one","two","three"));
-        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordMatcher1, wordMatcher2), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordFilter1, wordFilter2), textSplitter);
         long count = wordCounter.count("one two three");
         assertEquals(0L, count);
     }
 
     @Test
     public void testWithMultipleWordMatchers() {
-        WordMatcher wordMatcher1 = new WordMatcherExactWordMock("one");
-        WordMatcher wordMatcher2 = new WordMatcherExactWordMock("one");
+        WordFilter wordFilter1 = new WordMatcherExactWordMock("one");
+        WordFilter wordFilter2 = new WordMatcherExactWordMock("one");
         TextSplitter textSplitter = new TextSplitterExactListMock(Arrays.asList("one","two","three"));
-        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordMatcher1, wordMatcher2), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordFilter1, wordFilter2), textSplitter);
         long count = wordCounter.count("one two three");
         assertEquals(1L, count);
     }
 
-    private class WordMatcherExactWordMock implements WordMatcher {
+    private class WordMatcherExactWordMock implements WordFilter {
 
         private final String matchWord;
 
@@ -80,21 +80,21 @@ public class WordCounterImplTest {
         }
 
         @Override
-        public boolean match(String word) {
+        public boolean filter(String word) {
             return word.equals(matchWord);
         }
     }
 
-    private class WordMatcherTrueMock implements WordMatcher {
+    private class WordFilterTrueMock implements WordFilter {
         @Override 
-        public boolean match(String word) {
+        public boolean filter(String word) {
             return true;
         }
     }
 
-    private class WordMatcherFalseMock implements WordMatcher {
+    private class WordFilterFalseMock implements WordFilter {
         @Override
-        public boolean match(String word) {
+        public boolean filter(String word) {
             return false;
         }
     }

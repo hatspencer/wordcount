@@ -8,21 +8,21 @@ import java.util.List;
 
 import org.junit.Test;
 
-import word.match.WordMatcher;
+import word.match.WordFilter;
 
-public class ExcludeStopWordMatcherImplTest {
+public class ExcludedWordFilterImplTest {
 
     @Test
     public void testNullStopWords() {
-        WordMatcher wordMatcher = new ExcludeStopWordMatcherImpl(null);
-        boolean result = wordMatcher.match("string");
+        WordFilter wordFilter = new ExcludedWordFilterImpl(null);
+        boolean result = wordFilter.filter("string");
         assertTrue(result);
     }
 
     @Test
     public void testEmptyCollectionStopWords() {
-        WordMatcher wordMatcher = new ExcludeStopWordMatcherImpl(new ArrayList<>());
-        boolean result = wordMatcher.match("string");
+        WordFilter wordFilter = new ExcludedWordFilterImpl(new ArrayList<>());
+        boolean result = wordFilter.filter("string");
         assertTrue(result);
     }
 
@@ -30,8 +30,8 @@ public class ExcludeStopWordMatcherImplTest {
     public void testStopWords() {
         List<String> stopWords = new ArrayList<>();
         stopWords.add("stop");
-        WordMatcher wordMatcher = new ExcludeStopWordMatcherImpl(stopWords);
-        boolean result = wordMatcher.match("stop");
+        WordFilter wordFilter = new ExcludedWordFilterImpl(stopWords);
+        boolean result = wordFilter.filter("stop");
         assertFalse(result);
     }
 
@@ -39,8 +39,8 @@ public class ExcludeStopWordMatcherImplTest {
     public void testStopWordsNullMatch() {
         List<String> stopWords = new ArrayList<>();
         stopWords.add("stop");
-        WordMatcher wordMatcher = new ExcludeStopWordMatcherImpl(stopWords);
-        boolean result = wordMatcher.match(null);
+        WordFilter wordFilter = new ExcludedWordFilterImpl(stopWords);
+        boolean result = wordFilter.filter(null);
         assertFalse(result);
     }
 
@@ -48,8 +48,8 @@ public class ExcludeStopWordMatcherImplTest {
     public void testStopWordsEmptyMatch() {
         List<String> stopWords = new ArrayList<>();
         stopWords.add("stop");
-        WordMatcher wordMatcher = new ExcludeStopWordMatcherImpl(stopWords);
-        boolean result = wordMatcher.match("");
+        WordFilter wordFilter = new ExcludedWordFilterImpl(stopWords);
+        boolean result = wordFilter.filter("");
         assertTrue(result);
     }
 
@@ -57,8 +57,8 @@ public class ExcludeStopWordMatcherImplTest {
     public void testStopWordWithWhiteSpacesMatch() {
         List<String> stopWords = new ArrayList<>();
         stopWords.add("stop");
-        WordMatcher wordMatcher = new ExcludeStopWordMatcherImpl(stopWords);
-        boolean result = wordMatcher.match("  stop\t");
+        WordFilter wordFilter = new ExcludedWordFilterImpl(stopWords);
+        boolean result = wordFilter.filter("  stop\t");
         assertFalse(result);
     }
 }

@@ -16,9 +16,9 @@ import text.split.TextSplitter;
 import text.split.impl.WhiteSpaceTextSplitterImpl;
 import word.count.WordCounter;
 import word.count.impl.WordCounterImpl;
-import word.match.WordMatcher;
-import word.match.impl.AzWordMatcherImpl;
-import word.match.impl.ExcludeStopWordMatcherImpl;
+import word.match.WordFilter;
+import word.match.impl.AzWordFilterImpl;
+import word.match.impl.ExcludedWordFilterImpl;
 
 public class Main {
 
@@ -76,16 +76,16 @@ public class Main {
     }
 
     private static WordCounter initWordCounter(String stopWordsFileName) throws FileNotFoundException {
-        WordMatcher excludeStopWordMatcher = initExcludeStopWordMatcher(stopWordsFileName);
-        WordMatcher azWordMatcher = new AzWordMatcherImpl();
+        WordFilter excludeStopWordFilter = initExcludeStopWordMatcher(stopWordsFileName);
+        WordFilter azWordFilter = new AzWordFilterImpl();
         TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
-        return new WordCounterImpl(Arrays.asList(azWordMatcher, excludeStopWordMatcher), textSplitter);
+        return new WordCounterImpl(Arrays.asList(azWordFilter, excludeStopWordFilter), textSplitter);
     }
 
-    private static WordMatcher initExcludeStopWordMatcher(String stopWordsFileName) throws FileNotFoundException {
+    private static WordFilter initExcludeStopWordMatcher(String stopWordsFileName) throws FileNotFoundException {
         InputReader fileInputReader = initFileInputReader(stopWordsFileName);
         List<String> stopWords = fileInputReader.getInputByLines();
-        return new ExcludeStopWordMatcherImpl(stopWords);
+        return new ExcludedWordFilterImpl(stopWords);
     }
 
 }
