@@ -19,7 +19,7 @@ public class WordCounterImplTest {
     public void testWithEmptyListTextSplitter() {
         WordFilter wordFilter = new WordFilterTrueMock();
         TextSplitter textSplitter = new TextSplitterEmptyListMock();
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter, "description");
         long count = wordCounter.count("any");
         assertEquals(0L, count);
     }
@@ -28,7 +28,7 @@ public class WordCounterImplTest {
     public void testWithOneItemTextSplitter() {
         WordFilter wordFilter = new WordFilterTrueMock();
         TextSplitter textSplitter = new TextSplitterExactListMock(Collections.singletonList("any"));
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter, "description");
         long count = wordCounter.count("any");
         assertEquals(1L, count);
     }
@@ -37,7 +37,7 @@ public class WordCounterImplTest {
     public void testWithNullText() {
         WordFilter wordFilter = new WordFilterTrueMock();
         TextSplitter textSplitter = new TextSplitterEmptyListMock();
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter, "description");
         long count = wordCounter.count(null);
         assertEquals(0L, count);
     }
@@ -46,7 +46,7 @@ public class WordCounterImplTest {
     public void testWithFalseWordMatcher() {
         WordFilter wordFilter = new WordFilterFalseMock();
         TextSplitter textSplitter = new TextSplitterEmptyListMock();
-        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Collections.singleton(wordFilter), textSplitter, "description");
         long count = wordCounter.count("text text");
         assertEquals(0L, count);
     }
@@ -56,7 +56,7 @@ public class WordCounterImplTest {
         WordFilter wordFilter1 = new WordMatcherExactWordMock("one");
         WordFilter wordFilter2 = new WordMatcherExactWordMock("two");
         TextSplitter textSplitter = new TextSplitterExactListMock(Arrays.asList("one","two","three"));
-        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordFilter1, wordFilter2), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordFilter1, wordFilter2), textSplitter, "description");
         long count = wordCounter.count("one two three");
         assertEquals(0L, count);
     }
@@ -66,7 +66,7 @@ public class WordCounterImplTest {
         WordFilter wordFilter1 = new WordMatcherExactWordMock("one");
         WordFilter wordFilter2 = new WordMatcherExactWordMock("one");
         TextSplitter textSplitter = new TextSplitterExactListMock(Arrays.asList("one","two","three"));
-        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordFilter1, wordFilter2), textSplitter);
+        WordCounter wordCounter = new WordCounterImpl(Arrays.asList(wordFilter1, wordFilter2), textSplitter, "description");
         long count = wordCounter.count("one two three");
         assertEquals(1L, count);
     }

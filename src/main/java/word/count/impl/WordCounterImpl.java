@@ -10,10 +10,12 @@ public class WordCounterImpl implements WordCounter {
 
     private final Collection<WordFilter> wordFilters;
     private final TextSplitter textSplitter;
+    private final String countDescription;
 
-    public WordCounterImpl(Collection<WordFilter> wordFilters, TextSplitter textSplitter) {
+    public WordCounterImpl(Collection<WordFilter> wordFilters, TextSplitter textSplitter, String countDescription) {
         this.wordFilters = wordFilters;
         this.textSplitter = textSplitter;
+        this.countDescription = countDescription;
     }
 
     @Override
@@ -30,5 +32,10 @@ public class WordCounterImpl implements WordCounter {
     private boolean matchesAllMatchers(String word) {
         return wordFilters.stream()
                 .allMatch(matcher -> matcher.filter(word));
+    }
+
+    @Override
+    public String getCountDescription() {
+        return countDescription;
     }
 }
