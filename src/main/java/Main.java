@@ -1,5 +1,7 @@
+import java.util.Scanner;
+
 import input.InputReader;
-import input.impl.StdInUserInputReaderImpl;
+import input.impl.InputReaderImpl;
 import output.OutputWriter;
 import output.impl.StdOutOutputWriter;
 import text.obtain.TextObtainer;
@@ -15,8 +17,8 @@ public class Main {
 
     public static void main(String[] args) {
         OutputWriter outputWriter = initOutputWriter();
-        InputReader inputReader = initInputReader();
-        TextObtainer textObtainer = initTextObtainer(outputWriter, inputReader);
+        InputReader stdInInputReader = initStdInInputReader();
+        TextObtainer textObtainer = initTextObtainer(outputWriter, stdInInputReader);
 
         String text = textObtainer.obtainText("Enter text: ");
 
@@ -33,8 +35,8 @@ public class Main {
         return new StdOutOutputWriter();
     }
 
-    private static InputReader initInputReader() {
-        return new StdInUserInputReaderImpl();
+    private static InputReader initStdInInputReader() {
+        return new InputReaderImpl(new Scanner(System.in));
     }
 
     private static TextObtainer initTextObtainer(OutputWriter outputWriter, InputReader inputReader) {
