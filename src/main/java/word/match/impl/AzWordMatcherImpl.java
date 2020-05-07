@@ -1,3 +1,7 @@
+package word.match.impl;
+
+import word.match.WordMatcher;
+
 public class AzWordMatcherImpl implements WordMatcher {
 
     @Override

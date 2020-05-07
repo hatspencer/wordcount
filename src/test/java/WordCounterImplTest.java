@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.sun.java.accessibility.util.AccessibilityListenerList;
+import word.match.WordMatcher;
 
 public class WordCounterImplTest {
 

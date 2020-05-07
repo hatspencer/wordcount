@@ -2,6 +2,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import word.match.impl.AzWordMatcherImpl;
+import word.match.WordMatcher;
+
 public class AzWordMatcherImplTest {
 
     @Test
