@@ -1,9 +1,9 @@
-package word.match.impl;
+package word.filter.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import word.match.WordFilter;
+import word.filter.WordFilter;
 
 public class ExcludedWordFilterImpl implements WordFilter {
 

@@ -1,6 +1,6 @@
-package word.match.impl;
+package word.filter.impl;
 
-import word.match.WordFilter;
+import word.filter.WordFilter;
 
 public class AzWordFilterImpl implements WordFilter {
 

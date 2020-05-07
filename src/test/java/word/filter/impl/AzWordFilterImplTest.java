@@ -1,11 +1,11 @@
-package word.match.impl;
+package word.filter.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import word.match.WordFilter;
+import word.filter.WordFilter;
 
 public class AzWordFilterImplTest {
 

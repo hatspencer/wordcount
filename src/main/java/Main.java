@@ -16,9 +16,9 @@ import text.split.TextSplitter;
 import text.split.impl.WhiteSpaceTextSplitterImpl;
 import word.count.WordCounter;
 import word.count.impl.WordCounterImpl;
-import word.match.WordFilter;
-import word.match.impl.AzWordFilterImpl;
-import word.match.impl.ExcludedWordFilterImpl;
+import word.filter.WordFilter;
+import word.filter.impl.AzWordFilterImpl;
+import word.filter.impl.ExcludedWordFilterImpl;
 
 public class Main {
 

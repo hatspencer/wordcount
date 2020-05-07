@@ -1,4 +1,4 @@
-package word.match;
+package word.filter;
 
 public interface WordFilter {
 

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import text.split.TextSplitter;
 import word.count.WordCounter;
-import word.match.WordFilter;
+import word.filter.WordFilter;
 
 public class UniqueWordCounterImpl implements WordCounter {
 

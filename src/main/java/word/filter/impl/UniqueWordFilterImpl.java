@@ -1,9 +1,9 @@
-package word.match.impl;
+package word.filter.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import word.match.WordFilter;
+import word.filter.WordFilter;
 
 public class UniqueWordFilterImpl implements WordFilter {
 

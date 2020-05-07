@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import text.split.TextSplitter;
 import word.count.WordCounter;
-import word.match.WordFilter;
+import word.filter.WordFilter;
 
 public class WordCounterImplTest {
 
