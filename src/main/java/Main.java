@@ -2,7 +2,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -22,11 +21,13 @@ import word.count.impl.WordCounterImpl;
 import word.filter.WordFilter;
 import word.filter.impl.AzWordFilterImpl;
 import word.filter.impl.ExcludedWordFilterImpl;
+import word.filter.impl.UniqueWordFilterImpl;
 
 public class Main {
 
     private static final String EXCLUDED_WORDS_FILENAME = "stopwords.txt";
     private static final String WORDS_COUNT_INTRO_TEXT = "Number of words: ";
+    private static final String UNIQUE_COUNT_INTRO_TEXT = "unique: : ";
     private static final String INPUT_TEXT_READING_INTRO_TEXT = "Enter text: ";
 
     private final OutputWriter resultOutputWriter;
@@ -43,8 +44,9 @@ public class Main {
         TextObtainer inputTextObtainer = initTextObtainerBasedOnArguments(args);
         OutputWriter resultOutputWriter = new StdOutOutputWriter();
         WordCounter wordCounter = initWordCounter(EXCLUDED_WORDS_FILENAME);
+        WordCounter uniqueWordCounter = initUniqueWordCounter(EXCLUDED_WORDS_FILENAME);
 
-        Main main = new Main(resultOutputWriter, inputTextObtainer, Collections.singleton(wordCounter));
+        Main main = new Main(resultOutputWriter, inputTextObtainer, Arrays.asList(wordCounter, uniqueWordCounter));
         main.run();
     }
 
@@ -91,6 +93,14 @@ public class Main {
         InputReader fileInputReader = initFileInputReader(excludedWordsFileName);
         List<String> excludedWords = fileInputReader.getInputByLines();
         return new ExcludedWordFilterImpl(excludedWords);
+    }
+
+    private static WordCounter initUniqueWordCounter(String excludedWordsFileName) throws FileNotFoundException {
+        WordFilter excludedWordFilter = initExcludeStopWordFilter(excludedWordsFileName);
+        WordFilter azWordFilter = new AzWordFilterImpl();
+        WordFilter uniqueFilter = new UniqueWordFilterImpl();
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        return new WordCounterImpl(Arrays.asList(azWordFilter, excludedWordFilter, uniqueFilter), textSplitter, UNIQUE_COUNT_INTRO_TEXT);
     }
 
 }
