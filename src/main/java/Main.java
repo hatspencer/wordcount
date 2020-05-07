@@ -1,7 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,41 +22,47 @@ import word.match.impl.ExcludeStopWordMatcherImpl;
 
 public class Main {
 
-    private final OutputWriter outputWriter;
-    private final TextObtainer textObtainer;
+    private final OutputWriter resultOutputWriter;
+    private final TextObtainer inputTextObtainer;
     private final WordCounter wordCounter;
 
-    public Main(OutputWriter outputWriter, TextObtainer textObtainer, WordCounter wordCounter) {
-        this.outputWriter = outputWriter;
-        this.textObtainer = textObtainer;
+    public Main(OutputWriter resultOutputWriter, TextObtainer inputTextObtainer, WordCounter wordCounter) {
+        this.resultOutputWriter = resultOutputWriter;
+        this.inputTextObtainer = inputTextObtainer;
         this.wordCounter = wordCounter;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        TextObtainer textObtainer;
-        if (args.length > 0) {
-            textObtainer = initTextObtainerForFile(args[0]);
-        } else {
-            textObtainer = initTextObtainerForStdIn();
-        }
+        TextObtainer inputTextObtainer = initTextObtainerBasedOnArguments(args);
 
-        OutputWriter outputWriter = initOutputWriter();
+        OutputWriter resultOutputWriter = new StdOutOutputWriter();
 
-        InputReader fileInputReader = initFileInputReader("stopwords.txt");
-        List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
-
-        WordMatcher excludeStopWordMatcher = initExcludeStopWordMatcher(stopWords);
-        WordMatcher azWordMatcher = initAzWordMatcher();
-        TextSplitter textSplitter = initTextSplitter();
-        WordCounter wordCounter = initWordCounter(Arrays.asList(azWordMatcher, excludeStopWordMatcher), textSplitter);
+        WordCounter wordCounter = initWordCounter("stopwords.txt");
 
         Main main = new Main(
-            outputWriter,
-            textObtainer,
+            resultOutputWriter,
+            inputTextObtainer,
             wordCounter
         );
 
         main.run();
+    }
+
+    private static WordCounter initWordCounter(String stopWordsFileName) throws FileNotFoundException {
+        WordMatcher excludeStopWordMatcher = initExcludeStopWordMatcher(stopWordsFileName);
+        WordMatcher azWordMatcher = new AzWordMatcherImpl();
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        return new WordCounterImpl(Arrays.asList(azWordMatcher, excludeStopWordMatcher), textSplitter);
+    }
+
+    private static WordMatcher initExcludeStopWordMatcher(String s) throws FileNotFoundException {
+        InputReader fileInputReader = initFileInputReader("stopwords.txt");
+        List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
+        return new ExcludeStopWordMatcherImpl(stopWords);
+    }
+
+    private static TextObtainer initTextObtainerBasedOnArguments(String[] args) throws FileNotFoundException {
+        return args.length > 0 ? initTextObtainerForFile(args[0]) : initTextObtainerForStdIn();
     }
 
     private static TextObtainer initTextObtainerForFile(String fileName) throws FileNotFoundException {
@@ -66,14 +71,10 @@ public class Main {
     }
 
     public void run() {
-        String text = textObtainer.obtainText();
+        String text = inputTextObtainer.obtainText();
         long wordCount = wordCounter.count(text);
-        outputWriter.write("Number of words: ");
-        outputWriter.write(String.valueOf(wordCount));
-    }
-
-    private static OutputWriter initOutputWriter() {
-        return new StdOutOutputWriter();
+        resultOutputWriter.write("Number of words: ");
+        resultOutputWriter.write(String.valueOf(wordCount));
     }
 
     private static InputReader initStdInInputReader() {
@@ -85,29 +86,9 @@ public class Main {
     }
 
     private static TextObtainer initTextObtainerForStdIn() {
-        OutputWriter outputWriter = initOutputWriter();
+        OutputWriter stdOutOutputWriter = new StdOutOutputWriter();
         InputReader stdInInputReader = initStdInInputReader();
-        return initTextObtainerWithIntroText(outputWriter, stdInInputReader, "Enter text: ");
-    }
-
-    private static TextObtainer initTextObtainerWithIntroText(OutputWriter outputWriter, InputReader inputReader, String introText) {
-        return new TextObtainerWithIntroTextImpl(inputReader, outputWriter, introText);
-    }
-
-    private static WordMatcher initAzWordMatcher() {
-        return new AzWordMatcherImpl();
-    }
-
-    private static WordMatcher initExcludeStopWordMatcher(List<String> stopWords) {
-        return new ExcludeStopWordMatcherImpl(stopWords);
-    }
-
-    private static TextSplitter initTextSplitter() {
-        return new WhiteSpaceTextSplitterImpl();
-    }
-
-    private static WordCounter initWordCounter(Collection<WordMatcher> wordMatchers, TextSplitter textSplitter) {
-        return new WordCounterImpl(wordMatchers, textSplitter);
+        return new TextObtainerWithIntroTextImpl(stdInInputReader, stdOutOutputWriter, "Enter text: ");
     }
 
 }
