@@ -51,4 +51,46 @@ public class WhiteSpaceTextSplitterImplTest {
         Collection<String> textItems = textSplitter.split(" text text");
         assertEquals(2L, textItems.size());
     }
+
+    @Test
+    public void testDashSeparatorText() {
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        Collection<String> textItems = textSplitter.split("text-text");
+        assertEquals(2L, textItems.size());
+    }
+
+    @Test
+    public void testMultipleDashSeparatorText() {
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        Collection<String> textItems = textSplitter.split("text--text");
+        assertEquals(2L, textItems.size());
+    }
+
+    @Test
+    public void testDashAtTheBeginningSeparatorText() {
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        Collection<String> textItems = textSplitter.split("-text text");
+        assertEquals(2L, textItems.size());
+    }
+
+    @Test
+    public void testDashAtTheEndSeparatorText() {
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        Collection<String> textItems = textSplitter.split("text text-");
+        assertEquals(2L, textItems.size());
+    }
+
+    @Test
+    public void testOnlyDashSeparatorText() {
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        Collection<String> textItems = textSplitter.split("-");
+        assertEquals(0L, textItems.size());
+    }
+
+    @Test
+    public void testDashAndWhiteSpaceSeparatorText() {
+        TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
+        Collection<String> textItems = textSplitter.split("text- text");
+        assertEquals(2L, textItems.size());
+    }
 }

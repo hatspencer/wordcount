@@ -15,7 +15,7 @@ public class WhiteSpaceTextSplitterImpl implements TextSplitter {
             return new ArrayList<>();
         }
 
-        String[] splitText = text.split("\\s+");
+        String[] splitText = text.split("(\\s+|-)+");
         return Arrays.stream(splitText)
                 .filter(this::isNotBlank)
                 .collect(Collectors.toList());
