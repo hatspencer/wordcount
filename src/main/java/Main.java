@@ -84,7 +84,7 @@ public class Main {
 
     private static WordMatcher initExcludeStopWordMatcher(String stopWordsFileName) throws FileNotFoundException {
         InputReader fileInputReader = initFileInputReader(stopWordsFileName);
-        List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
+        List<String> stopWords = fileInputReader.getInputByLines();
         return new ExcludeStopWordMatcherImpl(stopWords);
     }
 

@@ -16,12 +16,17 @@ public class WholeInputReaderImpl implements InputReader {
 
     @Override
     public String getInput() {
+        return String.join("\n", getInputByLines());
+    }
+
+    @Override
+    public List<String> getInputByLines() {
         List<String> lines = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             lines.add(line);
         }
 
-        return String.join("\n", lines);
+        return lines;
     }
 }
