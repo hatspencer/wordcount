@@ -1,3 +1,5 @@
+package word.match.impl;
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
