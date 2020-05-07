@@ -1,5 +1,8 @@
+package word.count.impl;
+
 import java.util.Arrays;
 
+import word.count.WordCounter;
 import word.match.WordMatcher;
 
 public class WordCounterImpl implements WordCounter {

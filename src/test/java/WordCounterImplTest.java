@@ -2,6 +2,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import word.count.WordCounter;
+import word.count.impl.WordCounterImpl;
 import word.match.WordMatcher;
 
 public class WordCounterImplTest {
