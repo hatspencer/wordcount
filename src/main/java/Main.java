@@ -78,8 +78,8 @@ public class Main {
         return new WordCounterImpl(Arrays.asList(azWordMatcher, excludeStopWordMatcher), textSplitter);
     }
 
-    private static WordMatcher initExcludeStopWordMatcher(String s) throws FileNotFoundException {
-        InputReader fileInputReader = initFileInputReader("stopwords.txt");
+    private static WordMatcher initExcludeStopWordMatcher(String stopWordsFileName) throws FileNotFoundException {
+        InputReader fileInputReader = initFileInputReader(stopWordsFileName);
         List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
         return new ExcludeStopWordMatcherImpl(stopWords);
     }
