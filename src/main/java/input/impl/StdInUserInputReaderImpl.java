@@ -7,9 +7,8 @@ import input.UserInputReader;
 public class StdInUserInputReaderImpl implements UserInputReader {
 
     @Override
-    public String getInput() {
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter text: ");
-        return myObj.nextLine();
+    public String getInputLine() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 }
