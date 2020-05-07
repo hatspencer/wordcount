@@ -16,4 +16,9 @@ public class InputReaderImpl implements InputReader {
     public String getInputLine() {
         return scanner.nextLine();
     }
+
+    @Override
+    public boolean hasNewLine() {
+        return scanner.hasNextLine();
+    }
 }
