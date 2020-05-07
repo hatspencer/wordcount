@@ -11,7 +11,7 @@ import input.impl.WholeInputReaderImpl;
 import output.OutputWriter;
 import output.impl.StdOutOutputWriter;
 import text.obtain.TextObtainer;
-import text.obtain.impl.TextObtainerImpl;
+import text.obtain.impl.TextObtainerWithIntroTextImpl;
 import text.split.TextSplitter;
 import text.split.impl.WhiteSpaceTextSplitterImpl;
 import word.count.WordCounter;
@@ -34,8 +34,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         OutputWriter outputWriter = initOutputWriter();
-        InputReader stdInInputReader = initStdInInputReader();
-        TextObtainer textObtainer = initTextObtainer(outputWriter, stdInInputReader);
+        TextObtainer textObtainer = initTextObtainerForStdIn();
 
         InputReader fileInputReader = initFileInputReader("stopwords.txt");
         List<String> stopWords = Arrays.asList(fileInputReader.getInput().split("\n"));
@@ -55,7 +54,7 @@ public class Main {
     }
 
     public void run() {
-        String text = textObtainer.obtainText("Enter text: ");
+        String text = textObtainer.obtainText();
         long wordCount = wordCounter.count(text);
         outputWriter.write("Number of words: ");
         outputWriter.write(String.valueOf(wordCount));
@@ -73,8 +72,14 @@ public class Main {
         return new WholeInputReaderImpl(new Scanner(new FileInputStream(fileName)));
     }
 
-    private static TextObtainer initTextObtainer(OutputWriter outputWriter, InputReader inputReader) {
-        return new TextObtainerImpl(inputReader, outputWriter);
+    private static TextObtainer initTextObtainerForStdIn() {
+        OutputWriter outputWriter = initOutputWriter();
+        InputReader stdInInputReader = initStdInInputReader();
+        return initTextObtainerWithIntroText(outputWriter, stdInInputReader, "Enter text: ");
+    }
+
+    private static TextObtainer initTextObtainerWithIntroText(OutputWriter outputWriter, InputReader inputReader, String introText) {
+        return new TextObtainerWithIntroTextImpl(inputReader, outputWriter, introText);
     }
 
     private static WordMatcher initAzWordMatcher() {
