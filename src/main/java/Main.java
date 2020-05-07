@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -22,6 +23,7 @@ import word.filter.WordFilter;
 import word.filter.impl.AzWordFilterImpl;
 import word.filter.impl.ExcludedWordFilterImpl;
 import word.filter.impl.UniqueWordFilterImpl;
+import word.map.WordMapper;
 
 public class Main {
 
@@ -86,7 +88,8 @@ public class Main {
         WordFilter excludedWordFilter = initExcludeStopWordFilter(excludedWordsFileName);
         WordFilter azWordFilter = new AzWordFilterImpl();
         TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
-        return new WordCounterImpl(Arrays.asList(azWordFilter, excludedWordFilter), textSplitter, WORDS_COUNT_INTRO_TEXT);
+        List<WordMapper> wordMappers = new ArrayList<>(); // TODO: add some word mapper which removes dots
+        return new WordCounterImpl(Arrays.asList(azWordFilter, excludedWordFilter), wordMappers, textSplitter, WORDS_COUNT_INTRO_TEXT);
     }
 
     private static WordFilter initExcludeStopWordFilter(String excludedWordsFileName) throws FileNotFoundException {
@@ -100,7 +103,8 @@ public class Main {
         WordFilter azWordFilter = new AzWordFilterImpl();
         WordFilter uniqueFilter = new UniqueWordFilterImpl();
         TextSplitter textSplitter = new WhiteSpaceTextSplitterImpl();
-        return new WordCounterImpl(Arrays.asList(azWordFilter, excludedWordFilter, uniqueFilter), textSplitter, UNIQUE_COUNT_INTRO_TEXT);
+        List<WordMapper> wordMappers = new ArrayList<>(); // TODO: add some word mapper which removes dots
+        return new WordCounterImpl(Arrays.asList(azWordFilter, excludedWordFilter, uniqueFilter), wordMappers, textSplitter, UNIQUE_COUNT_INTRO_TEXT);
     }
 
 }
