@@ -1,6 +1,7 @@
 package at.george.interview.domain;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class WordCounter {
 
@@ -15,12 +16,17 @@ public class WordCounter {
 
         long count = Arrays.asList(elements).stream()
                 .filter(element -> element.length() > 0)
+                .filter(this::isAlphabeticOnly)
                 .count();
 
         return count;
     }
 
-    String[] splitToElements(String inputText) {
+    private boolean isAlphabeticOnly(String inputElement) {
+        return Pattern.matches("[a-zA-Z]+", inputElement);
+    }
+
+    private String[] splitToElements(String inputText) {
         return inputText.split("\\s");
     }
 

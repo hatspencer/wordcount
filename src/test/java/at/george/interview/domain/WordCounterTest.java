@@ -45,4 +45,15 @@ public class WordCounterTest {
 
         assertEquals(result, 2);
     }
+
+    @Test
+    public void nonalphabeticWordIsIgnored() {
+
+        WordCounter sut = new WordCounter();
+
+        long result = sut.countWords("hello1world");
+
+        assertEquals(result, 0);
+    }
+
 }
