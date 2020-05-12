@@ -12,14 +12,19 @@ import static java.util.stream.Collectors.toList;
 
 public final class StopWords {
 
+    private static StopWords instance;
+
     private List<String> wordList;
 
     private StopWords(List<String> wordList) {
         this.wordList = wordList;
     }
 
-    public static StopWords getInstance() {
-        return fromFile(new File("src/main/resources/stopwords.txt"));
+    public synchronized static StopWords getInstance() {
+        if (instance == null) {
+            instance = fromFile(new File("src/main/resources/stopwords.txt"));
+        }
+        return instance;
     }
 
     static StopWords fromFile(File file) {

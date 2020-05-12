@@ -50,4 +50,9 @@ public class StopWordsTest {
         assertEquals(asList("the", "a", "on", "off"), stopWords.getWordList());
     }
 
+    @Test
+    public void checkForSingleton() {
+        assertSame(StopWords.getInstance(), StopWords.getInstance());
+    }
+
 }
