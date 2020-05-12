@@ -11,7 +11,7 @@ public class WordCounterTest {
 
         WordCounter sut = new WordCounter();
 
-        int result = sut.countWords("");
+        long result = sut.countWords("");
 
         assertEquals(result, 0);
     }
@@ -21,7 +21,7 @@ public class WordCounterTest {
 
         WordCounter sut = new WordCounter();
 
-        int result = sut.countWords("        ");
+        long result = sut.countWords("        ");
 
         assertEquals(result, 0);
     }
@@ -31,7 +31,7 @@ public class WordCounterTest {
 
         WordCounter sut = new WordCounter();
 
-        int result = sut.countWords("hello");
+        long result = sut.countWords("hello");
 
         assertEquals(result, 1);
     }
@@ -41,7 +41,7 @@ public class WordCounterTest {
 
         WordCounter sut = new WordCounter();
 
-        int result = sut.countWords("hello there");
+        long result = sut.countWords("hello there");
 
         assertEquals(result, 2);
     }
