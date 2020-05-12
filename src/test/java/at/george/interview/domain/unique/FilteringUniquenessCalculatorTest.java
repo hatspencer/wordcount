@@ -26,7 +26,7 @@ public class FilteringUniquenessCalculatorTest {
     @Test
     public void leaveNonDuplicatesAsTheyAre() {
 
-        long result = sut.getUniqueWords("hello world here I am");
+        long result = sut.countUniqueWords("hello world here I am");
 
         assertThat(result, is(5L));
     }
@@ -34,7 +34,7 @@ public class FilteringUniquenessCalculatorTest {
     @Test
     public void filterDuplicates() {
 
-        long result = sut.getUniqueWords("hello world hello world");
+        long result = sut.countUniqueWords("hello world hello world");
 
         assertThat(result, is(2L));
     }
@@ -42,7 +42,7 @@ public class FilteringUniquenessCalculatorTest {
     @Test
     public void ignoreStopWords() {
 
-        long result = sut.getUniqueWords("hello world how are you"); // "you" = stopword
+        long result = sut.countUniqueWords("hello world how are you"); // "you" = stopword
 
         assertThat(result, is(4L));
     }
@@ -55,7 +55,7 @@ public class FilteringUniquenessCalculatorTest {
         WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
         sut = new FilteringUniquenessCalculator(wordFilter);
 
-        long result = sut.getUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+        long result = sut.countUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
         assertThat(result, is(7L));
     }

@@ -22,7 +22,7 @@ public class WordProcessor {
 
         String inputText = io.readTextInputLine();
         long wordCount = wordCounter.countWords(inputText);
-        long uniqueCount = uniquenessCalculator.getUniqueWords(inputText);
+        long uniqueCount = uniquenessCalculator.countUniqueWords(inputText);
 
         io.printlnResultOutput("Number of words: " + wordCount + ", unique: " + uniqueCount);
     }

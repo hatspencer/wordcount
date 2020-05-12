@@ -27,21 +27,20 @@ public final class StopWords {
         return instance;
     }
 
-    public static StopWords fromFile(File file) {
-        byte[] bytes = readBytesAndHandleIoErrors(file);
+    static StopWords fromFile(File file) {
 
-        String wordsAsSingleString = new String(bytes);
+        String wordsAsSingleString = readContentAndHandleErrors(file);
         String[] lines = wordsAsSingleString.split("\n");
 
         return fromList(asList(lines));
     }
 
-    private static byte[] readBytesAndHandleIoErrors(File file) {
+    private static String readContentAndHandleErrors(File file) {
         try {
-            return IOUtils.readFully(file);
+            return new String(IOUtils.readFully(file));
         } catch (IOException e) {
             // would have used logger here
-            return new byte[0];
+            return "";
         }
     }
 

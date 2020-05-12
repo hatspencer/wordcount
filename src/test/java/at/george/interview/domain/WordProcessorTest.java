@@ -58,7 +58,7 @@ public class WordProcessorTest {
     private static class MockedUniquenessCalc implements UniquenessCalculator {
 
         @Override
-        public long getUniqueWords(String inputText) {
+        public long countUniqueWords(String inputText) {
             String[] splitByWhitespace = inputText.split("\\s+");
             return new HashSet(asList(splitByWhitespace)).size();
         }

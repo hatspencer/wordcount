@@ -11,7 +11,7 @@ public class FilteringUniquenessCalculator implements UniquenessCalculator {
     }
 
     @Override
-    public long getUniqueWords(String inputText) {
+    public long countUniqueWords(String inputText) {
 
         return wordFilter.filterWords(inputText).stream().distinct().count();
     }
