@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class WordCounterTest {
+public class AlphabeticWordCounterTest {
 
     @Test
     public void emptyInputReturnsZero() {
