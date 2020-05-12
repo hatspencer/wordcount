@@ -1,6 +1,5 @@
 package at.george.interview.domain;
 
-import at.george.interview.domain.counters.AlphabeticWordCounter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,16 +31,25 @@ public class IOWordCounterTest {
         }
     }
 
+    private static class MockedCounter implements WordCounter {
+
+        @Override
+        public long countWords(String inputText) {
+            return inputText.split("\\s+").length;
+        }
+    }
+
     private MockedIO mockedIO;
 
     private IOWordCounter sut;
 
     @Before
     public void initMock() {
-        AlphabeticWordCounter wordCounter = new AlphabeticWordCounter();
 
         mockedIO = new MockedIO();
-        sut = new IOWordCounter(mockedIO, wordCounter);
+        MockedCounter mockedCounter = new MockedCounter();
+
+        sut = new IOWordCounter(mockedIO, mockedCounter);
     }
 
 
@@ -64,22 +72,22 @@ public class IOWordCounterTest {
     public void printZeroForWhitespacesOnly() {
 
         // SETUP
-        mockedIO.setInput("        ");
+        mockedIO.setInput("hello     there");
 
         // PERFORM
         sut.printCountedWords();
 
         // CHECK
         String output = mockedIO.getOutput();
-        assertEquals("Number of words: 0", output );
+        assertEquals("Number of words: 2", output );
 
     }
 
     @Test
-    public void checkForIgnoredElementsInOutput() {
+    public void countAlsoNumbers() {
 
         // SETUP
-        mockedIO.setInput("hello  there , how are you ? ");
+        mockedIO.setInput("hello there 1 2 3");
 
         // PERFORM
         sut.printCountedWords();
