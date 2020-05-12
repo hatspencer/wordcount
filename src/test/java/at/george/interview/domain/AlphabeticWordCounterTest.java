@@ -1,16 +1,27 @@
 package at.george.interview.domain;
 
 import at.george.interview.domain.counters.AlphabeticWordCounter;
+import org.junit.Before;
 import org.junit.Test;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
 public class AlphabeticWordCounterTest {
 
+    private StopWords stopWords;
+
+    private AlphabeticWordCounter sut;
+
+    @Before
+    public void setup() {
+        stopWords = StopWords.fromList(asList("you", "me", "her", "him"));
+        sut = new AlphabeticWordCounter(stopWords);
+    }
+
+
     @Test
     public void emptyInputReturnsZero() {
-
-        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("");
 
@@ -20,8 +31,6 @@ public class AlphabeticWordCounterTest {
     @Test
     public void whitespaceOnlyInputReturnsUZero() {
 
-        AlphabeticWordCounter sut = new AlphabeticWordCounter();
-
         long result = sut.countWords("        ");
 
         assertEquals(result, 0);
@@ -29,8 +38,6 @@ public class AlphabeticWordCounterTest {
 
     @Test
     public void singleWordReturnsOne() {
-
-        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("hello");
 
@@ -40,8 +47,6 @@ public class AlphabeticWordCounterTest {
     @Test
     public void twoWordsReturnsTwo() {
 
-        AlphabeticWordCounter sut = new AlphabeticWordCounter();
-
         long result = sut.countWords("hello there");
 
         assertEquals(result, 2);
@@ -49,8 +54,6 @@ public class AlphabeticWordCounterTest {
 
     @Test
     public void nonalphabeticWordIsIgnored() {
-
-        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("hello1world");
 
@@ -60,12 +63,17 @@ public class AlphabeticWordCounterTest {
     @Test
     public void ignoreSingleNonAlphabeticElements() {
 
-        AlphabeticWordCounter sut = new AlphabeticWordCounter();
-
         long result = sut.countWords("hello ? # ??? &");
 
         assertEquals(result, 1);
     }
 
+    @Test
+    public void ignoreStopWords() {
+
+        long result = sut.countWords("Hello how are you"); // ignore "a"
+
+        assertEquals(result, 3);
+    }
 
 }

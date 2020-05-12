@@ -8,6 +8,12 @@ import java.util.regex.Pattern;
 
 public class AlphabeticWordCounter implements WordCounter {
 
+    private StopWords stopWords;
+
+    public AlphabeticWordCounter(StopWords stopWords) {
+        this.stopWords = stopWords;
+    }
+
     @Override
     public long countWords(String inputText) {
 
@@ -16,6 +22,7 @@ public class AlphabeticWordCounter implements WordCounter {
         long count = Arrays.stream(elements)
                 .filter(element -> element.length() > 0)
                 .filter(this::isAlphabeticOnly)
+                .filter(element -> !stopWords.isStopWord(element))
                 .count();
 
         return count;
