@@ -12,7 +12,7 @@ public class AlphabeticWordCounter implements WordCounter {
 
         String[] elements = splitToElements(inputText);
 
-        long count = Arrays.asList(elements).stream()
+        long count = Arrays.stream(elements)
                 .filter(element -> element.length() > 0)
                 .filter(this::isAlphabeticOnly)
                 .count();

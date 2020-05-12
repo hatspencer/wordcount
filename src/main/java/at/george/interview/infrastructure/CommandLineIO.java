@@ -18,7 +18,7 @@ public class CommandLineIO implements IO {
         try {
             return reader.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            // would have used logger here
             return "";
         }
     }
