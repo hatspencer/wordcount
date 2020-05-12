@@ -11,6 +11,7 @@ public class IOWordCounterTest {
 
         private String input;
         private String output;
+        private String query;
 
         public void setInput(String input) {
             this.input = input;
@@ -20,19 +21,24 @@ public class IOWordCounterTest {
             return output;
         }
 
+
+        public String getQuery() {
+            return query;
+        }
+
         @Override
         public String readTextInputLine() {
             return input;
         }
 
         @Override
-        public void printlnTextOutput(String output) {
+        public void printlnResultOutput(String output) {
             this.output = output;
         }
 
         @Override
-        public void printTextOutput(String output) {
-
+        public void printInputQuery(String query) {
+            this.query = query;
         }
     }
 
@@ -57,6 +63,18 @@ public class IOWordCounterTest {
         sut = new IOWordCounter(mockedIO, mockedCounter);
     }
 
+    @Test
+    public void checkPrintingOfQueryString() {
+        // SETUP
+        mockedIO.setInput("whatever");
+
+        // PERFORM
+        sut.printCountedWords();
+
+        // CHECK
+        String query = mockedIO.query;
+        assertEquals("Enter text: ", query);
+    }
 
     @Test
     public void printOneForSingleWord() {

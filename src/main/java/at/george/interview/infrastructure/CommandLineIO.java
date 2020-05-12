@@ -23,12 +23,12 @@ public class CommandLineIO implements IO {
         }
     }
 
-    public void printlnTextOutput(String output) {
+    public void printlnResultOutput(String output) {
         System.out.println(output);
     }
 
     @Override
-    public void printTextOutput(String output) {
-        System.out.print(output);
+    public void printInputQuery(String query) {
+        System.out.print(query);
     }
 }

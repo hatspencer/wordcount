@@ -47,7 +47,7 @@ public class CommandLineIOTest {
         ByteArrayOutputStream outputStream = getRedirectedOutputStream();
 
         // RUN
-        sut.printlnTextOutput("sample output for test");
+        sut.printlnResultOutput("sample output for test");
 
         // ASSERT
         String outputAsString = outputStream.toString();
@@ -60,7 +60,7 @@ public class CommandLineIOTest {
         ByteArrayOutputStream outputStream = getRedirectedOutputStream();
 
         // RUN
-        sut.printTextOutput("sample output for test");
+        sut.printInputQuery("sample output for test");
 
         // ASSERT
         String outputAsString = outputStream.toString();

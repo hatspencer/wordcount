@@ -12,9 +12,11 @@ public class IOWordCounter {
     }
 
     public void printCountedWords() {
+        io.printInputQuery("Enter text: ");
 
         String inputText = io.readTextInputLine();
         long wordCount = wordCounter.countWords(inputText);
-        io.printlnTextOutput("Number of words: " + wordCount);
+
+        io.printlnResultOutput("Number of words: " + wordCount);
     }
 }

@@ -4,8 +4,8 @@ public interface IO {
 
     String readTextInputLine();
 
-    void printlnTextOutput(String output);
+    void printlnResultOutput(String output);
 
-    void printTextOutput(String output);
+    void printInputQuery(String query);
 
 }
