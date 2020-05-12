@@ -18,7 +18,11 @@ public final class StopWords {
         this.wordList = wordList;
     }
 
-    public static StopWords fromFile(File file) {
+    public static StopWords getInstance() {
+        return fromFile(new File("src/main/resources/stopwords.txt"));
+    }
+
+    static StopWords fromFile(File file) {
         byte[] bytes = readBytesAndHandleIoErrors(file);
 
         String wordsAsSingleString = new String(bytes);
@@ -36,7 +40,7 @@ public final class StopWords {
         }
     }
 
-    public static StopWords fromList(List<String> words) {
+    static StopWords fromList(List<String> words) {
         return new StopWords(filterValidStopWords(words));
     }
 

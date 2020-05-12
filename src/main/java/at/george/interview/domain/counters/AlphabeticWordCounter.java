@@ -1,5 +1,6 @@
 package at.george.interview.domain.counters;
 
+import at.george.interview.domain.StopWords;
 import at.george.interview.domain.WordCounter;
 
 import java.util.Arrays;

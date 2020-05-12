@@ -38,8 +38,16 @@ public class StopWordsTest {
 
     @Test
     public void returnWordsOfExistingFile() {
-        StopWords stopWords = StopWords.fromFile(new File("src/test/resources/stopwords.txt"));
+        StopWords stopWords = StopWords.fromFile(new File("src/main/resources/stopwords.txt"));
 
         assertEquals(asList("the", "a", "on", "off"), stopWords.getWordList());
     }
+
+    @Test
+    public void returnWordsOfMainFile() {
+        StopWords stopWords = StopWords.getInstance();
+
+        assertEquals(asList("the", "a", "on", "off"), stopWords.getWordList());
+    }
+
 }
