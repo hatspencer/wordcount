@@ -27,7 +27,7 @@ public final class StopWords {
         return instance;
     }
 
-    static StopWords fromFile(File file) {
+    public static StopWords fromFile(File file) {
         byte[] bytes = readBytesAndHandleIoErrors(file);
 
         String wordsAsSingleString = new String(bytes);
@@ -45,7 +45,7 @@ public final class StopWords {
         }
     }
 
-    static StopWords fromList(List<String> words) {
+    public static StopWords fromList(List<String> words) {
         return new StopWords(filterValidStopWords(words));
     }
 

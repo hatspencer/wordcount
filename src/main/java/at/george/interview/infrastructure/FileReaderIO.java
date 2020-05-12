@@ -19,16 +19,20 @@ public class FileReaderIO implements IO {
         try {
             FileReader fileReader = new FileReader(inputFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            StringBuilder result = new StringBuilder();
-            while ((line = bufferedReader.readLine()) != null) {
-                result.append(" ").append(line);
-            }
-            return result.toString();
+            return readIntoSingleLine(bufferedReader);
         } catch (IOException e) {
             // would have used logger here
             return "";
         }
+    }
+
+    private String readIntoSingleLine(BufferedReader bufferedReader) throws IOException {
+        String line;
+        StringBuilder result = new StringBuilder();
+        while ((line = bufferedReader.readLine()) != null) {
+            result.append(" ").append(line);
+        }
+        return result.toString();
     }
 
     public void printlnResultOutput(String output) {

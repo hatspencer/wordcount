@@ -1,11 +1,11 @@
-package at.george.interview.domain;
+package at.george.interview.domain.counters;
 
-import at.george.interview.domain.counters.AlphabeticWordCounter;
+import at.george.interview.domain.StopWords;
 import org.junit.Before;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class AlphabeticWordCounterTest {
 
@@ -57,7 +57,7 @@ public class AlphabeticWordCounterTest {
 
         long result = sut.countWords("hello1world");
 
-        assertEquals(result, 0);
+        assertEquals(result, 2);
     }
 
     @Test
@@ -76,4 +76,22 @@ public class AlphabeticWordCounterTest {
         assertEquals(result, 3);
     }
 
+    @Test
+    public void splitByEvertythingNonAlphabetical() {
+
+        String[] elements = sut.splitToElements("Humpty-Dumpty sat on a wall.");
+
+        assertEquals(elements.length, 6);
+    }
+
+    @Test
+    public void treatNonAlphabeticCharsAsWhitespaces() {
+
+        stopWords = StopWords.fromList(asList("the", "a", "on", "off"));
+        sut = new AlphabeticWordCounter(stopWords);
+
+        long result = sut.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+
+        assertEquals( 9, result);
+    }
 }

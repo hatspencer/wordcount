@@ -32,8 +32,9 @@ public class AlphabeticWordCounter implements WordCounter {
         return Pattern.matches("[a-zA-Z]+", inputElement);
     }
 
-    private String[] splitToElements(String inputText) {
-        return inputText.split("\\s");
+    //@VisibleForTesting
+    String[] splitToElements(String inputText) {
+        return inputText.split("[^a-zA-Z]");
     }
 
 }
