@@ -1,5 +1,6 @@
 package at.george.interview.domain;
 
+import at.george.interview.domain.counters.AlphabeticWordCounter;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,7 +10,7 @@ public class WordCounterTest {
     @Test
     public void emptyInputReturnsZero() {
 
-        WordCounter sut = new WordCounter();
+        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("");
 
@@ -19,7 +20,7 @@ public class WordCounterTest {
     @Test
     public void whitespaceOnlyInputReturnsUZero() {
 
-        WordCounter sut = new WordCounter();
+        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("        ");
 
@@ -29,7 +30,7 @@ public class WordCounterTest {
     @Test
     public void singleWordReturnsOne() {
 
-        WordCounter sut = new WordCounter();
+        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("hello");
 
@@ -39,7 +40,7 @@ public class WordCounterTest {
     @Test
     public void twoWordsReturnsTwo() {
 
-        WordCounter sut = new WordCounter();
+        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("hello there");
 
@@ -49,11 +50,22 @@ public class WordCounterTest {
     @Test
     public void nonalphabeticWordIsIgnored() {
 
-        WordCounter sut = new WordCounter();
+        AlphabeticWordCounter sut = new AlphabeticWordCounter();
 
         long result = sut.countWords("hello1world");
 
         assertEquals(result, 0);
     }
+
+    @Test
+    public void ignoreSingleNonAlphabeticElements() {
+
+        AlphabeticWordCounter sut = new AlphabeticWordCounter();
+
+        long result = sut.countWords("hello ? # ??? &");
+
+        assertEquals(result, 1);
+    }
+
 
 }
