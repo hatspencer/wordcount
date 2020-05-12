@@ -2,6 +2,7 @@ package at.george.interview;
 
 import at.george.interview.domain.*;
 import at.george.interview.domain.counters.AlphabeticWordCounter;
+import at.george.interview.domain.unique.AlphabeticUniquenessCalculator;
 import at.george.interview.infrastructure.CommandLineIO;
 import at.george.interview.infrastructure.FileReaderIO;
 
@@ -17,10 +18,11 @@ public class Starter {
 
         StopWords stopWords = StopWords.getInstance();
         WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
-        AlphabeticWordCounter alphabeticWordCounter = new AlphabeticWordCounter(wordFilter);
+        AlphabeticWordCounter counter = new AlphabeticWordCounter(wordFilter);
+        AlphabeticUniquenessCalculator uniquenessCalculator = new AlphabeticUniquenessCalculator(wordFilter);
         IO io = dispatchToIO(args);
 
-        new WordProcessor(io, alphabeticWordCounter)
+        new WordProcessor(io, counter, uniquenessCalculator)
                 .printCountedWords();
     }
 

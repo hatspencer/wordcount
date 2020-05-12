@@ -3,6 +3,9 @@ package at.george.interview.domain;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 public class WordProcessorTest {
@@ -50,6 +53,15 @@ public class WordProcessorTest {
         }
     }
 
+    private static class MockedUniquenessCalc implements UniquenessCalculator {
+
+        @Override
+        public long getUniqueWords(String inputText) {
+            String[] splitByWhitespace = inputText.split("\\s+");
+            return new HashSet(asList(splitByWhitespace)).size();
+        }
+    }
+
     private MockedIO mockedIO;
 
     private WordProcessor sut;
@@ -59,8 +71,9 @@ public class WordProcessorTest {
 
         mockedIO = new MockedIO();
         MockedCounter mockedCounter = new MockedCounter();
+        MockedUniquenessCalc mockedUniquenessCalc = new MockedUniquenessCalc();
 
-        sut = new WordProcessor(mockedIO, mockedCounter);
+        sut = new WordProcessor(mockedIO, mockedCounter, mockedUniquenessCalc);
     }
 
     @Test
@@ -87,7 +100,7 @@ public class WordProcessorTest {
 
         // CHECK
         String output = mockedIO.getOutput();
-        assertEquals("Number of words: 1", output );
+        assertEquals("Number of words: 1, unique: 1", output );
 
     }
 
@@ -102,7 +115,7 @@ public class WordProcessorTest {
 
         // CHECK
         String output = mockedIO.getOutput();
-        assertEquals("Number of words: 2", output );
+        assertEquals("Number of words: 2, unique: 2", output );
 
     }
 
@@ -117,8 +130,24 @@ public class WordProcessorTest {
 
         // CHECK
         String output = mockedIO.getOutput();
-        assertEquals("Number of words: 5", output );
+        assertEquals("Number of words: 5, unique: 5", output );
 
     }
+
+    @Test
+    public void filterDuplicates() {
+
+        // SETUP
+        mockedIO.setInput("hello there hello there");
+
+        // PERFORM
+        sut.printCountedWords();
+
+        // CHECK
+        String output = mockedIO.getOutput();
+        assertEquals("Number of words: 4, unique: 2", output );
+
+    }
+
 
 }
