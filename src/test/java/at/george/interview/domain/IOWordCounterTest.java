@@ -29,6 +29,11 @@ public class IOWordCounterTest {
         public void printlnTextOutput(String output) {
             this.output = output;
         }
+
+        @Override
+        public void printTextOutput(String output) {
+
+        }
     }
 
     private static class MockedCounter implements WordCounter {

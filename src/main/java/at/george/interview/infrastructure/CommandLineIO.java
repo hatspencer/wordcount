@@ -24,8 +24,11 @@ public class CommandLineIO implements IO {
     }
 
     public void printlnTextOutput(String output) {
-        PrintWriter printWriter = new PrintWriter(System.out);
-        printWriter.println(output);
-        printWriter.flush();
+        System.out.println(output);
+    }
+
+    @Override
+    public void printTextOutput(String output) {
+        System.out.print(output);
     }
 }

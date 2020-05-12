@@ -42,11 +42,9 @@ public class CommandLineIOTest {
     }
 
     @Test
-    public void writeToCommandLine() {
+    public void printWithLinefeedToCommandLine() {
         // SETUP
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-        System.setOut(printStream);
+        ByteArrayOutputStream outputStream = getRedirectedOutputStream();
 
         // RUN
         sut.printlnTextOutput("sample output for test");
@@ -54,6 +52,26 @@ public class CommandLineIOTest {
         // ASSERT
         String outputAsString = outputStream.toString();
         assertEquals("sample output for test\n", outputAsString);
+    }
+
+    @Test
+    public void printToCommandLine() {
+        // SETUP
+        ByteArrayOutputStream outputStream = getRedirectedOutputStream();
+
+        // RUN
+        sut.printTextOutput("sample output for test");
+
+        // ASSERT
+        String outputAsString = outputStream.toString();
+        assertEquals("sample output for test", outputAsString);
+    }
+
+    private ByteArrayOutputStream getRedirectedOutputStream() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        System.setOut(printStream);
+        return outputStream;
     }
 
     @Test

@@ -6,4 +6,6 @@ public interface IO {
 
     void printlnTextOutput(String output);
 
+    void printTextOutput(String output);
+
 }
