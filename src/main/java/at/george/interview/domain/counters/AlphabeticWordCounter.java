@@ -1,40 +1,18 @@
 package at.george.interview.domain.counters;
 
-import at.george.interview.domain.StopWords;
 import at.george.interview.domain.WordCounter;
-
-import java.util.Arrays;
-import java.util.regex.Pattern;
+import at.george.interview.domain.WordFilter;
 
 public class AlphabeticWordCounter implements WordCounter {
 
-    private StopWords stopWords;
+    private WordFilter wordFilter;
 
-    public AlphabeticWordCounter(StopWords stopWords) {
-        this.stopWords = stopWords;
+    public AlphabeticWordCounter(WordFilter wordFilter) {
+        this.wordFilter = wordFilter;
     }
 
     @Override
     public long countWords(String inputText) {
-
-        String[] elements = splitToElements(inputText);
-
-        long count = Arrays.stream(elements)
-                .filter(element -> element.length() > 0)
-                .filter(this::isAlphabeticOnly)
-                .filter(element -> !stopWords.isStopWord(element))
-                .count();
-
-        return count;
+        return wordFilter.filterWords(inputText).size();
     }
-
-    private boolean isAlphabeticOnly(String inputElement) {
-        return Pattern.matches("[a-zA-Z]+", inputElement);
-    }
-
-    //@VisibleForTesting
-    String[] splitToElements(String inputText) {
-        return inputText.split("[^a-zA-Z]");
-    }
-
 }

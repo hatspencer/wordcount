@@ -1,6 +1,8 @@
 package at.george.interview.domain.counters;
 
+import at.george.interview.domain.AlphabeticalWordFilter;
 import at.george.interview.domain.StopWords;
+import at.george.interview.domain.WordFilter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,16 +11,14 @@ import static org.junit.Assert.assertEquals;
 
 public class AlphabeticWordCounterTest {
 
-    private StopWords stopWords;
-
     private AlphabeticWordCounter sut;
 
     @Before
     public void setup() {
-        stopWords = StopWords.fromList(asList("you", "me", "her", "him"));
-        sut = new AlphabeticWordCounter(stopWords);
+        StopWords stopWords = StopWords.fromList(asList("you", "me", "her", "him"));
+        WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
+        sut = new AlphabeticWordCounter(wordFilter);
     }
-
 
     @Test
     public void emptyInputReturnsZero() {
@@ -77,18 +77,11 @@ public class AlphabeticWordCounterTest {
     }
 
     @Test
-    public void splitByEvertythingNonAlphabetical() {
-
-        String[] elements = sut.splitToElements("Humpty-Dumpty sat on a wall.");
-
-        assertEquals(elements.length, 6);
-    }
-
-    @Test
     public void treatNonAlphabeticCharsAsWhitespaces() {
 
-        stopWords = StopWords.fromList(asList("the", "a", "on", "off"));
-        sut = new AlphabeticWordCounter(stopWords);
+        StopWords stopWords = StopWords.fromList(asList("the", "a", "on", "off"));
+        WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
+        sut = new AlphabeticWordCounter(wordFilter);
 
         long result = sut.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 

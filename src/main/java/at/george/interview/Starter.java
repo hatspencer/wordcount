@@ -1,8 +1,6 @@
 package at.george.interview;
 
-import at.george.interview.domain.IO;
-import at.george.interview.domain.WordProcessor;
-import at.george.interview.domain.StopWords;
+import at.george.interview.domain.*;
 import at.george.interview.domain.counters.AlphabeticWordCounter;
 import at.george.interview.infrastructure.CommandLineIO;
 import at.george.interview.infrastructure.FileReaderIO;
@@ -18,7 +16,8 @@ public class Starter {
     private void run(String[] args) {
 
         StopWords stopWords = StopWords.getInstance();
-        AlphabeticWordCounter alphabeticWordCounter = new AlphabeticWordCounter(stopWords);
+        WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
+        AlphabeticWordCounter alphabeticWordCounter = new AlphabeticWordCounter(wordFilter);
         IO io = dispatchToIO(args);
 
         new WordProcessor(io, alphabeticWordCounter)

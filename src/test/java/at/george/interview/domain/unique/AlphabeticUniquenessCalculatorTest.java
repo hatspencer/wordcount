@@ -1,6 +1,8 @@
 package at.george.interview.domain.unique;
 
+import at.george.interview.domain.AlphabeticalWordFilter;
 import at.george.interview.domain.StopWords;
+import at.george.interview.domain.WordFilter;
 import at.george.interview.domain.counters.AlphabeticWordCounter;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +19,9 @@ public class AlphabeticUniquenessCalculatorTest {
 
     @Before
     public void setup() {
-        stopWords = StopWords.fromList(asList("you", "me", "her", "him"));
-        sut = new AlphabeticUniquenessCalculator(stopWords);
+        StopWords stopWords = StopWords.fromList(asList("you", "me", "her", "him"));
+        WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
+        sut = new AlphabeticUniquenessCalculator(wordFilter);
     }
 
     @Test
@@ -48,8 +51,10 @@ public class AlphabeticUniquenessCalculatorTest {
     @Test
     public void treatNonAlphabeticalCharsAsWhitespaces() {
 
-        stopWords = StopWords.fromList(asList("the", "a", "on", "off"));
-        sut = new AlphabeticUniquenessCalculator(stopWords);
+
+        StopWords stopWords = StopWords.fromList(asList("the", "a", "on", "off"));
+        WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
+        sut = new AlphabeticUniquenessCalculator(wordFilter);
 
         long result = sut.getUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
