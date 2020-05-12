@@ -57,6 +57,6 @@ public class FilteringUniquenessCalculatorTest {
 
         long result = sut.countUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
-        assertThat(result, is(7L));
+        assertThat(result, is(6L));
     }
 }

@@ -85,6 +85,6 @@ public class FilteringWordCounterTest {
 
         long result = sut.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
-        assertEquals( 9, result);
+        assertEquals( 7, result);
     }
 }

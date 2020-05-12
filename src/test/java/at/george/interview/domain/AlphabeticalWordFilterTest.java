@@ -61,7 +61,7 @@ public class AlphabeticalWordFilterTest {
 
         List<String> filtered = sut.filterWords("Humpty-Dumpty sat on a wall.");
 
-        assertThat(filtered, is(asList("Humpty", "Dumpty", "sat", "on", "a", "wall")));
+        assertThat(filtered, is(asList("Humpty-Dumpty", "sat", "on", "a", "wall")));
     }
 
 }

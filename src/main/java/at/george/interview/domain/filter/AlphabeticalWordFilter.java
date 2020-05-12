@@ -29,11 +29,11 @@ public class AlphabeticalWordFilter implements WordFilter {
     }
 
     private boolean isAlphabeticOnly(String inputElement) {
-        return Pattern.matches("[a-zA-Z]+", inputElement);
+        return Pattern.matches("[a-zA-Z-]+", inputElement);
     }
 
     //@VisibleForTesting
     String[] splitToElements(String inputText) {
-        return inputText.split("[^a-zA-Z]");
+        return inputText.split("[^a-zA-Z-]");
     }
 }
