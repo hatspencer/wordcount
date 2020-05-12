@@ -1,13 +1,12 @@
 package at.george.interview.domain.counters;
 
-import at.george.interview.domain.WordCounter;
-import at.george.interview.domain.WordFilter;
+import at.george.interview.domain.filter.WordFilter;
 
-public class AlphabeticWordCounter implements WordCounter {
+public class FilteringWordCounter implements WordCounter {
 
     private WordFilter wordFilter;
 
-    public AlphabeticWordCounter(WordFilter wordFilter) {
+    public FilteringWordCounter(WordFilter wordFilter) {
         this.wordFilter = wordFilter;
     }
 

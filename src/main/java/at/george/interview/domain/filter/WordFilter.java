@@ -1,4 +1,4 @@
-package at.george.interview.domain;
+package at.george.interview.domain.filter;
 
 import java.util.List;
 

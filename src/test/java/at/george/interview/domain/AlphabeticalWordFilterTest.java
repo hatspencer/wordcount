@@ -1,5 +1,6 @@
 package at.george.interview.domain;
 
+import at.george.interview.domain.filter.AlphabeticalWordFilter;
 import org.junit.Before;
 import org.junit.Test;
 

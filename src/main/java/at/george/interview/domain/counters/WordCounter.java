@@ -1,4 +1,4 @@
-package at.george.interview.domain;
+package at.george.interview.domain.counters;
 
 public interface WordCounter {
 

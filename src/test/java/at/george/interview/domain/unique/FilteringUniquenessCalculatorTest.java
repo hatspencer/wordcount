@@ -1,9 +1,8 @@
 package at.george.interview.domain.unique;
 
-import at.george.interview.domain.AlphabeticalWordFilter;
+import at.george.interview.domain.filter.AlphabeticalWordFilter;
 import at.george.interview.domain.StopWords;
-import at.george.interview.domain.WordFilter;
-import at.george.interview.domain.counters.AlphabeticWordCounter;
+import at.george.interview.domain.filter.WordFilter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,17 +10,17 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class AlphabeticUniquenessCalculatorTest {
+public class FilteringUniquenessCalculatorTest {
 
     private StopWords stopWords;
 
-    private AlphabeticUniquenessCalculator sut;
+    private FilteringUniquenessCalculator sut;
 
     @Before
     public void setup() {
         StopWords stopWords = StopWords.fromList(asList("you", "me", "her", "him"));
         WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
-        sut = new AlphabeticUniquenessCalculator(wordFilter);
+        sut = new FilteringUniquenessCalculator(wordFilter);
     }
 
     @Test
@@ -54,7 +53,7 @@ public class AlphabeticUniquenessCalculatorTest {
 
         StopWords stopWords = StopWords.fromList(asList("the", "a", "on", "off"));
         WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
-        sut = new AlphabeticUniquenessCalculator(wordFilter);
+        sut = new FilteringUniquenessCalculator(wordFilter);
 
         long result = sut.getUniqueWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 

@@ -1,5 +1,8 @@
 package at.george.interview.domain;
 
+import at.george.interview.domain.counters.WordCounter;
+import at.george.interview.domain.unique.UniquenessCalculator;
+
 public class WordProcessor {
 
     private IO io;

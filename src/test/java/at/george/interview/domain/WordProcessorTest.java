@@ -1,5 +1,7 @@
 package at.george.interview.domain;
 
+import at.george.interview.domain.counters.WordCounter;
+import at.george.interview.domain.unique.UniquenessCalculator;
 import org.junit.Before;
 import org.junit.Test;
 

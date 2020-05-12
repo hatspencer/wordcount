@@ -1,8 +1,10 @@
 package at.george.interview;
 
 import at.george.interview.domain.*;
-import at.george.interview.domain.counters.AlphabeticWordCounter;
-import at.george.interview.domain.unique.AlphabeticUniquenessCalculator;
+import at.george.interview.domain.counters.FilteringWordCounter;
+import at.george.interview.domain.filter.AlphabeticalWordFilter;
+import at.george.interview.domain.filter.WordFilter;
+import at.george.interview.domain.unique.FilteringUniquenessCalculator;
 import at.george.interview.infrastructure.CommandLineIO;
 import at.george.interview.infrastructure.FileReaderIO;
 
@@ -18,8 +20,8 @@ public class Starter {
 
         StopWords stopWords = StopWords.getInstance();
         WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
-        AlphabeticWordCounter counter = new AlphabeticWordCounter(wordFilter);
-        AlphabeticUniquenessCalculator uniquenessCalculator = new AlphabeticUniquenessCalculator(wordFilter);
+        FilteringWordCounter counter = new FilteringWordCounter(wordFilter);
+        FilteringUniquenessCalculator uniquenessCalculator = new FilteringUniquenessCalculator(wordFilter);
         IO io = dispatchToIO(args);
 
         new WordProcessor(io, counter, uniquenessCalculator)

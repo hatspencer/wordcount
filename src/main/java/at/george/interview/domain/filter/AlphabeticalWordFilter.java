@@ -1,4 +1,6 @@
-package at.george.interview.domain;
+package at.george.interview.domain.filter;
+
+import at.george.interview.domain.StopWords;
 
 import java.util.Arrays;
 import java.util.List;

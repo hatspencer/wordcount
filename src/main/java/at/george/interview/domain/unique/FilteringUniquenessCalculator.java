@@ -1,13 +1,12 @@
 package at.george.interview.domain.unique;
 
-import at.george.interview.domain.UniquenessCalculator;
-import at.george.interview.domain.WordFilter;
+import at.george.interview.domain.filter.WordFilter;
 
-public class AlphabeticUniquenessCalculator implements UniquenessCalculator {
+public class FilteringUniquenessCalculator implements UniquenessCalculator {
 
     private WordFilter wordFilter;
 
-    public AlphabeticUniquenessCalculator(WordFilter wordFilter) {
+    public FilteringUniquenessCalculator(WordFilter wordFilter) {
         this.wordFilter = wordFilter;
     }
 

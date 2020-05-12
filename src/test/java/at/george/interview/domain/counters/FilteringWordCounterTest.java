@@ -1,23 +1,23 @@
 package at.george.interview.domain.counters;
 
-import at.george.interview.domain.AlphabeticalWordFilter;
+import at.george.interview.domain.filter.AlphabeticalWordFilter;
 import at.george.interview.domain.StopWords;
-import at.george.interview.domain.WordFilter;
+import at.george.interview.domain.filter.WordFilter;
 import org.junit.Before;
 import org.junit.Test;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
-public class AlphabeticWordCounterTest {
+public class FilteringWordCounterTest {
 
-    private AlphabeticWordCounter sut;
+    private FilteringWordCounter sut;
 
     @Before
     public void setup() {
         StopWords stopWords = StopWords.fromList(asList("you", "me", "her", "him"));
         WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
-        sut = new AlphabeticWordCounter(wordFilter);
+        sut = new FilteringWordCounter(wordFilter);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class AlphabeticWordCounterTest {
 
         StopWords stopWords = StopWords.fromList(asList("the", "a", "on", "off"));
         WordFilter wordFilter = new AlphabeticalWordFilter(stopWords);
-        sut = new AlphabeticWordCounter(wordFilter);
+        sut = new FilteringWordCounter(wordFilter);
 
         long result = sut.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
