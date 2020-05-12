@@ -1,12 +1,12 @@
 package at.george.interview.domain;
 
-public class IOWordCounter {
+public class WordProcessor {
 
     private IO io;
 
     private WordCounter wordCounter;
 
-    public IOWordCounter(IO io, WordCounter wordCounter) {
+    public WordProcessor(IO io, WordCounter wordCounter) {
         this.io = io;
         this.wordCounter = wordCounter;
     }

@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class IOWordCounterTest {
+public class WordProcessorTest {
 
     private static class MockedIO implements IO {
 
@@ -52,7 +52,7 @@ public class IOWordCounterTest {
 
     private MockedIO mockedIO;
 
-    private IOWordCounter sut;
+    private WordProcessor sut;
 
     @Before
     public void initMock() {
@@ -60,7 +60,7 @@ public class IOWordCounterTest {
         mockedIO = new MockedIO();
         MockedCounter mockedCounter = new MockedCounter();
 
-        sut = new IOWordCounter(mockedIO, mockedCounter);
+        sut = new WordProcessor(mockedIO, mockedCounter);
     }
 
     @Test

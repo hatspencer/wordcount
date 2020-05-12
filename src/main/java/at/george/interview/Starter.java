@@ -1,7 +1,7 @@
 package at.george.interview;
 
 import at.george.interview.domain.IO;
-import at.george.interview.domain.IOWordCounter;
+import at.george.interview.domain.WordProcessor;
 import at.george.interview.domain.StopWords;
 import at.george.interview.domain.counters.AlphabeticWordCounter;
 import at.george.interview.infrastructure.CommandLineIO;
@@ -21,7 +21,7 @@ public class Starter {
         AlphabeticWordCounter alphabeticWordCounter = new AlphabeticWordCounter(stopWords);
         IO io = dispatchToIO(args);
 
-        new IOWordCounter(io, alphabeticWordCounter)
+        new WordProcessor(io, alphabeticWordCounter)
                 .printCountedWords();
     }
 
