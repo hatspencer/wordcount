@@ -21,12 +21,12 @@ public class IOWordCounterTest {
         }
 
         @Override
-        public String readTextInput() {
+        public String readTextInputLine() {
             return input;
         }
 
         @Override
-        public void writeTextOutput(String output) {
+        public void printlnTextOutput(String output) {
             this.output = output;
         }
     }

@@ -12,8 +12,8 @@ public class IOWordCounter {
     }
 
     public void printCountedWords() {
-        String inputText = io.readTextInput();
+        String inputText = io.readTextInputLine();
         long wordCount = wordCounter.countWords(inputText);
-        io.writeTextOutput("Number of words: " + wordCount);
+        io.printlnTextOutput("Number of words: " + wordCount);
     }
 }

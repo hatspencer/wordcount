@@ -2,8 +2,8 @@ package at.george.interview.domain;
 
 public interface IO {
 
-    String readTextInput();
+    String readTextInputLine();
 
-    void writeTextOutput(String output);
+    void printlnTextOutput(String output);
 
 }
