@@ -2,24 +2,23 @@ package wordcount;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
 
 import wordcount.service.WordCountService;
-import wordcount.service.WordExclusionComponent;
 
 public class WordCountApplication {
 
 	public static void main(String[] args) throws Exception {
-		WordExclusionComponent wordExclusionComponent;
-		try {
-			wordExclusionComponent = new WordExclusionComponent(Paths.get("stopwords.txt"));
-		} catch (Exception e) {
-			wordExclusionComponent = new WordExclusionComponent(Collections.emptyList());
+		if (args.length > 0 && Files.isReadable(Paths.get(args[0]))) {
+			String filename = args[0];
+			long wordCount = WordCountService.getWordCountFromFile(filename);
+			System.out.println("Number of words: " + wordCount);
+		} else {
+			System.out.println("Enter text:");
+			String input = new BufferedReader(new InputStreamReader(System.in)).readLine();
+			System.out.println("Number of words: " + WordCountService.getWordCount(input));
 		}
-		System.out.println("Enter text:");
-		String input = new BufferedReader(new InputStreamReader(System.in)).readLine();
-		System.out.println("Number of words: " + WordCountService.getWordCount(input, wordExclusionComponent));
 	}
 
 }
