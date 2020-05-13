@@ -1,7 +1,6 @@
 package wordcount.service;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,7 +20,10 @@ import wordcount.dto.WordCountResult;
 public class WordCountService {
 
 	public static Stream<String> getStream(String inputLine) {
-		return Arrays.stream(inputLine.split("[\\s\\-]+")).filter(w -> w.matches("[a-zA-Z]+\\.?"));
+		if (inputLine == null || inputLine.isEmpty()) {
+			return new LinkedList<String>().stream();
+		}
+		return Arrays.stream(inputLine.split("[\\s\\-]+")).filter(w -> w.matches("[a-zA-Z]+\\.?")).map(s -> s.endsWith(".") ? s.substring(0, s.length() -1) : s);
 	}
 	
 	public static Stream<String> getStream(Path inputFile) {
@@ -48,9 +50,24 @@ public class WordCountService {
 		return getResult(getStream(inputLine), Collections.emptySet());
 	}
 	
+	public static WordCountResult getResult(String inputLine, Set<String> stopWords) {
+		return getResult(getStream(inputLine), stopWords);
+	}
+	
+	public static WordCountResult getResult(String inputLine, Path stopWords) {
+		return getResult(getStream(inputLine), getStopWords(stopWords));
+	}
+	
 	public static WordCountResult getResult(Path inputFile) {
-		Stream<String> stream = getStream(inputFile);
-		return getResult(stream, Collections.emptySet());
+		return getResult(getStream(inputFile), Collections.emptySet());
+	}
+
+	public static WordCountResult getResult(Path inputFile, Set<String> stopWords) {
+		return getResult(getStream(inputFile), stopWords);
+	}
+
+	public static WordCountResult getResult(Path inputFile, Path stopWords) {
+		return getResult(getStream(inputFile), getStopWords(stopWords));
 	}
 
 	public static WordCountResult getResult(Stream<String> stream, Set<String> stopWords) {
@@ -59,24 +76,4 @@ public class WordCountService {
 		return new WordCountResult(words.size(), uniqueWords.size());
 	}
 
-	public static long getWordCount(String input) {
-		if (input == null || input.length() == 0) {
-			return 0;
-		}
-		return getStream(input).count();
-	}
-
-	public static long getWordCountFromFile(String filename) {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)))) {
-			String line;
-			long wordCount = 0l;
-			while ((line = reader.readLine()) != null) {
-				wordCount += WordCountService.getWordCount(line);
-			}
-			return wordCount;
-		} catch (Exception e) {
-			return -1l;
-		}
-
-	}
 }
