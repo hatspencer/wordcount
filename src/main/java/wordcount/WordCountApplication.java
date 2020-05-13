@@ -1,6 +1,7 @@
 package wordcount;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,11 +27,11 @@ public class WordCountApplication {
 		System.out.println("Number of words: " + wordCount);
 	}
 	
-	public static final void getWordCountFromStandardInput() {
+	public static final void getWordCountFromStandardInput() throws IOException {
 		System.out.println("Enter text:");
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
 			String input = reader.readLine();
-			System.out.println("Number of words: " + WordCountService.getWordCount(input));
+			System.out.println("Number of words: " + WordCountService.getResult(WordCountService.getStream(input), WordCountService.getStopWords(Paths.get("stopwords.txt"))).getWordCount());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
