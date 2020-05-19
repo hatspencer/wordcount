@@ -5,9 +5,11 @@ import java.util.Arrays;
 
 public class WordCounter {
 
+    private final WordDictionary dictionary;
     private final String sentence;
 
-    public WordCounter(String sentence) {
+    public WordCounter(WordDictionary dictionary, String sentence) {
+        this.dictionary = dictionary;
         this.sentence = sentence;
     }
 
@@ -18,11 +20,16 @@ public class WordCounter {
 
         return (int) Arrays.stream(sentence.split("\\s+"))
                 .filter(this::containsJustLetters)
+                .filter(this::isNotStopWord)
                 .count();
     }
 
     private boolean containsJustLetters(String stringToken) {
-       return !stringToken.isEmpty() && stringToken.matches("[a-zA-Z]+");
+        return !stringToken.isEmpty() && stringToken.matches("[a-zA-Z]+");
+    }
+
+    private boolean isNotStopWord(String word) {
+        return !dictionary.containsWord(word);
     }
 
 
@@ -35,7 +42,7 @@ public class WordCounter {
             System.err.println("Error during reading input from command line.");
         }
 
-        WordCounter wordCounter = new WordCounter(inputText);
+        WordCounter wordCounter = new WordCounter(StopWordsDictionaryFactory.getInstance(), inputText);
         System.out.println("Number of words: " + wordCounter.getNumberOfWords());
     }
 }
