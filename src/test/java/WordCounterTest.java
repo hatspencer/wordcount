@@ -22,9 +22,10 @@ public class WordCounterTest {
             new Scenario("word123word java word word.", 2, 1),
             new Scenario("test word, word, word hello", 3, 1),
             new Scenario("tst word$word word java", 2, 2),
-            new Scenario("Humpty-Dumpty test on java wall", 4, 4),
+            new Scenario("Humpty-Dumpty test on java wall", 3, 3),
             new Scenario("tst word$word tst word a word", 5, 3),
-            new Scenario("java hello tst1", 0, 0)
+            new Scenario("java hello tst1", 0, 0),
+            new Scenario("java-hello test", 1, 1),
     };
 
     @Test

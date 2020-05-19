@@ -19,7 +19,7 @@ public class WordCounter {
             return EMPTY_RESULT;
         }
 
-        List<String> allWords = Arrays.stream(text.split("[\\s\\-.,]+"))
+        List<String> allWords = Arrays.stream(text.split("[\\s.,]+"))
                 .filter(this::containsJustLetters)
                 .filter(this::isNotStopWord)
                 .collect(Collectors.toList());
@@ -30,7 +30,7 @@ public class WordCounter {
     }
 
     private boolean containsJustLetters(String stringToken) {
-        return !stringToken.isEmpty() && stringToken.matches("[a-zA-Z]+");
+        return !stringToken.isEmpty() && stringToken.matches("[a-zA-Z\\-]+");
     }
 
     private boolean isNotStopWord(String word) {
