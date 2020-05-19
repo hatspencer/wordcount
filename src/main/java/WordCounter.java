@@ -1,24 +1,21 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class WordCounter {
 
     private final WordsDictionary dictionary;
-    private final String sentence;
+    private final String text;
 
-    public WordCounter(WordsDictionary dictionary, String sentence) {
+    public WordCounter(WordsDictionary dictionary, String text) {
         this.dictionary = dictionary;
-        this.sentence = sentence;
+        this.text = text;
     }
 
     public int getNumberOfWords() {
-        if (sentence == null || sentence.isEmpty()) {
+        if (text == null || text.isEmpty()) {
             return 0;
         }
 
-        return (int) Arrays.stream(sentence.split("\\s+"))
+        return (int) Arrays.stream(text.split("\\s+"))
                 .filter(this::containsJustLetters)
                 .filter(this::isNotStopWord)
                 .count();
@@ -34,15 +31,15 @@ public class WordCounter {
 
 
     public static void main(String[] args) {
-        String inputText = null;
-        System.out.print("Enter text: ");
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            inputText = reader.readLine();
-        } catch (IOException e) {
-            System.err.println("Error during reading input from command line.");
+        InputTextProvider inputTextProvider;
+
+        if (args.length > 0 && !args[0].isEmpty()) {
+            inputTextProvider = new FileInputTextProvider(args[0]);
+        } else {
+            inputTextProvider = new ConsoleInputTextProvider();
         }
 
-        WordCounter wordCounter = new WordCounter(StopWordsDictionaryFactory.getInstance(), inputText);
+        WordCounter wordCounter = new WordCounter(WordsDictionaryFactory.getInstance(), inputTextProvider.getInput());
         System.out.println("Number of words: " + wordCounter.getNumberOfWords());
     }
 }

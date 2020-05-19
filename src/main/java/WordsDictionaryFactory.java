@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-public class StopWordsDictionaryFactory {
+public class WordsDictionaryFactory {
 
     private static WordsDictionary DEFAULT_INSTANCE = null;
 
