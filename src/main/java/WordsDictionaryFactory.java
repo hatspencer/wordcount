@@ -24,15 +24,26 @@ public class WordsDictionaryFactory {
                 stopWordsSet.add(word);
             }
 
+        } catch (FileNotFoundException e) {
+            System.out.println("Error during initialization of words dictionary: " + e.getMessage());
+            throw new WordCountException("File " + path + " not found");
         } catch (IOException e) {
             System.out.println("Error during initialization of words dictionary: " + e.getMessage());
+            throw new WordCountException("IO error during processing file: " + path, e);
         }
         return new HashWordsDictionary(stopWordsSet);
     }
 
     private static InputStream getFileStream(String path, boolean fromFileSystem) throws FileNotFoundException {
-        return fromFileSystem ?  new FileInputStream(new File(path))
-                : HashWordsDictionary.class.getClassLoader().getResourceAsStream(path);
+        if (fromFileSystem) {
+            return new FileInputStream(new File(path));
+        }
+        InputStream resourceAsStream = HashWordsDictionary.class.getClassLoader().getResourceAsStream(path);
+        if (resourceAsStream == null) {
+            throw new WordCountException("File " + path + " not found");
+        }
+
+        return resourceAsStream;
     }
 
 }

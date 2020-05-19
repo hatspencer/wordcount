@@ -59,35 +59,48 @@ public class WordCounter {
     }
 
     public static void main(String[] args) {
-        ProgramArguments programArguments = new ProgramArguments(args);
+        ProgramArgumentsParser programArgumentsParser = new ProgramArgumentsParser(args);
 
-        InputTextProvider inputTextProvider;
-        if (programArguments.getStopWordsFilePath() != null) {
-            inputTextProvider = new FileInputTextProvider(programArguments.getStopWordsFilePath());
-        } else {
-            inputTextProvider = new ConsoleInputTextProvider();
-        }
+        InputTextProvider inputTextProvider = getInputTextProvider(programArgumentsParser);
+        WordCounter wordCounter = createWordCounter(programArgumentsParser);
 
-        WordsDictionary indexedWordsDictionary = programArguments.isIndexedDictionarySet() ?
-                WordsDictionaryFactory.getInstance(programArguments.getDictionaryPath(), true) :
-                (w) -> true;
+        do {
+            WordCountResult wordCountResult = wordCounter.getNumberOfWords(inputTextProvider.getInput());
+            printConsoleResults(programArgumentsParser, wordCountResult);
+        } while (!programArgumentsParser.isInputTextFileSet());
+    }
 
-        WordCounter wordCounter = new WordCounter(WordsDictionaryFactory.getStopWordsDictionaryInstance(),
-                indexedWordsDictionary, programArguments.isIndexedWords());
-
-        WordCountResult wordCountResult = wordCounter.getNumberOfWords(inputTextProvider.getInput());
-
+    private static void printConsoleResults(ProgramArgumentsParser programArgumentsParser, WordCountResult wordCountResult) {
         System.out.println("Number of words: " + wordCountResult.getNumberOfWords() +
                 ", unique: " + wordCountResult.getNumberOfUniqueWords() +
                 ", average word length: " + wordCountResult.getAverageWordLength() + " characters");
 
-        if (programArguments.isIndexedWords()) {
-            if (programArguments.isIndexedDictionarySet()) {
+        if (programArgumentsParser.isIndexedWords()) {
+            if (programArgumentsParser.isIndexedDictionarySet()) {
                 System.out.println("Index (unknown: " + wordCountResult.getNumberOfUnknownWords() + ")");
             } else {
                 System.out.println("Index:");
             }
             wordCountResult.getIndexedWords().forEach(System.out::println);
         }
+    }
+
+    private static WordCounter createWordCounter(ProgramArgumentsParser programArgumentsParser) {
+        WordsDictionary indexedWordsDictionary = programArgumentsParser.isIndexedDictionarySet() ?
+                WordsDictionaryFactory.getInstance(programArgumentsParser.getDictionaryPath(), true) :
+                (w) -> true;
+
+        return new WordCounter(WordsDictionaryFactory.getStopWordsDictionaryInstance(),
+                indexedWordsDictionary, programArgumentsParser.isIndexedWords());
+    }
+
+    private static InputTextProvider getInputTextProvider(ProgramArgumentsParser programArgumentsParser) {
+        InputTextProvider inputTextProvider;
+        if (programArgumentsParser.isInputTextFileSet()) {
+            inputTextProvider = new FileInputTextProvider(programArgumentsParser.getInputTextFilePath());
+        } else {
+            inputTextProvider = new ConsoleInputTextProvider();
+        }
+        return inputTextProvider;
     }
 }

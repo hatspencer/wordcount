@@ -1,10 +1,10 @@
-public class ProgramArguments {
+public class ProgramArgumentsParser {
 
-    private String stopWordsFilePath = null;
+    private String inputTextFilePath = null;
     private boolean indexedWords = false;
     private String dictionaryPath = null;
 
-    public ProgramArguments(String[] args) {
+    public ProgramArgumentsParser(String[] args) {
         for (String arg : args) {
             if (arg.startsWith("-index")) {
                 indexedWords = true;
@@ -14,13 +14,17 @@ public class ProgramArguments {
                     dictionaryPath = dictionaryParts[1];
                 }
             } else {
-                stopWordsFilePath = arg;
+                inputTextFilePath = arg;
             }
         }
     }
 
-    public String getStopWordsFilePath() {
-        return stopWordsFilePath;
+    public boolean isInputTextFileSet() {
+        return inputTextFilePath != null && !inputTextFilePath.isEmpty();
+    }
+
+    public String getInputTextFilePath() {
+        return inputTextFilePath;
     }
 
     public boolean isIndexedWords() {

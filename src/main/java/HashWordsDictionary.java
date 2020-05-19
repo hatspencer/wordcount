@@ -12,4 +12,8 @@ public class HashWordsDictionary implements WordsDictionary {
     public boolean containsWord(String word) {
         return word != null && stopWordsSet.contains(word);
     }
+
+    public boolean isEmpty() {
+        return stopWordsSet.isEmpty();
+    }
 }
