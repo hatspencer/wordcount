@@ -1,6 +1,6 @@
 import java.util.Set;
 
-public class StopWordsDictionary implements WordDictionary {
+public class StopWordsDictionary implements WordsDictionary {
 
     private final Set<String> stopWordsDictionary;
 

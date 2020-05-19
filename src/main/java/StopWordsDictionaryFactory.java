@@ -6,10 +6,10 @@ import java.util.Set;
 
 public class StopWordsDictionaryFactory {
 
-    private static StopWordsDictionary DEFAULT_INSTANCE = null;
+    private static WordsDictionary DEFAULT_INSTANCE = null;
 
     //not thread-safe
-    public static StopWordsDictionary getInstance() {
+    public static WordsDictionary getInstance() {
         if (DEFAULT_INSTANCE == null) {
             initialize();
         }

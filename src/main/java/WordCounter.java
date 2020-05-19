@@ -5,10 +5,10 @@ import java.util.Arrays;
 
 public class WordCounter {
 
-    private final WordDictionary dictionary;
+    private final WordsDictionary dictionary;
     private final String sentence;
 
-    public WordCounter(WordDictionary dictionary, String sentence) {
+    public WordCounter(WordsDictionary dictionary, String sentence) {
         this.dictionary = dictionary;
         this.sentence = sentence;
     }

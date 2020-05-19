@@ -1,4 +1,4 @@
-public interface WordDictionary {
+public interface WordsDictionary {
 
     boolean containsWord(String word);
 }
