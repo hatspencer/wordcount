@@ -1,10 +1,10 @@
 import java.util.Set;
 
-public class StopWordsDictionary implements WordsDictionary {
+public class HashWordsDictionary implements WordsDictionary {
 
     private final Set<String> stopWordsSet;
 
-    public StopWordsDictionary(Set<String> stopWordsSet) {
+    public HashWordsDictionary(Set<String> stopWordsSet) {
         this.stopWordsSet = stopWordsSet;
     }
 

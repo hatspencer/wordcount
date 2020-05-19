@@ -8,7 +8,7 @@ import java.util.List;
 public class StopWordsDictionaryTest {
 
     private static final List<String> testStopWords = Arrays.asList("car", "coffee", "java");
-    private static final StopWordsDictionary dictionary = new StopWordsDictionary(new HashSet<>(testStopWords));
+    private static final HashWordsDictionary dictionary = new HashWordsDictionary(new HashSet<>(testStopWords));
 
     @Test
     public void testContainsExistingWords() {

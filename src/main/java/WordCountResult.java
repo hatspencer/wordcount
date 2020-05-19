@@ -2,12 +2,12 @@ import java.util.List;
 
 public class WordCountResult {
 
-    private final List<String> indexedWords;
+    private final List<DictionaryWord> indexedWords;
     private final int numberOfWords;
     private final int numberOfUniqueWords;
     private final double averageWordLength;
 
-    public WordCountResult(List<String> indexedWords, int numberOfWords, int numberOfUniqueWords, double averageWordLength) {
+    public WordCountResult(List<DictionaryWord> indexedWords, int numberOfWords, int numberOfUniqueWords, double averageWordLength) {
         this.indexedWords = indexedWords;
         this.numberOfWords = numberOfWords;
         this.numberOfUniqueWords = numberOfUniqueWords;
@@ -26,7 +26,14 @@ public class WordCountResult {
         return averageWordLength;
     }
 
-    public List<String> getIndexedWords() {
+    public List<DictionaryWord> getIndexedWords() {
         return indexedWords;
+    }
+
+    public int getNumberOfUnknownWords() {
+        return (int) indexedWords
+                .stream()
+                .filter(word -> !word.isMatched())
+                .count();
     }
 }

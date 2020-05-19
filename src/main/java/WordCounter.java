@@ -6,11 +6,13 @@ public class WordCounter {
 
     private static final WordCountResult EMPTY_RESULT = new WordCountResult(Collections.emptyList(), 0, 0, 0d);
 
-    private final WordsDictionary dictionary;
+    private final WordsDictionary stopWordsDictionary;
+    private final WordsDictionary indexWordsDictionary;
     private final boolean indexWords;
 
-    public WordCounter(WordsDictionary dictionary, boolean indexWords) {
-        this.dictionary = dictionary;
+    public WordCounter(WordsDictionary stopWordsDictionary, WordsDictionary indexWordsDictionary, boolean indexWords) {
+        this.stopWordsDictionary = stopWordsDictionary;
+        this.indexWordsDictionary = indexWordsDictionary;
         this.indexWords = indexWords;
     }
 
@@ -30,10 +32,11 @@ public class WordCounter {
 
         Set<String> allUniqueWords = new HashSet<>(allWords);
 
-        List<String> indexedWords = Collections.emptyList();
+        List<DictionaryWord> indexedWords = Collections.emptyList();
         if (indexWords) {
             indexedWords = allWords.stream()
                     .sorted(Comparator.comparing(Function.identity(), String.CASE_INSENSITIVE_ORDER))
+                    .map(w -> new DictionaryWord(w, indexWordsDictionary.containsWord(w)))
                     .collect(Collectors.toList());
         }
 
@@ -52,43 +55,39 @@ public class WordCounter {
     }
 
     private boolean isNotStopWord(String word) {
-        return !dictionary.containsWord(word);
+        return !stopWordsDictionary.containsWord(word);
     }
 
     public static void main(String[] args) {
+        ProgramArguments programArguments = new ProgramArguments(args);
+
         InputTextProvider inputTextProvider;
-
-        boolean indexWords = isIndexSpecified(args);
-
-        if (args.length > 0 && (!indexWords || args.length > 1) ) {
-            inputTextProvider = new FileInputTextProvider(getFilePathFromArgs(args, indexWords));
+        if (programArguments.getStopWordsFilePath() != null) {
+            inputTextProvider = new FileInputTextProvider(programArguments.getStopWordsFilePath());
         } else {
             inputTextProvider = new ConsoleInputTextProvider();
         }
 
-        WordCounter wordCounter = new WordCounter(WordsDictionaryFactory.getInstance(), indexWords);
+        WordsDictionary indexedWordsDictionary = programArguments.isIndexedDictionarySet() ?
+                WordsDictionaryFactory.getInstance(programArguments.getDictionaryPath(), true) :
+                (w) -> true;
+
+        WordCounter wordCounter = new WordCounter(WordsDictionaryFactory.getStopWordsDictionaryInstance(),
+                indexedWordsDictionary, programArguments.isIndexedWords());
+
         WordCountResult wordCountResult = wordCounter.getNumberOfWords(inputTextProvider.getInput());
 
         System.out.println("Number of words: " + wordCountResult.getNumberOfWords() +
                 ", unique: " + wordCountResult.getNumberOfUniqueWords() +
                 ", average word length: " + wordCountResult.getAverageWordLength() + " characters");
 
-        if (indexWords) {
-            System.out.println("Index:");
-
+        if (programArguments.isIndexedWords()) {
+            if (programArguments.isIndexedDictionarySet()) {
+                System.out.println("Index (unknown: " + wordCountResult.getNumberOfUnknownWords() + ")");
+            } else {
+                System.out.println("Index:");
+            }
             wordCountResult.getIndexedWords().forEach(System.out::println);
         }
-    }
-
-    private static String getFilePathFromArgs(String[] args, boolean indexWords) {
-        if (indexWords) {
-            return Objects.equals(args[0], "-index") ? args[1] : args[0];
-        } else {
-            return args[0];
-        }
-    }
-
-    private static boolean isIndexSpecified(String[] args) {
-        return Arrays.asList(args).contains("-index");
     }
 }

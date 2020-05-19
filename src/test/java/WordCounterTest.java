@@ -1,6 +1,7 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -8,35 +9,42 @@ import java.util.stream.Collectors;
 
 public class WordCounterTest {
 
-    private static final String[] testStopWords = {
+    private static final String[] TEST_STOP_WORDS = {
             "hello", "test", "java"
     };
 
-    private static final Scenario[] testScenarios = {
-            new Scenario("word", 1, 1, 4d, Collections.singletonList("word")),
-            new Scenario("word word", 2, 1, 4d, Arrays.asList("word", "word")),
-            new Scenario("word      word            word", 3, 1, 4d, Arrays.asList("word", "word", "word")),
-            new Scenario("word$word word", 1, 1, 4d, Collections.singletonList("word")),
-            new Scenario("123word word word", 2, 1, 4d, Arrays.asList("word", "word")),
-            new Scenario("word, word, word", 3, 1, 4d, Arrays.asList("word", "word", "word")),
-            new Scenario("word. word. word.", 3, 1, 4d, Arrays.asList("word", "word", "word")),
-            new Scenario("word123word word word.", 2, 1, 4d, Arrays.asList("word", "word")),
-            new Scenario("word123word java word word.", 2, 1, 4d, Arrays.asList("word", "word")),
-            new Scenario("test word, word, word hello", 3, 1, 4d, Arrays.asList("word", "word", "word")),
-            new Scenario("tst word$word word java", 2, 2, 3.5, Arrays.asList("tst", "word")),
-            new Scenario("Humpty-Dumpty test on java wall", 3, 3, 19d/3, Arrays.asList("Humpty-Dumpty", "on", "wall")),
-            new Scenario("tst word$word tst word a word", 5, 3, 3d, Arrays.asList("a", "tst", "tst", "word", "word")),
+    private static final String[] TEST_INDEX_DICTIONARY = {
+            "tst", "a"
+    };
+
+    private static final Scenario[] TEST_SCENARIOS = {
+            new Scenario("word", 1, 1, 4d, Arrays.asList(new DictionaryWord("word", false))),
+            new Scenario("word word", 2, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("word      word            word", 3, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("word$word word", 1, 1, 4d, Arrays.asList(new DictionaryWord("word", false))),
+            new Scenario("123word word word", 2, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("word, word, word", 3, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("word. word. word.", 3, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("word123word word word.", 2, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("word123word java word word.", 2, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("test word, word, word hello", 3, 1, 4d, Arrays.asList(new DictionaryWord("word", false), new DictionaryWord("word", false), new DictionaryWord("word", false))),
+            new Scenario("tst word$word word java", 2, 2, 3.5, Arrays.asList(new DictionaryWord("tst", true), new DictionaryWord("word", false))),
+            new Scenario("Humpty-Dumpty test on java wall", 3, 3, 19d/3, Arrays.asList(new DictionaryWord("Humpty-Dumpty", false), new DictionaryWord("on", false), new DictionaryWord("wall", false))),
+            new Scenario("tst word$word tst word a word", 5, 3, 3d, Arrays.asList(new DictionaryWord("a", true), new DictionaryWord("tst", true), new DictionaryWord("tst", true), new DictionaryWord("word", false), new DictionaryWord("word", false))),
             new Scenario("java hello tst1", 0, 0, 0, Collections.emptyList()),
-            new Scenario("java-hello test", 1, 1, 10d, Collections.singletonList("java-hello"))
+            new Scenario("java-hello test", 1, 1, 10d, Arrays.asList(new DictionaryWord("java-hello", false)))
     };
 
     @Test
     public void testInputScenarios() {
-        StopWordsDictionary dictionary = new StopWordsDictionary(Arrays.stream(testStopWords)
+        WordsDictionary stopWordDictionary = new HashWordsDictionary(Arrays.stream(TEST_STOP_WORDS)
                 .collect(Collectors.toSet()));
 
-        WordCounter wordCounter = new WordCounter(dictionary, true);
-        for (Scenario testScenario : testScenarios) {
+        WordsDictionary indexedWordsDictionary = new HashWordsDictionary(Arrays.stream(TEST_INDEX_DICTIONARY)
+                .collect(Collectors.toSet()));
+
+        WordCounter wordCounter = new WordCounter(stopWordDictionary, indexedWordsDictionary, true);
+        for (Scenario testScenario : TEST_SCENARIOS) {
             WordCountResult wordCountResult = wordCounter.getNumberOfWords(testScenario.sentence);
 
             Assert.assertEquals("Number of words for sentence: " + testScenario.sentence + " is not equal",
@@ -48,8 +56,14 @@ public class WordCounterTest {
             Assert.assertEquals("Average word length for sentence: " + testScenario.sentence + " is not equal",
                     testScenario.expectedAverageWordLength, wordCountResult.getAverageWordLength(), 0.0001);
 
-            Assert.assertEquals("Indexed words for sentence: " + testScenario.sentence,
-                    testScenario.expectedIndexedWords, wordCountResult.getIndexedWords());
+            Assert.assertEquals("Indexed words size for sentence: " + testScenario.sentence,
+                    testScenario.expectedIndexedWords.size(),
+                    wordCountResult.getIndexedWords().size());
+
+            for (int index = 0; index < testScenario.expectedIndexedWords.size(); index++) {
+                Assert.assertEquals(testScenario.expectedIndexedWords.get(index), wordCountResult.getIndexedWords().get(index));
+            }
+
         }
     }
 
@@ -58,10 +72,10 @@ public class WordCounterTest {
         int expectedNumberOfWords;
         int expectedUniqueNumberOfWords;
         double expectedAverageWordLength;
-        List<String> expectedIndexedWords;
+        List<DictionaryWord> expectedIndexedWords;
 
         public Scenario(String sentence, int expectedNumberOfWords, int expectedUniqueNumberOfWords,
-                        double expectedAverageWordLength, List<String> expectedIndexedWords)
+                        double expectedAverageWordLength, List<DictionaryWord> expectedIndexedWords)
         {
             this.sentence = sentence;
             this.expectedNumberOfWords = expectedNumberOfWords;
