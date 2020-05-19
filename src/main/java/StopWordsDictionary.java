@@ -2,14 +2,14 @@ import java.util.Set;
 
 public class StopWordsDictionary implements WordsDictionary {
 
-    private final Set<String> stopWordsDictionary;
+    private final Set<String> stopWordsSet;
 
-    public StopWordsDictionary(Set<String> stopWordsDictionary) {
-        this.stopWordsDictionary = stopWordsDictionary;
+    public StopWordsDictionary(Set<String> stopWordsSet) {
+        this.stopWordsSet = stopWordsSet;
     }
 
     @Override
     public boolean containsWord(String word) {
-        return word != null && stopWordsDictionary.contains(word);
+        return word != null && stopWordsSet.contains(word);
     }
 }

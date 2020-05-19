@@ -1,24 +1,32 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class WordCounter {
 
-    private final WordsDictionary dictionary;
-    private final String text;
+    private static final WordCountResult EMPTY_RESULT = new WordCountResult(0, 0);
 
-    public WordCounter(WordsDictionary dictionary, String text) {
+    private final WordsDictionary dictionary;
+
+    public WordCounter(WordsDictionary dictionary) {
         this.dictionary = dictionary;
-        this.text = text;
     }
 
-    public int getNumberOfWords() {
+    public WordCountResult getNumberOfWords(String text) {
         if (text == null || text.isEmpty()) {
-            return 0;
+            return EMPTY_RESULT;
         }
 
-        return (int) Arrays.stream(text.split("\\s+"))
+        List<String> allWords = Arrays.stream(text.split("[\\s\\-.,]+"))
                 .filter(this::containsJustLetters)
                 .filter(this::isNotStopWord)
-                .count();
+                .collect(Collectors.toList());
+
+        Set<String> allUniqueWords = new HashSet<>(allWords);
+
+        return new WordCountResult(allWords.size(), allUniqueWords.size());
     }
 
     private boolean containsJustLetters(String stringToken) {
@@ -29,7 +37,6 @@ public class WordCounter {
         return !dictionary.containsWord(word);
     }
 
-
     public static void main(String[] args) {
         InputTextProvider inputTextProvider;
 
@@ -39,7 +46,10 @@ public class WordCounter {
             inputTextProvider = new ConsoleInputTextProvider();
         }
 
-        WordCounter wordCounter = new WordCounter(WordsDictionaryFactory.getInstance(), inputTextProvider.getInput());
-        System.out.println("Number of words: " + wordCounter.getNumberOfWords());
+        WordCounter wordCounter = new WordCounter(WordsDictionaryFactory.getInstance());
+        WordCountResult wordCountResult = wordCounter.getNumberOfWords(inputTextProvider.getInput());
+
+        System.out.println("Number of words: " + wordCountResult.getNumberOfWords() +
+                ", unique: " + wordCountResult.getNumberOfUniqueWords());
     }
 }
