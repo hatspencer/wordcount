@@ -11,21 +11,21 @@ public class WordCounterTest {
     };
 
     private static final Scenario[] testScenarios = {
-            new Scenario("word", 1, 1),
-            new Scenario("word word", 2, 1),
-            new Scenario("word      word            word", 3, 1),
-            new Scenario("word$word word", 1, 1),
-            new Scenario("123word word word", 2, 1),
-            new Scenario("word, word, word", 3, 1),
-            new Scenario("word. word. word.", 3, 1),
-            new Scenario("word123word word word.", 2, 1),
-            new Scenario("word123word java word word.", 2, 1),
-            new Scenario("test word, word, word hello", 3, 1),
-            new Scenario("tst word$word word java", 2, 2),
-            new Scenario("Humpty-Dumpty test on java wall", 3, 3),
-            new Scenario("tst word$word tst word a word", 5, 3),
-            new Scenario("java hello tst1", 0, 0),
-            new Scenario("java-hello test", 1, 1),
+            new Scenario("word", 1, 1, 4d),
+            new Scenario("word word", 2, 1, 4d),
+            new Scenario("word      word            word", 3, 1, 4d),
+            new Scenario("word$word word", 1, 1, 4d),
+            new Scenario("123word word word", 2, 1, 4d),
+            new Scenario("word, word, word", 3, 1, 4d),
+            new Scenario("word. word. word.", 3, 1, 4d),
+            new Scenario("word123word word word.", 2, 1, 4d),
+            new Scenario("word123word java word word.", 2, 1, 4d),
+            new Scenario("test word, word, word hello", 3, 1, 4d),
+            new Scenario("tst word$word word java", 2, 2, 3.5),
+            new Scenario("Humpty-Dumpty test on java wall", 3, 3, 19d/3),
+            new Scenario("tst word$word tst word a word", 5, 3, 3d),
+            new Scenario("java hello tst1", 0, 0, 0),
+            new Scenario("java-hello test", 1, 1, 10d),
     };
 
     @Test
@@ -42,6 +42,9 @@ public class WordCounterTest {
 
             Assert.assertEquals("Number of unique words for sentence: " + testScenario.sentence + " is not equal",
                     testScenario.expectedUniqueNumberOfWords, wordCountResult.getNumberOfUniqueWords());
+
+            Assert.assertEquals("Average word length for sentence: " + testScenario.sentence + " is not equal",
+                    testScenario.expectedAverageWordLength, wordCountResult.getAverageWordLength(), 0.0001);
         }
     }
 
@@ -49,11 +52,15 @@ public class WordCounterTest {
         String sentence;
         int expectedNumberOfWords;
         int expectedUniqueNumberOfWords;
+        double expectedAverageWordLength;
 
-        public Scenario(String sentence, int expectedNumberOfWords, int expectedUniqueNumberOfWords) {
+        public Scenario(String sentence, int expectedNumberOfWords, int expectedUniqueNumberOfWords,
+                        double expectedAverageWordLength)
+        {
             this.sentence = sentence;
             this.expectedNumberOfWords = expectedNumberOfWords;
             this.expectedUniqueNumberOfWords = expectedUniqueNumberOfWords;
+            this.expectedAverageWordLength = expectedAverageWordLength;
         }
     }
 }

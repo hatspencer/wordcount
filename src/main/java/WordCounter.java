@@ -1,12 +1,9 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class WordCounter {
 
-    private static final WordCountResult EMPTY_RESULT = new WordCountResult(0, 0);
+    private static final WordCountResult EMPTY_RESULT = new WordCountResult(0, 0, 0d);
 
     private final WordsDictionary dictionary;
 
@@ -14,6 +11,9 @@ public class WordCounter {
         this.dictionary = dictionary;
     }
 
+    /**
+     * We assume averageWordLength is calculated from all words matching conditions.
+     */
     public WordCountResult getNumberOfWords(String text) {
         if (text == null || text.isEmpty()) {
             return EMPTY_RESULT;
@@ -26,7 +26,14 @@ public class WordCounter {
 
         Set<String> allUniqueWords = new HashSet<>(allWords);
 
-        return new WordCountResult(allWords.size(), allUniqueWords.size());
+        return new WordCountResult(allWords.size(), allUniqueWords.size(), getAverageWordLength(allWords));
+    }
+
+    private double getAverageWordLength(Collection<String> wordsSet) {
+        return wordsSet.isEmpty() ? 0 :  ((double) wordsSet
+                .stream()
+                .map(String::length)
+                .reduce(0, Integer::sum)) / wordsSet.size();
     }
 
     private boolean containsJustLetters(String stringToken) {
@@ -50,6 +57,7 @@ public class WordCounter {
         WordCountResult wordCountResult = wordCounter.getNumberOfWords(inputTextProvider.getInput());
 
         System.out.println("Number of words: " + wordCountResult.getNumberOfWords() +
-                ", unique: " + wordCountResult.getNumberOfUniqueWords());
+                ", unique: " + wordCountResult.getNumberOfUniqueWords() +
+                ", average word length: " + wordCountResult.getAverageWordLength() + " characters");
     }
 }
