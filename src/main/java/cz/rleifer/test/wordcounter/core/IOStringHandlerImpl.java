@@ -5,11 +5,11 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class IOHandlerImpl implements IOHandler {
+public class IOStringHandlerImpl implements IOStringHandler {
     private InputStream inputStream;
     private OutputStream outputStream;
 
-    public IOHandlerImpl(InputStream inputStream, OutputStream outputStream) {
+    public IOStringHandlerImpl(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = inputStream;
         this.outputStream = outputStream;
     }
@@ -23,4 +23,5 @@ public class IOHandlerImpl implements IOHandler {
         PrintStream printStream = new PrintStream(outputStream);
         printStream.println(output);
     }
+
 }

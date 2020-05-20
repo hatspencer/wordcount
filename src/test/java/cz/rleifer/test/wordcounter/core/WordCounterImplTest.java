@@ -4,7 +4,7 @@ package cz.rleifer.test.wordcounter.core;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class WordCounterTest {
+public class WordCounterImplTest {
 
     private WordCounter wordCounter = new WordCounterImpl();
 
