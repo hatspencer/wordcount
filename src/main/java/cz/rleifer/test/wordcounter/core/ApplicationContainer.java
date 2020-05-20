@@ -1,5 +1,6 @@
 package cz.rleifer.test.wordcounter.core;
 
+import cz.rleifer.test.wordcounter.core.impl.Constants;
 import cz.rleifer.test.wordcounter.core.impl.StopWordHandlerImpl;
 import cz.rleifer.test.wordcounter.core.impl.WordCounterImpl;
 
@@ -13,17 +14,19 @@ import java.util.List;
 public class ApplicationContainer {
     private InputStringHandler inputStringHandler ;
     private OutputStringHandler outputStringHandler;
+    private WordCounter wordCounter;
 
-    public ApplicationContainer(InputStringHandler inputStringHandler, OutputStringHandler outputStringHandler) {
+    public ApplicationContainer(InputStringHandler inputStringHandler, OutputStringHandler outputStringHandler, WordCounter wordCounter) {
         this.inputStringHandler = inputStringHandler;
         this.outputStringHandler = outputStringHandler;
+        this.wordCounter = wordCounter;
     }
 
-    public void runApplication(String stopwordPath){
-        WordCounter wordCounter = new WordCounterImpl();
+    public void runApplication(String stopWordPath){
         outputStringHandler.printInput("Enter text:");
         String usersInput = inputStringHandler.readInput();
-        List<String> stopWords = readStopWords(stopwordPath, outputStringHandler);
+        List<String> stopWords = Constants.EMPTY_STRING.equals(stopWordPath) ? Collections.EMPTY_LIST:
+                readStopWords(stopWordPath, outputStringHandler);
         int wordCount = wordCounter.countWords(usersInput, stopWords);
         outputStringHandler.printInput("Number of words: " + wordCount);
     }
