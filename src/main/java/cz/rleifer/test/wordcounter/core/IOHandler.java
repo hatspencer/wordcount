@@ -1,6 +1,7 @@
 package cz.rleifer.test.wordcounter.core;
 
-public interface IOAccess {
+public interface IOHandler {
     String readInput();
+
     void printInput(String output);
 }
