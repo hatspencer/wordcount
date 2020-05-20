@@ -1,4 +1,6 @@
-package cz.rleifer.test.wordcounter.core;
+package cz.rleifer.test.wordcounter.core.impl;
+
+import cz.rleifer.test.wordcounter.core.IOStringHandler;
 
 import java.io.InputStream;
 import java.io.OutputStream;

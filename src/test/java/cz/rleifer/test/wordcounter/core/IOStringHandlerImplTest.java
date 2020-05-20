@@ -1,5 +1,6 @@
 package cz.rleifer.test.wordcounter.core;
 
+import cz.rleifer.test.wordcounter.core.impl.IOStringHandlerImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
