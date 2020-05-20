@@ -2,7 +2,6 @@ package cz.rleifer.test.wordcounter.core;
 
 import cz.rleifer.test.wordcounter.core.impl.Constants;
 import cz.rleifer.test.wordcounter.core.impl.StopWordHandlerImpl;
-import cz.rleifer.test.wordcounter.core.impl.WordCounterImpl;
 
 import java.io.File;
 import java.io.FileReader;
@@ -10,6 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class ApplicationContainer {
     private InputStringHandler inputStringHandler ;
@@ -22,13 +22,15 @@ public class ApplicationContainer {
         this.wordCounter = wordCounter;
     }
 
-    public void runApplication(String stopWordPath){
-        outputStringHandler.printInput("Enter text:");
-        String usersInput = inputStringHandler.readInput();
+    public void runApplication(String stopWordPath) throws IOException {
         List<String> stopWords = Constants.EMPTY_STRING.equals(stopWordPath) ? Collections.EMPTY_LIST:
                 readStopWords(stopWordPath, outputStringHandler);
-        int wordCount = wordCounter.countWords(usersInput, stopWords);
-        outputStringHandler.printInput("Number of words: " + wordCount);
+        int wordCount = 0;
+        while (inputStringHandler.next()) {
+            Optional<String> usersInput = inputStringHandler.readLine();
+            wordCount += wordCounter.countWords(usersInput.get(), stopWords);
+        }
+         outputStringHandler.printInput("Number of words: " + wordCount);
     }
 
     private List<String> readStopWords(String arg, OutputStringHandler outputStringHandler)  {

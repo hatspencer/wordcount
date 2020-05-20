@@ -1,6 +1,4 @@
 package cz.rleifer.test.wordcounter.core;
-
-
 import cz.rleifer.test.wordcounter.core.impl.WordCounterImpl;
 import org.junit.Assert;
 import org.junit.Test;

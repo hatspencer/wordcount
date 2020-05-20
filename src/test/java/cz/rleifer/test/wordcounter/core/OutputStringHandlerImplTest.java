@@ -4,15 +4,14 @@ import cz.rleifer.test.wordcounter.core.impl.OutputStringHandlerImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
 
 public class OutputStringHandlerImplTest {
 
     private OutputStringHandler outputStringHandler;
 
     @Test
-    public void testPrintOutput() throws IOException {
-        InputStream inputStream = new ByteArrayInputStream("Test".getBytes());
+    public void testPrintOutput() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         outputStringHandler = new OutputStringHandlerImpl(outputStream);
         outputStringHandler.printInput("Test");

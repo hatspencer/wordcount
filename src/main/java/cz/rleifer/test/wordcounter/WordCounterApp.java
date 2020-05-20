@@ -5,7 +5,7 @@ import cz.rleifer.test.wordcounter.core.ArgumentResolver;
 import cz.rleifer.test.wordcounter.core.InputStringHandler;
 import cz.rleifer.test.wordcounter.core.OutputStringHandler;
 import cz.rleifer.test.wordcounter.core.impl.FileInputHandlerImpl;
-import cz.rleifer.test.wordcounter.core.impl.StandartInputHandlerImpl;
+import cz.rleifer.test.wordcounter.core.impl.StandardInputHandlerImpl;
 import cz.rleifer.test.wordcounter.core.impl.OutputStringHandlerImpl;
 import cz.rleifer.test.wordcounter.core.impl.WordCounterImpl;
 
@@ -27,9 +27,9 @@ public class WordCounterApp {
                fileReader = new FileReader (new File(fileInputTextPath));
                inputStringHandler  = new FileInputHandlerImpl(fileReader);
             } else {
-               inputStringHandler = new StandartInputHandlerImpl(System.in);
+               inputStringHandler = new StandardInputHandlerImpl(System.in);
+               outputStringHandler.printInput("Enter text:");
             }
-
             ApplicationContainer applicationContainer = new ApplicationContainer(inputStringHandler, outputStringHandler, new WordCounterImpl());
             applicationContainer.runApplication(ArgumentResolver.getStopWordFilePath(arguments));
         } catch (IOException ex) {
@@ -42,3 +42,4 @@ public class WordCounterApp {
 
     }
 }
+

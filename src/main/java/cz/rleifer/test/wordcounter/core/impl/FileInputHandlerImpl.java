@@ -3,7 +3,9 @@ package cz.rleifer.test.wordcounter.core.impl;
 import cz.rleifer.test.wordcounter.core.InputStringHandler;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.Reader;
+import java.util.Optional;
 
 public class FileInputHandlerImpl implements InputStringHandler {
     private String currentLine = null;
@@ -14,12 +16,13 @@ public class FileInputHandlerImpl implements InputStringHandler {
     }
 
     @Override
-    public String readInput() {
-        return "";
+    public Optional<String> readLine() {
+        return Optional.ofNullable(currentLine);
     }
 
     @Override
-    public boolean hasNext() {
-        return true; //TODO to be done.
+    public boolean next() throws IOException {
+        currentLine = bufferedReader.readLine();
+        return currentLine != null;
     }
 }
