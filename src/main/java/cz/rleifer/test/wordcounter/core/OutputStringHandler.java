@@ -1,6 +1,5 @@
 package cz.rleifer.test.wordcounter.core;
 
-public interface IOStringHandler {
-    String readInput();
+public interface OutputStringHandler {
     void printInput(String output);
 }
