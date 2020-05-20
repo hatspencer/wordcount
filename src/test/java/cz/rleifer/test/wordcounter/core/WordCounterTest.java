@@ -17,7 +17,7 @@ public class WordCounterTest {
     @Test
     public void testCounterBasicInput() {
         int numberOfWords = wordCounter.countWords("Hello Holla \\n Amigo");
-        Assert.assertEquals(0, numberOfWords);
+        Assert.assertEquals(3, numberOfWords);
     }
 
     @Test
