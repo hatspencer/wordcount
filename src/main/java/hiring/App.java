@@ -35,13 +35,8 @@ public class App {
 		outputPrinter.print("Enter text: ");
 		String inputText = inputTextReader.readInputText();
 
-		int wordCount;
 		Set<String> stopWords = loadStopWordsIfNeeded();
-		if (!stopWords.isEmpty()) {
-			wordCount = wordCounter.countWords(inputText, stopWords);
-		} else {
-			wordCount = wordCounter.countWords(inputText);
-		}
+		int wordCount = wordCounter.countWords(inputText, stopWords);
 
 		outputPrinter.print("Number of words: ");
 		outputPrinter.print(wordCount + "\n");
