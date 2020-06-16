@@ -15,3 +15,4 @@ https://ccd-school.de/coding-dojo/agility-katas/word-count-i/
 
 Assumptions
 ===========
+1. Input text is a single line
