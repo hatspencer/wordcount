@@ -126,5 +126,4 @@ public class WordCounterTest {
 		assertEquals(expectedNumberOfWords, wordCount);
 	}
 
-
 }

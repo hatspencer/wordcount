@@ -1,6 +1,6 @@
 package hiring.outputprinter;
 
-public class OutputPrinterSout implements OutputPrinter {
+public class SystemOutputPrinter implements OutputPrinter {
 
 	@Override
 	public void print(String s) {

@@ -1,0 +1,3 @@
+stopWord1
+stopWord2
+stopWord3

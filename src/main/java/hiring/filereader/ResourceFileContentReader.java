@@ -1,4 +1,4 @@
-package hiring.resourcereader;
+package hiring.filereader;
 
 import java.io.*;
 

@@ -2,7 +2,7 @@ package hiring.inputreader;
 
 import java.util.Scanner;
 
-public class InputTextReaderScanner implements InputTextReader {
+public class SystemInputTextReader implements InputTextReader {
 
 	@Override
 	public String readInputText() {
