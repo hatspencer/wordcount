@@ -1,15 +1,20 @@
-package hiring;
+package hiring.wordcounter;
 
-public class WordCounter {
+public class WordCounterParser implements WordCounter {
 
+	@Override
 	public int countWords(String inputText) {
+		if (inputText == null) {
+			throw new IllegalArgumentException("Input text cannot be null");
+		}
+
 		int wordCount = 0;
 
 		boolean wordFound = false;
 		for (int charIndex = 0; charIndex < inputText.length(); charIndex++) {
 			char character = inputText.charAt(charIndex);
 			boolean isLetter = character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z';
-			boolean isSpace = character >= ' ';
+			boolean isSpace = character == ' ';
 			if (isSpace) {
 				if (wordFound) {
 					wordCount++;
@@ -19,7 +24,14 @@ public class WordCounter {
 				wordFound = true;
 			} else {
 				wordFound = false;
+				while (inputText.charAt(charIndex) != ' ' && charIndex < inputText.length()) {
+					charIndex++;
+				}
 			}
+		}
+
+		if (wordFound) {
+			wordCount++;
 		}
 
 		return wordCount;

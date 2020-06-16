@@ -1,13 +1,12 @@
-package hiring;
+package hiring.inputreader;
 
 import java.util.Scanner;
 
-public class InputTextReader {
+public class InputTextReaderScanner implements InputTextReader {
 
+	@Override
 	public String readInputText() {
 		Scanner inputScanner = new Scanner(System.in);
-		System.out.print("Enter text: ");
-
 		String inputText = inputScanner.nextLine();
 
 		return inputText;

@@ -1,14 +1,42 @@
 package hiring;
 
-import java.util.Scanner;
+import hiring.inputreader.InputTextReader;
+import hiring.inputreader.InputTextReaderScanner;
+import hiring.outputprinter.OutputPrinter;
+import hiring.outputprinter.OutputPrinterSout;
+import hiring.wordcounter.WordCounter;
+import hiring.wordcounter.WordCounterParser;
 
 public class App {
-	public static void main(String[] args) {
 
-		InputTextReader inputTextReader = new InputTextReader();
+	private InputTextReader inputTextReader;
+	private WordCounter wordCounter;
+	private OutputPrinter outputPrinter;
+
+	public App(InputTextReader inputTextReader,
+	           WordCounter wordCounter,
+	           OutputPrinter outputPrinter) {
+
+		this.inputTextReader = inputTextReader;
+		this.wordCounter = wordCounter;
+		this.outputPrinter = outputPrinter;
+	}
+
+	public void run() {
+		outputPrinter.print("Enter text: ");
 		String inputText = inputTextReader.readInputText();
 
-		WordCounter wordCounter = new WordCounter();
-		wordCounter.countWords(inputText);
+		outputPrinter.print("Number of words: ");
+		int wordCount = wordCounter.countWords(inputText);
+		outputPrinter.print(wordCount + "\n");
+	}
+
+	public static void main(String[] args) {
+		InputTextReader inputTextReader = new InputTextReaderScanner();
+		WordCounter wordCounter = new WordCounterParser();
+		OutputPrinter outputPrinter = new OutputPrinterSout();
+
+		App app = new App(inputTextReader, wordCounter, outputPrinter);
+		app.run();
 	}
 }
