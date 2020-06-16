@@ -1,15 +1,15 @@
 package hiring;
 
-import hiring.inputreader.InputTextReader;
-import hiring.inputreader.SystemInputTextReader;
-import hiring.outputprinter.OutputPrinter;
-import hiring.outputprinter.SystemOutputPrinter;
 import hiring.filereader.FileContentReader;
 import hiring.filereader.ResourceFileContentReader;
+import hiring.inputreader.InputTextReader;
+import hiring.inputreader.InputTextReaderFactory;
+import hiring.outputprinter.OutputPrinter;
+import hiring.outputprinter.SystemOutputPrinter;
+import hiring.wordcounter.RegexpWordCounter;
 import hiring.wordcounter.SimpleStopWordsParser;
 import hiring.wordcounter.StopWordsParser;
 import hiring.wordcounter.WordCounter;
-import hiring.wordcounter.RegexpWordCounter;
 
 import java.util.Collections;
 import java.util.Set;
@@ -61,9 +61,11 @@ public class App {
 	}
 
 	public static void main(String[] args) {
-		InputTextReader inputTextReader = new SystemInputTextReader();
-		WordCounter wordCounter = new RegexpWordCounter();
+		AppArguments appArguments = new AppArguments(args);
+
+		InputTextReader inputTextReader = InputTextReaderFactory.createInputTextReader(appArguments.getInputFileName());
 		OutputPrinter outputPrinter = new SystemOutputPrinter();
+		WordCounter wordCounter = new RegexpWordCounter();
 		FileContentReader fileContentReader = new ResourceFileContentReader();
 		StopWordsParser stopWordsParser = new SimpleStopWordsParser();
 
@@ -73,4 +75,5 @@ public class App {
 
 		app.run();
 	}
+
 }
