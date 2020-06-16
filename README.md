@@ -11,6 +11,10 @@ Words are stretches of letters (a-z,A-Z). Sample usage:
 
 Not all words are relevant for counting. A list of stop words can be provided in the stopword.txt reource file - new line separated.
 
+The application can be started with a filename to read the text from instead of entering it manually.
+
+    $ wordcount mytext.txt
+        Number of words: 4
 Source
 -------
 https://ccd-school.de/coding-dojo/agility-katas/word-count-i/

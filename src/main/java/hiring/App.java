@@ -32,7 +32,6 @@ public class App {
 	}
 
 	public void run() {
-		outputPrinter.print("Enter text: ");
 		String inputText = inputTextReader.readInputText();
 
 		Set<String> stopWords = loadStopWordsIfNeeded();
@@ -63,8 +62,10 @@ public class App {
 	public static void main(String[] args) {
 		AppArguments appArguments = new AppArguments(args);
 
-		InputTextReader inputTextReader = InputTextReaderFactory.createInputTextReader(appArguments.getInputFileName());
 		OutputPrinter outputPrinter = new SystemOutputPrinter();
+
+		InputTextReader inputTextReader = InputTextReaderFactory.createInputTextReader(appArguments.getInputFileName());
+
 		WordCounter wordCounter = new RegexpWordCounter();
 		FileContentReader fileContentReader = new ResourceFileContentReader();
 		StopWordsParser stopWordsParser = new SimpleStopWordsParser();

@@ -1,20 +1,19 @@
 package hiring.inputreader;
 
 import hiring.filereader.FileContentReader;
-import hiring.filereader.TextFileContentReader;
 
 public class FileInputTextReader implements InputTextReader {
 
 	private String fileName;
+	private FileContentReader fileContentReader;
 
-	public FileInputTextReader(String fileName) {
+	public FileInputTextReader(String fileName, FileContentReader fileContentReader) {
 		this.fileName = fileName;
+		this.fileContentReader = fileContentReader;
 	}
 
 	@Override
 	public String readInputText() {
-		FileContentReader textFileContentReader = new TextFileContentReader();
-		return textFileContentReader.readFileContent(this.fileName);
+		return fileContentReader.readFileContent(fileName);
 	}
-
 }

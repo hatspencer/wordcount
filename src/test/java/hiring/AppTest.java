@@ -33,7 +33,7 @@ public class AppTest {
 		app.run();
 
 		// then
-		assertEquals("Enter text: Number of words: " + expectedNumberOfWords + "\n", outputPrinter.out);
+		assertEquals("Number of words: " + expectedNumberOfWords + "\n", outputPrinter.out);
 		assertEquals(mockedInputText, wordCounter.inputText);
 	}
 
@@ -57,7 +57,7 @@ public class AppTest {
 		app.run();
 
 		// then
-		assertEquals("Enter text: Number of words: " + expectedNumberOfWords + "\n", outputPrinter.out);
+		assertEquals("Number of words: " + expectedNumberOfWords + "\n", outputPrinter.out);
 		assertEquals(mockedInputText, wordCounter.inputText);
 		assertEquals(mockedStopWords, wordCounter.stopWords);
 	}
