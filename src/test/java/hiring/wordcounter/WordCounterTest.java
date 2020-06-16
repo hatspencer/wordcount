@@ -32,7 +32,7 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 2;
 
 		// when
-		wordCounter = new WordCounterImpl(createMockWordFinder(mockedFoundWords));
+		wordCounter = new WordCounterImpl(createMockWordFinder(mockedFoundWords), createMockWorkdLenghtCounter());
 		WordCounterResult wordCounterResult = wordCounter.countWords("ignored_input");
 
 		// then
@@ -48,7 +48,7 @@ public class WordCounterTest {
 		int expectedUniqueNumberOfWords = 2;
 
 		// when
-		wordCounter = new WordCounterImpl(createMockWordFinder(mockedFoundWords));
+		wordCounter = new WordCounterImpl(createMockWordFinder(mockedFoundWords), createMockWorkdLenghtCounter());
 		WordCounterResult wordCounterResult = wordCounter.countWords("ignored_input");
 
 		// then
@@ -60,4 +60,7 @@ public class WordCounterTest {
 		return inputText -> mockedFoundWords;
 	}
 
+	private WordLengthCounter createMockWorkdLenghtCounter() {
+		return words -> 0;
+	}
 }

@@ -9,13 +9,17 @@ import java.util.stream.Collectors;
 public class WordCounterImpl implements WordCounter {
 
 	private WordFinder wordFinder;
+	private WordLengthCounter wordLengthCounter;
 
 	public WordCounterImpl() {
 		this.wordFinder = new WordFinderImpl();
+		this.wordLengthCounter = new WordLengthCounterImpl() {
+		};
 	}
 
-	public WordCounterImpl(WordFinder wordFinder) {
+	public WordCounterImpl(WordFinder wordFinder, WordLengthCounter wordLengthCounter) {
 		this.wordFinder = wordFinder;
+		this.wordLengthCounter = wordLengthCounter;
 	}
 
 	@Override
@@ -32,10 +36,13 @@ public class WordCounterImpl implements WordCounter {
 		List<String> words = wordFinder.findWords(inputText);
 		words = filterOutStopWords(words, stopWords);
 
+		int numberOfUniqueWords = new HashSet<>(words).size();
+		double averageWordLength = wordLengthCounter.countAverageWordLength(words);
+
 		WordCounterResult result = new WordCounterResult();
 		result.setNumberOfWords(words.size());
-		result.setNumberOfUniqueWords(new HashSet<>(words).size());
-		result.setAverageWordLength(0);
+		result.setNumberOfUniqueWords(numberOfUniqueWords);
+		result.setAverageWordLength(averageWordLength);
 		return result;
 	}
 
@@ -45,5 +52,6 @@ public class WordCounterImpl implements WordCounter {
 				.collect(Collectors.toList());
 		return wordsWithoutStopWords;
 	}
+
 
 }
