@@ -47,7 +47,7 @@ public class App {
 			return Collections.emptySet();
 		} else {
 			String stopWordsFileContent = fileContentReader.readFileContent("stopwords.txt");
-			Set<java.lang.String> stopWords = stopWordsLoader.parseStopWords(stopWordsFileContent);
+			Set<String> stopWords = stopWordsLoader.parseStopWords(stopWordsFileContent);
 			return stopWords;
 		}
 	}
