@@ -4,7 +4,6 @@ import hiring.filereader.FileContentReader;
 import hiring.inputreader.InputTextReader;
 import hiring.outputprinter.OutputPrinter;
 import hiring.stopwords.StopWordsParser;
-import hiring.stopwords.StopWordsParserImpl;
 import hiring.wordcounter.WordCounter;
 import hiring.wordcounter.WordCounterResult;
 import org.junit.Test;
@@ -22,13 +21,15 @@ import static org.junit.Assert.assertEquals;
 public class AppTest {
 
 	@Test
-	public void GIVEN_minimal_dependencies_WHEN_run_application_THEN_output_is_correct() {
+	public void GIVEN_mocked_results_WHEN_run_application_THEN_output_is_correct() {
 		// given
 		int expectedNumberOfWords = 2;
+		int expectedNumberOfUniqueWords = 5;
+		int expectedAverageLength = 6;
 		String mockedInputText = "word word";
 
 		InputTextReader inputTextReader = mockInputTextReader(mockedInputText);
-		MockWordCounter wordCounter = new MockWordCounter(expectedNumberOfWords);
+		MockWordCounter wordCounter = new MockWordCounter(expectedNumberOfWords, expectedNumberOfUniqueWords, expectedAverageLength);
 		MockOutputPrinter outputPrinter = new MockOutputPrinter();
 		FileContentReader fileContentReader = createMockFileContentReader();
 		StopWordsParser stopWordsParser = mockStopWordsParser(Collections.emptySet());
@@ -38,7 +39,7 @@ public class AppTest {
 		app.run();
 
 		// then
-		assertEquals("Number of words: " + expectedNumberOfWords + ", unique: 0\n", outputPrinter.out);
+		assertEquals("Number of words: 2, unique: 5; average word length: 6.0 characters\n", outputPrinter.out);
 		assertEquals(mockedInputText, wordCounter.inputText);
 	}
 
@@ -60,8 +61,6 @@ public class AppTest {
 		app.run();
 
 		// then
-		assertEquals("Number of words: " + expectedNumberOfWords + ", unique: 0\n", outputPrinter.out);
-		assertEquals(mockedInputText, wordCounter.inputText);
 		assertEquals(mockedStopWords, wordCounter.stopWords);
 	}
 
@@ -78,12 +77,20 @@ public class AppTest {
 	}
 
 	static class MockWordCounter implements WordCounter {
-		int mockedCountToReturn;
+		int mockedCount;
+		int mockedUniqueCount;
+		double mockedAverageLength;
 		String inputText;
 		Set<String> stopWords;
 
-		public MockWordCounter(int mockedCountToReturn) {
-			this.mockedCountToReturn = mockedCountToReturn;
+		public MockWordCounter(int mockedCount) {
+			this(mockedCount, 0, 0D);
+		}
+
+		public MockWordCounter(int mockedCount, int mockedUniqueCount, double mockedAverageLength) {
+			this.mockedCount = mockedCount;
+			this.mockedUniqueCount = mockedUniqueCount;
+			this.mockedAverageLength = mockedAverageLength;
 		}
 
 		@Override
@@ -96,7 +103,9 @@ public class AppTest {
 			this.inputText = inputText;
 			this.stopWords = stopWords;
 			WordCounterResult wordCounterResult = new WordCounterResult();
-			wordCounterResult.setNumberOfWords(mockedCountToReturn);
+			wordCounterResult.setNumberOfWords(mockedCount);
+			wordCounterResult.setNumberOfUniqueWords(mockedUniqueCount);
+			wordCounterResult.setAverageWordLength(mockedAverageLength);
 			return wordCounterResult;
 		}
 	};

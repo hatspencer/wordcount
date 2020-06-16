@@ -3,6 +3,7 @@ package hiring.wordcounter;
 public class WordCounterResult {
 	private int numberOfWords;
 	private int numberOfUniqueWords;
+	private double averageWordLength;
 
 	public int getNumberOfWords() {
 		return numberOfWords;
@@ -18,5 +19,13 @@ public class WordCounterResult {
 
 	public void setNumberOfUniqueWords(int numberOfUniqueWords) {
 		this.numberOfUniqueWords = numberOfUniqueWords;
+	}
+
+	public double getAverageWordLength() {
+		return averageWordLength;
+	}
+
+	public void setAverageWordLength(double averageWordLength) {
+		this.averageWordLength = averageWordLength;
 	}
 }

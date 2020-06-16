@@ -35,6 +35,7 @@ public class WordCounterImpl implements WordCounter {
 		WordCounterResult result = new WordCounterResult();
 		result.setNumberOfWords(words.size());
 		result.setNumberOfUniqueWords(new HashSet<>(words).size());
+		result.setAverageWordLength(0);
 		return result;
 	}
 

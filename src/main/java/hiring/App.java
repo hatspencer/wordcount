@@ -42,7 +42,9 @@ public class App {
 		WordCounterResult wordCounterResult =  wordCounter.countWords(inputText, stopWords);
 
 		outputPrinter.print("Number of words: " + wordCounterResult.getNumberOfWords());
-		outputPrinter.print(", unique: " + wordCounterResult.getNumberOfUniqueWords() + "\n");
+		outputPrinter.print(", unique: " + wordCounterResult.getNumberOfUniqueWords());
+		outputPrinter.print("; average word length: " + wordCounterResult.getAverageWordLength() + " characters");
+		outputPrinter.print("\n");
 	}
 
 	private Set<String> loadStopWords() {
