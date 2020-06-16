@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnit4.class)
 public class WordCounterTest {
 
-	private WordCounter wordCounter = new WordCounterRegexp();
+	private WordCounter wordCounter = new RegexpWordCounter();
 
 	@Test(expected = IllegalArgumentException.class)
 	public void GIVEN_null_string_WHEN_count_words_THEN_illegal_argument_exception_expected() {

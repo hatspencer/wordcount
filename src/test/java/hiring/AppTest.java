@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
@@ -31,7 +33,17 @@ public class AppTest {
 	}
 
 	private WordCounter createMockCounter() {
-		return inputText -> 5;
+		return new WordCounter() {
+			@Override
+			public int countWords(String inputText) {
+				return 5;
+			}
+
+			@Override
+			public int countWords(String inputText, Set<String> stopWords) {
+				return 8;
+			}
+		};
 	}
 
 	static class MockOutputPrinter implements OutputPrinter {
