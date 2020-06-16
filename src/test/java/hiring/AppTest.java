@@ -12,9 +12,9 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnit4.class)
 public class AppTest {
 
-
 	@Test
-	public void GIVEN__WHEN__THEN_() {
+	public void WHEN_run_application_THEN_output_is_correct() {
+		// when
 		InputTextReader inputTextReader = mockInputTextReader();
 		WordCounter wordCounter = createMockCounter();
 		MockOutputPrinter outputPrinter = new MockOutputPrinter();
@@ -22,35 +22,24 @@ public class AppTest {
 		App app = new App(inputTextReader, wordCounter, outputPrinter);
 		app.run();
 
-		assertEquals("Enter text: \nNumber of words: 5\n", outputPrinter.out);
-
+		// then
+		assertEquals("Enter text: Number of words: 5\n", outputPrinter.out);
 	}
 
 	private InputTextReader mockInputTextReader() {
-		return new InputTextReader() {
-			@Override
-			public String readInputText() {
-				return "";
-			}
-		};
+		return () -> "";
 	}
 
 	private WordCounter createMockCounter() {
-		return new WordCounter() {
-			@Override
-			public int countWords(String inputText) {
-				return 5;
-			}
-		};
+		return inputText -> 5;
 	}
 
-	class MockOutputPrinter implements OutputPrinter {
+	static class MockOutputPrinter implements OutputPrinter {
 		public String out = "";
 
 		@Override
 		public void print(String s) {
 			out += s;
 		}
-	};
-
+	}
 }

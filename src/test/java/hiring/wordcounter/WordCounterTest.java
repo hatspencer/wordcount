@@ -1,6 +1,5 @@
-package hiring;
+package hiring.wordcounter;
 
-import hiring.wordcounter.WordCounterParser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -10,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnit4.class)
 public class WordCounterTest {
 
-	private WordCounterParser wordCounterParser = new WordCounterParser();
+	private WordCounter wordCounter = new WordCounterRegexp();
 
 	@Test(expected = IllegalArgumentException.class)
 	public void GIVEN_null_string_WHEN_count_words_THEN_illegal_argument_exception_expected() {
@@ -18,7 +17,7 @@ public class WordCounterTest {
 		String inputText = null;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		wordCounter.countWords(inputText);
 
 		// then exception
 	}
@@ -30,7 +29,7 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 0;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		int wordCount = wordCounter.countWords(inputText);
 
 		// then
 		assertEquals(expectedNumberOfWords, wordCount);
@@ -43,7 +42,7 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 0;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		int wordCount = wordCounter.countWords(inputText);
 
 		// then
 		assertEquals(expectedNumberOfWords, wordCount);
@@ -56,7 +55,7 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 1;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		int wordCount = wordCounter.countWords(inputText);
 
 		// then
 		assertEquals(expectedNumberOfWords, wordCount);
@@ -69,7 +68,7 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 2;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		int wordCount = wordCounter.countWords(inputText);
 
 		// then
 		assertEquals(expectedNumberOfWords, wordCount);
@@ -82,7 +81,7 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 2;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		int wordCount = wordCounter.countWords(inputText);
 
 		// then
 		assertEquals(expectedNumberOfWords, wordCount);
@@ -95,7 +94,7 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 2;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		int wordCount = wordCounter.countWords(inputText);
 
 		// then
 		assertEquals(expectedNumberOfWords, wordCount);
@@ -108,7 +107,20 @@ public class WordCounterTest {
 		int expectedNumberOfWords = 2;
 
 		// when
-		int wordCount = wordCounterParser.countWords(inputText);
+		int wordCount = wordCounter.countWords(inputText);
+
+		// then
+		assertEquals(expectedNumberOfWords, wordCount);
+	}
+
+	@Test
+	public void GIVEN_just_comma_WHEN_count_words_THEN_zero_words() {
+		// given
+		String inputText = " , ";
+		int expectedNumberOfWords = 0;
+
+		// when
+		int wordCount = wordCounter.countWords(inputText);
 
 		// then
 		assertEquals(expectedNumberOfWords, wordCount);

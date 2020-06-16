@@ -5,7 +5,7 @@ import hiring.inputreader.InputTextReaderScanner;
 import hiring.outputprinter.OutputPrinter;
 import hiring.outputprinter.OutputPrinterSout;
 import hiring.wordcounter.WordCounter;
-import hiring.wordcounter.WordCounterParser;
+import hiring.wordcounter.WordCounterRegexp;
 
 public class App {
 
@@ -33,7 +33,7 @@ public class App {
 
 	public static void main(String[] args) {
 		InputTextReader inputTextReader = new InputTextReaderScanner();
-		WordCounter wordCounter = new WordCounterParser();
+		WordCounter wordCounter = new WordCounterRegexp();
 		OutputPrinter outputPrinter = new OutputPrinterSout();
 
 		App app = new App(inputTextReader, wordCounter, outputPrinter);
