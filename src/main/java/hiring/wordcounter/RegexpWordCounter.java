@@ -21,6 +21,8 @@ public class RegexpWordCounter implements WordCounter {
 		String pattern = "^[a-zA-Z]+$";
 		Pattern r = Pattern.compile(pattern);
 
+		inputText = inputText.replace("\n", " ");
+
 		int wordCount = 0;
 		for (String textPart : inputText.split(" ")) {
 			Matcher m = r.matcher(textPart);
