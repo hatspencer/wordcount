@@ -6,12 +6,11 @@ import hiring.inputreader.InputTextReader;
 import hiring.inputreader.InputTextReaderFactory;
 import hiring.outputprinter.OutputPrinter;
 import hiring.outputprinter.SystemOutputPrinter;
-import hiring.wordcounter.RegexpWordCounter;
-import hiring.wordcounter.SimpleStopWordsParser;
 import hiring.wordcounter.StopWordsParser;
+import hiring.wordcounter.WordCounterImpl;
 import hiring.wordcounter.WordCounter;
+import hiring.wordcounter.WordCounterResult;
 
-import java.util.Collections;
 import java.util.Set;
 
 public class App {
@@ -19,8 +18,6 @@ public class App {
 	private InputTextReader inputTextReader;
 	private WordCounter wordCounter;
 	private OutputPrinter outputPrinter;
-	private FileContentReader fileContentReader;
-	private StopWordsParser stopWordsLoader;
 
 	public App(InputTextReader inputTextReader,
 	           WordCounter wordCounter,
@@ -34,46 +31,28 @@ public class App {
 	public void run() {
 		String inputText = inputTextReader.readInputText();
 
-		Set<String> stopWords = loadStopWordsIfNeeded();
-		int wordCount = wordCounter.countWords(inputText, stopWords);
+		Set<String> stopWords = loadStopWords();
+		WordCounterResult wordCounterResult =  wordCounter.countWords(inputText, stopWords);
 
-		outputPrinter.print("Number of words: ");
-		outputPrinter.print(wordCount + "\n");
+		outputPrinter.print("Number of words: " + wordCounterResult.getNumberOfWords());
+		outputPrinter.print(", unique: " + wordCounterResult.getNumberOfUniqueWords() + "\n");
 	}
 
-	private Set<String> loadStopWordsIfNeeded() {
-		if (stopWordsLoader == null || fileContentReader == null) {
-			return Collections.emptySet();
-		} else {
-			String stopWordsFileContent = fileContentReader.readFileContent("stopwords.txt");
-			Set<String> stopWords = stopWordsLoader.parseStopWords(stopWordsFileContent);
-			return stopWords;
-		}
-	}
-
-	public void setStopWordsLoader(StopWordsParser stopWordsLoader) {
-		this.stopWordsLoader = stopWordsLoader;
-	}
-
-	public void setFileContentReader(FileContentReader fileContentReader) {
-		this.fileContentReader = fileContentReader;
+	private Set<String> loadStopWords() {
+		String stopWordsFileContent = new ResourceFileContentReader().readFileContent("stopwords.txt");
+		Set<String> stopWords = new StopWordsParser().parseStopWords(stopWordsFileContent);
+		return stopWords;
 	}
 
 	public static void main(String[] args) {
 		AppArguments appArguments = new AppArguments(args);
 
 		OutputPrinter outputPrinter = new SystemOutputPrinter();
-
 		InputTextReader inputTextReader = InputTextReaderFactory.createInputTextReader(appArguments.getInputFileName());
 
-		WordCounter wordCounter = new RegexpWordCounter();
-		FileContentReader fileContentReader = new ResourceFileContentReader();
-		StopWordsParser stopWordsParser = new SimpleStopWordsParser();
+		WordCounter wordCounter = new WordCounterImpl();
 
 		App app = new App(inputTextReader, wordCounter, outputPrinter);
-		app.setStopWordsLoader(stopWordsParser);
-		app.setFileContentReader(fileContentReader);
-
 		app.run();
 	}
 

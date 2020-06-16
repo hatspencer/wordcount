@@ -23,3 +23,4 @@ Assumptions
 ===========
 1. Input text is a single line
 2. Stop words can be loaded from resource file only
+3. Stop words file is mandatory
