@@ -27,6 +27,19 @@ public class WordFinderTest {
 	}
 
 	@Test
+	public void GIVEN_single_letter_word_WHEN_count_words_THEN_one_word() {
+		// given
+		String inputText = "w";
+		int expectedNumberOfWords = 1;
+
+		// when
+		List<String> foundWords = wordFinder.findWords(inputText);
+
+		// then
+		assertEquals(expectedNumberOfWords, foundWords.size());
+	}
+
+	@Test
 	public void GIVEN_only_number_WHEN_count_words_THEN_zero_words() {
 		// given
 		String inputText = "234234 ";
@@ -109,6 +122,45 @@ public class WordFinderTest {
 		// given
 		String inputText = " , ";
 		int expectedNumberOfWords = 0;
+
+		// when
+		List<String> foundWords = wordFinder.findWords(inputText);
+
+		// then
+		assertEquals(expectedNumberOfWords, foundWords.size());
+	}
+
+	@Test
+	public void GIVEN_word_with_hypen_WHEN_count_words_THEN_counted_as_one_word() {
+		// given
+		String inputText = "Humpty-Dumpty word";
+		int expectedNumberOfWords = 2;
+
+		// when
+		List<String> foundWords = wordFinder.findWords(inputText);
+
+		// then
+		assertEquals(expectedNumberOfWords, foundWords.size());
+	}
+
+	@Test
+	public void GIVEN_word_with_hypen_at_the_end_WHEN_count_words_THEN_word_not_counted() {
+		// given
+		String inputText = "Humpty- word";
+		int expectedNumberOfWords = 1;
+
+		// when
+		List<String> foundWords = wordFinder.findWords(inputText);
+
+		// then
+		assertEquals(expectedNumberOfWords, foundWords.size());
+	}
+
+	@Test
+	public void GIVEN_word_with_hypen_in_the_beginning_WHEN_count_words_THEN_word_not_counted() {
+		// given
+		String inputText = "-Humpty word";
+		int expectedNumberOfWords = 1;
 
 		// when
 		List<String> foundWords = wordFinder.findWords(inputText);

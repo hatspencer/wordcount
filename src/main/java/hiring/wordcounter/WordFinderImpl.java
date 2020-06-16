@@ -9,7 +9,7 @@ public class WordFinderImpl implements WordFinder {
 
 	@Override
 	public List<String> findWords(String inputText) {
-		String pattern = "^[a-zA-Z]+$";
+		String pattern = "^([a-zA-Z]+|[a-zA-Z]+-[a-zA-Z]+)$";
 		Pattern r = Pattern.compile(pattern);
 
 		inputText = inputText.replace("\n", " ");

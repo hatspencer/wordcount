@@ -3,7 +3,8 @@ Word counter
 Application to count the number of words in a text. 
 The app will ask the user for the text upon start. 
 It will then output the number of words found in the text. 
-Words are stretches of letters (a-z,A-Z). Sample usage:
+Words are stretches of letters (a-z,A-Z), that can be also separated with hypen.
+Sample usage:
 
     $ wordcount
         Enter text: Mary had a little lamb
