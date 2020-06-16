@@ -1,10 +1,10 @@
-package hiring.wordcounter;
+package hiring.stopwords;
 
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class StopWordsParser {
+public class StopWordsParserImpl implements StopWordsParser {
 
 	public Set<String> parseStopWords(String stopWordsInput) {
 		return Arrays.stream(stopWordsInput.split("\\n"))

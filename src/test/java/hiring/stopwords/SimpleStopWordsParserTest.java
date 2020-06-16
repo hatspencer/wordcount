@@ -1,4 +1,4 @@
-package hiring.wordcounter;
+package hiring.stopwords;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnit4.class)
 public class SimpleStopWordsParserTest {
 
-	private StopWordsParser stopWordsParser = new StopWordsParser();
+	private StopWordsParser stopWordsParser = new StopWordsParserImpl();
 
 	@Test
 	public void GIVEN_two_stop_words_separated_by_newline_WHEN_load_stop_words_THEN_correct_count() {

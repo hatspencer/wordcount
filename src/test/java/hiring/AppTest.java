@@ -3,6 +3,8 @@ package hiring;
 import hiring.filereader.FileContentReader;
 import hiring.inputreader.InputTextReader;
 import hiring.outputprinter.OutputPrinter;
+import hiring.stopwords.StopWordsParser;
+import hiring.stopwords.StopWordsParserImpl;
 import hiring.wordcounter.WordCounter;
 import hiring.wordcounter.WordCounterResult;
 import org.junit.Test;
@@ -28,9 +30,11 @@ public class AppTest {
 		InputTextReader inputTextReader = mockInputTextReader(mockedInputText);
 		MockWordCounter wordCounter = new MockWordCounter(expectedNumberOfWords);
 		MockOutputPrinter outputPrinter = new MockOutputPrinter();
+		FileContentReader fileContentReader = createMockFileContentReader();
+		StopWordsParser stopWordsParser = mockStopWordsParser(Collections.emptySet());
 
 		// when
-		App app = new App(inputTextReader, wordCounter, outputPrinter);
+		App app = new App(inputTextReader, wordCounter, outputPrinter, fileContentReader, stopWordsParser);
 		app.run();
 
 		// then
@@ -38,8 +42,8 @@ public class AppTest {
 		assertEquals(mockedInputText, wordCounter.inputText);
 	}
 
-	/*@Test
-	public void GIVEN_stop_words_parser_provided_WHEN_run_application_THEN_output_is_correct() {
+	@Test
+	public void GIVEN_stop_words_provided_WHEN_run_application_THEN_stop_words_provided_to_word_counter() {
 		// given
 		int expectedNumberOfWords = 2;
 		Set<String> mockedStopWords = new HashSet<>(Arrays.asList("best", "all", "not_in_input"));
@@ -48,16 +52,18 @@ public class AppTest {
 		InputTextReader inputTextReader = mockInputTextReader(mockedInputText);
 		MockWordCounter wordCounter = new MockWordCounter(expectedNumberOfWords);
 		MockOutputPrinter outputPrinter = new MockOutputPrinter();
+		FileContentReader fileContentReader = createMockFileContentReader();
+		StopWordsParser stopWordsParser = mockStopWordsParser(mockedStopWords);
 
 		// when
-		App app = new App(inputTextReader, wordCounter, outputPrinter);
+		App app = new App(inputTextReader, wordCounter, outputPrinter, fileContentReader, stopWordsParser);
 		app.run();
 
 		// then
-		assertEquals("Number of words: " + expectedNumberOfWords + "\n", outputPrinter.out);
+		assertEquals("Number of words: " + expectedNumberOfWords + ", unique: 0\n", outputPrinter.out);
 		assertEquals(mockedInputText, wordCounter.inputText);
-	}*/
-
+		assertEquals(mockedStopWords, wordCounter.stopWords);
+	}
 
 	private FileContentReader createMockFileContentReader() {
 		return fileName -> "";
@@ -65,6 +71,10 @@ public class AppTest {
 
 	private InputTextReader mockInputTextReader(String mockedInputText) {
 		return () -> mockedInputText;
+	}
+
+	private StopWordsParser mockStopWordsParser(Set<String> mockedStopWords) {
+		return stopWordsInput -> mockedStopWords;
 	}
 
 	static class MockWordCounter implements WordCounter {

@@ -39,10 +39,10 @@ public class WordCounterImpl implements WordCounter {
 	}
 
 	private List<String> filterOutStopWords(List<String> words, Set<String> stopWords) {
-		words = words.stream()
+		List<String> wordsWithoutStopWords = words.stream()
 				.filter(word -> !stopWords.contains(word))
 				.collect(Collectors.toList());
-		return words;
+		return wordsWithoutStopWords;
 	}
 
 }

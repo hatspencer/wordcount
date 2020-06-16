@@ -6,7 +6,8 @@ import hiring.inputreader.InputTextReader;
 import hiring.inputreader.InputTextReaderFactory;
 import hiring.outputprinter.OutputPrinter;
 import hiring.outputprinter.SystemOutputPrinter;
-import hiring.wordcounter.StopWordsParser;
+import hiring.stopwords.StopWordsParser;
+import hiring.stopwords.StopWordsParserImpl;
 import hiring.wordcounter.WordCounterImpl;
 import hiring.wordcounter.WordCounter;
 import hiring.wordcounter.WordCounterResult;
@@ -18,14 +19,20 @@ public class App {
 	private InputTextReader inputTextReader;
 	private WordCounter wordCounter;
 	private OutputPrinter outputPrinter;
+	private FileContentReader fileContentReader;
+	private StopWordsParser stopWordsParser;
 
 	public App(InputTextReader inputTextReader,
 	           WordCounter wordCounter,
-	           OutputPrinter outputPrinter) {
+	           OutputPrinter outputPrinter,
+	           FileContentReader fileContentReader,
+	           StopWordsParser stopWordsParser) {
 
 		this.inputTextReader = inputTextReader;
 		this.wordCounter = wordCounter;
 		this.outputPrinter = outputPrinter;
+		this.fileContentReader = fileContentReader;
+		this.stopWordsParser = stopWordsParser;
 	}
 
 	public void run() {
@@ -39,20 +46,25 @@ public class App {
 	}
 
 	private Set<String> loadStopWords() {
-		String stopWordsFileContent = new ResourceFileContentReader().readFileContent("stopwords.txt");
-		Set<String> stopWords = new StopWordsParser().parseStopWords(stopWordsFileContent);
+		String stopWordsFileContent = fileContentReader.readFileContent("stopwords.txt");
+		Set<String> stopWords = stopWordsParser.parseStopWords(stopWordsFileContent);
 		return stopWords;
 	}
 
 	public static void main(String[] args) {
 		AppArguments appArguments = new AppArguments(args);
 
-		OutputPrinter outputPrinter = new SystemOutputPrinter();
 		InputTextReader inputTextReader = InputTextReaderFactory.createInputTextReader(appArguments.getInputFileName());
-
 		WordCounter wordCounter = new WordCounterImpl();
+		OutputPrinter outputPrinter = new SystemOutputPrinter();
+		FileContentReader fileContentReader = new ResourceFileContentReader();
+		StopWordsParserImpl stopWordsParser = new StopWordsParserImpl();
 
-		App app = new App(inputTextReader, wordCounter, outputPrinter);
+		App app = new App(inputTextReader,
+				wordCounter,
+				outputPrinter,
+				fileContentReader,
+				stopWordsParser);
 		app.run();
 	}
 
