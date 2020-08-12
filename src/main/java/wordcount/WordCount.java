@@ -11,8 +11,9 @@ public class WordCount {
     
     public static final String STOP_WORDS_FILENAME_PROPERTY = "stopWordsFilename";
 
-    public static void main(String[] args) {
-        wordCountCatchExceptions();
+    public static void main(String[] args) throws IOException {
+        wordCount();
+        //wordCountCatchExceptions();
     }
 
     private static void wordCountCatchExceptions() {

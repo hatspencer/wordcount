@@ -63,7 +63,7 @@ public class WordCountTest {
        String[] towWordsWithOneBad = { "aa", "bb.", "CC" };
        Assert.assertEquals(WordCounter.getWordsCount(towWordsWithOneBad, stopWords), 2);
         
-       String[] onlyBadWords = { "aa.", "pavel1marek", "koník" };
+       String[] onlyBadWords = { "aa.", "pavel1marek", "konÃ­k" };
        Assert.assertEquals(WordCounter.getWordsCount(onlyBadWords, stopWords), 0);
     }    
     
