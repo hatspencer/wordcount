@@ -29,7 +29,6 @@ public class FileInput implements Input {
 
         StringBuilder builder = new StringBuilder();
 
-        //Reading each line of file using Scanner class
         while(scnr.hasNextLine()){
             String line = scnr.nextLine();
             builder.append(line);
