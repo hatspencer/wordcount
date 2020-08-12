@@ -3,14 +3,14 @@ package wordcount;
 public class WordCount {
     
     public static void main(String[] args) {
-        
-        String input = UserInput.getInputFromUser();
-        
-        String[] splittedInput = Splitter.split(input);
-        
-//        System.out.println("debug "+input);
-        System.out.println("Number of words: " + WordCounter.getWordsCount(splittedInput));
+        wordCount();
+    }
 
+    public static void wordCount() {
+        String input = UserInput.getInputFromUser();
+        String[] splittedInput = Splitter.split(input);
+        int numberOfWords = WordCounter.getWordsCount(splittedInput);
+        System.out.println("Number of words: " + numberOfWords);
     }
      
 }

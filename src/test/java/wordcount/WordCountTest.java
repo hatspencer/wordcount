@@ -27,30 +27,40 @@ public class WordCountTest {
     
     @Test
     public void splitterTest() {
-       String[] s1 = { "aaa", "bbb" };
-       assertTrue(checkEquality(Splitter.split("aaa bbb"), s1));
+       String[] twoWords = { "aaa", "bbb" };
+       assertTrue(checkEquality(Splitter.split("aaa bbb"), twoWords));
         
-       String[] s2 = {  };
-       assertTrue(checkEquality(Splitter.split(""), s2));
+       String[] emptyInput = {  };
+       assertTrue(checkEquality(Splitter.split(""), emptyInput));
 
-       String[] s3 = { "aaa", "bb." };
-       assertTrue(checkEquality(Splitter.split("aaa bb."), s3));
-       
+       String[] oneWordOneBadword = { "aaa", "bb." };
+       assertTrue(checkEquality(Splitter.split("aaa bb."), oneWordOneBadword));
+
+        String[] twoWordsExtraSpaces = { "aaa", "bb" };
+        assertTrue(checkEquality(Splitter.split("aaa       bb"), twoWordsExtraSpaces));
+
+        String[] tabDelimiter = { "aaa", "bb" };
+        assertTrue(checkEquality(Splitter.split("aaa"+((char)9)+"bb"), tabDelimiter));
+
 
     }    
 
     @Test
     public void wordCounterTest() {
-       String[] s1 = {  };
-       Assert.assertEquals(WordCounter.getWordsCount(s1), 0);
-       
-       String[] s2 = { "aa", "BB" };
-       Assert.assertEquals(WordCounter.getWordsCount(s2), 2);
-       
-       String[] s3 = { "aa", "bb.", "CC" };
-       Assert.assertEquals(WordCounter.getWordsCount(s3), 2);
+       String[] nullArray = null;
+       Assert.assertEquals(WordCounter.getWordsCount(nullArray), 0);
         
-
+        String[] emptyArray = {  };
+       Assert.assertEquals(WordCounter.getWordsCount(emptyArray), 0);
+       
+       String[] twoWords = { "aa", "BB" };
+       Assert.assertEquals(WordCounter.getWordsCount(twoWords), 2);
+       
+       String[] towWordsWithOneBad = { "aa", "bb.", "CC" };
+       Assert.assertEquals(WordCounter.getWordsCount(towWordsWithOneBad), 2);
+        
+       String[] onlyBadWords = { "aa.", "pavel1marek", "koník" };
+       Assert.assertEquals(WordCounter.getWordsCount(onlyBadWords), 0);
     }    
     
 }
