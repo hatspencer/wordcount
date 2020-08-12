@@ -1,1 +1,7 @@
 Iteration 1
+I will counto only "words" which is consinst from a-zA-Z letters, so input "pavel1marek" this is not word.
+I will use space (32) and tabs (9) as charatcters to split input into entities.
+
+
+
+
