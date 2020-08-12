@@ -3,33 +3,39 @@ package wordcount;
 import wordcount.stopwords.StopWords;
 import wordcount.stopwords.StopWordsReader;
 import wordcount.wordcounter.Splitter;
-import wordcount.wordcounter.UserInput;
+import wordcount.wordcounter.input.Input;
+import wordcount.wordcounter.input.InputFactory;
 import wordcount.wordcounter.WordCounter;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
 
 public class WordCount {
     
     public static final String STOP_WORDS_FILENAME_PROPERTY = "stopWordsFilename";
 
     public static void main(String[] args) {
-        wordCountCatchExceptions();
+        wordCountCatchExceptions(args[0]);
     }
 
-    private static void wordCountCatchExceptions() {
+    private static void wordCountCatchExceptions(String inputFile) {
       try {
-          wordCount();
+          wordCount(inputFile);
       } catch (Exception e) {
           System.out.println("Exception happend - "+e.getMessage());
       }
     }
 
-    private static void wordCount() throws IOException, URISyntaxException {
+    private static String getUserInput(String filename) throws IOException {
+        Input input = InputFactory.getInput(filename);
+        return input.getInputData();
+    }
+
+    private static void wordCount(String inputFile) throws IOException, URISyntaxException {
+
         StopWords stopWords = readStopWords();
 
-        String input = UserInput.getInputFromUser();
+        String input = getUserInput(inputFile);
         String[] splittedInput = Splitter.split(input);
         int numberOfWords = WordCounter.getWordsCount(splittedInput, stopWords);
         System.out.println("Number of words: " + numberOfWords);

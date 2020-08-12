@@ -7,7 +7,10 @@ import wordcount.stopwords.StopWords;
 import wordcount.stopwords.StopWordsReader;
 import wordcount.wordcounter.Splitter;
 import wordcount.wordcounter.WordCounter;
+import wordcount.wordcounter.input.Input;
+import wordcount.wordcounter.input.InputFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -98,6 +101,32 @@ public class WordCountTest {
     @Test
     public void stopWordsReaderTest() {
         assertNotNull(readStopWords());
+    }
+
+    private String readFileInput(String filename) throws IOException {
+        File file = new File(filename);
+
+        Input input = InputFactory.getInput(file.getAbsolutePath());
+        return input.getInputData();
+    }
+
+    private void testFileInputCatchException(String test, String filename) {
+        try {
+            Assert.assertEquals(test, readFileInput(filename));
+        } catch (IOException e) {
+            fail("File "+filename+" is not readable " + e.getLocalizedMessage());
+        }
+    }
+
+    @Test
+    public void fileInputTest() {
+        testFileInputCatchException("This is small test", "ThisIsSmallTest.txt");
+
+        testFileInputCatchException("This is multiline test", "ThisIsMultilineTest.txt");
+
+        assertThrows(IOException.class, () -> {
+            String a = readFileInput("FileNotExists.txt");
+        });
     }
 
 }

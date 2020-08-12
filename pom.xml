@@ -56,7 +56,7 @@
   <configuration>
     <excludes>
         <exclude>**/WordCount.class</exclude>
-        <exclude>**/UserInput.class</exclude>
+        <exclude>**/ManuallyInput.class</exclude>
     </excludes>
 </configuration>
   <executions>
