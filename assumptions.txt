@@ -11,3 +11,7 @@ If some exception occurs, than I catch it in main class and write to output.
 
 With TomasR I change assumption, that I prefer file soptwords.txt is located in resource directory.
 
+
+Iteration 5
+Only one hypen is allowed in word.
+I mean, that in input "this---is-not-a-word this-is-not-a-word thisIsA-Word ok :-)" is only 2 words "thisIsA-Word" and "ok".

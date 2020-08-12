@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class WordCounter {
 
-    private static final String WORD_PATTERN = "^[a-zA-Z]+$";
+    private static final String WORD_PATTERN = "^([a-zA-Z]+-)?[a-zA-Z]+$";
 
     public static Statistic getWordsCount(String [] inputArray, StopWords stopWords) {
         if (inputArray == null) {

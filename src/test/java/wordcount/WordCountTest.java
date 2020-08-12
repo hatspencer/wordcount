@@ -160,6 +160,11 @@ public class WordCountTest {
     }
 
     @Test
+    public void fileInputTest3() {
+        testFileInputCatchException("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", "HumptyDumptyTest.txt");
+    }
+
+    @Test
     public void fileInputTestNotExistiting() {
         assertThrows(IOException.class, () -> {
             String a = readFileInput("FileNotExists.txt");
@@ -178,11 +183,18 @@ public class WordCountTest {
 
     @Test
     public void testEndToEnd2() {
-        testFromInputToStats("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", 9, 7, stopWords);
+        testFromInputToStats("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", 7, 6, stopWords);
     }
 
     @Test
     public void testEndToEnd3() {
         testFromInputToStats("S0me we1rd w0rds are in input text. on a I don't know text.", 7, 6, stopWords);
     }
+
+    @Test
+    public void testEndToEnd4() {
+        testFromInputToStats("this---is-not-a-word this-is-not-a-word thisIsA-Word ok :-)", 2, 2, stopWords);
+    }
+
+
 }
