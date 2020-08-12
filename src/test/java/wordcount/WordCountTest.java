@@ -3,6 +3,7 @@ package wordcount;
 import org.junit.Assert;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+import wordcount.stopwords.StopWords;
 
 public class WordCountTest {
     
@@ -48,19 +49,22 @@ public class WordCountTest {
     @Test
     public void wordCounterTest() {
        String[] nullArray = null;
-       Assert.assertEquals(WordCounter.getWordsCount(nullArray), 0);
+       
+       StopWords stopWords = new StopWords();
+       
+       Assert.assertEquals(WordCounter.getWordsCount(nullArray, stopWords), 0);
         
         String[] emptyArray = {  };
-       Assert.assertEquals(WordCounter.getWordsCount(emptyArray), 0);
+       Assert.assertEquals(WordCounter.getWordsCount(emptyArray, stopWords), 0);
        
        String[] twoWords = { "aa", "BB" };
-       Assert.assertEquals(WordCounter.getWordsCount(twoWords), 2);
+       Assert.assertEquals(WordCounter.getWordsCount(twoWords, stopWords), 2);
        
        String[] towWordsWithOneBad = { "aa", "bb.", "CC" };
-       Assert.assertEquals(WordCounter.getWordsCount(towWordsWithOneBad), 2);
+       Assert.assertEquals(WordCounter.getWordsCount(towWordsWithOneBad, stopWords), 2);
         
        String[] onlyBadWords = { "aa.", "pavel1marek", "koník" };
-       Assert.assertEquals(WordCounter.getWordsCount(onlyBadWords), 0);
+       Assert.assertEquals(WordCounter.getWordsCount(onlyBadWords, stopWords), 0);
     }    
     
 }

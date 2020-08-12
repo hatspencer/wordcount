@@ -4,4 +4,7 @@ I will use space (32) and tabs (9) as charatcters to split input into entities.
 
 
 
-
+Iteration 2
+I assume, that file stopwords.txt is mandatory to run WordCounter.
+I assume, that this file is not part of delivery and filename is stored in properties file (to enable change of filename in target installation).
+If some exception occurs, than I catch it in main class and write to output.
