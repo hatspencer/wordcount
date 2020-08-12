@@ -9,12 +9,12 @@ import wordcount.wordcounter.input.InputFactory;
 import wordcount.wordcounter.WordCounter;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
 
 public class WordCount {
     
-    public static final String STOP_WORDS_FILENAME_PROPERTY = "stopWordsFilename";
-
     public static void main(String[] args) {
         wordCountCatchExceptions(getFilenameForInput(args));
     }
@@ -47,7 +47,7 @@ public class WordCount {
         String input = getUserInput(inputFile);
         String[] splittedInput = Splitter.split(input);
         Statistic statistic = WordCounter.getWordsCount(splittedInput, stopWords);
-        System.out.println("Number of words: " + statistic.getWordCount() + ", unique: "+statistic.getUnique());
+        writeOutputToUser(statistic);
     }
 
     private static StopWords readStopWords() throws IOException, URISyntaxException {
@@ -55,6 +55,27 @@ public class WordCount {
         StopWordsReader stopWordsReader = new StopWordsReader();
         stopWords.setStopWords(stopWordsReader.readWords());
         return stopWords;
+    }
+
+    private static String prepareAverageToString(BigDecimal average) {
+        average = average.setScale(2, BigDecimal.ROUND_HALF_UP);
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(0);
+        df.setGroupingUsed(false);
+        return df.format(average);
+    }
+
+    private static void writeOutputToUser(Statistic statistic) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Number of words: ");
+        builder.append(statistic.getWordCount());
+        builder.append(", unique: ");
+        builder.append(statistic.getUnique());
+        builder.append("; average word length: ");
+        builder.append(prepareAverageToString(statistic.getAverageWordLength()));
+        builder.append(" characters");
+        System.out.println(builder.toString());
     }
      
 }

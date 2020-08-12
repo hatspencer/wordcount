@@ -13,9 +13,12 @@ import wordcount.wordcounter.input.InputFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URISyntaxException;
 
 import static org.junit.Assert.*;
+import static wordcount.wordcounter.WordCounter.AVERAGE_CHARACTERS_PRECISION;
 
 public class WordCountTest {
 
@@ -58,9 +61,16 @@ public class WordCountTest {
     }
 
     private void wordCounterTest(String[] array, StopWords stopWords, int wordCount, int unique) {
+        wordCounterTest(array, stopWords, wordCount, unique, null);
+    }
+
+    private void wordCounterTest(String[] array, StopWords stopWords, int wordCount, int unique, BigDecimal average) {
         Statistic statistic = WordCounter.getWordsCount(array, stopWords);
         Assert.assertEquals(statistic.getWordCount(), wordCount);
         Assert.assertEquals(statistic.getUnique(), unique);
+        if (average != null) {
+            Assert.assertEquals(average, statistic.getAverageWordLength());
+        }
     }
 
     @Test
@@ -171,29 +181,36 @@ public class WordCountTest {
         });
     }
 
-    private void testFromInputToStats(String input, int wordCount, int unique, StopWords stopWords) {
+    private BigDecimal countAverage(int characters, int wordCount) {
+        if (wordCount == 0) {
+            return BigDecimal.ZERO;
+        }
+        return BigDecimal.valueOf(characters).divide(BigDecimal.valueOf(wordCount), AVERAGE_CHARACTERS_PRECISION, RoundingMode.HALF_UP);
+    }
+
+    private void testFromInputToStats(String input, int wordCount, int unique, StopWords stopWords, int characters) {
         String[] splittedInput = Splitter.split(input);
-        wordCounterTest(splittedInput, stopWords, wordCount, unique);
+        wordCounterTest(splittedInput, stopWords, wordCount, unique, countAverage(characters, wordCount));
     }
 
     @Test
     public void testEndToEnd1() {
-        testFromInputToStats("Mary had a little lamb", 4, 4, stopWords);
+        testFromInputToStats("Mary had a little lamb", 4, 4, stopWords, 17);
     }
 
     @Test
     public void testEndToEnd2() {
-        testFromInputToStats("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", 7, 6, stopWords);
+        testFromInputToStats("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", 7, 6, stopWords, 45);
     }
 
     @Test
     public void testEndToEnd3() {
-        testFromInputToStats("S0me we1rd w0rds are in input text. on a I don't know text.", 7, 6, stopWords);
+        testFromInputToStats("S0me we1rd w0rds are in input text. on a I don't know text.", 7, 6, stopWords, 23);
     }
 
     @Test
     public void testEndToEnd4() {
-        testFromInputToStats("this---is-not-a-word this-is-not-a-word thisIsA-Word ok :-)", 2, 2, stopWords);
+        testFromInputToStats("this---is-not-a-word this-is-not-a-word thisIsA-Word ok :-)", 2, 2, stopWords, 14);
     }
 
 

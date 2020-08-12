@@ -15,3 +15,8 @@ With TomasR I change assumption, that I prefer file soptwords.txt is located in 
 Iteration 5
 Only one hypen is allowed in word.
 I mean, that in input "this---is-not-a-word this-is-not-a-word thisIsA-Word ok :-)" is only 2 words "thisIsA-Word" and "ok".
+
+
+Iteration 6
+I assume, that I count hypen as a character.
+Average is rounded to 2 decimal places, becouse only reason for calculating average is display to user on 2 decimal places.
