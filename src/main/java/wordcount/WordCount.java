@@ -1,7 +1,5 @@
 package wordcount;
 
-import wordcount.properties.PropertiesFactory;
-import wordcount.properties.PropertiesReader;
 import wordcount.stopwords.StopWords;
 import wordcount.stopwords.StopWordsReader;
 import wordcount.wordcounter.Splitter;
@@ -9,15 +7,15 @@ import wordcount.wordcounter.UserInput;
 import wordcount.wordcounter.WordCounter;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 public class WordCount {
     
     public static final String STOP_WORDS_FILENAME_PROPERTY = "stopWordsFilename";
 
-    public static void main(String[] args) throws IOException {
-        wordCount();
-        //wordCountCatchExceptions();
+    public static void main(String[] args) {
+        wordCountCatchExceptions();
     }
 
     private static void wordCountCatchExceptions() {
@@ -28,9 +26,8 @@ public class WordCount {
       }
     }
 
-    private static void wordCount() throws IOException {
-        PropertiesReader propertiesReader = PropertiesFactory.getPropertiesReader();
-        StopWords stopWords = readStopWords(propertiesReader);
+    private static void wordCount() throws IOException, URISyntaxException {
+        StopWords stopWords = readStopWords();
 
         String input = UserInput.getInputFromUser();
         String[] splittedInput = Splitter.split(input);
@@ -38,10 +35,10 @@ public class WordCount {
         System.out.println("Number of words: " + numberOfWords);
     }
 
-    private static StopWords readStopWords(PropertiesReader propertiesReader) throws IOException {
-        String filename = propertiesReader.getProperty(STOP_WORDS_FILENAME_PROPERTY);
+    private static StopWords readStopWords() throws IOException, URISyntaxException {
         StopWords stopWords = new StopWords();
-        stopWords.setStopWords(StopWordsReader.readWords(Paths.get(filename)));
+        StopWordsReader stopWordsReader = new StopWordsReader();
+        stopWords.setStopWords(stopWordsReader.readWords());
         return stopWords;
     }
      

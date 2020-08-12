@@ -3,23 +3,18 @@ package wordcount;
 import org.junit.Assert;
 
 import org.junit.Test;
-import wordcount.properties.PropertiesFactory;
 import wordcount.stopwords.StopWords;
 import wordcount.stopwords.StopWordsReader;
 import wordcount.wordcounter.Splitter;
 import wordcount.wordcounter.WordCounter;
 
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URISyntaxException;
 
 import static org.junit.Assert.*;
 
 public class WordCountTest {
 
-    private final String STOPWORDS_FILE_FOR_TEST = "classpath:stopwords-for-tests.txt";
-    
     private boolean checkEquality(String[] s1, String[] s2) {
 		if (s1 == s2)
 			return true;
@@ -63,7 +58,7 @@ public class WordCountTest {
     public void wordCounterTest() {
        String[] nullArray = null;
        
-       StopWords stopWords = readStopWords(STOPWORDS_FILE_FOR_TEST);
+       StopWords stopWords = readStopWords();
        
        Assert.assertEquals(WordCounter.getWordsCount(nullArray, stopWords), 0);
         
@@ -87,15 +82,14 @@ public class WordCountTest {
 
     }
 
-    private StopWords readStopWords(String filename) {
-        Path path = Paths.get(filename);
-
+    private StopWords readStopWords() {
         try {
             StopWords stopWords = new StopWords();
-            stopWords.setStopWords(StopWordsReader.readWords(path));
+            StopWordsReader stopWordsReader = new StopWordsReader();
+            stopWords.setStopWords(stopWordsReader.readWords());
             return stopWords;
-        } catch (IOException ex) {
-            fail("Cannot read file "+filename);
+        } catch (IOException | URISyntaxException ex) {
+            fail("Cannot read file with stopwords");
         }
         return null;
     }
@@ -103,20 +97,7 @@ public class WordCountTest {
 
     @Test
     public void stopWordsReaderTest() {
-        Path path = Paths.get("stopwords-not-exists.txt");
-        assertThrows(IOException.class, () -> {
-            StopWordsReader.readWords(path);
-        });
-
-        assertNotNull(readStopWords(STOPWORDS_FILE_FOR_TEST));
+        assertNotNull(readStopWords());
     }
 
-    @Test
-    public void propertiesReaderTest() {
-        try {
-            assertNotNull(PropertiesFactory.getPropertiesReader());
-        } catch (IOException e) {
-            fail("PropertiesReader IOException "+e.getLocalizedMessage());
-        }
-    }
 }
