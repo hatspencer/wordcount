@@ -4,8 +4,12 @@ import wordcount.properties.PropertiesFactory;
 import wordcount.properties.PropertiesReader;
 import wordcount.stopwords.StopWords;
 import wordcount.stopwords.StopWordsReader;
+import wordcount.wordcounter.Splitter;
+import wordcount.wordcounter.UserInput;
+import wordcount.wordcounter.WordCounter;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 
 public class WordCount {
     
@@ -37,7 +41,7 @@ public class WordCount {
     private static StopWords readStopWords(PropertiesReader propertiesReader) throws IOException {
         String filename = propertiesReader.getProperty(STOP_WORDS_FILENAME_PROPERTY);
         StopWords stopWords = new StopWords();
-        stopWords.setStopWords(StopWordsReader.readWords(filename));
+        stopWords.setStopWords(StopWordsReader.readWords(Paths.get(filename)));
         return stopWords;
     }
      

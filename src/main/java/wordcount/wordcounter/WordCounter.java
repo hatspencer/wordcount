@@ -1,4 +1,4 @@
-package wordcount;
+package wordcount.wordcounter;
 
 import wordcount.stopwords.StopWords;
 

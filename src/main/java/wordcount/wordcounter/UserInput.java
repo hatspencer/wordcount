@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wordcount;
+package wordcount.wordcounter;
 
 import java.util.Scanner;
 

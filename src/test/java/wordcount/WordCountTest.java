@@ -1,11 +1,24 @@
 package wordcount;
 
 import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+import wordcount.properties.PropertiesFactory;
 import wordcount.stopwords.StopWords;
+import wordcount.stopwords.StopWordsReader;
+import wordcount.wordcounter.Splitter;
+import wordcount.wordcounter.WordCounter;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import static org.junit.Assert.*;
 
 public class WordCountTest {
+
+    private final String STOPWORDS_FILE_FOR_TEST = "classpath:stopwords-for-tests.txt";
     
     private boolean checkEquality(String[] s1, String[] s2) {
 		if (s1 == s2)
@@ -50,13 +63,13 @@ public class WordCountTest {
     public void wordCounterTest() {
        String[] nullArray = null;
        
-       StopWords stopWords = new StopWords();
+       StopWords stopWords = readStopWords(STOPWORDS_FILE_FOR_TEST);
        
        Assert.assertEquals(WordCounter.getWordsCount(nullArray, stopWords), 0);
         
         String[] emptyArray = {  };
        Assert.assertEquals(WordCounter.getWordsCount(emptyArray, stopWords), 0);
-       
+
        String[] twoWords = { "aa", "BB" };
        Assert.assertEquals(WordCounter.getWordsCount(twoWords, stopWords), 2);
        
@@ -65,6 +78,45 @@ public class WordCountTest {
         
        String[] onlyBadWords = { "aa.", "pavel1marek", "koník" };
        Assert.assertEquals(WordCounter.getWordsCount(onlyBadWords, stopWords), 0);
-    }    
-    
+
+       String[] textWithStopWords = { "aa.", "pavel1marek", "on", "word", "a" };
+       Assert.assertEquals(WordCounter.getWordsCount(textWithStopWords, stopWords), 1);
+
+       String[] onlyStopWords = { "on", "a" };
+       Assert.assertEquals(WordCounter.getWordsCount(onlyStopWords, stopWords), 0);
+
+    }
+
+    private StopWords readStopWords(String filename) {
+        Path path = Paths.get(filename);
+
+        try {
+            StopWords stopWords = new StopWords();
+            stopWords.setStopWords(StopWordsReader.readWords(path));
+            return stopWords;
+        } catch (IOException ex) {
+            fail("Cannot read file "+filename);
+        }
+        return null;
+    }
+
+
+    @Test
+    public void stopWordsReaderTest() {
+        Path path = Paths.get("stopwords-not-exists.txt");
+        assertThrows(IOException.class, () -> {
+            StopWordsReader.readWords(path);
+        });
+
+        assertNotNull(readStopWords(STOPWORDS_FILE_FOR_TEST));
+    }
+
+    @Test
+    public void propertiesReaderTest() {
+        try {
+            assertNotNull(PropertiesFactory.getPropertiesReader());
+        } catch (IOException e) {
+            fail("PropertiesReader IOException "+e.getLocalizedMessage());
+        }
+    }
 }

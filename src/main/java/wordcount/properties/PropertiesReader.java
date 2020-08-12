@@ -28,7 +28,9 @@ public class PropertiesReader {
         } catch (IOException e) {
             throw e;
         } finally {
-            inputStream.close();
+            if (inputStream != null) {
+                inputStream.close();
+            }
         }
     }
 

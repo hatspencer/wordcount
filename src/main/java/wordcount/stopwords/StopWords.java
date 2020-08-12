@@ -6,10 +6,6 @@ public class StopWords {
 
     List<String> stopWords;
 
-    public List<String> getStopWords() {
-        return stopWords;
-    }
-
     public void setStopWords(List<String> stopWords) {
         this.stopWords = stopWords;
     }
