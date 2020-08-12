@@ -6,6 +6,7 @@ import org.junit.Test;
 import wordcount.stopwords.StopWords;
 import wordcount.stopwords.StopWordsReader;
 import wordcount.wordcounter.Splitter;
+import wordcount.wordcounter.Statistic;
 import wordcount.wordcounter.WordCounter;
 import wordcount.wordcounter.input.Input;
 import wordcount.wordcounter.input.InputFactory;
@@ -57,31 +58,43 @@ public class WordCountTest {
 
     }    
 
+    private void wordCounterTest(String[] array, StopWords stopWords, int wordCount, int unique) {
+        Statistic statistic = WordCounter.getWordsCount(array, stopWords);
+        Assert.assertEquals(statistic.getWordCount(), wordCount);
+        Assert.assertEquals(statistic.getUnique(), unique);
+    }
+
     @Test
-    public void wordCounterTest() {
+    public void wordCounterTests() {
        String[] nullArray = null;
        
        StopWords stopWords = readStopWords();
-       
-       Assert.assertEquals(WordCounter.getWordsCount(nullArray, stopWords), 0);
+
+        wordCounterTest(nullArray, stopWords, 0, 0);
         
         String[] emptyArray = {  };
-       Assert.assertEquals(WordCounter.getWordsCount(emptyArray, stopWords), 0);
+        wordCounterTest(emptyArray, stopWords, 0, 0);
 
        String[] twoWords = { "aa", "BB" };
-       Assert.assertEquals(WordCounter.getWordsCount(twoWords, stopWords), 2);
+        wordCounterTest(twoWords, stopWords, 2, 2);
        
        String[] towWordsWithOneBad = { "aa", "bb.", "CC" };
-       Assert.assertEquals(WordCounter.getWordsCount(towWordsWithOneBad, stopWords), 2);
+        wordCounterTest(towWordsWithOneBad, stopWords, 2, 2);
         
        String[] onlyBadWords = { "aa.", "pavel1marek", "koník" };
-       Assert.assertEquals(WordCounter.getWordsCount(onlyBadWords, stopWords), 0);
+        wordCounterTest(onlyBadWords, stopWords, 0, 0);
 
        String[] textWithStopWords = { "aa.", "pavel1marek", "on", "word", "a" };
-       Assert.assertEquals(WordCounter.getWordsCount(textWithStopWords, stopWords), 1);
+        wordCounterTest(textWithStopWords, stopWords, 1, 1);
 
        String[] onlyStopWords = { "on", "a" };
-       Assert.assertEquals(WordCounter.getWordsCount(onlyStopWords, stopWords), 0);
+        wordCounterTest(onlyStopWords, stopWords, 0, 0);
+
+        String[] iteration4Test = { "Humpty-Dumpty", "sat", "on", "a", "all.", "Humpty-Dumpty", "had", "a", "great", "fall." };
+        wordCounterTest(iteration4Test, stopWords, 3, 3);
+
+        String[] duplicates = { "duplicate", "words", "duplicate", "duplicate", "duplicate" };
+        wordCounterTest(duplicates, stopWords, 5, 2);
 
     }
 

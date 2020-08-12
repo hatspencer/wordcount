@@ -3,6 +3,7 @@ package wordcount;
 import wordcount.stopwords.StopWords;
 import wordcount.stopwords.StopWordsReader;
 import wordcount.wordcounter.Splitter;
+import wordcount.wordcounter.Statistic;
 import wordcount.wordcounter.input.Input;
 import wordcount.wordcounter.input.InputFactory;
 import wordcount.wordcounter.WordCounter;
@@ -45,8 +46,8 @@ public class WordCount {
 
         String input = getUserInput(inputFile);
         String[] splittedInput = Splitter.split(input);
-        int numberOfWords = WordCounter.getWordsCount(splittedInput, stopWords);
-        System.out.println("Number of words: " + numberOfWords);
+        Statistic statistic = WordCounter.getWordsCount(splittedInput, stopWords);
+        System.out.println("Number of words: " + statistic.getWordCount() + ", unique: "+statistic.getUnique());
     }
 
     private static StopWords readStopWords() throws IOException, URISyntaxException {
