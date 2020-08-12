@@ -18,42 +18,26 @@ import java.net.URISyntaxException;
 import static org.junit.Assert.*;
 
 public class WordCountTest {
-
-    private boolean checkEquality(String[] s1, String[] s2) {
-		if (s1 == s2)
-			return true;
-
-		if (s1 == null || s2 == null)
-			return false;
-
-		int n = s1.length;
-		if (n != s2.length)
-			return false;
-
-		for (int i = 0; i < n; i++) {
-			if (!s1[i].equals(s2[i]))
-				return false;
-		}
-
-		return true;
-	}
     
     @Test
     public void splitterTest() {
        String[] twoWords = { "aaa", "bbb" };
-       assertTrue(checkEquality(Splitter.split("aaa bbb"), twoWords));
+        Assert.assertArrayEquals(Splitter.split("aaa bbb"), twoWords);
         
        String[] emptyInput = {  };
-       assertTrue(checkEquality(Splitter.split(""), emptyInput));
+        Assert.assertArrayEquals(Splitter.split(""), emptyInput);
 
-       String[] oneWordOneBadword = { "aaa", "bb." };
-       assertTrue(checkEquality(Splitter.split("aaa bb."), oneWordOneBadword));
+       String[] oneWordOneBadword = { "aaa", "bb" };
+        Assert.assertArrayEquals(Splitter.split("aaa bb."), oneWordOneBadword);
+
+        String[] delimiterWhitespaceAndDot = { "aaa", "bb", "cc" };
+        Assert.assertArrayEquals(Splitter.split("aaa. bb.cc."), delimiterWhitespaceAndDot);
 
         String[] twoWordsExtraSpaces = { "aaa", "bb" };
-        assertTrue(checkEquality(Splitter.split("aaa       bb"), twoWordsExtraSpaces));
+        Assert.assertArrayEquals(Splitter.split("aaa       bb"), twoWordsExtraSpaces);
 
         String[] tabDelimiter = { "aaa", "bb" };
-        assertTrue(checkEquality(Splitter.split("aaa"+((char)9)+"bb"), tabDelimiter));
+        Assert.assertArrayEquals(Splitter.split("aaa"+((char)9)+"bb"), tabDelimiter);
 
 
     }    
@@ -90,8 +74,8 @@ public class WordCountTest {
        String[] onlyStopWords = { "on", "a" };
         wordCounterTest(onlyStopWords, stopWords, 0, 0);
 
-        String[] iteration4Test = { "Humpty-Dumpty", "sat", "on", "a", "all.", "Humpty-Dumpty", "had", "a", "great", "fall." };
-        wordCounterTest(iteration4Test, stopWords, 3, 3);
+        String[] iteration4Test = { "Humpty", "Dumpty", "sat", "on", "a", "all", "Humpty", "Dumpty", "had", "a", "great", "fall" };
+        wordCounterTest(iteration4Test, stopWords, 9, 7);
 
         String[] duplicates = { "duplicate", "words", "duplicate", "duplicate", "duplicate" };
         wordCounterTest(duplicates, stopWords, 5, 2);
@@ -142,4 +126,19 @@ public class WordCountTest {
         });
     }
 
+    private void testFromInputToStats(String input, int wordCount, int unique, StopWords stopWords) {
+        String[] splittedInput = Splitter.split(input);
+        wordCounterTest(splittedInput, stopWords, wordCount, unique);
+    }
+
+    @Test
+    public void testEndToEnd() {
+        StopWords stopWords = readStopWords();
+
+        testFromInputToStats("Mary had a little lamb", 4, 4, stopWords);
+
+        testFromInputToStats("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", 9, 7, stopWords);
+
+        testFromInputToStats("S0me we1rd w0rds are in input text. on a I don't know text.", 7, 6, stopWords);
+    }
 }
