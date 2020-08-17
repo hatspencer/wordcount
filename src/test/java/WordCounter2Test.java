@@ -25,11 +25,12 @@ public class WordCounter2Test {
     public static Collection<Object[]> inputData() {
         // given
         return Arrays.asList(new Object[][]{
-                {"word", 1},
-                {"word word", 2},
-                {"wo2rd", 2},
-                {"", 0},
-                {"word Word", 2},
+                {"Mary had a little lamb", 4},
+                {"Mary had a little a lamb", 4},
+                {"Mary had a little the lamb", 4},
+                {"on off", 0},
+                {"Mary had little lamb", 4},
+                {"on off off on a the some", 1},
                 {null, 0}
         });
     }
@@ -37,7 +38,7 @@ public class WordCounter2Test {
     @Test
     public void should_count_words() {
         // when
-        final int actualCount = testObject.count(sentence);
+        final int actualCount = testObject.count2(sentence);
 
         // then
         assertEquals(expectedWordsCount, actualCount);
