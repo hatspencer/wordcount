@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,7 +11,6 @@ import java.util.regex.Pattern;
 public final class WordCounter {
 
     private static final Pattern WORDS_PATTERN = Pattern.compile("([^a-zA-Z])");
-    private static final String STOPWORDS_FILE_NAME = "stopwords.txt";
 
     private final List<String> forbiddenWords = new ArrayList<>();
 
@@ -44,15 +41,15 @@ public final class WordCounter {
     }
 
     private void readForbiddenWords() {
-        final URL resourceURL = WordCounter.class.getResource(STOPWORDS_FILE_NAME);
+        final String fileName = "src/main/resources/stopwords.txt";
 
         try {
-            final Path stopWordFile = Paths.get(resourceURL.toURI());
+            final Path stopWordFile = Paths.get(fileName);
             final List<String> lines = Files.readAllLines(stopWordFile, StandardCharsets.UTF_8);
 
             forbiddenWords.clear();
             forbiddenWords.addAll(lines);
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
