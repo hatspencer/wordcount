@@ -1,9 +1,8 @@
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.URL;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class SentenceReaderTest {
 
@@ -11,14 +10,13 @@ public class SentenceReaderTest {
     public void should_read_data_file() throws IOException {
         // given
         final SentenceReader sentenceReader = new SentenceReader();
-        final URL resourceURL = WordCounter.class.getResource("mytext.txt");
-        final String[] args = {resourceURL.getFile()};
+        final String[] args = {"src/main/resources/mytext.txt"};
 
         // when
         final String sentence = sentenceReader.read(args);
 
         // then
-        assertTrue(sentence.length() > 0);
+        assertEquals(5, sentence.length());
     }
 
 }
