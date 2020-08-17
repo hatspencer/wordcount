@@ -4,7 +4,11 @@ public final class App {
 
     public static void main(final String[] args) throws IOException {
         final SentenceReader sentenceReader = new SentenceReader();
-        sentenceReader.read(args);
+        final String sentence = sentenceReader.read(args);
+        final WordCounter wordCounter = new WordCounter();
+        final long wordsCount = wordCounter.count2(sentence);
+
+        System.out.println("Number of words: " + wordsCount);
     }
 
 }
