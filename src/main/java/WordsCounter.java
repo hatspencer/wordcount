@@ -9,7 +9,7 @@ public class WordsCounter {
         String[] splittedGroups = input.split(INPUT_STRING_SPLIT_REGEX);
         List<String> parsedStopWords = parseStopWords(stopWords);
         Set<String> uniqueWords = new HashSet<>();
-        Integer wordCnt = 0;
+        int wordCnt = 0;
         int charactersCount = 0;
         for (String splittedGroup : splittedGroups) {
             if (splittedGroup.matches(WORD_REGEX) && !parsedStopWords.contains(splittedGroup)) {
@@ -18,7 +18,7 @@ public class WordsCounter {
                 wordCnt++;
             }
         }
-        double avgWordLength = (double) charactersCount / wordCnt;
+        String avgWordLength = String.format("%.2f", wordCnt == 0 ? 0 : (double) charactersCount / wordCnt);
         return new ResultModel(wordCnt, uniqueWords.size(), avgWordLength);
     }
 

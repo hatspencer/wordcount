@@ -10,6 +10,6 @@ public class WordApp {
         List<String> stopWordLines = dataInputHelper.readStopWordsFile();
         String wordsToCount = dataInputHelper.readWordsToCount(filename);
         ResultModel result = wordsCounter.countWords(wordsToCount, stopWordLines);
-        System.out.println("Number of words: " + result.getTotalWordsCount() + " , unique: " + result.getUniqueWordsCount());
+        System.out.println("Number of words: " + result.getTotalWordsCount() + "; unique: " + result.getUniqueWordsCount() + "; average word length: " + result.getAvgWordLength());
     }
 }
