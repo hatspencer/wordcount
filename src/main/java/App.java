@@ -7,12 +7,21 @@ public class App {
         final Scanner in = new Scanner(System.in);
         final WordCounter wordCounter = new WordCounter();
 
-        while (in.hasNextLine()) {
-            final String line = in.nextLine();
-            final int count = wordCounter.count(line);
+        if (in.hasNextLine()) {
+            final String firstLine = in.nextLine();
+
+            if (isInvalidFile(firstLine)) {
+
+            }
+
+            final int count = wordCounter.count(firstLine);
             System.out.println("Count: " + count);
         }
 
+    }
+
+    private static boolean isInvalidFile(final String firstLine) {
+        return false;
     }
 
 }
