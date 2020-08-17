@@ -2,3 +2,7 @@
 2. Regex to cut out numbers
 3. Enter text is only prompt visible to user
 4. Special characters does not count - regex given in task description
+5. Input file with stop words can have multiple words in one line
+6. File with stopwords is in fixed location in the root of the project
+7. If there are more than 1 stop word in line in stopwords file they are separated by single space
+9. Stopwords dont have to be validated
