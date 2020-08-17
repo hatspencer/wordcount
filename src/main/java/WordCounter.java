@@ -14,17 +14,19 @@ public final class WordCounter {
 
     private final List<String> forbiddenWords = new ArrayList<>();
 
-    public long count(final String sentence) {
+    public WordCounterResult count(final String sentence) {
         if (isInvalidSentence(sentence)) {
-            return 0;
+            return new WordCounterResult(0);
         }
 
-        return splitSentence(sentence).length;
+        final int wordsCount = splitSentence(sentence).length;
+
+        return new WordCounterResult(wordsCount);
     }
 
-    public long count2(final String sentence) {
+    public WordCounterResult count2(final String sentence) {
         if (isInvalidSentence(sentence)) {
-            return 0;
+            return new WordCounterResult(0);
         }
 
         if (forbiddenWords.isEmpty()) {
@@ -33,10 +35,12 @@ public final class WordCounter {
 
         final String[] resultSentence = splitSentence(sentence);
 
-        return Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).count();
+        final long wordsCount = Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).count();
+
+        return new WordCounterResult(wordsCount);
     }
 
-    public long count3(final String sentence) {
+    public long count4(final String sentence) {
         return 0;
     }
 
