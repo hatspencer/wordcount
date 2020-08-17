@@ -5,27 +5,17 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public final class SentenceReader {
 
-    private final WordCounter wordCounter = new WordCounter();
-
-
-    public List<String> read(final String[] args) throws IOException {
-        final Scanner in = new Scanner(System.in);
+    public String read(final String[] args) throws IOException {
         final boolean isNoParameter = args == null || args.length == 0;
+        final boolean isSingleParameter = args != null && args.length == 1;
+        String resultSentence = "";
 
-        if (isNoParameter) {
-
-            while (in.hasNextLine()) {
-                final String line = in.nextLine();
-                countWords(wordCounter, line);
-            }
-
-        } else if (args.length == 1) {
+        if (isSingleParameter) {
             final String fileName = args[0];
 
             if (!isFileName(fileName)) {
@@ -33,18 +23,19 @@ public final class SentenceReader {
             }
 
             final Path dataFile = Paths.get(fileName);
-            final List<String> lines = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
-            final String fileWords = String.join(" ", lines);
+            resultSentence = Files.lines(dataFile, StandardCharsets.UTF_8).collect(Collectors.joining());
 
-            countWords(wordCounter, fileWords);
+        } else if (isNoParameter) {
+            System.out.println("Enter text: ");
+            final Scanner in = new Scanner(System.in);
+
+            if (in.hasNextLine()) {
+                resultSentence = in.nextLine();
+            }
+
         }
 
-        return Collections.emptyList();
-    }
-
-    private static void countWords(final WordCounter wordCounter, final String line) {
-        final long count = wordCounter.count2(line);
-        System.out.println("Count: " + count);
+        return resultSentence;
     }
 
     private static boolean isFileName(final String firstLine) {
