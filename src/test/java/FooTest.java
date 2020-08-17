@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(Parameterized.class)
 public class FooTest {
@@ -17,37 +16,36 @@ public class FooTest {
 //            "" 0
 //            "word Word" 2
 
+    private final Foo testObject;
     private final String sentence;
-    private final int count;
+    private final int expectedWordsCount;
 
-    public FooTest(String sentence, int count) {
+    public FooTest(final String sentence, final int expectedWordsCount) {
+        this.testObject = new Foo();
         this.sentence = sentence;
-        this.count = count;
+        this.expectedWordsCount = expectedWordsCount;
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> inputData() {
+        // given
         return Arrays.asList(new Object[][]{
                 {"word", 1},
                 {"word word", 2},
                 {"wo2rd", 2},
                 {"", 0},
-                {"word Word", 2}
+                {"word Word", 2},
+                {null, 0}
         });
     }
 
     @Test
     public void should_count_words() {
-        // given
-        final int expectedWordNumber = count;
-        final String testSentence = sentence;
-
         // when
-        final String[] words = testSentence.split("[^a-zA-Z]");
+        final int actualCount = testObject.count(sentence);
 
         // then
-        assertNotNull(words);
-        assertEquals(expectedWordNumber, words.length);
+        assertEquals(expectedWordsCount, actualCount);
     }
 
 }
