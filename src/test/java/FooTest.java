@@ -10,12 +10,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class FooTest {
 
-//            "word" 1
-//            "word word" 2
-//            "wo2rd" 2
-//            "" 0
-//            "word Word" 2
-
     private final Foo testObject;
     private final String sentence;
     private final int expectedWordsCount;
