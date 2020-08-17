@@ -22,4 +22,7 @@ ITERATION4:
 13. There are no dashes in input text -> change the example
 
 ITERATION5:
-14. Words are no more divided by hyphens, they are divided by them.
+14. Words are no more divided by hyphens, they are connected by them.
+
+ITERATION6:
+15. Hyphen is a part of a word - it counts to it's length.
