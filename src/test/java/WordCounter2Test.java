@@ -11,12 +11,12 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class WordCounter2Test {
 
-    private final WordCounter testObject;
+    private final AbstractWordCounter testObject;
     private final String sentence;
     private final int expectedWordsCount;
 
     public WordCounter2Test(final String sentence, final int expectedWordsCount) {
-        this.testObject = new WordCounter();
+        this.testObject = new WordCounterII();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;
     }
@@ -38,7 +38,7 @@ public class WordCounter2Test {
     @Test
     public void should_count_words_without_forbidden() {
         // when
-        final WordCounterResult actualCount = testObject.count2(sentence);
+        final WordCounterResult actualCount = testObject.count(sentence);
 
         // then
         assertEquals(expectedWordsCount, actualCount.getCount());

@@ -10,12 +10,12 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class WordCounterTest {
 
-    private final WordCounter testObject;
+    private final AbstractWordCounter testObject;
     private final String sentence;
     private final int expectedWordsCount;
 
     public WordCounterTest(final String sentence, final int expectedWordsCount) {
-        this.testObject = new WordCounter();
+        this.testObject = new WordCounterI();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;
     }
