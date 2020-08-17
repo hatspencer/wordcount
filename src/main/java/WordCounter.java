@@ -39,6 +39,10 @@ public final class WordCounter {
         return Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).count();
     }
 
+    public long count3(final String sentence) {
+        return 0;
+    }
+
     private void readForbiddenWords() {
         final URL resourceURL = WordCounter.class.getResource(STOPWORDS_FILE_NAME);
 
