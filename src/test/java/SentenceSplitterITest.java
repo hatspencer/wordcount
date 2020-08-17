@@ -8,38 +8,38 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class WordCounterIVTest {
+public class SentenceSplitterITest {
 
     private final AbstractSentenceSplitter testObject;
     private final String sentence;
-    private final long expectedWordsCount;
-    private final long expectedUniqueWordsCount;
+    private final int expectedWordsCount;
 
-
-    public WordCounterIVTest(final String sentence, final int expectedWordsCount, final long expectedUniqueWordsCount) {
-        this.testObject = new SentenceSplitterIV();
+    public SentenceSplitterITest(final String sentence, final int expectedWordsCount) {
+        this.testObject = new SentenceSplitterI();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;
-        this.expectedUniqueWordsCount = expectedUniqueWordsCount;
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> inputData() {
         // given
         return Arrays.asList(new Object[][]{
-                {"Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", 9, 7},
-                {null, 0, 0}
+                {"word", 1},
+                {"word word", 2},
+                {"wo2rd", 2},
+                {"", 0},
+                {"word Word", 2},
+                {null, 0}
         });
     }
 
     @Test
-    public void should_count_unique_words() {
+    public void should_count_words() {
         // when
         final WordCounterResult actualCount = testObject.split(sentence);
 
         // then
         assertEquals(expectedWordsCount, actualCount.getCount());
-        assertEquals(expectedUniqueWordsCount, actualCount.getUniqueCount());
     }
 
 }

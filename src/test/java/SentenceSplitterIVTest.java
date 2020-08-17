@@ -1,4 +1,3 @@
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -9,39 +8,38 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class WordCounterIITest {
+public class SentenceSplitterIVTest {
 
     private final AbstractSentenceSplitter testObject;
     private final String sentence;
-    private final int expectedWordsCount;
+    private final long expectedWordsCount;
+    private final long expectedUniqueWordsCount;
 
-    public WordCounterIITest(final String sentence, final int expectedWordsCount) {
-        this.testObject = new SentenceSplitterII();
+
+    public SentenceSplitterIVTest(final String sentence, final int expectedWordsCount, final long expectedUniqueWordsCount) {
+        this.testObject = new SentenceSplitterIV();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;
+        this.expectedUniqueWordsCount = expectedUniqueWordsCount;
     }
 
     @Parameterized.Parameters
     public static Collection<Object[]> inputData() {
         // given
         return Arrays.asList(new Object[][]{
-                {"Mary had a little lamb", 4},
-                {"Mary had a little a lamb", 4},
-                {"Mary had a little the lamb", 4},
-                {"on off", 0},
-                {"Mary had little lamb", 4},
-                {"on off off on a the some", 1},
-                {null, 0}
+                {"Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.", 9, 7},
+                {null, 0, 0}
         });
     }
 
     @Test
-    public void should_count_words_without_forbidden() {
+    public void should_count_unique_words() {
         // when
         final WordCounterResult actualCount = testObject.split(sentence);
 
         // then
         assertEquals(expectedWordsCount, actualCount.getCount());
+        assertEquals(expectedUniqueWordsCount, actualCount.getUniqueCount());
     }
 
 }
