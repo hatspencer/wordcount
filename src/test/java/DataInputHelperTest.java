@@ -12,13 +12,12 @@ public class DataInputHelperTest {
     @BeforeClass
     public static void setup() {
         dataInputHelper = new DataInputHelper();
-
     }
 
     @Test
     public void shouldReadWordsToCountFromFile() {
-        String filename = "inputFile1";
-        String expected = "Mary had a little lamb";
+        String filename = "testFile1";
+        String expected = "Mary had a little lamb.";
         String result = dataInputHelper.readWordsToCount(filename);
         Assert.assertEquals(result, expected);
     }
