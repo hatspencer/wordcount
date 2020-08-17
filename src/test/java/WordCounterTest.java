@@ -8,14 +8,14 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class FooTest {
+public class WordCounterTest {
 
-    private final Foo testObject;
+    private final WordCounter testObject;
     private final String sentence;
     private final int expectedWordsCount;
 
-    public FooTest(final String sentence, final int expectedWordsCount) {
-        this.testObject = new Foo();
+    public WordCounterTest(final String sentence, final int expectedWordsCount) {
+        this.testObject = new WordCounter();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;
     }
