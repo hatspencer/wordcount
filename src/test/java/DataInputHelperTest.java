@@ -2,6 +2,9 @@ import junit.framework.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 public class DataInputHelperTest {
 
     private static DataInputHelper dataInputHelper;
@@ -22,6 +25,12 @@ public class DataInputHelperTest {
 
     @Test
     public void shouldAskForUserInputIfFileNotFound() {
-        // TODO test
+        String filename = null;
+        String input = "Mary had a little lamb";
+        String expected = "Mary had a little lamb";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        String result = dataInputHelper.readWordsToCount(filename);
+        Assert.assertEquals(result, expected);
     }
 }

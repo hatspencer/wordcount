@@ -46,4 +46,22 @@ public class WordCounterTest {
         ResultModel result = testClass.countWords(input, stopWords);
         assertEquals(Integer.valueOf(0), result.getTotalWordsCount());
     }
+
+    @Test
+    public void shouldCountUniqueWordsWithSpaces() {
+        String input = "Humpty Dumpty sat on a wall. Humpty Dumpty had a great fall.";
+        List<String> stopWords = Arrays.asList("the", "a", "on", "off");
+        ResultModel result = testClass.countWords(input, stopWords);
+        assertEquals(Integer.valueOf(9), result.getTotalWordsCount());
+        assertEquals(Integer.valueOf(7), result.getUniqueWordsCount());
+    }
+
+    @Test
+    public void shouldCountUniqueWordsWithDashes() {
+        String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+        List<String> stopWords = Arrays.asList("the", "a", "on", "off");
+        ResultModel result = testClass.countWords(input, stopWords);
+        assertEquals(Integer.valueOf(9), result.getTotalWordsCount());
+        assertEquals(Integer.valueOf(7), result.getUniqueWordsCount());
+    }
 }
