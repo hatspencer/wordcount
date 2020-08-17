@@ -6,30 +6,30 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DataInputHelper {
+
     public List<String> readStopWordsFile() {
-        List<String> stopWordsList = new ArrayList<>();
-        try {
-            stopWordsList = Files.readAllLines(new File("stopWords.txt").toPath());
-        } catch (IOException e) {
-            System.out.println("Error reading stop words file: " + e);
-        }
-        return stopWordsList;
+        return readFileFromResource("stopWords.txt");
     }
 
     public String readWordsToCount(String filename) {
-        String wordsToCount = null;
+        String wordsToCount;
         if (filename != null) {
-            List<String> wordsToCountList;
-            try {
-                wordsToCountList = Files.readAllLines(new File(filename).toPath());
-                wordsToCount = String.join(" ", wordsToCountList);
-            } catch (IOException e) {
-                System.out.println("Error reading file with words to count: " + e);
-            }
+            List<String> wordsToCountList = readFileFromResource(filename);
+            wordsToCount = String.join(" ", wordsToCountList);
         } else {
             wordsToCount = readUserInput();
         }
         return wordsToCount;
+    }
+
+    private List<String> readFileFromResource(String filename) {
+        List<String> stopWordsList = new ArrayList<>();
+        try {
+            stopWordsList = Files.readAllLines(new File(filename).toPath());
+        } catch (IOException e) {
+            System.out.println("Error reading " + filename + " file: " + e);
+        }
+        return stopWordsList;
     }
 
     private String readUserInput() {
