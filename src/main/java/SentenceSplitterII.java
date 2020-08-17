@@ -22,7 +22,7 @@ public final class SentenceSplitterII extends AbstractSentenceSplitter {
         }
 
         final String[] resultSentence = splitSentence(sentence);
-        final List<String> words = Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).collect(Collectors.toList());
+        final List<String> words = Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).filter(it -> !it.isEmpty()).collect(Collectors.toList());
 
         return new WordCounterResult(words);
     }

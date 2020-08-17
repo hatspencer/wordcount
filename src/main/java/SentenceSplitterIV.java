@@ -6,8 +6,7 @@ public final class SentenceSplitterIV extends AbstractSentenceSplitter {
     WordCounterResult split(final String sentence) {
         final WordCounterResult wordCount = wc2.split(sentence);
 
-
-        return new WordCounterResult(wordCount.getCount(), 0);
+        return new WordCounterResult(wordCount);
     }
 
 }
