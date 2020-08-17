@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public final class WordCounterResult {
@@ -21,4 +22,9 @@ public final class WordCounterResult {
     public long getCount() {
         return words.size();
     }
+
+    public long getUniqueCount() {
+        return new HashSet<>(words).size();
+    }
+
 }
