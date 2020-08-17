@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordsCounter {
 
@@ -6,20 +7,19 @@ public class WordsCounter {
     private static final String WORD_REGEX = "[a-z-A-Z]+\\.?";
 
     public ResultModel countWords(String input, List<String> stopWords) {
-        String[] splittedGroups = input.split(INPUT_STRING_SPLIT_REGEX);
         List<String> parsedStopWords = parseStopWords(stopWords);
-        Set<String> uniqueWords = new HashSet<>();
-        int wordCnt = 0;
+        List<String> splittedInput = new ArrayList<>(Arrays.asList(input.split(INPUT_STRING_SPLIT_REGEX)));
+        List<String> filteredWordsWithoutStop = getWordsWithoutStop(splittedInput, parsedStopWords);
+        Set<String> noDuplicates = new HashSet<>(filteredWordsWithoutStop);
+
         int charactersCount = 0;
-        for (String splittedGroup : splittedGroups) {
-            if (splittedGroup.matches(WORD_REGEX) && !parsedStopWords.contains(splittedGroup)) {
-                charactersCount += splittedGroup.length();
-                uniqueWords.add(splittedGroup);
-                wordCnt++;
-            }
+        for (String word : filteredWordsWithoutStop) {
+            charactersCount += word.length();
         }
-        String avgWordLength = String.format("%.2f", wordCnt == 0 ? 0 : (double) charactersCount / wordCnt);
-        return new ResultModel(wordCnt, uniqueWords.size(), avgWordLength);
+
+        String avgWordLength = calculateAvgWordLength(filteredWordsWithoutStop, charactersCount);
+        return new ResultModel(filteredWordsWithoutStop.size(), noDuplicates.size(), avgWordLength);
+
     }
 
     private List<String> parseStopWords(List<String> inputList) {
@@ -28,5 +28,16 @@ public class WordsCounter {
             parsedWordList.addAll(Arrays.asList(line.split(INPUT_STRING_SPLIT_REGEX)));
         }
         return parsedWordList;
+    }
+
+    private List<String> getWordsWithoutStop(List<String> words, List<String> stopWords) {
+        return words.stream()
+                .filter(word -> word.matches(WORD_REGEX))
+                .filter(word -> !stopWords.contains(word))
+                .collect(Collectors.toList());
+    }
+
+    private String calculateAvgWordLength(List<String> words, int charCount) {
+        return String.format("%.2f", words.size() == 0 ? 0 : (double) charCount / words.size());
     }
 }
