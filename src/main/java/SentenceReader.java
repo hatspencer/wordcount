@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -23,7 +22,7 @@ public final class SentenceReader {
             }
 
             final Path dataFile = Paths.get(fileName);
-            resultSentence = Files.lines(dataFile, StandardCharsets.UTF_8).collect(Collectors.joining());
+            resultSentence = Files.lines(dataFile, StandardCharsets.UTF_8).collect(Collectors.joining(" "));
 
         } else if (isNoParameter) {
             System.out.println("Enter text: ");
@@ -40,9 +39,8 @@ public final class SentenceReader {
 
     private static boolean isFileName(final String firstLine) {
         final Path path = Paths.get(firstLine);
-        final File file = path.toFile();
 
-        return file.exists() && !file.isDirectory();
+        return Files.exists(path);
     }
 
 }
