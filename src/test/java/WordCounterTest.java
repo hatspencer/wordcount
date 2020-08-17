@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-public class WordAppTest {
+public class WordCounterTest {
 
     private static WordsCounter testClass;
 
