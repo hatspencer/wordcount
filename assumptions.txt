@@ -1,0 +1,4 @@
+1. I'm assuming words are splitted by space
+2. Regex to cut out numbers
+3. Enter text is only prompt visible to user
+4. Special characters does not count - regex given in task description
