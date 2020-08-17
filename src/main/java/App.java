@@ -8,7 +8,7 @@ public final class App {
         final AbstractSentenceSplitter wordCounter = new SentenceSplitterI();
         final WordCounterResult wordsCount = wordCounter.split(sentence);
 
-        System.out.println("Number of words: " + wordsCount);
+        System.out.println(wordsCount);
     }
 
 }

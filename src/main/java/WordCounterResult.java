@@ -27,4 +27,8 @@ public final class WordCounterResult {
         return new HashSet<>(words).size();
     }
 
+    @Override
+    public String toString() {
+        return "Number of words: " + getCount() + ", unique: " + getUniqueCount();
+    }
 }
