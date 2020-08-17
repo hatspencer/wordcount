@@ -4,3 +4,4 @@ https://ccd-school.de/coding-dojo/agility-katas/word-count-i/
 - wo2rd are 2 words
 - 'null' is 0 words
 - the file name have to ends with .txt postfix
+- if the program starts with one argument it is consider to be data file name 
