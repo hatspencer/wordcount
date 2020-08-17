@@ -2,8 +2,8 @@ import java.util.*;
 
 public class WordsCounter {
 
-    private static final String INPUT_STRING_SPLIT_REGEX = "[-\\s]";
-    private static final String WORD_REGEX = "[a-zA-Z]+\\.?";
+    private static final String INPUT_STRING_SPLIT_REGEX = "[\\s]";
+    private static final String WORD_REGEX = "[a-z-A-Z]+\\.?";
 
     public ResultModel countWords(String input, List<String> stopWords) {
         String[] splittedGroups = input.split(INPUT_STRING_SPLIT_REGEX);

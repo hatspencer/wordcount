@@ -20,3 +20,6 @@ ITERATION3:
 
 ITERATION4:
 13. There are no dashes in input text -> change the example
+
+ITERATION5:
+14. Words are no more divided by hyphens, they are divided by them.
