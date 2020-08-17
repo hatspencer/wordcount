@@ -6,16 +6,9 @@ public class WordApp {
     private static DataInputHelper dataInputHelper = new DataInputHelper();
 
     public static void main(String... args) {
-        String filename = null;
-        if (args.length > 0) {
-            filename = args[0];
-        }
+        String filename = dataInputHelper.retrieveFilename(args);
         List<String> stopWordLines = dataInputHelper.readStopWordsFile();
         String wordsToCount = dataInputHelper.readWordsToCount(filename);
         System.out.println("Number of words: " + wordsCounter.countWords(wordsToCount, stopWordLines));
-    }
-
-    private static boolean isFilenameProvided(String... args) {
-        return args.length > 0;
     }
 }

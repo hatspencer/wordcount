@@ -22,6 +22,10 @@ public class DataInputHelper {
         return wordsToCount;
     }
 
+    public String retrieveFilename(String... args) {
+        return args.length > 0 ? args[0] : null;
+    }
+
     private List<String> readFileFromResource(String filename) {
         List<String> stopWordsList = new ArrayList<>();
         try {
