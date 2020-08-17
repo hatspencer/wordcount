@@ -1,6 +1,6 @@
-public final class WordCounterI extends AbstractWordCounter {
+public final class SentenceSplitterI extends AbstractSentenceSplitter {
 
-    public WordCounterResult count(final String sentence) {
+    public WordCounterResult split(final String sentence) {
         if (isInvalidSentence(sentence)) {
             return new WordCounterResult(0);
         }

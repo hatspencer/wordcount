@@ -8,12 +8,12 @@ import java.util.Collection;
 @RunWith(Parameterized.class)
 public class WordCounterIIITest {
 
-    private final WordCounterI testObject;
+    private final SentenceSplitterI testObject;
     private final String sentence;
     private final int expectedWordsCount;
 
     public WordCounterIIITest(final String sentence, final int expectedWordsCount) {
-        this.testObject = new WordCounterI();
+        this.testObject = new SentenceSplitterI();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;
     }

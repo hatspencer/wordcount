@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class WordCounterII extends AbstractWordCounter {
+public final class SentenceSplitterII extends AbstractSentenceSplitter {
 
     private final List<String> forbiddenWords = new ArrayList<>();
 
-    public WordCounterResult count(final String sentence) {
+    public WordCounterResult split(final String sentence) {
         if (isInvalidSentence(sentence)) {
             return new WordCounterResult(0);
         }
@@ -21,7 +21,6 @@ public final class WordCounterII extends AbstractWordCounter {
         }
 
         final String[] resultSentence = splitSentence(sentence);
-
         final long wordsCount = Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).count();
 
         return new WordCounterResult(wordsCount);

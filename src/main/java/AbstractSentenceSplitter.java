@@ -1,11 +1,11 @@
 import java.util.regex.Pattern;
 
-public abstract class AbstractWordCounter {
+public abstract class AbstractSentenceSplitter {
 
     private static final Pattern WORDS_PATTERN = Pattern.compile("([^a-zA-Z])");
 
 
-    abstract WordCounterResult count(String sentence);
+    abstract WordCounterResult split(String sentence);
 
     protected static String[] splitSentence(final String sentence) {
         return WORDS_PATTERN.split(sentence);
