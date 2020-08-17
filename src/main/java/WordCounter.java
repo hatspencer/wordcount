@@ -17,7 +17,7 @@ public final class WordCounter {
 
     private final List<String> forbiddenWords = new ArrayList<>();
 
-    public int count(final String sentence) {
+    public long count(final String sentence) {
         if (isInvalidSentence(sentence)) {
             return 0;
         }

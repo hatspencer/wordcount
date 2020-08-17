@@ -36,7 +36,7 @@ public class WordCounterTest {
     @Test
     public void should_count_words() {
         // when
-        final int actualCount = testObject.count(sentence);
+        final long actualCount = testObject.count(sentence);
 
         // then
         assertEquals(expectedWordsCount, actualCount);
