@@ -36,9 +36,9 @@ public class WordCounter2Test {
     }
 
     @Test
-    public void should_count_words() {
+    public void should_count_words_without_forbidden() {
         // when
-        final int actualCount = testObject.count2(sentence);
+        final long actualCount = testObject.count2(sentence);
 
         // then
         assertEquals(expectedWordsCount, actualCount);
