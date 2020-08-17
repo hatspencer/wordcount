@@ -17,3 +17,6 @@ ITERATION3:
 10. Available input files are located in the root of the project
 11. There can be multiple words in one line
 12. There can be empty lines in input file
+
+ITERATION4:
+13. There are no dashes in input text -> change the example

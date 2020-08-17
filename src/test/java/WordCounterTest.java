@@ -19,31 +19,31 @@ public class WordCounterTest {
     public void shouldCountWordsOnlyMatchingInputNoStopWords() {
         String input = "aaa bbb ccc ddd";
         List<String> stopWords = Collections.singletonList("");
-        int result = testClass.countWords(input, stopWords);
-        assertEquals(4, result);
+        ResultModel result = testClass.countWords(input, stopWords);
+        assertEquals(Integer.valueOf(4), result.getTotalWordsCount());
     }
 
     @Test
     public void shouldCountWordsIgnoreNumbersSpecialCharsSeparateLinesStopWords() {
         String input = "aaa bbb b2b ccć ąą 22 cc dd  ";
         List<String> stopWords = Arrays.asList("aaa", "dd");
-        int result = testClass.countWords(input, stopWords);
-        assertEquals(2, result);
+        ResultModel result = testClass.countWords(input, stopWords);
+        assertEquals(Integer.valueOf(2), result.getTotalWordsCount());
     }
 
     @Test
     public void shouldCountWordsIgnoreNumbersSpecialCharsOneLineStopWords() {
         String input = "aaa bbb b2b ccć ąą 22 cc dd  ";
         List<String> stopWords = Arrays.asList("aaa bbb", "dd");
-        int result = testClass.countWords(input, stopWords);
-        assertEquals(1, result);
+        ResultModel result = testClass.countWords(input, stopWords);
+        assertEquals(Integer.valueOf(1), result.getTotalWordsCount());
     }
 
     @Test
     public void shouldReturnZeroForNoInput() {
         String input = "";
         List<String> stopWords = Collections.singletonList("");
-        int result = testClass.countWords(input, stopWords);
-        assertEquals(0, result);
+        ResultModel result = testClass.countWords(input, stopWords);
+        assertEquals(Integer.valueOf(0), result.getTotalWordsCount());
     }
 }

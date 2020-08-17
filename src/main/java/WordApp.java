@@ -9,6 +9,7 @@ public class WordApp {
         String filename = dataInputHelper.retrieveFilename(args);
         List<String> stopWordLines = dataInputHelper.readStopWordsFile();
         String wordsToCount = dataInputHelper.readWordsToCount(filename);
-        System.out.println("Number of words: " + wordsCounter.countWords(wordsToCount, stopWordLines));
+        ResultModel result = wordsCounter.countWords(wordsToCount, stopWordLines);
+        System.out.println("Number of words: " + result.getTotalWordsCount() + " , unique: " + result.getUniqueWordsCount());
     }
 }
