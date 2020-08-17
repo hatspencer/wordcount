@@ -1,13 +1,15 @@
+import java.util.Arrays;
+
 public final class SentenceSplitterI extends AbstractSentenceSplitter {
 
     public WordCounterResult split(final String sentence) {
         if (isInvalidSentence(sentence)) {
-            return new WordCounterResult(0);
+            return new WordCounterResult();
         }
 
-        final int wordsCount = splitSentence(sentence).length;
+        final String[] words = splitSentence(sentence);
 
-        return new WordCounterResult(wordsCount);
+        return new WordCounterResult(Arrays.asList(words));
     }
 
 }

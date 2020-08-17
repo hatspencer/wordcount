@@ -1,20 +1,24 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public final class WordCounterResult {
 
-    private final long count;
-    private final long unique;
+    private final List<String> words;
 
-    public WordCounterResult(long count) {
-        this.count = count;
-        this.unique = -1;
+    public WordCounterResult() {
+        this.words = Collections.emptyList();
     }
 
-    public WordCounterResult(long count, long unique) {
-        this.count = count;
-        this.unique = unique;
+    public WordCounterResult(final List<String> words) {
+        this.words = words;
+    }
+
+    public WordCounterResult(final WordCounterResult wordCount) {
+        this.words = new ArrayList<>(wordCount.words);
     }
 
     public long getCount() {
-        return count;
+        return words.size();
     }
-
 }

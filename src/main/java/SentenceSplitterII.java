@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class SentenceSplitterII extends AbstractSentenceSplitter {
 
@@ -13,7 +14,7 @@ public final class SentenceSplitterII extends AbstractSentenceSplitter {
 
     public WordCounterResult split(final String sentence) {
         if (isInvalidSentence(sentence)) {
-            return new WordCounterResult(0);
+            return new WordCounterResult();
         }
 
         if (forbiddenWords.isEmpty()) {
@@ -21,9 +22,9 @@ public final class SentenceSplitterII extends AbstractSentenceSplitter {
         }
 
         final String[] resultSentence = splitSentence(sentence);
-        final long wordsCount = Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).count();
+        final List<String> words = Arrays.stream(resultSentence).filter(it -> !forbiddenWords.contains(it)).collect(Collectors.toList());
 
-        return new WordCounterResult(wordsCount);
+        return new WordCounterResult(words);
     }
 
     private void readForbiddenWords() {
