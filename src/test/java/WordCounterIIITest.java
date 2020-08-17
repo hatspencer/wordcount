@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class WordCounter3Test {
+public class WordCounterIIITest {
 
     private final WordCounterI testObject;
     private final String sentence;
     private final int expectedWordsCount;
 
-    public WordCounter3Test(final String sentence, final int expectedWordsCount) {
+    public WordCounterIIITest(final String sentence, final int expectedWordsCount) {
         this.testObject = new WordCounterI();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;

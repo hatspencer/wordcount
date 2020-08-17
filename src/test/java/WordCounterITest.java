@@ -8,13 +8,13 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class WordCounterTest {
+public class WordCounterITest {
 
     private final AbstractWordCounter testObject;
     private final String sentence;
     private final int expectedWordsCount;
 
-    public WordCounterTest(final String sentence, final int expectedWordsCount) {
+    public WordCounterITest(final String sentence, final int expectedWordsCount) {
         this.testObject = new WordCounterI();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;

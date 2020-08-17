@@ -9,13 +9,13 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class WordCounter2Test {
+public class WordCounterIITest {
 
     private final AbstractWordCounter testObject;
     private final String sentence;
     private final int expectedWordsCount;
 
-    public WordCounter2Test(final String sentence, final int expectedWordsCount) {
+    public WordCounterIITest(final String sentence, final int expectedWordsCount) {
         this.testObject = new WordCounterII();
         this.sentence = sentence;
         this.expectedWordsCount = expectedWordsCount;
