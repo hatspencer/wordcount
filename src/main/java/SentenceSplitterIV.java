@@ -4,9 +4,7 @@ public final class SentenceSplitterIV extends AbstractSentenceSplitter {
 
     @Override
     WordCounterResult split(final String sentence) {
-        final WordCounterResult wordCount = wc2.split(sentence);
-
-        return new WordCounterResult(wordCount);
+        return wc2.split(sentence);
     }
 
 }
