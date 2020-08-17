@@ -1,6 +1,6 @@
 import java.util.regex.Pattern;
 
-public final class Foo {
+public final class WordCounter {
 
     private final static Pattern WORDS_PATTERN = Pattern.compile("([^a-zA-Z])");
 
