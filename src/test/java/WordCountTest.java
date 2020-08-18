@@ -48,4 +48,26 @@ public class WordCountTest {
         int counter = wordCount.countWords(text);
         Assert.assertEquals(1, counter);
     }
+
+    @Test
+    public void testWordsLoadedFromFileWithStop() throws FailedInputException {
+        int resultCounter = wordCount.countWords(InputHelper.readInputTextFile("mytext.txt"));
+        Assert.assertEquals(4, resultCounter);
+    }
+
+    @Test
+    public void testWordsLoadedFromFileWithSpecialChar() throws FailedInputException {
+        int resultCounter = wordCount.countWords(InputHelper.readInputTextFile("mytext_special_char.txt"));
+        Assert.assertEquals(5, resultCounter);
+    }
+
+    @Test
+    public void testWordsLoadedFailed()  {
+        Assert.assertThrows(FailedInputException.class, () -> wordCount.countWords(InputHelper.readInputTextFile("mytext_special.txt")));
+    }
+
+    @Test
+    public void testChooseUserInputWhenNoFile()  {
+        Assert.assertThrows(FailedInputException.class, () -> wordCount.countWords(InputHelper.readInputTextFile("mytext_special.txt")));
+    }
 }

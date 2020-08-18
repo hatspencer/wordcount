@@ -25,25 +25,11 @@ public class InputHelperTest {
         Assert.assertEquals(stopWords, resultStopWords);
     }
 
-  /*  @Test
-    public void tesWordsSpecialChar() {
-        String text = "He!llo friends3, how are you?";
-        int counter = wordCount.countWords(text);
-        Assert.assertEquals(2, counter);
-    }
-
-
     @Test
-    public void testOnlyWordsWithStop() {
-        String text = "A friend of the company";
-        int counter = wordCount.countWords(text);
-        Assert.assertEquals(3, counter);
+    public void testLoadTextFile() throws FailedInputException {
+        String loadedText =  InputHelper.readInputTextFile("mytext.txt");
+        Assert.assertEquals("Mary had\n" +
+                "a little\n" +
+                "lamb\n", loadedText);
     }
-
-    @Test
-    public void testWordsWithStopAndSepcialChar() {
-        String text = "A friend! of the comp}any";
-        int counter = wordCount.countWords(text);
-        Assert.assertEquals(1, counter);
-    }*/
 }
