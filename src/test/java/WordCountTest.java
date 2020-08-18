@@ -29,9 +29,9 @@ public class WordCountTest {
 
     @Test
     public void tesWordsSpecialChar() {
-        String text = "He!llo friends3, how are you?";
+        String text = "He!llo friends3yy, how are you?";
         int counter = wordCount.countWords(text);
-        Assert.assertEquals(2, counter);
+        Assert.assertEquals(5, counter);
     }
 
 
@@ -46,7 +46,7 @@ public class WordCountTest {
     public void testWordsWithStopAndSepcialChar() {
         String text = "A friend! of the comp}any";
         int counter = wordCount.countWords(text);
-        Assert.assertEquals(1, counter);
+        Assert.assertEquals(4, counter);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class WordCountTest {
     @Test
     public void testWordsLoadedFromFileWithSpecialChar() throws FailedInputException {
         int resultCounter = wordCount.countWords(InputHelper.readInputTextFile("mytext_special_char.txt"));
-        Assert.assertEquals(5, resultCounter);
+        Assert.assertEquals(9, resultCounter);
     }
 
     @Test
@@ -69,5 +69,23 @@ public class WordCountTest {
     @Test
     public void testChooseUserInputWhenNoFile()  {
         Assert.assertThrows(FailedInputException.class, () -> wordCount.countWords(InputHelper.readInputTextFile("mytext_special.txt")));
+    }
+
+    @Test
+    public void testUniqueWordsWithStop()  {
+        String text = "A friend of the company the company";
+        int counter = wordCount.countWords(text);
+        int uniqueWords = wordCount.getUniqueWords().size();
+        Assert.assertEquals(4, counter);
+        Assert.assertEquals(3, uniqueWords);
+    }
+
+    @Test
+    public void testUniqueWordsWithStopAndSpecialChar()  {
+        String text = "A frie55yynd of the comp}any the comp}any";
+        int counter = wordCount.countWords(text);
+        int uniqueWords = wordCount.getUniqueWords().size();
+        Assert.assertEquals(5, counter);
+        Assert.assertEquals(3, uniqueWords);
     }
 }

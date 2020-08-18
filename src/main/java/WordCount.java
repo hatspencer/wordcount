@@ -1,12 +1,32 @@
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class WordCount {
 
     Set<String> stopWordsMap;
 
+
+    Set<String> uniqueWords;
+
     public WordCount(Set stopWords){
         setStopWordsSet(stopWords);
+    }
+
+    public Set<String> getStopWordsMap() {
+        return stopWordsMap;
+    }
+
+    public void setStopWordsMap(Set<String> stopWordsMap) {
+        this.stopWordsMap = stopWordsMap;
+    }
+
+    public Set<String> getUniqueWords() {
+        return uniqueWords;
+    }
+
+    public void setUniqueWords(Set<String> uniqueWords) {
+        this.uniqueWords = uniqueWords;
     }
 
     public Set<String> getStopWordsSet() {
@@ -19,21 +39,21 @@ public class WordCount {
 
     public int countWords(String text){
         int wordCounter = 0;
-        String[] words = text.split("\\s+");
+        Set<String> uniqueWords = new HashSet<>();
+        String[] words = text.split("\\W+");
         for(int i = 0; i<=words.length-1; i++){
-            boolean b = words[i].matches("^[a-zA-Z]+$");
             if(words[i].matches("^[a-zA-Z]+$") && !isStopWord(words[i])) {
-                System.out.println(words[i]);
                 wordCounter += 1;
+                uniqueWords.add(words[i]);
             }
 
         }
+        setUniqueWords(uniqueWords);
         return wordCounter;
     }
 
     private boolean isStopWord(String word) {
-        boolean c =  this.getStopWordsSet().contains(word.toLowerCase());
-        return c;
+        return this.getStopWordsSet().contains(word.toLowerCase());
     }
 
 
@@ -56,7 +76,7 @@ public class WordCount {
 
             counter = wordCount.countWords(inputText);
 
-            System.out.println("this is your word count: " + counter);
+            System.out.println("Number of words: " + counter + ", unique: " + wordCount.getUniqueWords().size());
 
         } catch (FailedInputException e) {
             e.printStackTrace();

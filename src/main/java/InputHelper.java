@@ -29,7 +29,7 @@ public class InputHelper {
             inputStreamReader = new InputStreamReader(new FileInputStream("C:/Users/skruk/wordcount-master/target/" + fileName));
             return InputHelper.readFile(inputStreamReader);
         } catch (FileNotFoundException e) {
-            System.err.println("Could not load input file!");
+            System.err.println("Could not load input file!" + fileName);
             throw new FailedInputException(e.getMessage());
         }
 

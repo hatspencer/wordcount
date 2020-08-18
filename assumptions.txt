@@ -1,2 +1,9 @@
 -filter out stopwords whether uppercase or lowercase
--in case the counter
+
+
+Iteration 3
+-stop words are still not counted
+-the mytext file is always in a specific directory
+
+Iteration 4
+-there are no words with numbers in them
