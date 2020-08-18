@@ -1,28 +1,23 @@
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.Set;
 
 public class WordCount {
 
-    HashMap<String, String> stopWordsMap;
+    Set<String> stopWordsMap;
 
-    public WordCount(){
-        stopWordsMap = new HashMap<>();
+    public WordCount(Set stopWords){
+        setStopWordsSet(stopWords);
     }
 
-    public HashMap<String, String> getStopWordsMap() {
+    public Set<String> getStopWordsSet() {
         return stopWordsMap;
     }
 
-    public void setStopWordsMap(HashMap<String, String> stopWordsMap) {
+    public void setStopWordsSet(Set<String> stopWordsMap) {
         this.stopWordsMap = stopWordsMap;
     }
 
     public int countWords(String text){
-        setStopWords();
         int wordCounter = 0;
         String[] words = text.split(" ");
         for(int i = 0; i<=words.length-1; i++){
@@ -35,49 +30,9 @@ public class WordCount {
         return wordCounter;
     }
 
-    private void setStopWords() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File stopFile = new File(classLoader.getResource("stopWords.txt").getFile());
-        try {
-            String data = FileUtils.readFileToString(stopFile, "UTF-8");
 
-            String[] stopWords = data.split("\r\n");
-            for(String word: stopWords){
-                stopWordsMap.putIfAbsent(word.toLowerCase(), word.toLowerCase());
-            }
-
-
-        } catch (IOException e) {
-            System.out.println("Could not load file!");
-            e.printStackTrace();
-        }
-    }
     private boolean isStopWord(String word) {
-        return this.getStopWordsMap().containsKey(word.toLowerCase());
-    }
-
-    private String getTextFile(String fileName) {
-
-        ClassLoader classLoader = getClass().getClassLoader();
-        File textFile = new File(classLoader.getResource(fileName).getFile());
-        try {
-            return FileUtils.readFileToString(textFile, "UTF-8");
-
-        } catch (IOException e) {
-            System.out.println("Could not load file!");
-            e.printStackTrace();
-        }
-    }
-
-    private String getConsoleText() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your text:");
-
-        if(scanner.hasNextLine()) {
-            return scanner.nextLine();
-        }
-
-        return "";
+        return this.getStopWordsSet().contains(word.toLowerCase());
     }
 
     public static void main(String[] args){
@@ -85,21 +40,26 @@ public class WordCount {
         String inputText;
         int counter;
 
-        WordCount wordCount = new WordCount();
-        wordCount.setStopWords();
+        try {
+            WordCount wordCount = new WordCount(InputHelper.setStopWords());
 
+            if(args.length>0) {
+                String fileName = args[0];
+                inputText = InputHelper.readFile(fileName);
+            }
+            else{
+                inputText = InputHelper.getConsoleText();
+            }
 
-        if(args.length>0) {
-            String fileName = args[0];
-            inputText = wordCount.getTextFile(fileName);
+            counter = wordCount.countWords(inputText);
+
+            System.out.println("this is your word count: " + counter);
+
+        } catch (FailedInputException e) {
+            e.printStackTrace();
         }
-        else {
-            inputText = wordCount.getConsoleText();
-        }
 
-        counter = wordCount.countWords(inputText);
 
-        System.out.println("this is your word count: " + counter);
     }
 
 }

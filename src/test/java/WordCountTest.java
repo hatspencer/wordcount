@@ -2,6 +2,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class WordCountTest {
 
     WordCount wordCount;
@@ -9,7 +12,12 @@ public class WordCountTest {
 
     @Before
     public void setUp() {
-       wordCount = new WordCount();
+        Set<String> stopWords = new HashSet<String>();
+        stopWords.add("the");
+        stopWords.add("a");
+        stopWords.add("on");
+        stopWords.add("off");
+       wordCount = new WordCount(stopWords);
     }
 
     @Test
