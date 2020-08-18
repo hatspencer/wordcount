@@ -1,4 +1,7 @@
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.util.Set;
 
 public class WordCount {
@@ -45,7 +48,8 @@ public class WordCount {
 
             if(args.length>0) {
                 String fileName = args[0];
-                inputText = InputHelper.readFile(fileName);
+                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(fileName));
+                inputText = InputHelper.readFile(inputStreamReader);
             }
             else{
                 inputText = InputHelper.getConsoleText();
@@ -55,7 +59,7 @@ public class WordCount {
 
             System.out.println("this is your word count: " + counter);
 
-        } catch (FailedInputException e) {
+        } catch (FailedInputException | FileNotFoundException e) {
             e.printStackTrace();
         }
 
