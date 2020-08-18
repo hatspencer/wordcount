@@ -13,16 +13,31 @@ public class WordCountTest {
     }
 
     @Test
-    public void testWordCountOnlyWords() {
+    public void testOnlyWords() {
         String text = "Hello friends";
         int counter = wordCount.countWords(text);
-        Assert.assertEquals(counter, 2);
+        Assert.assertEquals(2, counter);
     }
 
     @Test
-    public void testWordCountWordsSpecialChar() {
+    public void tesWordsSpecialChar() {
         String text = "He!llo friends3, how are you?";
         int counter = wordCount.countWords(text);
-        Assert.assertEquals(counter, 2);
+        Assert.assertEquals(2, counter);
+    }
+
+
+    @Test
+    public void testOnlyWordsWithStop() {
+        String text = "A friend of the company";
+        int counter = wordCount.countWords(text);
+        Assert.assertEquals(3, counter);
+    }
+
+    @Test
+    public void testWordsWithStopAndSepcialChar() {
+        String text = "A friend! of the comp}any";
+        int counter = wordCount.countWords(text);
+        Assert.assertEquals(1, counter);
     }
 }
