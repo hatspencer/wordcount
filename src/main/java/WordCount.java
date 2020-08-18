@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class WordCount {
@@ -9,18 +6,34 @@ public class WordCount {
 
     }
 
+    public int countWords(String text){
+        int wordCounter = 0;
+        String[] words = text.split(" ");
+        for(int i = 0; i<=words.length-1; i++){
+            if(words[i].matches("^[a-zA-Z]+$")) {
+                System.out.println(words[i]);
+                wordCounter += 1;
+            }
+
+        }
+        return wordCounter;
+    }
+
     public static void main(String[] args){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your text:");
-        String inputText = null;
-        try {
-            inputText = br.readLine();
-        } catch (IOException e) {
-            System.out.println("Could not parse text!");
+
+        if(scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            int counter = new WordCount().countWords(line);
+            System.out.println("this is your word count: " + counter);
+
+
         }
 
-        System.out.println("Text entered:" + inputText);
-        input.close();
+
+
 
     }
 }
