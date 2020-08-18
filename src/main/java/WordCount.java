@@ -56,20 +56,50 @@ public class WordCount {
         return this.getStopWordsMap().containsKey(word.toLowerCase());
     }
 
-    public static void main(String[] args){
+    private String getTextFile(String fileName) {
 
-        WordCount wordCount = new WordCount();
-        wordCount.setStopWords();
+        ClassLoader classLoader = getClass().getClassLoader();
+        File textFile = new File(classLoader.getResource(fileName).getFile());
+        try {
+            return FileUtils.readFileToString(textFile, "UTF-8");
+
+        } catch (IOException e) {
+            System.out.println("Could not load file!");
+            e.printStackTrace();
+        }
+    }
+
+    private String getConsoleText() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your text:");
 
         if(scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            int counter = wordCount.countWords(line);
-            System.out.println("this is your word count: " + counter);
-
+            return scanner.nextLine();
         }
 
+        return "";
+    }
+
+    public static void main(String[] args){
+
+        String inputText;
+        int counter;
+
+        WordCount wordCount = new WordCount();
+        wordCount.setStopWords();
+
+
+        if(args.length>0) {
+            String fileName = args[0];
+            inputText = wordCount.getTextFile(fileName);
+        }
+        else {
+            inputText = wordCount.getConsoleText();
+        }
+
+        counter = wordCount.countWords(inputText);
+
+        System.out.println("this is your word count: " + counter);
     }
 
 }
