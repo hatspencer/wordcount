@@ -4,14 +4,15 @@ import java.io.InputStreamReader;
 
 public class StdInWordCount extends AbstractWordCount {
 
-    BufferedReader input;
+    private BufferedReader input;
 
     public StdInWordCount() throws IOException {
         super();
+        System.out.print("Enter text: ");
         input = new BufferedReader(new InputStreamReader(System.in));
     }
 
-    public int getWordCount() throws IOException {
-        return wordCountInList(readAllLines(input));
+    protected BufferedReader getInput() {
+        return input;
     }
 }
