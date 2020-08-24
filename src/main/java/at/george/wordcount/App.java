@@ -5,15 +5,11 @@ import java.util.Scanner;
 
 public class App {
 
-    public static final String STOPWORDS_TXT = "stopwords.txt";
-
     public static void main(String[] args) {
-
+        final WordCounter wordCounter = new WordCounter();
         boolean hasCommandLineOneArgument = Objects.nonNull(args) && args.length == 1;
         if (hasCommandLineOneArgument) {
-            final WordCounter wordCounter = new WordCounter();
-
-            final int count = wordCounter.countFromFile(args[0], STOPWORDS_TXT);
+            final int count = wordCounter.countFromFile(args[0]);
             System.out.println("Number of words: " + count);
             return;
         }
@@ -27,8 +23,7 @@ public class App {
             return;
         }
 
-        final WordCounter wordCounter = new WordCounter();
-        final int count = wordCounter.count(input, STOPWORDS_TXT);
+        final int count = wordCounter.count(input);
         System.out.println("Number of words: " + count);
     }
 }
