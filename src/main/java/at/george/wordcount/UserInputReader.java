@@ -5,8 +5,10 @@ import java.util.Scanner;
 
 public class UserInputReader {
 
-//    TODO needs test
-    public String readInput() throws  IllegalArgumentException {
+    private static final FileReader reader = new FileReader();
+
+    //    TODO needs test
+    public static String readInput() throws IllegalArgumentException {
         final String input = getUserInput();
 
         if (Objects.isNull(input)) {
@@ -20,5 +22,9 @@ public class UserInputReader {
         System.out.print("Enter text: ");
         final Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+    public static String getWordsFromFile(final String pathToFile) {
+        return reader.asString(pathToFile);
     }
 }

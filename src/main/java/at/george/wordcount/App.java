@@ -2,21 +2,22 @@ package at.george.wordcount;
 
 import java.util.Objects;
 
+import static at.george.wordcount.UserInputReader.getWordsFromFile;
+import static at.george.wordcount.UserInputReader.readInput;
+
 public class App {
 
     public static void main(String[] args) {
-        final int count;
         final WordCountService service = new WordCountService();
+        final String userInput;
 
         boolean hasCommandLineOneArgument = Objects.nonNull(args) && args.length == 1;
-
         if (hasCommandLineOneArgument) {
-            count = service.countFromPath(args[0]);
+            userInput = getWordsFromFile(args[0]);
         } else {
-            final UserInputReader userInputReader = new UserInputReader();
-            final String userInput = userInputReader.readInput();
-            count = service.count(userInput);
+            userInput = readInput();
         }
-        System.out.println("Number of words: " + count);
+
+        System.out.println("Number of words: " + service.count(userInput));
     }
 }

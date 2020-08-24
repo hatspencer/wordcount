@@ -11,9 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InputPreparerTest {
 
-
-//      preparer has stop words
-
     @Test
     void splitAndCleanInputWithStopWords() {
         final InputPreparer inputPreparer = new InputPreparer(Stream.of("a", "the")

@@ -12,9 +12,4 @@ public class WordCountService {
     public int count(final String userInput) {
         return wordCounter.count(userInput);
     }
-
-    public int countFromPath(final String pathToFile) {
-        final String words = reader.asString(pathToFile);
-        return wordCounter.count(words);
-    }
 }

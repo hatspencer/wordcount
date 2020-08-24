@@ -1,16 +1,11 @@
 package at.george.wordcount;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class WordCountServiceTest {
-
-    public static final String PATH_TO_WRONG_NAME_TXT = "wrongName.txt";
-    public static final String PATH_TO_MYTEXT_TXT = "test_mytext.txt";
     private final WordCountService service = new WordCountService();
 
     @ParameterizedTest
@@ -30,16 +25,5 @@ class WordCountServiceTest {
         int actual = service.count(text);
 
         assertEquals(expected, actual);
-    }
-
-    @Test
-    void countFromFile() {
-        int actual = service.countFromPath(PATH_TO_MYTEXT_TXT);
-        assertEquals(7, actual);
-    }
-
-    @Test
-    void countFromFileWhenFileIsNotFound() {
-        assertThrows(NullPointerException.class, () -> service.countFromPath(PATH_TO_WRONG_NAME_TXT));
     }
 }

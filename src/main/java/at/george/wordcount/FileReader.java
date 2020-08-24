@@ -30,7 +30,7 @@ public class FileReader {
     public String asString(String filePath) {
         try {
             Path path = getPath(filePath);
-            return String.join(" " ,Files.readAllLines(path));
+            return String.join(" ", Files.readAllLines(path));
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
             return "";
