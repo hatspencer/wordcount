@@ -11,7 +11,7 @@ public abstract class AbstractWordCount {
     private int totalWords = 0;
     private int uniqueWords = 0;
 
-    protected abstract BufferedReader getInput() throws IOException;
+    protected abstract BufferedReader getInput();
 
     public AbstractWordCount() throws IOException {
         readStopwords("stopwords.txt");
@@ -50,7 +50,7 @@ public abstract class AbstractWordCount {
         for (String line : lines) {
             String[] parts = line.split(" ");
             for (String part : parts) {
-                if (part.matches("[a-zA-Z]+") && !stopwords.contains(part)) {
+                if (part.matches("[a-zA-Z-]+") && !stopwords.contains(part)) {
                     totalWords++;
                     wordCounts.merge(part, 1, Integer::sum);
                 }

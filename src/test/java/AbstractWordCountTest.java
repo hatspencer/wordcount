@@ -52,7 +52,7 @@ public class AbstractWordCountTest {
         AbstractWordCount app = new TestWordCount();
         app.determineCounts(Arrays.asList("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."));
         // the counts are different because we decided that strings with special characters are no words.
-        assertEquals(3, app.getTotalWords());
+        assertEquals(5, app.getTotalWords());
         assertEquals(3, app.getUniqueWords());
     }
 
