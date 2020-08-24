@@ -20,6 +20,7 @@ class WordCountServiceTest {
             "' wordWithSpaceBefore', 1",
             "'wordWithSpaceAfter ', 1",
             "the a word, 1",
+            "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall., 9",
     })
     void count(final String text, final int expected) {
         int actual = service.count(text);

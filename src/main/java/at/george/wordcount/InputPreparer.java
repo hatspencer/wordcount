@@ -15,7 +15,8 @@ public class InputPreparer {
     }
 
     protected Stream<String> splitAndCleanInput(final String input) {
-        return Arrays.stream(input.split("\\s"))
+//        splitting regex must be changed to accommodate the - splitting the words
+        return Arrays.stream(input.split("[- |\\\\s]"))
                 .filter(word -> !Objects.isNull(word))
                 .filter(word -> !word.isEmpty())
                 .filter(word -> word.matches("^[a-zA-Z]*$"))

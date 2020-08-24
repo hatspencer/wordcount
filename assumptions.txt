@@ -1,5 +1,17 @@
+word1word word  is 1 word (According to Claus)
 wordcount will be an int.
 i know regex better than i actually do
 I was assuming, until i was corrected, that the code from iteration one has to still be available with/ from next iterations
 i do not filter out the words that start with a stop word
 From iteration 3: if the filename is provided but it is incorrect, the application should stop
+From iteration 4: not an assumption, but a change -> the words are counted differently -> Humpty-Dumpty are two words
+Assumption: the input will be in UTF-8
+
+Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.
+Previous assumption:
+sat had great
+
+How to get 9 valid words
+Humpty-Dumpty sat wall. Humpty-Dumpty had great fall.
+How to get 7 unique words
+Humpty Dumpty sat wall had great fall
