@@ -1,8 +1,6 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class AbstractWordCount {
 
@@ -11,6 +9,8 @@ public abstract class AbstractWordCount {
     private int totalWords = 0;
     private int uniqueWords = 0;
     private int totalLength = 0;
+    private HashMap<String, Integer> wordCounts = new HashMap<>();
+
 
     protected abstract BufferedReader getInput();
 
@@ -46,12 +46,18 @@ public abstract class AbstractWordCount {
         return (double)totalLength / totalWords;
     }
 
-    public void doProcessing() throws IOException {
-        determineCounts(readAllLines(getInput()));
+    public List<String> getAllWords() {
+        return wordCounts.entrySet().stream()
+                .filter(e -> e.getValue().equals(1))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
-    void determineCounts(List<String> lines) {
-        HashMap<String, Integer> wordCounts = new HashMap<>();
+    public void doProcessing() throws IOException {
+        determineStatistics(readAllLines(getInput()));
+    }
+
+    void determineStatistics(List<String> lines) {
         for (String line : lines) {
             String[] parts = line.split(" ");
             for (String part : parts) {
