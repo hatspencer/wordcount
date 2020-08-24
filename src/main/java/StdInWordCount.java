@@ -1,18 +1,18 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class StdInWordCount extends AbstractWordCount {
 
-    private BufferedReader input;
+    private List<String> input;
 
-    public StdInWordCount(String dictionaryName) throws IOException {
+    public StdInWordCount(List<String> input, String dictionaryName) throws IOException {
         super(dictionaryName);
-        System.out.print("Enter text: ");
-        input = new BufferedReader(new InputStreamReader(System.in));
+        this.input = input;
     }
 
-    protected BufferedReader getInput() {
+    protected List<String> getInput() {
         return input;
     }
 }

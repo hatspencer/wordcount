@@ -13,7 +13,7 @@ public abstract class AbstractWordCount {
     private HashMap<String, Integer> wordCounts = new HashMap<>();
 
 
-    protected abstract BufferedReader getInput();
+    protected abstract List<String> getInput() throws IOException;
 
     public AbstractWordCount(String dictionaryName) throws IOException {
         readStopwords("stopwords.txt");
@@ -69,7 +69,7 @@ public abstract class AbstractWordCount {
     }
 
     public void doProcessing() throws IOException {
-        determineStatistics(readAllLines(getInput()));
+        determineStatistics(getInput());
     }
 
     void determineStatistics(List<String> lines) {

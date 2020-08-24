@@ -1,6 +1,5 @@
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.util.Arrays;
 
 public class WordCountMain {
 
@@ -10,23 +9,37 @@ public class WordCountMain {
     boolean showIndex;
     String fileName;
     String dictionaryName;
+    private AbstractWordCount counter;
 
     static PrintStream outputStream = System.out;
 
     public static void main(String[] args) throws IOException {
         WordCountMain app = new WordCountMain();
-        AbstractWordCount counter;
+
         app.handleArguments(args);
         if (app.fileName != null) {
             // read input from file
-            counter = new FileWordCount(app.fileName, app.dictionaryName);
+            app.counter = new FileWordCount(app.fileName, app.dictionaryName);
+            app.processAndPrintResult();
         } else {
             // get input from terminal
-            counter = new StdInWordCount(app.dictionaryName);
+            for (;;) {
+                System.out.print("Enter text: ");
+                BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+                String line = input.readLine();
+                if (line == null || line.length() == 0) {
+                    break;
+                }
+                app.counter = new StdInWordCount(Arrays.asList(line), app.dictionaryName);
+                app.processAndPrintResult();
+            }
         }
+    }
+
+    void processAndPrintResult() throws IOException {
         counter.doProcessing();
         outputStream.printf("Number of words %d, unique %d, average word length: %5.2f characters%n", counter.getTotalWords(), counter.getUniqueWords(), counter.getAverageLength());
-        if (app.showIndex) {
+        if (showIndex) {
             printIndex(counter);
         }
     }

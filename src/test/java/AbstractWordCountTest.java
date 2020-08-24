@@ -11,7 +11,7 @@ public class AbstractWordCountTest {
 
     public static class TestWordCount extends AbstractWordCount {
         @Override
-        public BufferedReader getInput() {
+        public List<String> getInput() {
             return null;
         }
 

@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 public class FileWordCount extends AbstractWordCount {
 
@@ -11,7 +12,7 @@ public class FileWordCount extends AbstractWordCount {
         input = new BufferedReader(new FileReader(filename));
     }
 
-    protected BufferedReader getInput() {
-        return input;
+    protected List<String> getInput() throws IOException {
+        return readAllLines(input);
     }
 }
