@@ -1,0 +1,2 @@
+wordcount will be an int.
+i know regex better than i actually do
