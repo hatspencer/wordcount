@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class App {
 
+    public static final String STOPWORDS_TXT = "stopwords.txt";
+
     public static void main(String[] args) {
         System.out.print("Enter text: ");
         final Scanner scanner = new Scanner(System.in);
@@ -16,7 +18,7 @@ public class App {
         }
 
         final WordCounter wordCounter = new WordCounter();
-        final int count = wordCounter.count(input);
+        final int count = wordCounter.count(input, STOPWORDS_TXT);
         System.out.println("Number of words: " + count);
     }
 }
