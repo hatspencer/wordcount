@@ -12,6 +12,6 @@ public class WordCountMain {
             counter = new StdInWordCount();
         }
         counter.doProcessing();
-        System.out.printf("Number of words %d, unique %d%n", counter.getTotalWords(), counter.getUniqueWords());
+        System.out.printf("Number of words %d, unique %d, average word length: %f5.2 characters%n", counter.getTotalWords(), counter.getUniqueWords(), counter.getAverageLength());
     }
 }

@@ -65,6 +65,20 @@ public class AbstractWordCountTest {
     }
 
     @Test
+    public void testAverageLengthOneWord() throws IOException {
+        AbstractWordCount app = new TestWordCount();
+        app.determineCounts(Arrays.asList("simple"));
+        assertEquals(6, app.getAverageLength(), 0.001);
+    }
+
+    @Test
+    public void testAverageLengthMoreWords() throws IOException {
+        AbstractWordCount app = new TestWordCount();
+        app.determineCounts(Arrays.asList("Mary had a little lamb"));
+        assertEquals(4.25, app.getAverageLength(), 0.006);
+    }
+
+    @Test
     public void testReadStopwords() throws IOException {
         AbstractWordCount app = new TestWordCount();
         assertTrue(app.stopwords.contains("the"));

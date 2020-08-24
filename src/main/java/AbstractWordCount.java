@@ -10,6 +10,7 @@ public abstract class AbstractWordCount {
 
     private int totalWords = 0;
     private int uniqueWords = 0;
+    private int totalLength = 0;
 
     protected abstract BufferedReader getInput();
 
@@ -41,6 +42,10 @@ public abstract class AbstractWordCount {
         return uniqueWords;
     }
 
+    public double getAverageLength() {
+        return (double)totalLength / totalWords;
+    }
+
     public void doProcessing() throws IOException {
         determineCounts(readAllLines(getInput()));
     }
@@ -53,6 +58,7 @@ public abstract class AbstractWordCount {
                 if (part.matches("[a-zA-Z-]+") && !stopwords.contains(part)) {
                     totalWords++;
                     wordCounts.merge(part, 1, Integer::sum);
+                    totalLength += part.length();
                 }
             }
         }
