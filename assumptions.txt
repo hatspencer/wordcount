@@ -2,3 +2,4 @@ wordcount will be an int.
 i know regex better than i actually do
 I was assuming, until i was corrected, that the code from iteration one has to still be available with/ from next iterations
 i do not filter out the words that start with a stop word
+From iteration 3: if the filename is provided but it is incorrect, the application should stop
