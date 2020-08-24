@@ -1,9 +1,11 @@
 package at.george.wordcount;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class WordCountServiceTest {
 
@@ -24,20 +26,20 @@ class WordCountServiceTest {
             "'wordWithSpaceAfter ', 1",
             "the a word, 1",
     })
-    void countWithStopWords(final String text, final int expected) {
+    void count(final String text, final int expected) {
         int actual = service.count(text);
 
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    void countFromFile() {
-//        int actual = service.countFromFile(PATH_TO_MYTEXT_TXT);
-//        assertEquals(7, actual);
-//    }
-//
-//    @Test
-//    void countFromFileWhenFileIsNotFound() {
-//        assertThrows(NullPointerException.class, () -> counter.countFromFile(PATH_TO_WRONG_NAME_TXT));
-//    }
+    @Test
+    void countFromFile() {
+        int actual = service.countFromPath(PATH_TO_MYTEXT_TXT);
+        assertEquals(7, actual);
+    }
+
+    @Test
+    void countFromFileWhenFileIsNotFound() {
+        assertThrows(NullPointerException.class, () -> service.countFromPath(PATH_TO_WRONG_NAME_TXT));
+    }
 }

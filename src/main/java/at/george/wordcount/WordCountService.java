@@ -9,13 +9,12 @@ public class WordCountService {
     protected final List<String> stopWords = reader.asList(STOP_WORDS_TXT);
     private final WordCounter wordCounter = new WordCounter(new InputPreparer(stopWords));
 
-    public int count(final String input) {
-        return wordCounter.count(input);
+    public int count(final String userInput) {
+        return wordCounter.count(userInput);
     }
 
-//    public int countFromPath(final String pathToFile) {
-//        final String words = reader.asString(pathToFile);
-//        final Stream<String> preparedInput = preparer.prepareTheWords(input);
-//        return wordCounter.count(preparedInput);
-//    }
+    public int countFromPath(final String pathToFile) {
+        final String words = reader.asString(pathToFile);
+        return wordCounter.count(words);
+    }
 }
