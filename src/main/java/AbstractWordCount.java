@@ -10,8 +10,7 @@ public abstract class AbstractWordCount {
     private int totalWords = 0;
     private int uniqueWords = 0;
     private int totalLength = 0;
-    private HashMap<String, Integer> wordCounts = new HashMap<>();
-
+    private final HashMap<String, Integer> wordCounts = new HashMap<>();
 
     protected abstract List<String> getInput() throws IOException;
 
@@ -57,9 +56,8 @@ public abstract class AbstractWordCount {
     }
 
     public List<String> getAllWords() {
-        return wordCounts.entrySet().stream()
-                .map(e -> {
-                    String word = e.getKey();
+        return wordCounts.keySet().stream()
+                .map(word -> {
                     if (dictionary != null && !dictionary.contains(word)) {
                         word += "*";
                     }

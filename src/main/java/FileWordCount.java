@@ -5,7 +5,7 @@ import java.util.List;
 
 public class FileWordCount extends AbstractWordCount {
 
-    private BufferedReader input;
+    private final BufferedReader input;
 
     public FileWordCount(String filename, String dictionaryName) throws IOException {
         super(dictionaryName);

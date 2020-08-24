@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class WordCountMain {
 
@@ -11,6 +12,7 @@ public class WordCountMain {
     String dictionaryName;
     private AbstractWordCount counter;
 
+    // this is to allow the integration test
     static PrintStream outputStream = System.out;
 
     public static void main(String[] args) throws IOException {
@@ -24,13 +26,13 @@ public class WordCountMain {
         } else {
             // get input from terminal
             for (;;) {
-                System.out.print("Enter text: ");
+                outputStream.print("Enter text: ");
                 BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
                 String line = input.readLine();
                 if (line == null || line.length() == 0) {
                     break;
                 }
-                app.counter = new StdInWordCount(Arrays.asList(line), app.dictionaryName);
+                app.counter = new StdInWordCount(Collections.singletonList(line), app.dictionaryName);
                 app.processAndPrintResult();
             }
         }

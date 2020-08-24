@@ -5,7 +5,7 @@ import java.util.List;
 
 public class StdInWordCount extends AbstractWordCount {
 
-    private List<String> input;
+    private final List<String> input;
 
     public StdInWordCount(List<String> input, String dictionaryName) throws IOException {
         super(dictionaryName);
