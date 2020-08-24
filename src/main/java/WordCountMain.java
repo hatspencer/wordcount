@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class WordCountMain {
 
@@ -8,6 +10,8 @@ public class WordCountMain {
     boolean showIndex;
     String fileName;
     String dictionaryName;
+
+    static PrintStream outputStream = System.out;
 
     public static void main(String[] args) throws IOException {
         WordCountMain app = new WordCountMain();
@@ -21,7 +25,7 @@ public class WordCountMain {
             counter = new StdInWordCount(app.dictionaryName);
         }
         counter.doProcessing();
-        System.out.printf("Number of words %d, unique %d, average word length: %5.2f characters%n", counter.getTotalWords(), counter.getUniqueWords(), counter.getAverageLength());
+        outputStream.printf("Number of words %d, unique %d, average word length: %5.2f characters%n", counter.getTotalWords(), counter.getUniqueWords(), counter.getAverageLength());
         if (app.showIndex) {
             printIndex(counter);
         }
@@ -35,20 +39,20 @@ public class WordCountMain {
                 dictionaryName = arg.substring(DICTIONARY_FLAG.length());
             } else if (!arg.startsWith("-")) {
                 if (fileName != null) {
-                    System.out.printf("invalid argument %s%n", arg);
+                    outputStream.printf("invalid argument %s%n", arg);
                 } else {
                     fileName = arg;
                 }
             } else {
-                System.out.printf("invalid option %s%n", arg);
+                outputStream.printf("invalid option %s%n", arg);
             }
         }
     }
 
     private static void printIndex(AbstractWordCount counter) {
-        System.out.println("Index:");
+        outputStream.println("Index:");
         for (String word : counter.getAllWords()) {
-            System.out.println(word);
+            outputStream.println(word);
         }
     }
 }
