@@ -27,10 +27,21 @@ public class FileReader {
         }
     }
 
+    public String asString(String filePath) {
+        try {
+            Path path = getPath(filePath);
+            return String.join(" " ,Files.readAllLines(path));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
     private Path getPath(String filePath) throws URISyntaxException {
         URI uri = ClassLoader.getSystemResource(filePath)
                 .toURI();
         return Paths.get(uri);
     }
+
 
 }

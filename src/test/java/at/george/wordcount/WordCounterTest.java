@@ -1,14 +1,18 @@
 package at.george.wordcount;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class WordCounterTest {
 
     public static final String PATH_TO_STOPWORDS = "test_stopwords.txt";
-    private WordCounter counter = new WordCounter();
+    public static final String PATH_TO_WRONG_NAME_TXT = "wrongName.txt";
+    public static final String PATH_TO_MYTEXT_TXT = "test_mytext.txt";
+    private final WordCounter counter = new WordCounter();
 
     @ParameterizedTest
     @CsvSource({
@@ -45,5 +49,16 @@ class WordCounterTest {
         int actual = counter.count(text, PATH_TO_STOPWORDS);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void countFromFile() {
+        int actual = counter.countFromFile(PATH_TO_MYTEXT_TXT, PATH_TO_STOPWORDS);
+        assertEquals(7, actual);
+    }
+
+    @Test
+    void countFromFileWhenFileIsNotFound() {
+        assertThrows(NullPointerException.class, () -> counter.countFromFile(PATH_TO_WRONG_NAME_TXT, PATH_TO_STOPWORDS));
     }
 }
