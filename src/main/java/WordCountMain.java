@@ -11,6 +11,7 @@ public class WordCountMain {
             // get input from terminal
             counter = new StdInWordCount();
         }
-        System.out.printf("Number of words %d%n", counter.getWordCount());
+        counter.doProcessing();
+        System.out.printf("Number of words %d, unique %d%n", counter.getTotalWords(), counter.getUniqueWords());
     }
 }

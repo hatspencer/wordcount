@@ -1,10 +1,15 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public abstract class AbstractWordCount {
 
     List<String> stopwords;
+
+    private int totalWords = 0;
+    private int uniqueWords = 0;
 
     protected abstract BufferedReader getInput() throws IOException;
 
@@ -28,20 +33,29 @@ public abstract class AbstractWordCount {
         stopwords = readAllLines(input);
     }
 
-    public int getWordCount() throws IOException {
-        return wordCountInList(readAllLines(getInput()));
+    public int getTotalWords() {
+        return totalWords;
     }
 
-    int wordCountInList(List<String> lines) {
-        int count = 0;
+    public int getUniqueWords() {
+        return uniqueWords;
+    }
+
+    public void doProcessing() throws IOException {
+        determineCounts(readAllLines(getInput()));
+    }
+
+    void determineCounts(List<String> lines) {
+        HashMap<String, Integer> wordCounts = new HashMap<>();
         for (String line : lines) {
             String[] parts = line.split(" ");
             for (String part : parts) {
                 if (part.matches("[a-zA-Z]+") && !stopwords.contains(part)) {
-                    count++;
+                    totalWords++;
+                    wordCounts.merge(part, 1, Integer::sum);
                 }
             }
         }
-        return count;
+        uniqueWords = (int)wordCounts.values().stream().filter(v -> v.equals(1)).count();
     }
 }

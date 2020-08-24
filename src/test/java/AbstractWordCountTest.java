@@ -22,25 +22,46 @@ public class AbstractWordCountTest {
     @Test
     public void testSingleWord() throws IOException {
         AbstractWordCount app = new TestWordCount();
-        assertEquals(1, app.wordCountInList(Arrays.asList("word")));
+        app.determineCounts(Arrays.asList("word"));
+        assertEquals(1, app.getTotalWords());
     }
 
     @Test
     public void testNotSingleWord() throws IOException {
         AbstractWordCount app = new TestWordCount();
-        assertEquals(0, app.wordCountInList(Arrays.asList("word2")));
+        app.determineCounts(Arrays.asList("word2"));
+        assertEquals(0, app.getTotalWords());
     }
 
     @Test
     public void testSeveralWords() throws IOException {
         AbstractWordCount app = new TestWordCount();
-        assertEquals(4, app.wordCountInList(Arrays.asList("Mary had a little lamb")));
+        app.determineCounts(Arrays.asList("Mary had a little lamb"));
+        assertEquals(4, app.getTotalWords());
     }
 
     @Test
     public void testSeveralLines() throws IOException {
         AbstractWordCount app = new TestWordCount();
-        assertEquals(6, app.wordCountInList(Arrays.asList("Mary had a little lamb", "another line")));
+        app.determineCounts(Arrays.asList("Mary had a little lamb", "another line"));
+        assertEquals(6, app.getTotalWords());
+    }
+
+    @Test
+    public void testUniqueWordsFromExcercise() throws IOException {
+        AbstractWordCount app = new TestWordCount();
+        app.determineCounts(Arrays.asList("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."));
+        // the counts are different because we decided that strings with special characters are no words.
+        assertEquals(3, app.getTotalWords());
+        assertEquals(3, app.getUniqueWords());
+    }
+
+    @Test
+    public void testUniqueWords() throws IOException {
+        AbstractWordCount app = new TestWordCount();
+        app.determineCounts(Arrays.asList("An example with double double words"));
+        assertEquals(6, app.getTotalWords());
+        assertEquals(4, app.getUniqueWords());
     }
 
     @Test
