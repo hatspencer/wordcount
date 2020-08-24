@@ -6,8 +6,8 @@ public class StdInWordCount extends AbstractWordCount {
 
     private BufferedReader input;
 
-    public StdInWordCount() throws IOException {
-        super();
+    public StdInWordCount(String dictionaryName) throws IOException {
+        super(dictionaryName);
         System.out.print("Enter text: ");
         input = new BufferedReader(new InputStreamReader(System.in));
     }

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 public abstract class AbstractWordCount {
 
     List<String> stopwords;
+    Set<String> dictionary;
 
     private int totalWords = 0;
     private int uniqueWords = 0;
@@ -14,8 +15,11 @@ public abstract class AbstractWordCount {
 
     protected abstract BufferedReader getInput();
 
-    public AbstractWordCount() throws IOException {
+    public AbstractWordCount(String dictionaryName) throws IOException {
         readStopwords("stopwords.txt");
+        if (dictionaryName != null) {
+            readDictionary(dictionaryName);
+        }
     }
 
     List<String> readAllLines(BufferedReader reader) throws IOException {
@@ -34,6 +38,12 @@ public abstract class AbstractWordCount {
         stopwords = readAllLines(input);
     }
 
+    void readDictionary(String filename) throws IOException {
+        File dictionaryFile = new File(filename);
+        BufferedReader input = new BufferedReader(new FileReader(dictionaryFile));
+        dictionary = new HashSet<>(readAllLines(input));
+    }
+
     public int getTotalWords() {
         return totalWords;
     }
@@ -48,8 +58,13 @@ public abstract class AbstractWordCount {
 
     public List<String> getAllWords() {
         return wordCounts.entrySet().stream()
-                .filter(e -> e.getValue().equals(1))
-                .map(Map.Entry::getKey)
+                .map(e -> {
+                    String word = e.getKey();
+                    if (dictionary != null && !dictionary.contains(word)) {
+                        word += "*";
+                    }
+                    return word;
+                })
                 .collect(Collectors.toList());
     }
 

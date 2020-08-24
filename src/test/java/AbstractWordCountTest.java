@@ -15,8 +15,14 @@ public class AbstractWordCountTest {
             return null;
         }
 
-        public TestWordCount() throws IOException {
+        public TestWordCount(String dictionaryName) throws IOException {
+            super(dictionaryName);
         }
+
+        public TestWordCount() throws IOException {
+            super(null);
+        }
+
     }
 
     @Test
@@ -85,6 +91,26 @@ public class AbstractWordCountTest {
         List<String> words = app.getAllWords();
         assertTrue(words.containsAll(Arrays.asList("Mary", "had", "little", "lamb")));
         assertFalse(words.contains("a"));
+    }
+
+    @Test
+    public void testIndexDupicateWords() throws IOException {
+        AbstractWordCount app = new TestWordCount();
+        app.determineStatistics(Arrays.asList("Mary had a little little lamb"));
+        List<String> words = app.getAllWords();
+        assertTrue(words.containsAll(Arrays.asList("Mary", "had", "little", "lamb")));
+        assertFalse(words.contains("a"));
+        assertEquals(4, words.size());
+    }
+
+    @Test
+    public void testDictCheck() throws IOException {
+        AbstractWordCount app = new TestWordCount("dict.txt");
+        app.determineStatistics(Arrays.asList("Mary had a little little lamb"));
+        List<String> words = app.getAllWords();
+        assertTrue(words.containsAll(Arrays.asList("Mary*", "had", "little", "lamb*")));
+        assertFalse(words.contains("a"));
+        assertEquals(4, words.size());
     }
 
     @Test

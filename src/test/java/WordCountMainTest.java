@@ -14,6 +14,7 @@ public class WordCountMainTest {
         app.handleArguments(new String[]{});
         assertFalse(app.showIndex);
         assertNull(app.fileName);
+        assertNull(app.dictionaryName);
     }
 
     @Test
@@ -46,5 +47,14 @@ public class WordCountMainTest {
         app.handleArguments(new String[]{"-index", "mytext.txt"});
         assertTrue(app.showIndex);
         assertEquals("mytext.txt", app.fileName);
+    }
+
+    @Test
+    public void testDictionary() {
+        WordCountMain app = new WordCountMain();
+        app.handleArguments(new String[]{"-dictionary=dict.txt"});
+        assertFalse(app.showIndex);
+        assertNull(app.fileName);
+        assertEquals("dict.txt", app.dictionaryName);
     }
 }

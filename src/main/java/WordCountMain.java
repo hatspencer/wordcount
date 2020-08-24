@@ -2,8 +2,12 @@ import java.io.IOException;
 
 public class WordCountMain {
 
+    private static final String INDEX_FLAG = "-index";
+    private static final String DICTIONARY_FLAG = "-dictionary=";
+
     boolean showIndex;
     String fileName;
+    String dictionaryName;
 
     public static void main(String[] args) throws IOException {
         WordCountMain app = new WordCountMain();
@@ -11,10 +15,10 @@ public class WordCountMain {
         app.handleArguments(args);
         if (app.fileName != null) {
             // read input from file
-            counter = new FileWordCount(app.fileName);
+            counter = new FileWordCount(app.fileName, app.dictionaryName);
         } else {
             // get input from terminal
-            counter = new StdInWordCount();
+            counter = new StdInWordCount(app.dictionaryName);
         }
         counter.doProcessing();
         System.out.printf("Number of words %d, unique %d, average word length: %5.2f characters%n", counter.getTotalWords(), counter.getUniqueWords(), counter.getAverageLength());
@@ -25,8 +29,10 @@ public class WordCountMain {
 
     void handleArguments(String[] args) {
         for (String arg : args) {
-            if (arg.equals("-index")) {
+            if (arg.equals(INDEX_FLAG)) {
                 showIndex = true;
+            } else if (arg.startsWith(DICTIONARY_FLAG)) {
+                dictionaryName = arg.substring(DICTIONARY_FLAG.length());
             } else if (!arg.startsWith("-")) {
                 if (fileName != null) {
                     System.out.printf("invalid argument %s%n", arg);
