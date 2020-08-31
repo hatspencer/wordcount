@@ -21,13 +21,11 @@ public class WordCountExampleTest {
         assertEquals(0, wordCountExample.getWordCount(""));
     }
 
-    @Disabled("Please note for code review: I don't see how to fix this. I think the split regex has some problems.")
     @Test
     void TestWithSingleCharacters() {
         assertEquals(5, wordCountExample.getWordCount("a b c d e     $     ?"));
     }
 
-    @Disabled("Please note for code review: I don't see how to fix this. I think the split regex has some problems.")
     @Test
     void TestWithSingleCharactersAndSpacesAround() {
         assertEquals(5, wordCountExample.getWordCount("     a b c d e     $     ?    "));

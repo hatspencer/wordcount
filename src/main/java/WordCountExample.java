@@ -63,7 +63,7 @@ public class WordCountExample {
         String[] split = trim.split("[\\s+-]");
         for (String s : split) {
             boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
-            if (matches) {
+            if (matches && !s.isEmpty()) {
                 wordCount++;
             }
         }
@@ -84,7 +84,7 @@ public class WordCountExample {
         String[] split = trim.split("[\\s+-]");
             for (String s : split) {
             boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
-            if (matches && !isStopWord(s)) {
+            if (matches && !s.isEmpty() && !isStopWord(s)) {
                 wordCount++;
             }
         }
@@ -99,7 +99,7 @@ public class WordCountExample {
         String[] split = trim.split("[\\s+-]");
         for (String s : split) {
             boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
-            if (matches && !isStopWord(s)) {
+            if (matches && !s.isEmpty() && !isStopWord(s)) {
                 Integer numberOfOccurances = words.get(s);
                 if (numberOfOccurances != null) {
                     words.put(s, numberOfOccurances + 1);
