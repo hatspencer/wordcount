@@ -22,7 +22,9 @@ public class Application {
             List<String> fileContent = FileHelper.readAllLines(args[0]);
             numWords = wc.countValidWords(String.join(" ", fileContent), stopWords);
         } else {
-            numWords = wc.countValidWords(reader.readLine(), stopWords);
+           // numWords = wc.countValidWords(reader.readLine(), stopWords);
+            numWords = wc.countValidWords("Humpty Dumpty sat wall Humpty Dumpty had great fall"
+                    , stopWords);
         }
         System.out.println("number words are: "  + numWords);
     }
