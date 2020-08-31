@@ -52,12 +52,7 @@ public class WordCountExample {
     }
 
     boolean isStopWord(String word) {
-        for (String stopWord : stopWords) {
-            if (word.contentEquals(stopWord)) {
-                return true;
-            }
-        }
-        return false;
+        return stopWords.contains(word);
     }
 
     public int getWordCountWithoutStopWords(String text) {
