@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class WordCountExample {
 
+    public static final String wordDefinition = "[a-zA-Z-]*\\.?";
     private List<String> stopWords = new ArrayList<>();
     private Map<String, Integer> words = new HashMap<>();
 
@@ -56,18 +57,23 @@ public class WordCountExample {
 
     public int getWordCount(String text) {
         int wordCount = 0;
-        String trim = text.trim();
-        if (trim.isEmpty()) {
-            return 0;
-        }
-        String[] split = trim.split("[\\s+-]");
+        String[] split = getSplitStrings(text);
+        if (split == null) return 0;
         for (String s : split) {
-            boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
+            boolean matches = Pattern.matches(wordDefinition, s);
             if (matches && !s.isEmpty()) {
                 wordCount++;
             }
         }
         return wordCount;
+    }
+
+    private String[] getSplitStrings(String text) {
+        String trim = text.trim();
+        if (trim.isEmpty()) {
+            return null;
+        }
+        return trim.split("[\\s+-]");
     }
 
     boolean isStopWord(String word) {
@@ -77,28 +83,23 @@ public class WordCountExample {
     public int getWordCountWithoutStopWords(String text) {
         readStopWords("./src/main/resources/stopwords.txt");
         int wordCount = 0;
-        String trim = text.trim();
-        if (trim.isEmpty()) {
-            return 0;
-        }
-        String[] split = trim.split("[\\s+-]");
-            for (String s : split) {
-            boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
+        String[] split = getSplitStrings(text);
+        if (split == null) return 0;
+        for (String s : split) {
+            boolean matches = Pattern.matches(wordDefinition, s);
             if (matches && !s.isEmpty() && !isStopWord(s)) {
                 wordCount++;
             }
         }
         return wordCount;
     }
+
     public int getWordCountUnique(String text) {
         readStopWords("./src/main/resources/stopwords.txt");
-        String trim = text.trim();
-        if (trim.isEmpty()) {
-            return 0;
-        }
-        String[] split = trim.split("[\\s+-]");
+        String[] split = getSplitStrings(text);
+        if (split == null) return 0;
         for (String s : split) {
-            boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
+            boolean matches = Pattern.matches(wordDefinition, s);
             if (matches && !s.isEmpty() && !isStopWord(s)) {
                 Integer numberOfOccurances = words.get(s);
                 if (numberOfOccurances != null) {
