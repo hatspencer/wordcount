@@ -11,20 +11,12 @@ public class StopWordReaderTest {
 
     @Test
     public void should_read_words_from_file() {
-        StopWordReader stopWordReader = new StopWordReader();
-
-        List<String> strings = stopWordReader.readStopWords();
+        List<String> strings = StopWordReader.readStopWords();
         assertThat(strings, CoreMatchers.hasItems(
                 "the",
                 "a",
                 "on",
                 "off"
         ));
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void should_throw_runtime_exception_on_ioexception() {
-        StopWordReader stopWordReader = new StopWordReader(ClassLoader.getSystemResource("doesnotexist.txt"));
-        stopWordReader.readStopWords();
     }
 }

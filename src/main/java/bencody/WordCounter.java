@@ -2,8 +2,8 @@ package bencody;
 
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -35,11 +35,12 @@ public class WordCounter {
             }
         }
 
-        List<String> index = Collections.emptyList();
+        WordIndex wordIndex = null;
         if (outputIndex) {
-            index = allWords.stream()
+            List<String> index = allWords.stream()
                     .sorted(Collator.getInstance())
                     .collect(Collectors.toList());
+            wordIndex = new WordIndex(index, 0);
         }
 
         final List<String> uniqueWords = allWords.stream()
@@ -52,6 +53,6 @@ public class WordCounter {
                 .average()
                 .orElse(0d);
 
-        return new WordCountStatistics(allWords.size(), uniqueWords.size(), averageWordLength, index);
+        return new WordCountStatistics(allWords.size(), uniqueWords.size(), averageWordLength, Optional.ofNullable(wordIndex));
     }
 }

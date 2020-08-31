@@ -14,7 +14,7 @@ public class MainArgumentsTest {
     public void should_parse_empty_args() {
         MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{});
 
-        assertThat(mainArguments.filePath, equalTo(Optional.empty()));
+        assertThat(mainArguments.inputFilePath, equalTo(Optional.empty()));
         assertThat(mainArguments.outputIndex, equalTo(false));
     }
 
@@ -22,28 +22,28 @@ public class MainArgumentsTest {
     public void should_parse_file_arg() {
         MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"filePath"});
 
-        MatcherAssert.assertThat(mainArguments.filePath.get(), equalTo("filePath"));
+        MatcherAssert.assertThat(mainArguments.inputFilePath.get(), equalTo("filePath"));
         assertThat(mainArguments.outputIndex, equalTo(false));
     }
 
     @Test
     public void should_parse_index_arg() {
-        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-wordIndex"});
+        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-index"});
 
-        assertThat(mainArguments.filePath, equalTo(Optional.empty()));
+        assertThat(mainArguments.inputFilePath, equalTo(Optional.empty()));
         assertThat(mainArguments.outputIndex, equalTo(true));
     }
 
     @Test
     public void should_parse_all_possible_args() {
-        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-wordIndex", "test.txt"});
+        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-index", "test.txt"});
 
-        MatcherAssert.assertThat(mainArguments.filePath.get(), equalTo("test.txt"));
+        MatcherAssert.assertThat(mainArguments.inputFilePath.get(), equalTo("test.txt"));
         assertThat(mainArguments.outputIndex, equalTo(true));
 
-        mainArguments = MainArguments.createFromArgsArray(new String[]{"test.txt", "-wordIndex",}); // Other
+        mainArguments = MainArguments.createFromArgsArray(new String[]{"test.txt", "-index",}); // Other
 
-        MatcherAssert.assertThat(mainArguments.filePath.get(), equalTo("test.txt"));
+        MatcherAssert.assertThat(mainArguments.inputFilePath.get(), equalTo("test.txt"));
         assertThat(mainArguments.outputIndex, equalTo(true));
     }
 }

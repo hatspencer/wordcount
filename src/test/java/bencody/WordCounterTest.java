@@ -83,7 +83,7 @@ public class WordCounterTest {
     @Test
     public void should_include_index_if_specified() {
         WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb", true);
-        assertThat(statistics.wordIndex, equalTo(Arrays.asList(
+        assertThat(statistics.wordIndex.get().words, equalTo(Arrays.asList(
                 "had",
                 "lamb",
                 "little",

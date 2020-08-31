@@ -1,29 +1,18 @@
 package bencody;
 
+import bencody.util.FileLineReader;
+
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class StopWordReader {
 
-    private URL filePath;
+    private static final URL STOP_WORDS_URL = ClassLoader.getSystemResource("stopwords.txt");
 
-    public StopWordReader() {
-        this.filePath = ClassLoader.getSystemResource("stopwords.txt");
+    private StopWordReader() {
     }
 
-    StopWordReader(URL filePathUrl) {
-        this.filePath = filePathUrl;
-    }
-
-    public List<String> readStopWords() {
-        try (Stream<String> stream = Files.lines(Paths.get(filePath.toURI()))) {
-            return stream.collect(Collectors.toList());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public static List<String> readStopWords() {
+        return FileLineReader.readLines(STOP_WORDS_URL);
     }
 }

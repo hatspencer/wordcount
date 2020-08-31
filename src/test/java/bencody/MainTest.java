@@ -52,7 +52,7 @@ public class MainTest {
         ByteArrayOutputStream bo = new ByteArrayOutputStream();
         System.setOut(new PrintStream(bo));
 
-        Main.main(new String[]{"src/test/resources/mytext.txt", "-wordIndex"});
+        Main.main(new String[]{"src/test/resources/mytext.txt", "-index"});
 
         String sout = bo.toString();
         assertThat(sout, equalTo(
