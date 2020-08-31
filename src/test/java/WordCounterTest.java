@@ -1,5 +1,11 @@
 import org.junit.Test;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class WordCounterTest {
@@ -19,6 +25,17 @@ public class WordCounterTest {
         long numOfWords = wc.countValidWords(str);
         assertEquals(4, numOfWords);
     }
+
+    @Test
+    public void countInputUsingStopWords() throws IOException {
+        WordCounter wc = new WordCounter();
+        List<String> stopWords = Files.readAllLines(Paths.get("stopwords.txt"), StandardCharsets.UTF_8);
+        String input = "mary has a litle lamb";
+        long numOfWords = wc.countValidWords(input, stopWords);
+        assertEquals(4, numOfWords);
+    }
+
+
 }
 
 
