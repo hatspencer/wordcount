@@ -1,0 +1,16 @@
+# Iteration One Assumptions
+
+only words with [a-z,A-Z] are counted as words
+words are deliniated witha ' ' (space) char at the end of the string
+no special chars or numbers are allowed to be in a word - eg: word1 == invalid
+
+word 1
+word word 2
+word word word 3
+word1word 0
+word.word......word 0
+word. word, word! 0
+word$word foo bar 2
+
+
+# Iteration __ Assumptions
