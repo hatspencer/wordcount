@@ -13,4 +13,5 @@ word. word, word! 0
 word$word foo bar 2
 
 
-# Iteration __ Assumptions
+# Iteration 6 Assumptions
+the average is always calculated against the total number of words (excluding stop words).
