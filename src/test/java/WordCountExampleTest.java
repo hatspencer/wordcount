@@ -1,5 +1,8 @@
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.Charset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -69,5 +72,18 @@ public class WordCountExampleTest {
     void TestWordCountUniqueEmpty() {
         int wordCountUnique = wordCountExample.getWordCountUnique("");
         assertEquals(0, wordCountUnique);
+    }
+
+    @Test
+    void TestMainMethod() {
+        PrintStream old = System.out;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(baos);
+        System.setOut(out);
+        WordCountExample.main(new String[] {"mytextfortest.txt"});
+        System.out.flush();
+        System.setOut(old);
+        String s = new String(baos.toByteArray(), Charset.defaultCharset());
+        assertEquals("Number of words: 4, unique: 4\n", s);
     }
 }
