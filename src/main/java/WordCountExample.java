@@ -11,13 +11,20 @@ public class WordCountExample {
     private List<String> stopWords = new ArrayList<>();
 
     public static void main(String[] args) {
-        WordCountExample foo = new WordCountExample();
-        System.out.println("Enter text: ");
-        Scanner scanner = new Scanner(System.in);
-        String text = scanner.nextLine();
-        int wordCount = foo.getWordCount(text);
+        WordCountExample wordCountExample = new WordCountExample();
+        String text;
+
+        if (args.length > 0 && args[0] != null) {
+            text = wordCountExample.readText("./src/main/resources/" + args[0]);
+        } else {
+            System.out.println("Enter text: ");
+            Scanner scanner = new Scanner(System.in);
+            text = scanner.nextLine();
+        }
+
+        int wordCount = wordCountExample.getWordCount(text);
         System.out.println("Number of words: " + wordCount);
-        int wordCountWithoutStopWords = foo.getWordCountWithoutStopWords(text);
+        int wordCountWithoutStopWords = wordCountExample.getWordCountWithoutStopWords(text);
         System.out.println("Number of words without stop words: " + wordCountWithoutStopWords);
     }
 
@@ -32,6 +39,21 @@ public class WordCountExample {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String readText(String fileName) {
+        StringBuilder inputText = new StringBuilder();
+        BufferedReader bufferedReader;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                inputText.append(line).append(" ");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputText.toString();
     }
 
     public int getWordCount(String text) {

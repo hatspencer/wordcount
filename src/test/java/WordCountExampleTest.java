@@ -39,4 +39,10 @@ public class WordCountExampleTest {
     void TestWithTwoStopwords() {
         assertEquals(4, wordCountExample.getWordCountWithoutStopWords("Mary had a little lamb on"));
     }
+
+    @Test
+    void TestReadText() {
+        String text = wordCountExample.readText("./src/main/resources/mytextfortest.txt");
+        assertEquals("Mary had a little lamb ", text);
+    }
 }
