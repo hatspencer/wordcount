@@ -26,4 +26,18 @@ public class WordCounterTest {
 
         assertThat(count, equalTo(1));
     }
+
+    @Test
+    public void should_count_0_for_1_invalid_char() {
+        int count = wordCounter.countWords("ä");
+
+        assertThat(count, equalTo(0));
+    }
+
+    @Test
+    public void should_count_5_for_mary_had_a_little_lamb() {
+        int count = wordCounter.countWords("Mary had a little lamb");
+
+        assertThat(count, equalTo(5));
+    }
 }
