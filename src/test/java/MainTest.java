@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class MainTest {
 
     @Test
-    public void should_output_number_of_words() {
+    public void should_read_input_from_stdin_with_no_main_args() {
         System.setIn(new ByteArrayInputStream("Mary had a little lamb".getBytes()));
         ByteArrayOutputStream bo = new ByteArrayOutputStream();
         System.setOut(new PrintStream(bo));
@@ -19,5 +19,16 @@ public class MainTest {
 
         String sout = bo.toString();
         assertThat(sout, equalTo("Enter text:\r\nNumber of words: 4\r\n"));
+    }
+
+    @Test
+    public void should_read_input_from_text_file_given_1_main_arg() {
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(bo));
+
+        Main.main(new String[]{"src/test/resources/mytext.txt"});
+
+        String sout = bo.toString();
+        assertThat(sout, equalTo("Number of words: 4\r\n"));
     }
 }
