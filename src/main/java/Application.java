@@ -19,9 +19,11 @@ public class Application {
         if (args.length > 0 && args[0] != null) {
             List<String> fileContent = FileHelper.readAllLines(args[0]);
             System.out.println("number of words: "  + wc.countValidWords(String.join(" ", fileContent), stopWords) + " unique: " + wc.countUniqueWords(String.join(" ", fileContent), stopWords));
+            System.out.println("average number of words: "  + wc.calculateTheAverage(String.join(" ", fileContent), stopWords));
         } else {
            userInput = reader.readLine();
-            System.out.println("number of words: "  + wc.countValidWords(userInput, stopWords) + " unique: " + wc.countUniqueWords(userInput, stopWords));
+           System.out.println("number of words: "  + wc.countValidWords(userInput, stopWords) + " unique: " + wc.countUniqueWords(userInput, stopWords));
+           System.out.println("average number of words: "  + wc.calculateTheAverage(userInput, stopWords));
         }
     }
 }
