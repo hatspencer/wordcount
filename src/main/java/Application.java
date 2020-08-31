@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.util.List;
 
 public class Application {
@@ -17,15 +15,13 @@ public class Application {
 
         List<String> stopWords = FileHelper.readAllLines("stopwords.txt");
 
-        long numWords;
+        String userInput = "";
         if (args.length > 0 && args[0] != null) {
             List<String> fileContent = FileHelper.readAllLines(args[0]);
-            numWords = wc.countValidWords(String.join(" ", fileContent), stopWords);
+            System.out.println("number of words: "  + wc.countValidWords(String.join(" ", fileContent), stopWords) + " unique: " + wc.countUniqueWords(String.join(" ", fileContent), stopWords));
         } else {
-           // numWords = wc.countValidWords(reader.readLine(), stopWords);
-            numWords = wc.countValidWords("Humpty Dumpty sat wall Humpty Dumpty had great fall"
-                    , stopWords);
+           userInput = reader.readLine();
+            System.out.println("number of words: "  + wc.countValidWords(userInput, stopWords) + " unique: " + wc.countUniqueWords(userInput, stopWords));
         }
-        System.out.println("number words are: "  + numWords);
     }
 }
