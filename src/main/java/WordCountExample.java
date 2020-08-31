@@ -22,10 +22,8 @@ public class WordCountExample {
             text = scanner.nextLine();
         }
 
-        int wordCount = wordCountExample.getWordCount(text);
+        int wordCount = wordCountExample.getWordCountWithoutStopWords(text);
         System.out.println("Number of words: " + wordCount);
-        int wordCountWithoutStopWords = wordCountExample.getWordCountWithoutStopWords(text);
-        System.out.println("Number of words without stop words: " + wordCountWithoutStopWords);
     }
 
     public void readStopWords(String fileName) {
