@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class WordCounter {
 
-    private Pattern pattern = Pattern.compile("([a-zA-Z]+)");
+    private Pattern pattern = Pattern.compile("([a-zA-Z-]+)");
     private List<String> stopWords;
 
     public WordCounter(List<String> stopWords) {

@@ -18,7 +18,7 @@ public class MainTest {
         Main.main(new String[]{});
 
         String sout = bo.toString();
-        assertThat(sout, equalTo("Enter text:\r\nNumber of words: 9, unique: 7\r\n"));
+        assertThat(sout, equalTo("Enter text:\r\nNumber of words: 7, unique: 6\r\n"));
     }
 
     @Test

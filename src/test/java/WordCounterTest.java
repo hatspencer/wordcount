@@ -32,6 +32,14 @@ public class WordCounterTest {
     }
 
     @Test
+    public void should_count_1_for_hyphenated_non_stopword_chars() {
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty");
+
+        assertThat(statistics.totalCount, equalTo(1));
+        assertThat(statistics.uniqueCount, equalTo(1));
+    }
+
+    @Test
     public void should_count_0_for_1_stopword() {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("a");
 
@@ -59,7 +67,7 @@ public class WordCounterTest {
     public void should_count_unique_words() {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
-        assertThat(statistics.totalCount, equalTo(9));
-        assertThat(statistics.uniqueCount, equalTo(7));
+        assertThat(statistics.totalCount, equalTo(7));
+        assertThat(statistics.uniqueCount, equalTo(6));
     }
 }
