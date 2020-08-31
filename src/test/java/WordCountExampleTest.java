@@ -32,6 +32,11 @@ public class WordCountExampleTest {
 
     @Test
     void TestWithStopword() {
-        assertEquals(4, wordCountExample.getWordCount("Mary had a little lamb"));
+        assertEquals(4, wordCountExample.getWordCountWithoutStopWords("Mary had a little lamb"));
+    }
+
+    @Test
+    void TestWithTwoStopwords() {
+        assertEquals(4, wordCountExample.getWordCountWithoutStopWords("Mary had a little lamb on"));
     }
 }

@@ -12,7 +12,6 @@ public class WordCountExample {
 
     public static void main(String[] args) {
         WordCountExample foo = new WordCountExample();
-        foo.readStopWords("./src/main/resources/stopwords.txt");
         System.out.println("Enter text: ");
         Scanner scanner = new Scanner(System.in);
         String text = scanner.nextLine();
@@ -56,6 +55,7 @@ public class WordCountExample {
     }
 
     public int getWordCountWithoutStopWords(String text) {
+        readStopWords("./src/main/resources/stopwords.txt");
         int wordCount = 0;
         String trim = text.trim();
         if (trim.isEmpty()) {
