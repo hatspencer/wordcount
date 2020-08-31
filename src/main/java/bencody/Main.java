@@ -1,3 +1,5 @@
+package bencody;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,7 +17,7 @@ public class Main {
         StopWordReader stopWordReader = new StopWordReader();
         List<String> stopWords = stopWordReader.readStopWords();
         WordCounter wordCounter = new WordCounter(stopWords);
-        WordCounter.WordCountStatistics wordCountStatistics = wordCounter.countWords(inputText, arguments.outputIndex);
+        WordCountStatistics wordCountStatistics = wordCounter.countWords(inputText, arguments.outputIndex);
 
         generateOutput(arguments, wordCountStatistics);
     }
@@ -38,7 +40,7 @@ public class Main {
         }
     }
 
-    private static void generateOutput(MainArguments arguments, WordCounter.WordCountStatistics wordCountStatistics) {
+    private static void generateOutput(MainArguments arguments, WordCountStatistics wordCountStatistics) {
         String output = String.format("Number of words: %d, unique: %d; average word length: %.2f characters",
                 wordCountStatistics.totalCount,
                 wordCountStatistics.uniqueCount,
@@ -48,7 +50,7 @@ public class Main {
 
         if (arguments.outputIndex) {
             System.out.println("Index:");
-            for (String word : wordCountStatistics.index) {
+            for (String word : wordCountStatistics.wordIndex) {
                 System.out.println(word);
             }
         }

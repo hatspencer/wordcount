@@ -1,4 +1,5 @@
-import org.hamcrest.CoreMatchers;
+package bencody;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class WordCounterTest {
 
     @Test
     public void should_count_0_for_empty_input() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("");
+        WordCountStatistics statistics = wordCounter.countWords("");
 
         assertThat(statistics.totalCount, equalTo(0));
         assertThat(statistics.uniqueCount, equalTo(0L));
@@ -27,7 +28,7 @@ public class WordCounterTest {
 
     @Test
     public void should_count_1_for_1_non_stopword_char() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("b");
+        WordCountStatistics statistics = wordCounter.countWords("b");
 
         assertThat(statistics.totalCount, equalTo(1));
         assertThat(statistics.uniqueCount, equalTo(1L));
@@ -36,7 +37,7 @@ public class WordCounterTest {
 
     @Test
     public void should_count_1_for_hyphenated_non_stopword_chars() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty");
+        WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty");
 
         assertThat(statistics.totalCount, equalTo(1));
         assertThat(statistics.uniqueCount, equalTo(1L));
@@ -45,7 +46,7 @@ public class WordCounterTest {
 
     @Test
     public void should_count_0_for_1_stopword() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("a");
+        WordCountStatistics statistics = wordCounter.countWords("a");
 
         assertThat(statistics.totalCount, equalTo(0));
         assertThat(statistics.uniqueCount, equalTo(0L));
@@ -54,7 +55,7 @@ public class WordCounterTest {
 
     @Test
     public void should_count_0_for_1_invalid_char() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("ä");
+        WordCountStatistics statistics = wordCounter.countWords("ä");
 
         assertThat(statistics.totalCount, equalTo(0));
         assertThat(statistics.uniqueCount, equalTo(0L));
@@ -63,7 +64,7 @@ public class WordCounterTest {
 
     @Test
     public void should_not_count_stopwords() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb");
+        WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb");
 
         assertThat(statistics.totalCount, equalTo(4));
         assertThat(statistics.uniqueCount, equalTo(4L));
@@ -72,7 +73,7 @@ public class WordCounterTest {
 
     @Test
     public void should_count_unique_words() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+        WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
         assertThat(statistics.totalCount, equalTo(7));
         assertThat(statistics.uniqueCount, equalTo(6L));
@@ -81,8 +82,8 @@ public class WordCounterTest {
 
     @Test
     public void should_include_index_if_specified() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb", true);
-        assertThat(statistics.index, equalTo(Arrays.asList(
+        WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb", true);
+        assertThat(statistics.wordIndex, equalTo(Arrays.asList(
                 "had",
                 "lamb",
                 "little",

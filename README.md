@@ -12,6 +12,6 @@ https://ccd-school.de/coding-dojo/agility-katas/word-count-i/
 - Unique word count ignores word casing and only counts valid words.
 - Average word length is calculated on list of all valid words (not the unique words.)
 - Average word length decimal separator uses JVM's current locale. On a German system, this will output a comma instead of a period. (Use JVM options -Duser.country=US -Duser.language=en override JVM locale.)
-- Word index should be based on list of all words (not the unique words.)
-- Word index should output words in Locale-specific alphabetical order.
-- CLI argument order is not relevant, i.e. "... -index input.txt" and "... input.txt -index" are allowed.
+- Word wordIndex should be based on list of all words (not the unique words.)
+- Word wordIndex should output words in Locale-specific alphabetical order.
+- CLI argument order is not relevant, i.e. "... -wordIndex input.txt" and "... input.txt -wordIndex" are allowed.

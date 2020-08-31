@@ -1,3 +1,5 @@
+package bencody;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class WordCounter {
 
-    private Pattern pattern = Pattern.compile("([a-zA-Z-]+)");
-    private List<String> stopWords;
+    private final Pattern wordRegexp = Pattern.compile("([a-zA-Z-]+)");
+    private final List<String> stopWords;
 
     public WordCounter(List<String> stopWords) {
         this.stopWords = stopWords;
@@ -20,12 +22,12 @@ public class WordCounter {
     }
 
     public WordCountStatistics countWords(String text, boolean outputIndex) {
-        Matcher matcher = pattern.matcher(text);
+        Matcher matcher = wordRegexp.matcher(text);
         return countMatches(matcher, outputIndex);
     }
 
     private WordCountStatistics countMatches(Matcher matcher, boolean outputIndex) {
-        List<String> allWords = new ArrayList<>();
+        final List<String> allWords = new ArrayList<>();
         while (matcher.find()) {
             String word = matcher.group();
             if (!stopWords.contains(word)) {
@@ -40,7 +42,7 @@ public class WordCounter {
                     .collect(Collectors.toList());
         }
 
-        List<String> uniqueWords = allWords.stream()
+        final List<String> uniqueWords = allWords.stream()
                 .map(String::toLowerCase)
                 .distinct()
                 .collect(Collectors.toList());
@@ -51,19 +53,5 @@ public class WordCounter {
                 .orElse(0d);
 
         return new WordCountStatistics(allWords.size(), uniqueWords.size(), averageWordLength, index);
-    }
-
-    public static class WordCountStatistics {
-        public final int totalCount;
-        public final long uniqueCount;
-        public final double averageWordLength;
-        public final List<String> index;
-
-        public WordCountStatistics(int totalCount, long uniqueCount, double averageWordLength, List<String> index) {
-            this.totalCount = totalCount;
-            this.uniqueCount = uniqueCount;
-            this.averageWordLength = averageWordLength;
-            this.index = index;
-        }
     }
 }

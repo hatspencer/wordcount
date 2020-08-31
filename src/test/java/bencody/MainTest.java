@@ -1,3 +1,5 @@
+package bencody;
+
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -37,12 +39,20 @@ public class MainTest {
         assertThat(sout, equalTo("Number of words: 4, unique: 4; average word length: 4.25 characters" + LINE_SEPARATOR));
     }
 
+    @Test(expected = RuntimeException.class)
+    public void should_throw_exception_if_text_file_main_arg_not_found() {
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(bo));
+
+        Main.main(new String[]{"doesnotexist.txt"});
+    }
+
     @Test
     public void should_create_index_if_specified() {
         ByteArrayOutputStream bo = new ByteArrayOutputStream();
         System.setOut(new PrintStream(bo));
 
-        Main.main(new String[]{"src/test/resources/mytext.txt", "-index"});
+        Main.main(new String[]{"src/test/resources/mytext.txt", "-wordIndex"});
 
         String sout = bo.toString();
         assertThat(sout, equalTo(

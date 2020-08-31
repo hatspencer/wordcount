@@ -1,3 +1,6 @@
+package bencody;
+
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -19,13 +22,13 @@ public class MainArgumentsTest {
     public void should_parse_file_arg() {
         MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"filePath"});
 
-        assertThat(mainArguments.filePath.get(), equalTo("filePath"));
+        MatcherAssert.assertThat(mainArguments.filePath.get(), equalTo("filePath"));
         assertThat(mainArguments.outputIndex, equalTo(false));
     }
 
     @Test
     public void should_parse_index_arg() {
-        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-index"});
+        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-wordIndex"});
 
         assertThat(mainArguments.filePath, equalTo(Optional.empty()));
         assertThat(mainArguments.outputIndex, equalTo(true));
@@ -33,14 +36,14 @@ public class MainArgumentsTest {
 
     @Test
     public void should_parse_all_possible_args() {
-        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-index", "test.txt"});
+        MainArguments mainArguments = MainArguments.createFromArgsArray(new String[]{"-wordIndex", "test.txt"});
 
-        assertThat(mainArguments.filePath.get(), equalTo("test.txt"));
+        MatcherAssert.assertThat(mainArguments.filePath.get(), equalTo("test.txt"));
         assertThat(mainArguments.outputIndex, equalTo(true));
 
-        mainArguments = MainArguments.createFromArgsArray(new String[]{"test.txt", "-index",}); // Other
+        mainArguments = MainArguments.createFromArgsArray(new String[]{"test.txt", "-wordIndex",}); // Other
 
-        assertThat(mainArguments.filePath.get(), equalTo("test.txt"));
+        MatcherAssert.assertThat(mainArguments.filePath.get(), equalTo("test.txt"));
         assertThat(mainArguments.outputIndex, equalTo(true));
     }
 }

@@ -1,3 +1,5 @@
+package bencody;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
@@ -18,5 +20,11 @@ public class StopWordReaderTest {
                 "on",
                 "off"
         ));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void should_throw_runtime_exception_on_ioexception() {
+        StopWordReader stopWordReader = new StopWordReader(ClassLoader.getSystemResource("doesnotexist.txt"));
+        stopWordReader.readStopWords();
     }
 }
