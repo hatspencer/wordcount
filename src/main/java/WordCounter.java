@@ -1,9 +1,9 @@
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class WordCounter {
 
@@ -15,36 +15,54 @@ public class WordCounter {
     }
 
     public WordCountStatistics countWords(String text) {
-        Matcher matcher = pattern.matcher(text);
-        return countMatches(matcher);
+        return countWords(text, false);
     }
 
-    private WordCountStatistics countMatches(Matcher matcher) {
+    public WordCountStatistics countWords(String text, boolean outputIndex) {
+        Matcher matcher = pattern.matcher(text);
+        return countMatches(matcher, outputIndex);
+    }
+
+    private WordCountStatistics countMatches(Matcher matcher, boolean outputIndex) {
         List<String> allWords = new ArrayList<>();
-        Set<String> uniqueWords = new HashSet<>();
         while (matcher.find()) {
             String word = matcher.group();
             if (!stopWords.contains(word)) {
                 allWords.add(word);
-                uniqueWords.add(word.toLowerCase()); // Normalize case so that we don't count "a" and "A" twice.
             }
         }
+
+        List<String> index = Collections.emptyList();
+        if (outputIndex) {
+            index = allWords.stream()
+                    .sorted()
+                    .collect(Collectors.toList());
+        }
+
+        List<String> uniqueWords = allWords.stream()
+                .map(String::toLowerCase)
+                .distinct()
+                .collect(Collectors.toList());
+
         double averageWordLength = allWords.stream()
                 .mapToInt(String::length)
                 .average()
                 .orElse(0d);
-        return new WordCountStatistics(allWords.size(), uniqueWords.size(), averageWordLength);
+
+        return new WordCountStatistics(allWords.size(), uniqueWords.size(), averageWordLength, index);
     }
 
     public static class WordCountStatistics {
         public final int totalCount;
-        public final int uniqueCount;
+        public final long uniqueCount;
         public final double averageWordLength;
+        public final List<String> index;
 
-        public WordCountStatistics(int totalCount, int uniqueCount, double averageWordLength) {
+        public WordCountStatistics(int totalCount, long uniqueCount, double averageWordLength, List<String> index) {
             this.totalCount = totalCount;
             this.uniqueCount = uniqueCount;
             this.averageWordLength = averageWordLength;
+            this.index = index;
         }
     }
 }

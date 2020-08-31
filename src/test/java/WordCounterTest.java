@@ -1,3 +1,4 @@
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class WordCounterTest {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("");
 
         assertThat(statistics.totalCount, equalTo(0));
-        assertThat(statistics.uniqueCount, equalTo(0));
+        assertThat(statistics.uniqueCount, equalTo(0L));
         assertThat(statistics.averageWordLength, equalTo(0.0));
     }
 
@@ -29,7 +30,7 @@ public class WordCounterTest {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("b");
 
         assertThat(statistics.totalCount, equalTo(1));
-        assertThat(statistics.uniqueCount, equalTo(1));
+        assertThat(statistics.uniqueCount, equalTo(1L));
         assertThat(statistics.averageWordLength, equalTo(1.0));
     }
 
@@ -38,7 +39,7 @@ public class WordCounterTest {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty");
 
         assertThat(statistics.totalCount, equalTo(1));
-        assertThat(statistics.uniqueCount, equalTo(1));
+        assertThat(statistics.uniqueCount, equalTo(1L));
         assertThat(statistics.averageWordLength, equalTo(13.0));
     }
 
@@ -47,7 +48,7 @@ public class WordCounterTest {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("a");
 
         assertThat(statistics.totalCount, equalTo(0));
-        assertThat(statistics.uniqueCount, equalTo(0));
+        assertThat(statistics.uniqueCount, equalTo(0L));
         assertThat(statistics.averageWordLength, equalTo(0.0));
     }
 
@@ -56,7 +57,7 @@ public class WordCounterTest {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("ä");
 
         assertThat(statistics.totalCount, equalTo(0));
-        assertThat(statistics.uniqueCount, equalTo(0));
+        assertThat(statistics.uniqueCount, equalTo(0L));
         assertThat(statistics.averageWordLength, equalTo(0.0));
     }
 
@@ -65,7 +66,7 @@ public class WordCounterTest {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb");
 
         assertThat(statistics.totalCount, equalTo(4));
-        assertThat(statistics.uniqueCount, equalTo(4));
+        assertThat(statistics.uniqueCount, equalTo(4L));
         assertThat(statistics.averageWordLength, equalTo(4.25)); // (4+3+6+4)/4 = 17/4
     }
 
@@ -74,7 +75,18 @@ public class WordCounterTest {
         WordCounter.WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
 
         assertThat(statistics.totalCount, equalTo(7));
-        assertThat(statistics.uniqueCount, equalTo(6));
-        assertThat(statistics.averageWordLength, equalTo(45d/7));  // (13+3+4+13+3+5+4)/7 = 45/7
+        assertThat(statistics.uniqueCount, equalTo(6L));
+        assertThat(statistics.averageWordLength, equalTo(45d / 7));  // (13+3+4+13+3+5+4)/7 = 45/7
+    }
+
+    @Test
+    public void should_include_index_if_specified() {
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb");
+        assertThat(statistics.index, CoreMatchers.hasItems(
+                "had",
+                "lamb",
+                "little",
+                "Mary"
+        ));
     }
 }

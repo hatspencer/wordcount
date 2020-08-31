@@ -8,7 +8,9 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        String inputText = args.length == 0 ? readInputFromStdIn() : readInputFromFile(args[0]);
+        MainArguments arguments = MainArguments.createFromArgsArray(args);
+
+        String inputText = readInput(arguments);
 
         StopWordReader stopWordReader = new StopWordReader();
         List<String> stopWords = stopWordReader.readStopWords();
@@ -21,6 +23,10 @@ public class Main {
                 wordCountStatistics.averageWordLength
         );
         System.out.println(output);
+    }
+
+    private static String readInput(MainArguments arguments) {
+        return arguments.filePath.map(Main::readInputFromFile).orElseGet(Main::readInputFromStdIn);
     }
 
     private static String readInputFromStdIn() {
