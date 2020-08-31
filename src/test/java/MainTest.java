@@ -18,7 +18,7 @@ public class MainTest {
         Main.main(new String[]{});
 
         String sout = bo.toString();
-        assertThat(sout, equalTo("Enter text:\r\nNumber of words: 7, unique: 6\r\n"));
+        assertThat(sout, equalTo("Enter text:\r\nNumber of words: 7, unique: 6; average word length: 6.43 characters\r\n"));
     }
 
     @Test
@@ -29,6 +29,6 @@ public class MainTest {
         Main.main(new String[]{"src/test/resources/mytext.txt"});
 
         String sout = bo.toString();
-        assertThat(sout, equalTo("Number of words: 4, unique: 4\r\n"));
+        assertThat(sout, equalTo("Number of words: 4, unique: 4; average word length: 4.25 characters\r\n"));
     }
 }

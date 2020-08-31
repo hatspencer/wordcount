@@ -29,16 +29,22 @@ public class WordCounter {
                 uniqueWords.add(word.toLowerCase()); // Normalize case so that we don't count "a" and "A" twice.
             }
         }
-        return new WordCountStatistics(allWords.size(), uniqueWords.size());
+        double averageWordLength = allWords.stream()
+                .mapToInt(String::length)
+                .average()
+                .orElse(0d);
+        return new WordCountStatistics(allWords.size(), uniqueWords.size(), averageWordLength);
     }
 
     public static class WordCountStatistics {
         public final int totalCount;
         public final int uniqueCount;
+        public final double averageWordLength;
 
-        public WordCountStatistics(int totalCount, int uniqueCount) {
+        public WordCountStatistics(int totalCount, int uniqueCount, double averageWordLength) {
             this.totalCount = totalCount;
             this.uniqueCount = uniqueCount;
+            this.averageWordLength = averageWordLength;
         }
     }
 }

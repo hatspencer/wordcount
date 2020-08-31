@@ -21,6 +21,7 @@ public class WordCounterTest {
 
         assertThat(statistics.totalCount, equalTo(0));
         assertThat(statistics.uniqueCount, equalTo(0));
+        assertThat(statistics.averageWordLength, equalTo(0.0));
     }
 
     @Test
@@ -29,6 +30,7 @@ public class WordCounterTest {
 
         assertThat(statistics.totalCount, equalTo(1));
         assertThat(statistics.uniqueCount, equalTo(1));
+        assertThat(statistics.averageWordLength, equalTo(1.0));
     }
 
     @Test
@@ -37,6 +39,7 @@ public class WordCounterTest {
 
         assertThat(statistics.totalCount, equalTo(1));
         assertThat(statistics.uniqueCount, equalTo(1));
+        assertThat(statistics.averageWordLength, equalTo(13.0));
     }
 
     @Test
@@ -45,6 +48,7 @@ public class WordCounterTest {
 
         assertThat(statistics.totalCount, equalTo(0));
         assertThat(statistics.uniqueCount, equalTo(0));
+        assertThat(statistics.averageWordLength, equalTo(0.0));
     }
 
     @Test
@@ -53,6 +57,7 @@ public class WordCounterTest {
 
         assertThat(statistics.totalCount, equalTo(0));
         assertThat(statistics.uniqueCount, equalTo(0));
+        assertThat(statistics.averageWordLength, equalTo(0.0));
     }
 
     @Test
@@ -61,6 +66,7 @@ public class WordCounterTest {
 
         assertThat(statistics.totalCount, equalTo(4));
         assertThat(statistics.uniqueCount, equalTo(4));
+        assertThat(statistics.averageWordLength, equalTo(4.25)); // (4+3+6+4)/4 = 17/4
     }
 
     @Test
@@ -69,5 +75,6 @@ public class WordCounterTest {
 
         assertThat(statistics.totalCount, equalTo(7));
         assertThat(statistics.uniqueCount, equalTo(6));
+        assertThat(statistics.averageWordLength, equalTo(45d/7));  // (13+3+4+13+3+5+4)/7 = 45/7
     }
 }

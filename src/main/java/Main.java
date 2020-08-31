@@ -15,7 +15,11 @@ public class Main {
         WordCounter wordCounter = new WordCounter(stopWords);
         WordCounter.WordCountStatistics wordCountStatistics = wordCounter.countWords(inputText);
 
-        String output = String.format("Number of words: %d, unique: %d", wordCountStatistics.totalCount, wordCountStatistics.uniqueCount);
+        String output = String.format("Number of words: %d, unique: %d; average word length: %.2f characters",
+                wordCountStatistics.totalCount,
+                wordCountStatistics.uniqueCount,
+                wordCountStatistics.averageWordLength
+        );
         System.out.println(output);
     }
 
