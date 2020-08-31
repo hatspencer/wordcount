@@ -21,9 +21,9 @@ public class WordCountExample {
             text = scanner.nextLine();
         }
 
-        int wordCount = wordCountExample.getWordCountUnique(text);
-        int numberOfUniqueWords = wordCountExample.getUniqueWords();
-        System.out.println("Number of words: " + wordCount + ", unique: " + numberOfUniqueWords);
+        int wordCount = wordCountExample.getWordCountWithoutStopWords(text);
+        int wordCountUnique = wordCountExample.getWordCountUnique(text);
+        System.out.println("Number of words: " + wordCount + ", unique: " + wordCountUnique);
     }
 
     public void readStopWords(String fileName) {
@@ -92,7 +92,6 @@ public class WordCountExample {
     }
     public int getWordCountUnique(String text) {
         readStopWords("./src/main/resources/stopwords.txt");
-        int wordCount = 0;
         String trim = text.trim();
         if (trim.isEmpty()) {
             return 0;
@@ -107,10 +106,9 @@ public class WordCountExample {
                 } else {
                     words.put(s, 1);
                 }
-                wordCount++;
             }
         }
-        return wordCount;
+        return getUniqueWords();
     }
 
     public int getUniqueWords() {
