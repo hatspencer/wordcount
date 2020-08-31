@@ -17,12 +17,13 @@ public class Application {
 
         List<String> stopWords = FileHelper.readAllLines("stopwords.txt");
 
-        if(args[0] != null) {
+        long numWords;
+        if (args.length > 0 && args[0] != null) {
             List<String> fileContent = FileHelper.readAllLines(args[0]);
-            System.out.println("file content as string" +  String.join(" ", fileContent));
-            wc.countValidWords(String.join(" ", fileContent), stopWords);
-            System.out.println("number words are "  + wc.countValidWords(String.join(" ", fileContent), stopWords));
+            numWords = wc.countValidWords(String.join(" ", fileContent), stopWords);
+        } else {
+            numWords = wc.countValidWords(reader.readLine(), stopWords);
         }
-
+        System.out.println("number words are: "  + numWords);
     }
 }
