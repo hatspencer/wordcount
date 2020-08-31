@@ -41,10 +41,8 @@ public class WordCounterTest {
         List<String> stopWords = Files.readAllLines(Paths.get("stopwords.txt"), StandardCharsets.UTF_8);
         String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
         long numOfWords = wc.countUniqueWords(input, stopWords);
-        assertEquals(7, numOfWords);
+        assertEquals(6, numOfWords);
     }
-
-
 }
 
 
