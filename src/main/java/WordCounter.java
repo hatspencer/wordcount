@@ -27,6 +27,17 @@ public class WordCounter {
         return new HashSet<>(santizedList).size();
     }
 
+    public double calculateTheAverage(String input, List<String> stopWords) {
+        List<String> santizedList = Arrays.asList(sanitizeString(input).split("\\s+")).stream()
+                .filter(word -> !stopWords.contains(word))
+                .filter(word -> word.matches("[a-zA-Z]+")).collect(Collectors.toList());
+        int sum = santizedList.stream().mapToInt(word-> word.length()).sum();
+        if(santizedList.size() > 0) {
+            return sum * 1.0 / santizedList.size();
+        }
+        return 0.0;
+    }
+
     private String sanitizeString(String input) {
         return input.replace(".", "").replace("-", "");
     }
