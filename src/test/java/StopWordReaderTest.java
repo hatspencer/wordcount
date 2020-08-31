@@ -17,6 +17,6 @@ public class StopWordReaderTest {
                 "a",
                 "on",
                 "off"
-                ));
+        ));
     }
 }

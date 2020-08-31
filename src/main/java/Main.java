@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -12,9 +13,10 @@ public class Main {
         StopWordReader stopWordReader = new StopWordReader();
         List<String> stopWords = stopWordReader.readStopWords();
         WordCounter wordCounter = new WordCounter(stopWords);
-        int wordCount = wordCounter.countWords(inputText);
+        WordCounter.WordCountStatistics wordCountStatistics = wordCounter.countWords(inputText);
 
-        System.out.println("Number of words: " + wordCount);
+        String output = String.format("Number of words: %d, unique: %d", wordCountStatistics.totalCount, wordCountStatistics.uniqueCount);
+        System.out.println(output);
     }
 
     private static String readInputFromStdIn() {
@@ -25,7 +27,7 @@ public class Main {
 
     private static String readInputFromFile(String filePath) {
         try {
-            return new String(Files.readAllBytes(Paths.get(filePath)));
+            return new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

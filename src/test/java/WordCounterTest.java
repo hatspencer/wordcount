@@ -1,9 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,36 +17,49 @@ public class WordCounterTest {
 
     @Test
     public void should_count_0_for_empty_input() {
-        int count = wordCounter.countWords("");
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("");
 
-        assertThat(count, equalTo(0));
+        assertThat(statistics.totalCount, equalTo(0));
+        assertThat(statistics.uniqueCount, equalTo(0));
     }
 
     @Test
     public void should_count_1_for_1_non_stopword_char() {
-        int count = wordCounter.countWords("b");
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("b");
 
-        assertThat(count, equalTo(1));
+        assertThat(statistics.totalCount, equalTo(1));
+        assertThat(statistics.uniqueCount, equalTo(1));
     }
 
     @Test
     public void should_count_0_for_1_stopword() {
-        int count = wordCounter.countWords("a");
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("a");
 
-        assertThat(count, equalTo(0));
+        assertThat(statistics.totalCount, equalTo(0));
+        assertThat(statistics.uniqueCount, equalTo(0));
     }
 
     @Test
     public void should_count_0_for_1_invalid_char() {
-        int count = wordCounter.countWords("ä");
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("ä");
 
-        assertThat(count, equalTo(0));
+        assertThat(statistics.totalCount, equalTo(0));
+        assertThat(statistics.uniqueCount, equalTo(0));
     }
 
     @Test
     public void should_not_count_stopwords() {
-        int count = wordCounter.countWords("Mary had a little lamb");
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb");
 
-        assertThat(count, equalTo(4));
+        assertThat(statistics.totalCount, equalTo(4));
+        assertThat(statistics.uniqueCount, equalTo(4));
+    }
+
+    @Test
+    public void should_count_unique_words() {
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+
+        assertThat(statistics.totalCount, equalTo(9));
+        assertThat(statistics.uniqueCount, equalTo(7));
     }
 }
