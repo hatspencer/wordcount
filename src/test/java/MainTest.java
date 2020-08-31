@@ -18,6 +18,6 @@ public class MainTest {
         Main.main(new String[]{});
 
         String sout = bo.toString();
-        assertThat(sout, equalTo("todo"));
+        assertThat(sout, equalTo("Enter text:\r\nNumber of words: 4\r\n"));
     }
 }
