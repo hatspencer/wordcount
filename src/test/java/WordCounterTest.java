@@ -81,12 +81,12 @@ public class WordCounterTest {
 
     @Test
     public void should_include_index_if_specified() {
-        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb");
-        assertThat(statistics.index, CoreMatchers.hasItems(
+        WordCounter.WordCountStatistics statistics = wordCounter.countWords("Mary had a little lamb", true);
+        assertThat(statistics.index, equalTo(Arrays.asList(
                 "had",
                 "lamb",
                 "little",
-                "Mary"
+                "Mary")
         ));
     }
 }

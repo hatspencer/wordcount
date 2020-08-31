@@ -15,14 +15,9 @@ public class Main {
         StopWordReader stopWordReader = new StopWordReader();
         List<String> stopWords = stopWordReader.readStopWords();
         WordCounter wordCounter = new WordCounter(stopWords);
-        WordCounter.WordCountStatistics wordCountStatistics = wordCounter.countWords(inputText);
+        WordCounter.WordCountStatistics wordCountStatistics = wordCounter.countWords(inputText, arguments.outputIndex);
 
-        String output = String.format("Number of words: %d, unique: %d; average word length: %.2f characters",
-                wordCountStatistics.totalCount,
-                wordCountStatistics.uniqueCount,
-                wordCountStatistics.averageWordLength
-        );
-        System.out.println(output);
+        generateOutput(arguments, wordCountStatistics);
     }
 
     private static String readInput(MainArguments arguments) {
@@ -40,6 +35,22 @@ public class Main {
             return new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void generateOutput(MainArguments arguments, WordCounter.WordCountStatistics wordCountStatistics) {
+        String output = String.format("Number of words: %d, unique: %d; average word length: %.2f characters",
+                wordCountStatistics.totalCount,
+                wordCountStatistics.uniqueCount,
+                wordCountStatistics.averageWordLength
+        );
+        System.out.println(output);
+
+        if (arguments.outputIndex) {
+            System.out.println("Index:");
+            for (String word : wordCountStatistics.index) {
+                System.out.println(word);
+            }
         }
     }
 }

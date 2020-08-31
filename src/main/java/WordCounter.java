@@ -1,3 +1,4 @@
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +36,7 @@ public class WordCounter {
         List<String> index = Collections.emptyList();
         if (outputIndex) {
             index = allWords.stream()
-                    .sorted()
+                    .sorted(Collator.getInstance())
                     .collect(Collectors.toList());
         }
 
