@@ -1,14 +1,13 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class WordCountExample {
 
     private List<String> stopWords = new ArrayList<>();
+    private Map<String, Integer> words = new HashMap<>();
 
     public static void main(String[] args) {
         WordCountExample wordCountExample = new WordCountExample();
@@ -22,8 +21,9 @@ public class WordCountExample {
             text = scanner.nextLine();
         }
 
-        int wordCount = wordCountExample.getWordCountWithoutStopWords(text);
-        System.out.println("Number of words: " + wordCount);
+        int wordCount = wordCountExample.getWordCountUnique(text);
+        int numberOfUniqueWords = wordCountExample.getUniqueWords();
+        System.out.println("Number of words: " + wordCount + ", unique: " + numberOfUniqueWords);
     }
 
     public void readStopWords(String fileName) {
@@ -60,9 +60,9 @@ public class WordCountExample {
         if (trim.isEmpty()) {
             return 0;
         }
-        String[] split = trim.split("\\s+");
+        String[] split = trim.split("[\\s+-]");
         for (String s : split) {
-            boolean matches = Pattern.matches("[a-zA-Z]*", s);
+            boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
             if (matches) {
                 wordCount++;
             }
@@ -81,14 +81,40 @@ public class WordCountExample {
         if (trim.isEmpty()) {
             return 0;
         }
-        String[] split = trim.split("\\s+");
-        for (String s : split) {
-            boolean matches = Pattern.matches("[a-zA-Z]*", s);
+        String[] split = trim.split("[\\s+-]");
+            for (String s : split) {
+            boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
             if (matches && !isStopWord(s)) {
                 wordCount++;
             }
         }
         return wordCount;
+    }
+    public int getWordCountUnique(String text) {
+        readStopWords("./src/main/resources/stopwords.txt");
+        int wordCount = 0;
+        String trim = text.trim();
+        if (trim.isEmpty()) {
+            return 0;
+        }
+        String[] split = trim.split("[\\s+-]");
+        for (String s : split) {
+            boolean matches = Pattern.matches("[a-zA-Z-]*\\.?", s);
+            if (matches && !isStopWord(s)) {
+                Integer numberOfOccurances = words.get(s);
+                if (numberOfOccurances != null) {
+                    words.put(s, numberOfOccurances + 1);
+                } else {
+                    words.put(s, 1);
+                }
+                wordCount++;
+            }
+        }
+        return wordCount;
+    }
+
+    public int getUniqueWords() {
+        return words.entrySet().size();
     }
 
 }
