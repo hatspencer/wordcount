@@ -37,6 +37,15 @@ public class BasicWordCounterTest {
         Assert.assertEquals(1, wordCount.getUnique());
     }
 
+    @Test
+    public void countWords_averageWordLength() {
+        StopWordsRepository stopWordsRepository = mockStopWordsRepository();
+        WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
+
+        WordCount wordCount = wordCounter.countWords("aaa bbbb ccccc dddddd");
+        Assert.assertEquals(4.5, wordCount.getAverageWordLength(), 0.00001);
+    }
+
     private StopWordsRepository mockStopWordsRepository(String... words) {
         return word -> Arrays.asList(words).contains(word);
     }

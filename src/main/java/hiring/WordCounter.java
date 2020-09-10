@@ -8,10 +8,12 @@ public interface WordCounter {
 
         private final int total;
         private final int unique;
+        private final float averageWordLength;
 
-        public WordCount(int total, int unique) {
+        public WordCount(int total, int unique, float averageWordLength) {
             this.total = total;
             this.unique = unique;
+            this.averageWordLength = averageWordLength;
         }
 
         public int getTotal() {
@@ -20,6 +22,10 @@ public interface WordCounter {
 
         public int getUnique() {
             return unique;
+        }
+
+        public float getAverageWordLength() {
+            return averageWordLength;
         }
     }
 }

@@ -21,13 +21,17 @@ public class BasicWordCounter implements WordCounter {
 
         int totalWords = 0;
         Set<String> uniqueWords = new HashSet<>();
+        int totalWordsLength = 0;
+
         for (String word : words) {
             if (isCorrectWord(word) && !stopWordsRepository.containsWord(word)) {
                 totalWords++;
                 uniqueWords.add(word);
+                totalWordsLength += word.length();
             }
         }
-        return new WordCount(totalWords, uniqueWords.size());
+
+        return new WordCount(totalWords, uniqueWords.size(), (float) totalWordsLength / totalWords);
     }
 
     private boolean isCorrectWord(String word) {

@@ -1,10 +1,8 @@
-Agility Kata “Word Count V”
+Agility Kata “Word Count VI”
 
-Words containing a hypen are no longer separated, e.g. „Humpty-Dumpty“ will be considered 1 word instead of 2.
+The average word length of counted words is calculated and output, e.g.
 
 ```
-$ wordcount
-Enter text: Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.
-Number of words: 7, unique: 6
-$
+$ wordcount sometext.txt
+Number of words: 14, unique: 10; average word length: 5.63 characters
 ```

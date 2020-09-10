@@ -52,3 +52,8 @@ Examples:
 # Iteration 5
 
 * Words separated by hypen are not considered to be two words.
+
+# Iteration 6
+
+* Average word length will be calculated and result will be formated to two decimal places.
+* Average word length is calculated from all words.
