@@ -1,8 +1,15 @@
-Agility Kata “Word Count VI”
+Agility Kata “Word Count VII”
 
-The average word length of counted words is calculated and output, e.g.
+Optionally an index of all counted words is printed. Sample usage:
 
 ```
-$ wordcount sometext.txt
-Number of words: 14, unique: 10; average word length: 5.63 characters
+$ wordcount -index
+Enter text: Mary had a little lamb
+Number of words: 4, unique: 4; average word length: 4.25 characters
+Index:
+had
+lamb
+little
+Mary
+$
 ```

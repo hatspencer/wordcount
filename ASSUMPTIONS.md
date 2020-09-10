@@ -57,3 +57,8 @@ Examples:
 
 * Average word length will be calculated and result will be formated to two decimal places.
 * Average word length is calculated from all words.
+
+# Iteration 7
+
+* An index (set of unique words) is printed if an argument `-index` is provided.
+
