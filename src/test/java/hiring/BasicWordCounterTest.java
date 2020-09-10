@@ -5,8 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class BasicWordCounterTest {
 
@@ -54,7 +54,7 @@ public class BasicWordCounterTest {
         WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
 
         WordCount wordCount = wordCounter.countWords("aaa bbb aaa");
-        Set<String> expectedIndex = new HashSet<>(Arrays.asList("aaa", "bbb"));
+        Set<String> expectedIndex = new TreeSet<>(Arrays.asList("aaa", "bbb"));
         Assert.assertEquals(expectedIndex, wordCount.getIndex());
     }
 

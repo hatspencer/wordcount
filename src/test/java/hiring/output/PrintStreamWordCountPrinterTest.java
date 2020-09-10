@@ -8,8 +8,8 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class PrintStreamWordCountPrinterTest {
 
@@ -60,7 +60,7 @@ public class PrintStreamWordCountPrinterTest {
     }
 
     private WordCount mockWordCount(String... words) {
-        Set<String> index = new HashSet<>(Arrays.asList(words));
+        Set<String> index = new TreeSet<>(Arrays.asList(words));
         return new WordCount(1, 1, 1, index);
     }
 
