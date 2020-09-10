@@ -1,6 +1,6 @@
 package hiring.input;
 
-import hiring.StopWordsRepository;
+import hiring.WordsRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,11 +9,11 @@ import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ResourceStopWordsRepository implements StopWordsRepository {
+public class ResourceWordsRepository implements WordsRepository {
 
     private final Set<String> words;
 
-    public ResourceStopWordsRepository(String resource) {
+    public ResourceWordsRepository(String resource) {
         this.words = loadWords(resource);
     }
 

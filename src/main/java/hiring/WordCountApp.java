@@ -3,7 +3,8 @@ package hiring;
 import hiring.WordCounter.WordCount;
 import hiring.input.ApplicationArgs;
 import hiring.input.BasicTextProviderFactory;
-import hiring.input.ResourceStopWordsRepository;
+import hiring.input.FileWordsRepository;
+import hiring.input.ResourceWordsRepository;
 import hiring.output.PrintStreamWordCountPrinter;
 
 import java.nio.file.Path;
@@ -13,11 +14,14 @@ public class WordCountApp {
     public void run(String[] args) {
         ApplicationArgs applicationArgs = new ApplicationArgs(args);
         TextProvider textProvider = createTextProvider(applicationArgs.getInputFilePath());
-        String text = textProvider.provideText();
-        StopWordsRepository stopWordsRepository = createResourceStopWordsRepository();
+        WordsRepository stopWordsRepository = createResourceWordsRepository("stopwords.txt");
         WordCounter wordCounter = createBasicWordCounter(stopWordsRepository);
-        WordCountPrinter wordCountPrinter = createPrintStreamWordCountPrinter(applicationArgs.isPrintIndex());
+        WordsRepository dictionaryWordsRepository = createFileWordsRepository(applicationArgs.getDictionaryFilePath());
+        WordCountPrinter wordCountPrinter = createPrintStreamWordCountPrinter(dictionaryWordsRepository, applicationArgs.isPrintIndex());
+
+        String text = textProvider.provideText();
         WordCount wordCount = wordCounter.countWords(text);
+
         wordCountPrinter.printWordCount(wordCount, System.out);
     }
 
@@ -26,16 +30,24 @@ public class WordCountApp {
         return factory.createTextProvider();
     }
 
-    private StopWordsRepository createResourceStopWordsRepository() {
-        return new ResourceStopWordsRepository("stopwords.txt");
+    private WordsRepository createResourceWordsRepository(String resource) {
+        return new ResourceWordsRepository(resource);
     }
 
-    private WordCounter createBasicWordCounter(StopWordsRepository stopWordsRepository) {
+    private WordsRepository createFileWordsRepository(Path filePath) {
+        if (filePath != null) {
+            return new FileWordsRepository(filePath);
+        } else {
+            return null;
+        }
+    }
+
+    private WordCounter createBasicWordCounter(WordsRepository stopWordsRepository) {
         return new BasicWordCounter(stopWordsRepository);
     }
 
-    private WordCountPrinter createPrintStreamWordCountPrinter(boolean printIndex) {
-        return new PrintStreamWordCountPrinter(printIndex);
+    private WordCountPrinter createPrintStreamWordCountPrinter(WordsRepository dictionaryWordsRepository, boolean printIndex) {
+        return new PrintStreamWordCountPrinter(dictionaryWordsRepository, printIndex);
     }
 
     public static void main(String[] args) {

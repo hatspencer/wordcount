@@ -12,7 +12,7 @@ public class BasicWordCounterTest {
 
     @Test
     public void countWords_emptyStopWords() {
-        StopWordsRepository stopWordsRepository = mockStopWordsRepository();
+        WordsRepository stopWordsRepository = mockStopWordsRepository();
         WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
 
         WordCount wordCount = wordCounter.countWords("word word word");
@@ -31,7 +31,7 @@ public class BasicWordCounterTest {
 
     @Test
     public void countWords_testStopWords() {
-        StopWordsRepository stopWordsRepository = mockStopWordsRepository("a", "alpha", "beta");
+        WordsRepository stopWordsRepository = mockStopWordsRepository("a", "alpha", "beta");
         WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
 
         WordCount wordCount = wordCounter.countWords("alpha alpha a beta a gamma gamma");
@@ -41,7 +41,7 @@ public class BasicWordCounterTest {
 
     @Test
     public void countWords_averageWordLength() {
-        StopWordsRepository stopWordsRepository = mockStopWordsRepository();
+        WordsRepository stopWordsRepository = mockStopWordsRepository();
         WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
 
         WordCount wordCount = wordCounter.countWords("aaa bbbb ccccc dddddd");
@@ -50,7 +50,7 @@ public class BasicWordCounterTest {
 
     @Test
     public void countWords_index() {
-        StopWordsRepository stopWordsRepository = mockStopWordsRepository();
+        WordsRepository stopWordsRepository = mockStopWordsRepository();
         WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
 
         WordCount wordCount = wordCounter.countWords("aaa bbb aaa");
@@ -58,7 +58,7 @@ public class BasicWordCounterTest {
         Assert.assertEquals(expectedIndex, wordCount.getIndex());
     }
 
-    private StopWordsRepository mockStopWordsRepository(String... words) {
+    private WordsRepository mockStopWordsRepository(String... words) {
         return word -> Arrays.asList(words).contains(word);
     }
 }

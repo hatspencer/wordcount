@@ -1,6 +1,6 @@
 package hiring;
 
-public interface StopWordsRepository {
+public interface WordsRepository {
 
     boolean containsWord(String word);
 }

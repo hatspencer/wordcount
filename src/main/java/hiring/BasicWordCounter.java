@@ -9,9 +9,9 @@ public class BasicWordCounter implements WordCounter {
 
     private static final Pattern CORRECT_WORD_PATTERN = Pattern.compile("^[a-zA-Z\\-]+$");
 
-    private final StopWordsRepository stopWordsRepository;
+    private final WordsRepository stopWordsRepository;
 
-    public BasicWordCounter(StopWordsRepository stopWordsRepository) {
+    public BasicWordCounter(WordsRepository stopWordsRepository) {
         this.stopWordsRepository = stopWordsRepository;
     }
 

@@ -64,4 +64,4 @@ Examples:
 
 # Iteration 8
 
-* An dictionary is provided as a file. Words not found in dictionary will be marked with a star in index.
+* A dictionary is provided as a file. Words not found in the dictionary will be marked with a star in the index.
