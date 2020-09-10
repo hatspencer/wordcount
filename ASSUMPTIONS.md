@@ -47,5 +47,4 @@ Examples:
 # Iteration 4
 
 * The application will count number of unique words from those words counted normally.
-* Note: The application won't return same result for text "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."
-    as described in the Agility Kata IV because of different assumptions in iteration 1.
+* **Change of assumptions from iteration 1**. Following set of characters will split words `-.,:;_?!"(){}[]` and whitespace character.

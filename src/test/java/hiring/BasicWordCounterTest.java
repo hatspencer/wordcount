@@ -17,13 +17,14 @@ public class BasicWordCounterTest {
         Assert.assertEquals(3, wordCount.getTotal());
         Assert.assertEquals(1, wordCount.getUnique());
 
-        wordCount = wordCounter.countWords("word word        word\nword\tword");
+        wordCount = wordCounter.countWords("word word     word\nword\tword");
         Assert.assertEquals(5, wordCount.getTotal());
         Assert.assertEquals(1, wordCount.getUnique());
 
-        wordCount = wordCounter.countWords("word, word. word! word1word 2word word5 $word wor%d word&");
-        Assert.assertEquals(0, wordCount.getTotal());
-        Assert.assertEquals(0, wordCount.getUnique());
+        String testText = "word word-word.word,word:word;word_word?word!word\"word(word)word{word}word[word]word$word@";
+        wordCount = wordCounter.countWords(testText);
+        Assert.assertEquals(16, wordCount.getTotal());
+        Assert.assertEquals(1, wordCount.getUnique());
     }
 
     @Test
