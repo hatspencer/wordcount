@@ -9,11 +9,11 @@ import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ClasspathStopWordsRepository implements StopWordsRepository {
+public class ResourceStopWordsRepository implements StopWordsRepository {
 
     private final Set<String> words;
 
-    public ClasspathStopWordsRepository(String resource) {
+    public ResourceStopWordsRepository(String resource) {
         this.words = loadWords(resource);
     }
 

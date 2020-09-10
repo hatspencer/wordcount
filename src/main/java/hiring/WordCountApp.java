@@ -1,6 +1,6 @@
 package hiring;
 
-import hiring.input.ClasspathStopWordsRepository;
+import hiring.input.ResourceStopWordsRepository;
 import hiring.input.ConsoleTextProvider;
 
 public class WordCountApp {
@@ -8,7 +8,7 @@ public class WordCountApp {
     public void run() {
         TextProvider textProvider = createConsoleTextProvider();
         String text = textProvider.provideText();
-        StopWordsRepository stopWordsRepository = createClasspathStopWordsRepository();
+        StopWordsRepository stopWordsRepository = createResourceStopWordsRepository();
         WordCounter wordCounter = createBasicWordCounter(stopWordsRepository);
         int count = wordCounter.countWords(text);
         printOutput(count);
@@ -18,8 +18,8 @@ public class WordCountApp {
         return new ConsoleTextProvider();
     }
 
-    private StopWordsRepository createClasspathStopWordsRepository() {
-        return new ClasspathStopWordsRepository("stopwords.txt");
+    private StopWordsRepository createResourceStopWordsRepository() {
+        return new ResourceStopWordsRepository("stopwords.txt");
     }
 
     private WordCounter createBasicWordCounter(StopWordsRepository stopWordsRepository) {
