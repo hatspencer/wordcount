@@ -1,11 +1,16 @@
-https://ccd-school.de/coding-dojo/agility-katas/word-count-i/
+Not all words are relevant for counting. A list of stop words (provided in the file „stopwords.txt“) defines which words not to count. Example of stopwords.txt with each line containing a stop word:
 
-Write an application to count the number of words in a text. The app will ask the user for the text upon start. It will 
-then output the number of words found in the text. Words are stretches of letters (a-z,A-Z). Sample usage:
+```
+the
+a
+on
+off
+```
 
+Example usage:
 ```
 $ wordcount
 Enter text: Mary had a little lamb
-Number of words: 5
+Number of words: 4
 $
 ```
