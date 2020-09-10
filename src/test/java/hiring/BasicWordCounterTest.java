@@ -23,8 +23,8 @@ public class BasicWordCounterTest {
 
         String testText = "word word-word.word,word:word;word_word?word!word\"word(word)word{word}word[word]word$word@";
         wordCount = wordCounter.countWords(testText);
-        Assert.assertEquals(16, wordCount.getTotal());
-        Assert.assertEquals(1, wordCount.getUnique());
+        Assert.assertEquals(15, wordCount.getTotal());
+        Assert.assertEquals(2, wordCount.getUnique());
     }
 
     @Test

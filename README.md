@@ -1,10 +1,10 @@
-Agility Kata “Word Count IV”
+Agility Kata “Word Count V”
 
-The application not only shows the number of words, but also the number of unique words. Sample usage:
+Words containing a hypen are no longer separated, e.g. „Humpty-Dumpty“ will be considered 1 word instead of 2.
 
 ```
 $ wordcount
 Enter text: Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.
-Number of words: 9, unique: 7
+Number of words: 7, unique: 6
 $
 ```

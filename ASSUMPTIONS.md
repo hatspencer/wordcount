@@ -48,3 +48,7 @@ Examples:
 
 * The application will count number of unique words from those words counted normally.
 * **Change of assumptions from iteration 1**. Following set of characters will split words `-.,:;_?!"(){}[]` and whitespace character.
+
+# Iteration 5
+
+* Words separated by hypen are not considered to be two words.

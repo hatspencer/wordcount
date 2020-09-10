@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class BasicWordCounter implements WordCounter {
 
-    private static final Pattern CORRECT_WORD_PATTERN = Pattern.compile("^[a-zA-Z]+$");
+    private static final Pattern CORRECT_WORD_PATTERN = Pattern.compile("^[a-zA-Z\\-]+$");
 
     private final StopWordsRepository stopWordsRepository;
 
@@ -17,7 +17,7 @@ public class BasicWordCounter implements WordCounter {
 
     @Override
     public WordCount countWords(String text) {
-        String[] words = text.split("[\\s\\-.,:;_?!\"(){}\\[\\]]");
+        String[] words = text.split("[\\s.,:;_?!\"(){}\\[\\]]");
 
         int totalWords = 0;
         Set<String> uniqueWords = new HashSet<>();
