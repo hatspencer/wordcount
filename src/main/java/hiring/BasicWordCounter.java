@@ -1,5 +1,7 @@
 package hiring;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,15 +16,18 @@ public class BasicWordCounter implements WordCounter {
     }
 
     @Override
-    public int countWords(String text) {
+    public WordCount countWords(String text) {
         String[] words = text.split("\\s");
-        int count = 0;
+
+        int totalWords = 0;
+        Set<String> uniqueWords = new HashSet<>();
         for (String word : words) {
             if (isCorrectWord(word) && !stopWordsRepository.containsWord(word)) {
-                count++;
+                totalWords++;
+                uniqueWords.add(word);
             }
         }
-        return count;
+        return new WordCount(totalWords, uniqueWords.size());
     }
 
     private boolean isCorrectWord(String word) {

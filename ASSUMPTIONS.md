@@ -44,3 +44,8 @@ Examples:
 * If non-existing or inaccessible file is provided application will print an error message and will fall back to reading text from console.  
     This additional assumption is based on my (vkuzel) question during interview.
 
+# Iteration 4
+
+* The application will count number of unique words from those words counted normally.
+* Note: The application won't return same result for text "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall."
+    as described in the Agility Kata IV because of different assumptions in iteration 1.

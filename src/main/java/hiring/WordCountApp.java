@@ -1,5 +1,6 @@
 package hiring;
 
+import hiring.WordCounter.WordCount;
 import hiring.input.ResourceStopWordsRepository;
 
 public class WordCountApp {
@@ -9,7 +10,7 @@ public class WordCountApp {
         String text = textProvider.provideText();
         StopWordsRepository stopWordsRepository = createResourceStopWordsRepository();
         WordCounter wordCounter = createBasicWordCounter(stopWordsRepository);
-        int count = wordCounter.countWords(text);
+        WordCount count = wordCounter.countWords(text);
         printOutput(count);
     }
 
@@ -26,8 +27,8 @@ public class WordCountApp {
         return new BasicWordCounter(stopWordsRepository);
     }
 
-    private void printOutput(int count) {
-        System.out.printf("Number of words: %d\n", count);
+    private void printOutput(WordCount wordCount) {
+        System.out.printf("Number of words: %d, unique: %d\n", wordCount.getTotal(), wordCount.getUnique());
     }
 
     public static void main(String[] args) {

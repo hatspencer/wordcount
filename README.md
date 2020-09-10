@@ -1,15 +1,10 @@
-Agility Kata “Word Count III”
+Agility Kata “Word Count IV”
 
-The application can be started with a filename to read the text from instead of entering it manually. If no filename is provided, the application will still ask for a text. Sample usage:
+The application not only shows the number of words, but also the number of unique words. Sample usage:
 
 ```
-$ wordcount mytext.txt
-Number of words: 4
+$ wordcount
+Enter text: Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.
+Number of words: 9, unique: 7
 $
-```
-With mytext.txt being:
-```
-Mary had
-a little
-lamb
 ```

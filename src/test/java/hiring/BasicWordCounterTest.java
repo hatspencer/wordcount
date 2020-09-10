@@ -1,5 +1,6 @@
 package hiring;
 
+import hiring.WordCounter.WordCount;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,13 +13,17 @@ public class BasicWordCounterTest {
         StopWordsRepository stopWordsRepository = mockStopWordsRepository();
         WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
 
-        Assert.assertEquals(1, wordCounter.countWords("word"));
-        Assert.assertEquals(3, wordCounter.countWords("word word word"));
-        Assert.assertEquals(4, wordCounter.countWords("word word        word      word"));
-        Assert.assertEquals(3, wordCounter.countWords("word\nword\tword"));
-        Assert.assertEquals(0, wordCounter.countWords("word, word. word!"));
-        Assert.assertEquals(0, wordCounter.countWords("word1word 2word word5"));
-        Assert.assertEquals(0, wordCounter.countWords("$word wor%d word&"));
+        WordCount wordCount = wordCounter.countWords("word word word");
+        Assert.assertEquals(3, wordCount.getTotal());
+        Assert.assertEquals(1, wordCount.getUnique());
+
+        wordCount = wordCounter.countWords("word word        word\nword\tword");
+        Assert.assertEquals(5, wordCount.getTotal());
+        Assert.assertEquals(1, wordCount.getUnique());
+
+        wordCount = wordCounter.countWords("word, word. word! word1word 2word word5 $word wor%d word&");
+        Assert.assertEquals(0, wordCount.getTotal());
+        Assert.assertEquals(0, wordCount.getUnique());
     }
 
     @Test
@@ -26,7 +31,9 @@ public class BasicWordCounterTest {
         StopWordsRepository stopWordsRepository = mockStopWordsRepository("a", "alpha", "beta");
         WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
 
-        Assert.assertEquals(1, wordCounter.countWords("alpha a beta a gamma"));
+        WordCount wordCount = wordCounter.countWords("alpha alpha a beta a gamma gamma");
+        Assert.assertEquals(2, wordCount.getTotal());
+        Assert.assertEquals(1, wordCount.getUnique());
     }
 
     private StopWordsRepository mockStopWordsRepository(String... words) {
