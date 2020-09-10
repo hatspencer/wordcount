@@ -1,7 +1,7 @@
 package hiring.input;
 
-import hiring.TextProvider;
 import hiring.TextProviderFactory;
+import hiring.TextSupplier;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +14,7 @@ public class BasicTextProviderFactory implements TextProviderFactory {
         this.inputFilePath = inputFilePath;
     }
 
-    public TextProvider createTextProvider() {
+    public TextSupplier createTextProvider() {
         if (inputFilePath == null) {
             return new ConsoleTextProvider();
         } else if (Files.isReadable(inputFilePath)) {

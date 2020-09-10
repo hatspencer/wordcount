@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileTextProviderTest {
+public class FileTextSupplierTest {
 
     @Test
     public void provideText() {
@@ -15,13 +15,17 @@ public class FileTextProviderTest {
         Path filePath = TestUtils.createTempFile("file-text-provider-test", "txt", testText);
         FileTextProvider fileTextProvider = new FileTextProvider(filePath);
 
-        Assert.assertEquals(testText, fileTextProvider.provideText());
+        StringBuilder builder = new StringBuilder();
+        fileTextProvider.supplyText(builder::append);
+
+        Assert.assertEquals(testText, builder.toString());
     }
 
     @Test(expected = IllegalStateException.class)
     public void provideText_fileNotFound() {
         Path filePath = Paths.get("random");
         FileTextProvider fileTextProvider = new FileTextProvider(filePath);
-        fileTextProvider.provideText();
+        fileTextProvider.supplyText(text -> {
+        });
     }
 }

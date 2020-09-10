@@ -1,6 +1,7 @@
 package hiring;
 
+// TODO Rename to TextSupplierFactory
 public interface TextProviderFactory {
 
-    TextProvider createTextProvider();
+    TextSupplier createTextProvider();
 }

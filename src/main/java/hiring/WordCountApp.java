@@ -13,19 +13,19 @@ public class WordCountApp {
 
     public void run(String[] args) {
         ApplicationArgs applicationArgs = new ApplicationArgs(args);
-        TextProvider textProvider = createTextProvider(applicationArgs.getInputFilePath());
+        TextSupplier textProvider = createTextSupplier(applicationArgs.getInputFilePath());
         WordsRepository stopWordsRepository = createResourceWordsRepository("stopwords.txt");
         WordCounter wordCounter = createBasicWordCounter(stopWordsRepository);
         WordsRepository dictionaryWordsRepository = createFileWordsRepository(applicationArgs.getDictionaryFilePath());
         WordCountPrinter wordCountPrinter = createPrintStreamWordCountPrinter(dictionaryWordsRepository, applicationArgs.isPrintIndex());
 
-        String text = textProvider.provideText();
-        WordCount wordCount = wordCounter.countWords(text);
-
-        wordCountPrinter.printWordCount(wordCount, System.out);
+        textProvider.supplyText(text -> {
+            WordCount wordCount = wordCounter.countWords(text);
+            wordCountPrinter.printWordCount(wordCount, System.out);
+        });
     }
 
-    private TextProvider createTextProvider(Path inputFilePath) {
+    private TextSupplier createTextSupplier(Path inputFilePath) {
         TextProviderFactory factory = new BasicTextProviderFactory(inputFilePath);
         return factory.createTextProvider();
     }

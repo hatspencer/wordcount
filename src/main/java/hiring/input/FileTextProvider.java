@@ -1,12 +1,13 @@
 package hiring.input;
 
-import hiring.TextProvider;
+import hiring.TextSupplier;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 
-public class FileTextProvider implements TextProvider {
+public class FileTextProvider implements TextSupplier {
 
     private final Path filePath;
 
@@ -15,10 +16,10 @@ public class FileTextProvider implements TextProvider {
     }
 
     @Override
-    public String provideText() {
+    public void supplyText(Consumer<String> textConsumer) {
         try {
             byte[] bytes = Files.readAllBytes(filePath);
-            return new String(bytes);
+            textConsumer.accept(new String(bytes));
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }

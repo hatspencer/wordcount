@@ -11,12 +11,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class BasicTextProviderFactoryTest {
+public class BasicTextSupplierFactoryTest {
 
     @Test
     public void createTextProvider_consoleInput() {
         BasicTextProviderFactory factory = new BasicTextProviderFactory(null);
-        TextProvider textProvider = factory.createTextProvider();
+        TextSupplier textProvider = factory.createTextProvider();
 
         Assert.assertEquals(ConsoleTextProvider.class, textProvider.getClass());
     }
@@ -25,7 +25,7 @@ public class BasicTextProviderFactoryTest {
     public void createTextProvider_fileInput() {
         Path filePath = createTestFile();
         BasicTextProviderFactory factory = new BasicTextProviderFactory(filePath);
-        TextProvider textProvider = factory.createTextProvider();
+        TextSupplier textProvider = factory.createTextProvider();
 
         Assert.assertEquals(FileTextProvider.class, textProvider.getClass());
     }
@@ -34,7 +34,7 @@ public class BasicTextProviderFactoryTest {
     public void createTextProvider_fileNotFound() {
         Path filePath = Paths.get("random");
         BasicTextProviderFactory factory = new BasicTextProviderFactory(filePath);
-        TextProvider textProvider = factory.createTextProvider();
+        TextSupplier textProvider = factory.createTextProvider();
 
         Assert.assertEquals(ConsoleTextProvider.class, textProvider.getClass());
     }

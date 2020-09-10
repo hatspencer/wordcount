@@ -65,3 +65,8 @@ Examples:
 # Iteration 8
 
 * A dictionary is provided as a file. Words not found in the dictionary will be marked with a star in the index.
+
+# Iteration 9
+
+* If an input is read from console, user should be allowed to enter several texts. Application will analyze each text 
+    like it is executed several times. 

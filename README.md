@@ -1,28 +1,15 @@
-Agility Kata “Word Count VIII”
+Agility Kata “Word Count IX”
 
-Optionally the text can be checked against a dictionary of known words. If the index is printed it will mark words not found in the dictionary with a star and state the number of unknown words, e.g.
+Allow the user to enter several texts and get them analyzed. The program is terminated by entering an empty text:
 
 ```
-$ wordcount -index -dictionary=dict.txt
+$ wordcount
 Enter text: Mary had a little lamb
 Number of words: 4, unique: 4; average word length: 4.25 characters
-Index (unknown: 2):
-had
-lamb*
-little
-Mary*
+ 
+Enter text: a bb ccc dddd
+Number of words: 4, unique: 4; average word length: 2.5 characters
+ 
+Enter text:
 $
-```
-
-With dict.txt being:
-
-```
-big
-small
-little
-cat
-dog
-have
-has
-had
 ```
