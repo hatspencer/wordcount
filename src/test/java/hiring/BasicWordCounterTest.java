@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BasicWordCounterTest {
 
@@ -44,6 +46,16 @@ public class BasicWordCounterTest {
 
         WordCount wordCount = wordCounter.countWords("aaa bbbb ccccc dddddd");
         Assert.assertEquals(4.5, wordCount.getAverageWordLength(), 0.00001);
+    }
+
+    @Test
+    public void countWords_index() {
+        StopWordsRepository stopWordsRepository = mockStopWordsRepository();
+        WordCounter wordCounter = new BasicWordCounter(stopWordsRepository);
+
+        WordCount wordCount = wordCounter.countWords("aaa bbb aaa");
+        Set<String> expectedIndex = new HashSet<>(Arrays.asList("aaa", "bbb"));
+        Assert.assertEquals(expectedIndex, wordCount.getIndex());
     }
 
     private StopWordsRepository mockStopWordsRepository(String... words) {

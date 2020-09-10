@@ -1,21 +1,28 @@
 package hiring;
 
 import hiring.WordCounter.WordCount;
+import hiring.input.ApplicationArgs;
+import hiring.input.BasicTextProviderFactory;
 import hiring.input.ResourceStopWordsRepository;
+import hiring.output.PrintStreamWordCountPrinter;
+
+import java.nio.file.Path;
 
 public class WordCountApp {
 
     public void run(String[] args) {
-        TextProvider textProvider = createTextProvider(args);
+        ApplicationArgs applicationArgs = new ApplicationArgs(args);
+        TextProvider textProvider = createTextProvider(applicationArgs.getInputFilePath());
         String text = textProvider.provideText();
         StopWordsRepository stopWordsRepository = createResourceStopWordsRepository();
         WordCounter wordCounter = createBasicWordCounter(stopWordsRepository);
-        WordCount count = wordCounter.countWords(text);
-        printOutput(count);
+        WordCountPrinter wordCountPrinter = createPrintStreamWordCountPrinter(applicationArgs.isPrintIndex());
+        WordCount wordCount = wordCounter.countWords(text);
+        wordCountPrinter.printWordCount(wordCount, System.out);
     }
 
-    private TextProvider createTextProvider(String[] args) {
-        TextProviderFactory factory = new TextProviderFactory(args);
+    private TextProvider createTextProvider(Path inputFilePath) {
+        TextProviderFactory factory = new BasicTextProviderFactory(inputFilePath);
         return factory.createTextProvider();
     }
 
@@ -27,9 +34,8 @@ public class WordCountApp {
         return new BasicWordCounter(stopWordsRepository);
     }
 
-    private void printOutput(WordCount wordCount) {
-        System.out.printf("Number of words: %d, unique: %d; average word length: %.2f characters\n",
-                wordCount.getTotal(), wordCount.getUnique(), wordCount.getAverageWordLength());
+    private WordCountPrinter createPrintStreamWordCountPrinter(boolean printIndex) {
+        return new PrintStreamWordCountPrinter(printIndex);
     }
 
     public static void main(String[] args) {

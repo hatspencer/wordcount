@@ -1,5 +1,7 @@
 package hiring;
 
+import java.util.Set;
+
 public interface WordCounter {
 
     WordCount countWords(String text);
@@ -9,11 +11,13 @@ public interface WordCounter {
         private final int total;
         private final int unique;
         private final float averageWordLength;
+        private final Set<String> index;
 
-        public WordCount(int total, int unique, float averageWordLength) {
+        public WordCount(int total, int unique, float averageWordLength, Set<String> index) {
             this.total = total;
             this.unique = unique;
             this.averageWordLength = averageWordLength;
+            this.index = index;
         }
 
         public int getTotal() {
@@ -26,6 +30,10 @@ public interface WordCounter {
 
         public float getAverageWordLength() {
             return averageWordLength;
+        }
+
+        public Set<String> getIndex() {
+            return index;
         }
     }
 }

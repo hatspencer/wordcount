@@ -20,18 +20,18 @@ public class BasicWordCounter implements WordCounter {
         String[] words = text.split("[\\s.,:;_?!\"(){}\\[\\]]");
 
         int totalWords = 0;
-        Set<String> uniqueWords = new HashSet<>();
+        Set<String> index = new HashSet<>();
         int totalWordsLength = 0;
 
         for (String word : words) {
             if (isCorrectWord(word) && !stopWordsRepository.containsWord(word)) {
                 totalWords++;
-                uniqueWords.add(word);
+                index.add(word);
                 totalWordsLength += word.length();
             }
         }
 
-        return new WordCount(totalWords, uniqueWords.size(), (float) totalWordsLength / totalWords);
+        return new WordCount(totalWords, index.size(), (float) totalWordsLength / totalWords, index);
     }
 
     private boolean isCorrectWord(String word) {
