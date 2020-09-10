@@ -1,16 +1,15 @@
-Not all words are relevant for counting. A list of stop words (provided in the file „stopwords.txt“) defines which words not to count. Example of stopwords.txt with each line containing a stop word:
+Agility Kata “Word Count III”
+
+The application can be started with a filename to read the text from instead of entering it manually. If no filename is provided, the application will still ask for a text. Sample usage:
 
 ```
-the
-a
-on
-off
-```
-
-Example usage:
-```
-$ wordcount
-Enter text: Mary had a little lamb
+$ wordcount mytext.txt
 Number of words: 4
 $
+```
+With mytext.txt being:
+```
+Mary had
+a little
+lamb
 ```

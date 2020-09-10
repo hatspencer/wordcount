@@ -36,3 +36,11 @@ Examples:
 * Collection of stop-words provided by a file which is a part of the application (should reside in resources directory).
 * Stop-words should not be counted.
 * All provided stop-words are valid, it is not necessary to validate those.
+
+# Iteration 3
+
+* A file containing words to count can be provided as a program argument. In that case program should count words in a file.
+* If no file is provided application will read for text from console.
+* If non-existing or inaccessible file is provided application will print an error message and will fall back to reading text from console.  
+    This additional assumption is based on my (vkuzel) question during interview.
+
