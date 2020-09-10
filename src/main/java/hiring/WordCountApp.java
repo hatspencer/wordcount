@@ -1,12 +1,11 @@
 package hiring;
 
 import hiring.input.ResourceStopWordsRepository;
-import hiring.input.ConsoleTextProvider;
 
 public class WordCountApp {
 
-    public void run() {
-        TextProvider textProvider = createConsoleTextProvider();
+    public void run(String[] args) {
+        TextProvider textProvider = createTextProvider(args);
         String text = textProvider.provideText();
         StopWordsRepository stopWordsRepository = createResourceStopWordsRepository();
         WordCounter wordCounter = createBasicWordCounter(stopWordsRepository);
@@ -14,8 +13,9 @@ public class WordCountApp {
         printOutput(count);
     }
 
-    private TextProvider createConsoleTextProvider() {
-        return new ConsoleTextProvider();
+    private TextProvider createTextProvider(String[] args) {
+        TextProviderFactory factory = new TextProviderFactory(args);
+        return factory.createTextProvider();
     }
 
     private StopWordsRepository createResourceStopWordsRepository() {
@@ -31,6 +31,6 @@ public class WordCountApp {
     }
 
     public static void main(String[] args) {
-        new WordCountApp().run();
+        new WordCountApp().run(args);
     }
 }
