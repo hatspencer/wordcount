@@ -1,30 +1,23 @@
 package hiring;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import hiring.input.ConsoleTextProvider;
 
 public class WordCountApp {
 
     public void run() {
-        String text = readText();
+        TextProvider textProvider = createConsoleTextProvider();
+        String text = textProvider.provideText();
         WordCounter wordCounter = createBasicWordCounter();
         int count = wordCounter.countWords(text);
         printOutput(count);
     }
 
-    private WordCounter createBasicWordCounter() {
-        return new BasicWordCounter();
+    private TextProvider createConsoleTextProvider() {
+        return new ConsoleTextProvider();
     }
 
-    // TODO Externalize?
-    private String readText() {
-        System.out.print("Enter text: ");
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            return reader.readLine();
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+    private WordCounter createBasicWordCounter() {
+        return new BasicWordCounter();
     }
 
     private void printOutput(int count) {
