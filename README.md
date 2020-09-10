@@ -1,15 +1,28 @@
-Agility Kata “Word Count VII”
+Agility Kata “Word Count VIII”
 
-Optionally an index of all counted words is printed. Sample usage:
+Optionally the text can be checked against a dictionary of known words. If the index is printed it will mark words not found in the dictionary with a star and state the number of unknown words, e.g.
 
 ```
-$ wordcount -index
+$ wordcount -index -dictionary=dict.txt
 Enter text: Mary had a little lamb
 Number of words: 4, unique: 4; average word length: 4.25 characters
-Index:
+Index (unknown: 2):
 had
-lamb
+lamb*
 little
-Mary
+Mary*
 $
+```
+
+With dict.txt being:
+
+```
+big
+small
+little
+cat
+dog
+have
+has
+had
 ```

@@ -62,3 +62,6 @@ Examples:
 
 * An index (set of unique words) is printed if an argument `-index` is provided.
 
+# Iteration 8
+
+* An dictionary is provided as a file. Words not found in dictionary will be marked with a star in index.
