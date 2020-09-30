@@ -19,7 +19,8 @@ public class CountServiceIntegrationTest {
 
     @Test
     public void shouldNotCountStopwords() {
-        int result = countService.countWords("Mary had a little lamb");
-        assertEquals(4, result);
+        Statistics result = countService.countWords("Mary had a little lamb");
+        assertEquals(4, result.getAllWordCount());
+        assertEquals(4, result.getUniqueWordCount());
     }
 }

@@ -17,7 +17,8 @@ public class Application {
         } else {
             inputProcessorService = new StandardInputProcessorService();
         }
-        Application application = new Application(new CountService(stopWordsService.getStopWords()), inputProcessorService);
+        SanitizingService sanitizingService = new SanitizingService(stopWordsService.getStopWords());
+        Application application = new Application(new CountService(sanitizingService), inputProcessorService);
         application.execute();
     }
 
@@ -25,8 +26,8 @@ public class Application {
 
         String inputText = inputProcessorService.prepareTextInput();
 
-        int numberOfWords = countService.countWords(inputText);
+        Statistics statistics = countService.countWords(inputText);
 
-        System.out.println("Number of words: " + numberOfWords);
+        System.out.println("Number of words: " + statistics.getAllWordCount() + ", unique: " + statistics.getUniqueWordCount());
     }
 }

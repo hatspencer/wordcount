@@ -1,25 +1,29 @@
-import java.util.Set;
+import java.util.*;
 
 public class CountService {
 
-    private Set<String> stopwords;
+    private SanitizingService sanitizingService;
 
-    public CountService(Set<String> stopwords) {
-        this.stopwords = stopwords;
+    public CountService(SanitizingService sanitizingService) {
+        this.sanitizingService = sanitizingService;
     }
 
-    public int countWords(String text) {
-        if (text == null) {
-            return 0;
-        }
-        String[] textParts = text.split("\\s");
-        int count = 0;
+    public Statistics countWords(String text) {
+        List<String> sanitizedWords = sanitizingService.getSanitizedWords(text);
+        Statistics statistics = new Statistics();
+        statistics.setUniqueWordCount(countUniqueWords(sanitizedWords));
+        statistics.setAllWordCount(countAllWords(sanitizedWords));
+        return statistics;
+    }
 
-        for (String word: textParts) {
-            if (!stopwords.contains(word) && word.matches("[a-zA-Z]+")) {
-                count++;
-            }
-        }
-        return count;
+
+
+    private int countUniqueWords(List<String> textParts) {
+        Set<String> uniqueWords = new HashSet<>(textParts);
+        return uniqueWords.size();
+    }
+
+    private int countAllWords(List<String> textParts) {
+        return textParts.size();
     }
 }
