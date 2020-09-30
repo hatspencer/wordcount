@@ -14,7 +14,8 @@ public class CountServiceIntegrationTest {
     public void initialize() {
         stopWordsService = new StopWordsService();
         Set<String> stopwords = stopWordsService.getStopWords();
-        countService = new CountService(stopwords);
+        SanitizingService sanitizingService = new SanitizingServiceImpl(stopwords);
+        countService = new CountService(sanitizingService);
     }
 
     @Test

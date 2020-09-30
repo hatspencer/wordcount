@@ -17,7 +17,7 @@ public class Application {
         } else {
             inputProcessorService = new StandardInputProcessorService();
         }
-        SanitizingService sanitizingService = new SanitizingService(stopWordsService.getStopWords());
+        SanitizingService sanitizingService = new SanitizingServiceImpl(stopWordsService.getStopWords());
         Application application = new Application(new CountService(sanitizingService), inputProcessorService);
         application.execute();
     }
