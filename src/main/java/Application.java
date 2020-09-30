@@ -3,23 +3,23 @@ import java.util.Scanner;
 public class Application {
 
     private CountService countService;
+    private InputProcessorService inputProcessorService;
 
-    public Application(CountService countService) {
+    public Application(CountService countService, InputProcessorService inputProcessorService) {
         this.countService = countService;
+        this.inputProcessorService = inputProcessorService;
     }
 
     public static void main(String[] args) {
         StopWordsService stopWordsService = new StopWordsService();
-        Application application = new Application(new CountService(stopWordsService.getStopWords()));
+        InputProcessorService inputProcessorService = new StandardInputProcessorService();
+        Application application = new Application(new CountService(stopWordsService.getStopWords()), inputProcessorService);
         application.execute();
     }
 
     public void execute() {
-        System.out.print("Enter text: ");
 
-        Scanner scanner = new Scanner(System.in);
-        String inputText = scanner.nextLine();
-        scanner.close();
+        String inputText = inputProcessorService.prepareTextInput();
 
         int numberOfWords = countService.countWords(inputText);
 
