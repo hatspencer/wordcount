@@ -15,11 +15,11 @@ public class SanitizingServiceImpl implements SanitizingService {
         if (text == null) {
             return new ArrayList<>();
         }
-        String[] textParts = text.split("\\s|\\.|-");
+        String[] textParts = text.split("\\s|\\.");
 
         List<String> sanitizedWords = new ArrayList<>();
         for (String word: textParts) {
-            if (!stopwords.contains(word) && word.matches("[a-zA-Z]+")) {
+            if (!stopwords.contains(word) && word.matches("[a-zA-Z|-]+")) {
                 sanitizedWords.add(word);
             }
         }

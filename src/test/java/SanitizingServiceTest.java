@@ -62,4 +62,11 @@ public class SanitizingServiceTest {
         assertEquals(2, result.size());
         assertEquals(Arrays.asList("test", "test"),result);
     }
+
+    @Test
+    public void shouldIncludeWordsWithHyphenAsOne() {
+        List<String> result = sanitizingService.getSanitizedWords("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+        assertEquals(7, result.size());
+        assertEquals(Arrays.asList("Humpty-Dumpty","sat","wall", "Humpty-Dumpty", "had", "great", "fall"),result);
+    }
 }
