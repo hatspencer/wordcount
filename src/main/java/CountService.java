@@ -1,4 +1,12 @@
+import java.util.Set;
+
 public class CountService {
+
+    private Set<String> stopwords;
+
+    public CountService(Set<String> stopwords) {
+        this.stopwords = stopwords;
+    }
 
     public int countWords(String text) {
         if (text == null) {
