@@ -13,6 +13,7 @@ public class CountService {
         Statistics statistics = new Statistics();
         statistics.setUniqueWordCount(countUniqueWords(sanitizedWords));
         statistics.setAllWordCount(countAllWords(sanitizedWords));
+        statistics.setAverageLength(countAverageLength(sanitizedWords));
         return statistics;
     }
 
@@ -25,5 +26,16 @@ public class CountService {
 
     private int countAllWords(List<String> textParts) {
         return textParts.size();
+    }
+
+    private double countAverageLength(List<String> textParts) {
+        if (textParts.isEmpty()) {
+            return 0;
+        }
+        long sum = 0;
+        for (String word : textParts) {
+            sum += word.length();
+        }
+        return (double) sum / textParts.size();
     }
 }

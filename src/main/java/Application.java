@@ -28,6 +28,15 @@ public class Application {
 
         Statistics statistics = countService.countWords(inputText);
 
-        System.out.println("Number of words: " + statistics.getAllWordCount() + ", unique: " + statistics.getUniqueWordCount());
+        StringBuilder sb = new StringBuilder();
+        sb.append("Number of words: ")
+                .append(statistics.getAllWordCount())
+                .append(", unique: " )
+                .append(statistics.getUniqueWordCount())
+                .append("; average word length: ")
+                .append(String.format("%.2f", statistics.getAverageLength()))
+                .append(" characters");
+
+        System.out.println(sb.toString());
     }
 }

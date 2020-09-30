@@ -23,5 +23,6 @@ public class CountServiceIntegrationTest {
         Statistics result = countService.countWords("Mary had a little lamb");
         assertEquals(4, result.getAllWordCount());
         assertEquals(4, result.getUniqueWordCount());
+        assertEquals(4.25, result.getAverageLength(), 0.0001);
     }
 }
