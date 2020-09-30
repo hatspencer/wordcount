@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Application {
 
@@ -12,7 +11,12 @@ public class Application {
 
     public static void main(String[] args) {
         StopWordsService stopWordsService = new StopWordsService();
-        InputProcessorService inputProcessorService = new StandardInputProcessorService();
+        InputProcessorService inputProcessorService;
+        if(args != null && args.length == 1) {
+            inputProcessorService = new FileInputProcessorService(args[0]);
+        } else {
+            inputProcessorService = new StandardInputProcessorService();
+        }
         Application application = new Application(new CountService(stopWordsService.getStopWords()), inputProcessorService);
         application.execute();
     }
