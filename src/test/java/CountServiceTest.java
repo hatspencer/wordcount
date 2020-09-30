@@ -2,6 +2,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 
 public class CountServiceTest {
@@ -10,7 +13,11 @@ public class CountServiceTest {
 
     @Before
     public void initilize() {
-        countService = new CountService();
+        Set<String> stopWords = new HashSet<>();
+        stopWords.add("a");
+        stopWords.add("the");
+
+        countService = new CountService(stopWords);
     }
 
     @Test
@@ -43,5 +50,10 @@ public class CountServiceTest {
         assertEquals(2, result);
     }
 
+    @Test
+    public void shouldNotCountStopWords() {
+        int result = countService.countWords("test a test");
+        assertEquals(2, result);
+    }
 
 }

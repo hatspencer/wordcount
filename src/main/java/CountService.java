@@ -16,7 +16,7 @@ public class CountService {
         int count = 0;
 
         for (String word: textParts) {
-            if (word.matches("[a-zA-Z]+")) {
+            if (!stopwords.contains(word) && word.matches("[a-zA-Z]+")) {
                 count++;
             }
         }
