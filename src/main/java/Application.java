@@ -35,7 +35,11 @@ public class Application {
                 .append(statistics.getUniqueWordCount())
                 .append("; average word length: ")
                 .append(String.format("%.2f", statistics.getAverageLength()))
-                .append(" characters");
+                .append(String.format(" characters%n"));
+        for (String word : statistics.getAllUniqueWords()) {
+            sb.append(word);
+            sb.append(String.format("%n"));
+        }
 
         System.out.println(sb.toString());
     }
