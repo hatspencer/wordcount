@@ -19,7 +19,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_261\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\MRTON~1\AppData\Local\Temp\surefire5477673456261015664\surefirebooter7251141073293224893.jar C:\Users\Márton\AppData\Local\Temp\surefire5477673456261015664 2020-10-15T16-37-07_165-jvmRun1 surefire5372375835985180012tmp surefire_01309190560493634941tmp"/>
+    <property name="sun.java.command" value="C:\Users\MRTON~1\AppData\Local\Temp\surefire7896715005899051907\surefirebooter353997490019993443.jar C:\Users\Márton\AppData\Local\Temp\surefire7896715005899051907 2020-10-15T16-48-14_094-jvmRun1 surefire8730109231686756042tmp surefire_07904162269023776054tmp"/>
     <property name="surefire.test.class.path" value="C:\Documents\Git\demoday\wordcount\target\test-classes;C:\Documents\Git\demoday\wordcount\target\classes;C:\Users\Márton\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\Márton\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\Márton"/>
@@ -32,7 +32,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\MRTON~1\AppData\Local\Temp\surefire5477673456261015664\surefirebooter7251141073293224893.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\MRTON~1\AppData\Local\Temp\surefire7896715005899051907\surefirebooter353997490019993443.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_261\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_261\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_261\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -70,5 +70,5 @@
   <testcase name="testWordCountWithOnlyWhiteSpace" classname="WordCounterTest" time="0"/>
   <testcase name="testWordCountNewLineInText" classname="WordCounterTest" time="0"/>
   <testcase name="testWordCountMaryExample" classname="WordCounterTest" time="0"/>
-  <testcase name="testWordCount1WordExample" classname="WordCounterTest" time="0.001"/>
+  <testcase name="testWordCount1WordExample" classname="WordCounterTest" time="0"/>
 </testsuite>

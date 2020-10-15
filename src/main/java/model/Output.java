@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Marton Bartal on 15.10.2020.
@@ -9,15 +10,16 @@ public class Output {
     private int wordCount;
     private int uniqueWordCount;
     private double avgWordLength;
-    private HashSet<String> index;
+    private Set<String> index;
 
     public Output() {
     }
 
-    public Output(int wordCount, int uniqueWordCount, double avgWordLength) {
+    public Output(int wordCount, int uniqueWordCount, double avgWordLength, Set<String> index) {
         this.wordCount = wordCount;
         this.uniqueWordCount = uniqueWordCount;
         this.avgWordLength = avgWordLength;
+        this.index= index;
     }
 
     public void setWordCount(int wordCount) {
@@ -44,11 +46,11 @@ public class Output {
         this.avgWordLength = avgWordLength;
     }
 
-    public HashSet<String> getIndex() {
+    public Set<String> getIndex() {
         return index;
     }
 
-    public void setIndex(HashSet<String> index) {
+    public void setIndex(Set<String> index) {
         this.index = index;
     }
 
