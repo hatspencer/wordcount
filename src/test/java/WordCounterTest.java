@@ -8,16 +8,17 @@ import static org.junit.Assert.assertEquals;
  */
 public class WordCounterTest {
 
+    private static final String WRONG_WORD_CNT_ERR_MSG = "Wrong word count.";
     private WordCounter wordCounter = new WordCounter();
 
     @Test
     public void testWordCountMaryExample() {
 
         String testText = "Mary had a little lamb";
-        int expected = 5;
+        int expected = 4;
         int result = wordCounter.countWords(testText);
 
-        assertEquals("Wrong word count.", expected, result);
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -27,7 +28,7 @@ public class WordCounterTest {
         int expected = 1;
         int result = wordCounter.countWords(testText);
 
-        assertEquals("Wrong word count.", expected, result);
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -37,7 +38,7 @@ public class WordCounterTest {
         int expected = 4;
         int result = wordCounter.countWords(testText);
 
-        assertEquals("Wrong word count.", expected, result);
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -47,7 +48,7 @@ public class WordCounterTest {
         int expected = 0;
         int result = wordCounter.countWords(testText);
 
-        assertEquals("Wrong word count.", expected, result);
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -57,7 +58,7 @@ public class WordCounterTest {
         int expected = 0;
         int result = wordCounter.countWords(testText);
 
-        assertEquals("Wrong word count.", expected, result);
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -67,6 +68,28 @@ public class WordCounterTest {
         int expected = 2;
         int result = wordCounter.countWords(testText);
 
-        assertEquals("Wrong word count.", expected, result);
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+    }
+
+    // ITERATION 2
+
+    @Test
+    public void testWordCountStopWordsNotIncluded() {
+
+        String testText = "Mary had two little lambs";
+        int expected = 5;
+        int result = wordCounter.countWords(testText);
+
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+    }
+
+    @Test
+    public void testWordCountAllStopWordsIncluded() {
+
+        String testText = "the a on off";
+        int expected = 0;
+        int result = wordCounter.countWords(testText);
+
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
 }
