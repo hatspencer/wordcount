@@ -28,13 +28,13 @@ public class LineReaderImpl implements LineReader {
 
     @Override
     public List<String> readLinesFromFile() {
-        List<String> stopWords = new ArrayList<>();
+        List<String> resultLines = new ArrayList<>();
 
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream(this.fileName);
         if (is == null) {
-            System.out.println("File not found");
-            return stopWords;
+            System.err.println("File not found.");
+            return resultLines;
         }
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
@@ -42,12 +42,12 @@ public class LineReaderImpl implements LineReader {
             while (line != null) {
                 line = reader.readLine();
                 if (line != null && !line.isEmpty()) {
-                    stopWords.add(line);
+                    resultLines.add(line);
                 }
             }
         } catch (IOException e) {
-            System.out.println("There was an error reading the words from the file.");
+            System.err.println("There was an error reading the words from the file.");
         }
-        return stopWords;
+        return resultLines;
     }
 }

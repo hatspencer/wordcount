@@ -1,16 +1,16 @@
 package service.impl;
 
 import model.Output;
-import service.WordCounterService;
+import service.WordCounter;
 
 import java.util.HashSet;
 import java.util.List;
 
 /**
- * Class for word counting.
+ * Class for word counting related computation.
  * Assertion: whitespaces are "\\s+" and fullstops should be viewed as whitespaces;
  */
-public class WordCounterImpl implements WordCounterService {
+public class WordCounterImpl implements WordCounter {
 
     private static final String WHITESPACE_REGEX = "[\\s\\.]+";
     private static final String ALLOWED_WORD_CHARSET_REGEX = "[a-zA-Z\\-]+";
@@ -23,6 +23,10 @@ public class WordCounterImpl implements WordCounterService {
      */
     public WordCounterImpl(final List<String> stopWords) {
         this.stopWords = stopWords;
+    }
+
+    public List<String> getStopWords() {
+        return stopWords;
     }
 
     @Override

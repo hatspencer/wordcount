@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Marton Bartal on 15.10.2020.
- * Test for reading lines from files with the LineReader class.
+ * Tests for reading lines from files with the LineReader class.
  */
 public class LineReaderTest {
 

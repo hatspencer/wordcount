@@ -1,7 +1,7 @@
 import model.Input;
 import model.Output;
 import service.impl.WordCounterImpl;
-import service.WordCounterService;
+import service.WordCounter;
 import service.impl.LineReaderImpl;
 
 import java.util.Collections;
@@ -45,8 +45,8 @@ public class Application {
 
     private Output calculateOutput(Input input) {
         service.LineReader lineReader = new LineReaderImpl(STOPWORDS_FILENAME);
-        WordCounterService wordCounterService = new WordCounterImpl(lineReader.readLinesFromFile());
+        WordCounter wordCounter = new WordCounterImpl(lineReader.readLinesFromFile());
 
-        return wordCounterService.processInput(input.getInputText());
+        return wordCounter.processInput(input.getInputText());
     }
 }

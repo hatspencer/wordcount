@@ -1,5 +1,5 @@
 import org.junit.Test;
-import service.WordCounterService;
+import service.WordCounter;
 import service.impl.WordCounterImpl;
 
 import java.util.Arrays;
@@ -15,14 +15,14 @@ public class AverageLengthWordCounterTest {
     private static final List<String> stopWords = Arrays.asList("aa", "the", "on", "off");
 
     private static final String WRONG_WORD_CNT_ERR_MSG = "Wrong word count.";
-    private WordCounterService wordCounterService = new WordCounterImpl(stopWords);
+    private WordCounter wordCounter = new WordCounterImpl(stopWords);
 
     @Test
     public void testUniqueWordCountMaryExample() {
 
         String testText = "Mary Mary Mary Mary Mary";
         double expected = 4;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -32,7 +32,7 @@ public class AverageLengthWordCounterTest {
 
         String testText = "Mary";
         double expected = 4;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -42,7 +42,7 @@ public class AverageLengthWordCounterTest {
 
         String testText = "Mar2y Marie Mary Mary Mary Mary";
         double expected = 4.2;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -52,7 +52,7 @@ public class AverageLengthWordCounterTest {
 
         String testText = "      ";
         double expected = 0;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -62,7 +62,7 @@ public class AverageLengthWordCounterTest {
 
         String testText = "";
         double expected = 0;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -72,7 +72,7 @@ public class AverageLengthWordCounterTest {
 
         String testText = "Mary\nMary";
         double expected = 4;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -82,7 +82,7 @@ public class AverageLengthWordCounterTest {
 
         String testText = "Mary had two little lambs";
         double expected = 4.2;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -92,7 +92,7 @@ public class AverageLengthWordCounterTest {
 
         String testText = "the aa on off";
         double expected = 0;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
@@ -103,7 +103,7 @@ public class AverageLengthWordCounterTest {
         String testText = "Humpty-Dumpty satsats on aa wall. Humpty-Dumpty had aa great fall.";
 
         double expected = 7;
-        double result = wordCounterService.processInput(testText).getAvgWordLength();
+        double result = wordCounter.processInput(testText).getAvgWordLength();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
     }
