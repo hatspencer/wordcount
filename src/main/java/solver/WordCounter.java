@@ -1,9 +1,5 @@
 package solver;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,32 +8,21 @@ import java.util.List;
  */
 public class WordCounter {
 
-    private static final String STOPWORDS_FILENAME = "stopwords.txt";
     private static final String WHITESPACE_REGEX = "\\s+";
     private static final String ALLOWED_WORD_CHARSET_REGEX = "[a-zA-Z]+";
+    private final List<String> stopWords;
 
     /**
-     * Reads the stop words from the file.
-     * @return the list of stop words.
+     * Constructor for word counter
+     * @param stopWords stopwords to use for exclusion in counting
      */
-    public List<String> readStopWords() {
-        List<String> stopWords = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(STOPWORDS_FILENAME));) {
-            String line = "";
-            while (line != null) {
-                line = reader.readLine();
-                if (!line.isEmpty()) {
-                    stopWords.add(line);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("There was an error reading the stopwords.");
-        }
-        return stopWords;
+    public WordCounter(final List<String> stopWords) {
+        this.stopWords = stopWords;
     }
 
     /**
      * Counts the words in a text (words are characters enclosed by whitespaces)
+     * Stopwords are excluded in the counting
      *
      * @param text the input text to count words for
      * @return the number of words.
@@ -46,7 +31,7 @@ public class WordCounter {
         String[] arr = text.split(WHITESPACE_REGEX);
         int wordCount = arr.length;
         for (String word : arr) {
-            if (!word.matches(ALLOWED_WORD_CHARSET_REGEX)) {
+            if (!word.matches(ALLOWED_WORD_CHARSET_REGEX) || stopWords.contains(word)) {
                 wordCount--;
             }
         }

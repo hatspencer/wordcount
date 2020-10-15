@@ -1,6 +1,9 @@
 import org.junit.Test;
 import solver.WordCounter;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -8,13 +11,15 @@ import static org.junit.Assert.assertEquals;
  */
 public class WordCounterTest {
 
+    private static final List<String> stopWords = Arrays.asList("aa", "the", "on", "off");
+
     private static final String WRONG_WORD_CNT_ERR_MSG = "Wrong word count.";
-    private WordCounter wordCounter = new WordCounter();
+    private WordCounter wordCounter = new WordCounter(stopWords);
 
     @Test
     public void testWordCountMaryExample() {
 
-        String testText = "Mary had a little lamb";
+        String testText = "Mary had aa little lamb";
         int expected = 4;
         int result = wordCounter.countWords(testText);
 
@@ -32,7 +37,7 @@ public class WordCounterTest {
     }
 
     @Test
-    public void testWordCountMaryWithNegativeExample() {
+    public void testWordCountMaryWithNegativeWordExample() {
 
         String testText = "Mar2y had a little lamb";
         int expected = 4;
@@ -86,7 +91,7 @@ public class WordCounterTest {
     @Test
     public void testWordCountAllStopWordsIncluded() {
 
-        String testText = "the a on off";
+        String testText = "the aa on off";
         int expected = 0;
         int result = wordCounter.countWords(testText);
 
