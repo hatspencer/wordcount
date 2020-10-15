@@ -18,11 +18,4 @@ public interface WordCounter {
      * @return the number of words.
      */
     Output processInput(String input);
-
-    /**
-     * Retrieve stopwords provided to this word counter.
-     *
-     * @return the stopwords.
-     */
-    List<String> getStopWords();
 }

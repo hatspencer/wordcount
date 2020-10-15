@@ -25,10 +25,6 @@ public class WordCounterImpl implements WordCounter {
         this.stopWords = stopWords;
     }
 
-    public List<String> getStopWords() {
-        return stopWords;
-    }
-
     @Override
     public Output processInput(String input) {
         Output result = new Output();
