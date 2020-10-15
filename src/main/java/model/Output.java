@@ -1,13 +1,19 @@
 package model;
 
-import java.util.HashSet;
-
 /**
  * Created by Marton Bartal on 15.10.2020.
  */
 public class Output {
     private int wordCount;
-    private HashSet<String> words = new HashSet<>();
+    private int uniqueWordCount;
+
+    public Output() {
+    }
+
+    public Output(int wordCount, int uniqueWordCount) {
+        this.wordCount = wordCount;
+        this.uniqueWordCount = uniqueWordCount;
+    }
 
     public void setWordCount(int wordCount) {
         this.wordCount = wordCount;
@@ -17,12 +23,12 @@ public class Output {
         return wordCount;
     }
 
-    public void addWord(String word) {
-        words.add(word);
+    public void setUniqueWordCount(int uniqueWordCount) {
+        this.uniqueWordCount = uniqueWordCount;
     }
 
     public int getUniqueWordCount() {
-        return words.size();
+        return uniqueWordCount;
     }
 
     @Override

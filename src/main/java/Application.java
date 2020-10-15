@@ -41,6 +41,6 @@ public class Application {
         LineReader lineReader = new LineReader(STOPWORDS_FILENAME);
         WordCounter wordCounter = new WordCounter(lineReader.readLinesFromFile());
 
-        return wordCounter.countWords(input.getInputText());
+        return wordCounter.solve(input.getInputText());
     }
 }

@@ -18,7 +18,7 @@ public class LineReaderTest {
     private final LineReader lineReader = new LineReader(STOPWORDS_FILENAME);
 
     @Test
-    public void testReadCorrectWords() {
+    public void testReadCorrectLines() {
         List<String> expectedStopWords = Arrays.asList("aa", "the", "on", "off");
         List<String> actualStopWords = lineReader.readLinesFromFile();
 
