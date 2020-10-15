@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static final String STOPWORDS_FILENAME = "src/main/resources/stopwords.txt";
+    private static final String STOPWORDS_FILENAME = "stopwords.txt";
 
     public static void main(String[] args) {
 

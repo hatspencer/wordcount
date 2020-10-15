@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class WordsReaderFromFileTest {
 
-    private static final String STOPWORDS_FILENAME = "src/test/resources/stopwords.txt";
+    private static final String STOPWORDS_FILENAME = "stopwords.txt";
     private static final String NOT_FOUND_FILENAME = "UNKNOWN";
     private final WordsReaderFromFile wordsReaderFromFile = new WordsReaderFromFile(STOPWORDS_FILENAME);
 

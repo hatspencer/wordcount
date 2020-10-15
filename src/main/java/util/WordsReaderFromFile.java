@@ -1,8 +1,9 @@
 package util;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class WordsReaderFromFile {
 
     /**
      * Constructor for WordsReaderFromFile
+     *
      * @param fileName the filename to read the words from
      */
     public WordsReaderFromFile(final String fileName) {
@@ -24,11 +26,20 @@ public class WordsReaderFromFile {
 
     /**
      * Reads the stop words from the file.
+     *
      * @return the list of stop words.
      */
     public List<String> readWordsFromFile() {
         List<String> stopWords = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classloader.getResourceAsStream(this.fileName);
+        if (is == null) {
+            System.out.println("File not found");
+            return stopWords;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             String line = "";
             while (line != null) {
                 line = reader.readLine();
