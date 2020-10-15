@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashSet;
+
 /**
  * Created by Marton Bartal on 15.10.2020.
  */
@@ -7,6 +9,7 @@ public class Output {
     private int wordCount;
     private int uniqueWordCount;
     private double avgWordLength;
+    private HashSet<String> index;
 
     public Output() {
     }
@@ -41,15 +44,28 @@ public class Output {
         this.avgWordLength = avgWordLength;
     }
 
+    public HashSet<String> getIndex() {
+        return index;
+    }
+
+    public void setIndex(HashSet<String> index) {
+        this.index = index;
+    }
+
     @Override
     public String toString() {
-        return new StringBuilder().
+        StringBuilder sb = new StringBuilder().
                 append("Number of words: ").
                 append(wordCount).
                 append(", unique: ").
                 append(uniqueWordCount).
                 append("; average word length: ").
                 append(avgWordLength).
-                append(" characters").toString();
+                append(" characters\n").
+                append("Index:\n");
+        for (String str: index) {
+            sb.append(str).append("\n");
+        }
+        return sb.toString();
     }
 }

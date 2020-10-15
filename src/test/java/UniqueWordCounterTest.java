@@ -15,7 +15,7 @@ public class UniqueWordCounterTest {
     private static final List<String> stopWords = Arrays.asList("aa", "the", "on", "off");
 
     private static final String WRONG_UNIQUE_WORD_CNT_ERR_MSG = "Wrong unique word count.";
-    private WordCounter wordCounter = new WordCounterImpl(stopWords);
+    private WordCounter wordCounter = new WordCounterImpl(stopWords, false);
 
     @Test
     public void testUniqueWordCountMaryExample() {

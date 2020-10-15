@@ -15,14 +15,17 @@ public class WordCounterImpl implements WordCounter {
     private static final String WHITESPACE_REGEX = "[\\s\\.]+";
     private static final String ALLOWED_WORD_CHARSET_REGEX = "[a-zA-Z\\-]+";
     private final List<String> stopWords;
+    private final boolean indexActive;
 
     /**
      * Constructor for word counter
      *
      * @param stopWords stopwords to use for exclusion in counting
+     * @param indexActive whether index for unique words should be printed out
      */
-    public WordCounterImpl(final List<String> stopWords) {
+    public WordCounterImpl(final List<String> stopWords, final boolean indexActive) {
         this.stopWords = stopWords;
+        this.indexActive = indexActive;
     }
 
     @Override
@@ -49,6 +52,7 @@ public class WordCounterImpl implements WordCounter {
         } else {
             result.setAvgWordLength(0);
         }
+        result.setIndex(uniqueWords);
         return result;
     }
 }

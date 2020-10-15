@@ -15,7 +15,7 @@ public class AverageLengthWordCounterTest {
     private static final List<String> stopWords = Arrays.asList("aa", "the", "on", "off");
 
     private static final String WRONG_WORD_AVG_LENGTH_ERR_MSG = "Wrong word average length.";
-    private WordCounter wordCounter = new WordCounterImpl(stopWords);
+    private WordCounter wordCounter = new WordCounterImpl(stopWords, false);
 
     @Test
     public void testAvgWordCountMaryExample() {

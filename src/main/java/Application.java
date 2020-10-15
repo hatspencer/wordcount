@@ -15,10 +15,17 @@ public class Application {
 
     private static final String STOPWORDS_FILENAME = "stopwords.txt";
     private String inputFileName = null;
+    private boolean indexActive = false;
 
     public Application(String[] args) {
-        if (args != null && args.length == 1) {
-            this.inputFileName = args[0];
+        if (args != null && args.length > 0 && args.length <= 2) {
+            for (String arg: args) {
+                if (arg.equals("-index")) {
+                    indexActive = true;
+                } else {
+                    this.inputFileName = arg;
+                }
+            }
         }
     }
 
@@ -46,7 +53,7 @@ public class Application {
 
     private Output calculateOutput(Input input) {
         LineReader lineReader = new LineReaderImpl(STOPWORDS_FILENAME);
-        WordCounter wordCounter = new WordCounterImpl(lineReader.readLinesFromFile());
+        WordCounter wordCounter = new WordCounterImpl(lineReader.readLinesFromFile(), indexActive);
 
         return wordCounter.processInput(input.getInputText());
     }
