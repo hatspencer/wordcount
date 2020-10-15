@@ -49,6 +49,7 @@ public class Output {
                 append(", unique: ").
                 append(uniqueWordCount).
                 append("; average word length: ").
-                append(avgWordLength).toString();
+                append(avgWordLength).
+                append(" characters").toString();
     }
 }
