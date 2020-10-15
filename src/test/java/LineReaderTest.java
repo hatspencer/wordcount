@@ -1,5 +1,5 @@
 import org.junit.Test;
-import util.LineReader;
+import service.impl.LineReaderImpl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ public class LineReaderTest {
 
     private static final String STOPWORDS_FILENAME = "stopwords.txt";
     private static final String NOT_FOUND_FILENAME = "UNKNOWN";
-    private final LineReader lineReader = new LineReader(STOPWORDS_FILENAME);
+    private final service.LineReader lineReader = new LineReaderImpl(STOPWORDS_FILENAME);
 
     @Test
     public void testReadCorrectLines() {
@@ -30,7 +30,7 @@ public class LineReaderTest {
 
     @Test
     public void testFileNotFound() {
-        LineReader lineReader = new LineReader(NOT_FOUND_FILENAME);
+        service.LineReader lineReader = new LineReaderImpl(NOT_FOUND_FILENAME);
         List<String> actualStopWords = lineReader.readLinesFromFile();
 
         assertEquals("Wrong amount of words read.", 0, actualStopWords.size());

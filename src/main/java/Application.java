@@ -1,7 +1,8 @@
 import model.Input;
 import model.Output;
-import solver.WordCounter;
-import util.LineReader;
+import service.impl.WordCounterImpl;
+import service.WordCounterService;
+import service.impl.LineReaderImpl;
 
 import java.util.Collections;
 import java.util.Scanner;
@@ -20,6 +21,11 @@ public class Application {
         }
     }
 
+    /**
+     * Counts words and unique words in a provided input text.
+     *
+     * @return the output result containing the different counts
+     */
     public Output solveProblem() {
         return calculateOutput(readInput());
     }
@@ -27,7 +33,7 @@ public class Application {
     private Input readInput() {
         Input input;
         if (this.inputFileName != null) {
-            LineReader lineReader = new LineReader(this.inputFileName);
+            service.LineReader lineReader = new LineReaderImpl(this.inputFileName);
             input = new Input(lineReader.readLinesFromFile());
         } else {
             Scanner scanner = new Scanner(System.in);
@@ -38,9 +44,9 @@ public class Application {
     }
 
     private Output calculateOutput(Input input) {
-        LineReader lineReader = new LineReader(STOPWORDS_FILENAME);
-        WordCounter wordCounter = new WordCounter(lineReader.readLinesFromFile());
+        service.LineReader lineReader = new LineReaderImpl(STOPWORDS_FILENAME);
+        WordCounterService wordCounterService = new WordCounterImpl(lineReader.readLinesFromFile());
 
-        return wordCounter.solve(input.getInputText());
+        return wordCounterService.processInput(input.getInputText());
     }
 }

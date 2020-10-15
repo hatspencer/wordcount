@@ -1,5 +1,6 @@
 import org.junit.Test;
-import solver.WordCounter;
+import service.impl.WordCounterImpl;
+import service.WordCounterService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,14 +15,14 @@ public class WordCounterTest {
     private static final List<String> stopWords = Arrays.asList("aa", "the", "on", "off");
 
     private static final String WRONG_WORD_CNT_ERR_MSG = "Wrong word count.";
-    private WordCounter wordCounter = new WordCounter(stopWords);
+    private WordCounterService wordCounterService = new WordCounterImpl(stopWords);
 
     @Test
     public void testWordCountMaryExample() {
 
         String testText = "Mary had aa little lamb";
         int expected = 4;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -31,7 +32,7 @@ public class WordCounterTest {
 
         String testText = "Mary";
         int expected = 1;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -41,7 +42,7 @@ public class WordCounterTest {
 
         String testText = "Mar2y had a little lamb";
         int expected = 4;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -51,7 +52,7 @@ public class WordCounterTest {
 
         String testText = "      ";
         int expected = 0;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -61,7 +62,7 @@ public class WordCounterTest {
 
         String testText = "";
         int expected = 0;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -71,7 +72,7 @@ public class WordCounterTest {
 
         String testText = "Mary\nHad";
         int expected = 2;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -83,7 +84,7 @@ public class WordCounterTest {
 
         String testText = "Mary had two little lambs";
         int expected = 5;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -93,7 +94,7 @@ public class WordCounterTest {
 
         String testText = "the aa on off";
         int expected = 0;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
@@ -106,7 +107,7 @@ public class WordCounterTest {
         String testText = "Humpty-Dumpty sat on aa wall. Humpty-Dumpty had aa great fall.";
 
         int expected = 9;
-        int result = wordCounter.solve(testText).getWordCount();
+        int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }

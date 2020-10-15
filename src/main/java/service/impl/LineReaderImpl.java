@@ -1,4 +1,6 @@
-package util;
+package service.impl;
+
+import service.LineReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.List;
  * Created by Marton Bartal on 15.10.2020.
  * Class for reading list of words (separated by new line) from a file
  */
-public class LineReader {
+public class LineReaderImpl implements LineReader {
 
     private final String fileName;
 
@@ -20,15 +22,11 @@ public class LineReader {
      *
      * @param fileName the filename to read the lines from
      */
-    public LineReader(final String fileName) {
+    public LineReaderImpl(final String fileName) {
         this.fileName = fileName;
     }
 
-    /**
-     * Reads lines from a file.
-     *
-     * @return the list of stop words.
-     */
+    @Override
     public List<String> readLinesFromFile() {
         List<String> stopWords = new ArrayList<>();
 
