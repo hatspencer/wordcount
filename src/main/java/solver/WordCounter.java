@@ -1,6 +1,5 @@
 package solver;
 
-import model.Input;
 import model.Output;
 
 import java.util.List;
@@ -31,14 +30,18 @@ public class WordCounter {
      * @param input the input text to count words for
      * @return the number of words.
      */
-    public Output countWords(String input) {
+    public Output solve(String input) {
+        Output result = new Output();
         String[] arr = input.split(WHITESPACE_REGEX);
         int wordCount = arr.length;
         for (String word : arr) {
             if (!word.matches(ALLOWED_WORD_CHARSET_REGEX) || stopWords.contains(word)) {
                 wordCount--;
+            } else {
+                result.addWord(word);
             }
         }
-        return new Output(wordCount);
+        result.setWordCount(wordCount);
+        return result;
     }
 }
