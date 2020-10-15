@@ -1,5 +1,8 @@
 package solver;
 
+import model.Input;
+import model.Output;
+
 import java.util.List;
 
 /**
@@ -14,6 +17,7 @@ public class WordCounter {
 
     /**
      * Constructor for word counter
+     *
      * @param stopWords stopwords to use for exclusion in counting
      */
     public WordCounter(final List<String> stopWords) {
@@ -24,17 +28,17 @@ public class WordCounter {
      * Counts the words in a text (words are characters enclosed by whitespaces)
      * Stopwords are excluded in the counting
      *
-     * @param text the input text to count words for
+     * @param input the input text to count words for
      * @return the number of words.
      */
-    public int countWords(String text) {
-        String[] arr = text.split(WHITESPACE_REGEX);
+    public Output countWords(String input) {
+        String[] arr = input.split(WHITESPACE_REGEX);
         int wordCount = arr.length;
         for (String word : arr) {
             if (!word.matches(ALLOWED_WORD_CHARSET_REGEX) || stopWords.contains(word)) {
                 wordCount--;
             }
         }
-        return wordCount;
+        return new Output(wordCount);
     }
 }

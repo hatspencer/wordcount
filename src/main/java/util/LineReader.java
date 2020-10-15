@@ -11,25 +11,25 @@ import java.util.List;
  * Created by Marton Bartal on 15.10.2020.
  * Class for reading list of words (separated by new line) from a file
  */
-public class WordsReaderFromFile {
+public class LineReader {
 
     private final String fileName;
 
     /**
-     * Constructor for WordsReaderFromFile
+     * Constructor for LineReader
      *
-     * @param fileName the filename to read the words from
+     * @param fileName the filename to read the lines from
      */
-    public WordsReaderFromFile(final String fileName) {
+    public LineReader(final String fileName) {
         this.fileName = fileName;
     }
 
     /**
-     * Reads the stop words from the file.
+     * Reads lines from a file.
      *
      * @return the list of stop words.
      */
-    public List<String> readWordsFromFile() {
+    public List<String> readLinesFromFile() {
         List<String> stopWords = new ArrayList<>();
 
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
