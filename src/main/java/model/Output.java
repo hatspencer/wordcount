@@ -36,7 +36,7 @@ public class Output {
         return new StringBuilder().
                 append("Number of words: ").
                 append(wordCount).
-                append(", unique").
+                append(", unique: ").
                 append(getUniqueWordCount()).toString();
     }
 }
