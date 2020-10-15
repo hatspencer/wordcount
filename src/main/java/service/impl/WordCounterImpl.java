@@ -52,7 +52,9 @@ public class WordCounterImpl implements WordCounter {
         } else {
             result.setAvgWordLength(0);
         }
-        result.setIndex(uniqueWords);
+        if (indexActive) {
+            result.setIndex(uniqueWords);
+        }
         return result;
     }
 }

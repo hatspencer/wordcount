@@ -1,6 +1,5 @@
 package model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,7 +18,7 @@ public class Output {
         this.wordCount = wordCount;
         this.uniqueWordCount = uniqueWordCount;
         this.avgWordLength = avgWordLength;
-        this.index= index;
+        this.index = index;
     }
 
     public void setWordCount(int wordCount) {
@@ -63,10 +62,12 @@ public class Output {
                 append(uniqueWordCount).
                 append("; average word length: ").
                 append(avgWordLength).
-                append(" characters\n").
-                append("Index:\n");
-        for (String str: index) {
-            sb.append(str).append("\n");
+                append(" characters\n");
+        if (index != null) {
+            sb.append("Index:\n");
+            for (String str : index) {
+                sb.append(str).append("\n");
+            }
         }
         return sb.toString();
     }

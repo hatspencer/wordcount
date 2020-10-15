@@ -28,7 +28,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLength1WordExample() {
+    public void testUniqueWordCount1WordExample() {
 
         String testText = "Mary";
         int expected = 1;
@@ -38,7 +38,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLengthMaryWithNegativeWordExample() {
+    public void testUniqueWordCountMaryWithNegativeWordExample() {
 
         String testText = "Mar2y Marie Mary Mary Mary Mary";
         int expected = 2;
@@ -48,7 +48,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLengthWithOnlyWhiteSpace() {
+    public void testUniqueWordCountWithOnlyWhiteSpace() {
 
         String testText = "      ";
         int expected = 0;
@@ -58,7 +58,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLengthEmpty() {
+    public void testUniqueWordCountEmpty() {
 
         String testText = "";
         int expected = 0;
@@ -68,7 +68,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLengthNewLineInText() {
+    public void testUniqueWordCountNewLineInText() {
 
         String testText = "Mary\nMary";
         int expected = 1;
@@ -78,7 +78,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLengthStopWordsNotIncluded() {
+    public void testUniqueWordCountStopWordsNotIncluded() {
 
         String testText = "Mary had two little lambs";
         int expected = 5;
@@ -88,7 +88,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLengthAllStopWordsIncluded() {
+    public void testUniqueWordCountAllStopWordsIncluded() {
 
         String testText = "the aa on off";
         int expected = 0;
@@ -98,7 +98,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testUniqueWordLengthWithDash() {
+    public void testUniqueWordCountWithDash() {
 
         String testText = "Humpty-Dumpty sat on aa wall. Humpty-Dumpty had aa great fall.";
 
