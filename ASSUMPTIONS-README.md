@@ -9,3 +9,4 @@ wo2rd       0
 
 Iteration 2
 Requirements change means tests need to be updated.
+The order of the words in the stopwords file does not matter.
