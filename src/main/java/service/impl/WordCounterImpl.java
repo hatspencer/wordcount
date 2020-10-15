@@ -30,7 +30,7 @@ public class WordCounterImpl implements WordCounterService {
         Output result = new Output();
 
         HashSet<String> uniqueWords = new HashSet<>();
-        int sumOfWordLength = 0;
+        double sumOfWordLength = 0;
 
         String[] arr = input.split(WHITESPACE_REGEX);
         int wordCount = arr.length;
@@ -45,7 +45,7 @@ public class WordCounterImpl implements WordCounterService {
         result.setWordCount(wordCount);
         result.setUniqueWordCount(uniqueWords.size());
         if (uniqueWords.size() != 0) {
-            result.setAvgWordLength(sumOfWordLength / uniqueWords.size());
+            result.setAvgWordLength(sumOfWordLength / wordCount);
         } else {
             result.setAvgWordLength(0);
         }

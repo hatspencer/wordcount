@@ -8,7 +8,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for the word counter class.
+ * Tests for the word counter computation.
  */
 public class WordCounterTest {
 
