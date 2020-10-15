@@ -6,13 +6,15 @@ package model;
 public class Output {
     private int wordCount;
     private int uniqueWordCount;
+    private double avgWordLength;
 
     public Output() {
     }
 
-    public Output(int wordCount, int uniqueWordCount) {
+    public Output(int wordCount, int uniqueWordCount, int avgWordLength) {
         this.wordCount = wordCount;
         this.uniqueWordCount = uniqueWordCount;
+        this.avgWordLength = avgWordLength;
     }
 
     public void setWordCount(int wordCount) {
@@ -31,12 +33,22 @@ public class Output {
         return uniqueWordCount;
     }
 
+    public double getAvgWordLength() {
+        return avgWordLength;
+    }
+
+    public void setAvgWordLength(double avgWordLength) {
+        this.avgWordLength = avgWordLength;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder().
                 append("Number of words: ").
                 append(wordCount).
                 append(", unique: ").
-                append(getUniqueWordCount()).toString();
+                append(uniqueWordCount).
+                append("; average word length: ").
+                append(avgWordLength).toString();
     }
 }
