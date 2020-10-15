@@ -14,7 +14,7 @@ public class AverageLengthWordCounterTest {
 
     private static final List<String> stopWords = Arrays.asList("aa", "the", "on", "off");
 
-    private static final String WRONG_WORD_CNT_ERR_MSG = "Wrong word count.";
+    private static final String WRONG_WORD_AVG_LENGTH_ERR_MSG = "Wrong word average length.";
     private WordCounter wordCounter = new WordCounterImpl(stopWords);
 
     @Test
@@ -24,7 +24,7 @@ public class AverageLengthWordCounterTest {
         double expected = 4;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class AverageLengthWordCounterTest {
         double expected = 4;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class AverageLengthWordCounterTest {
         double expected = 4.2;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class AverageLengthWordCounterTest {
         double expected = 0;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class AverageLengthWordCounterTest {
         double expected = 0;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class AverageLengthWordCounterTest {
         double expected = 4;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class AverageLengthWordCounterTest {
         double expected = 4.2;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class AverageLengthWordCounterTest {
         double expected = 0;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 
     @Test
@@ -105,6 +105,6 @@ public class AverageLengthWordCounterTest {
         double expected = 7;
         double result = wordCounter.processInput(testText).getAvgWordLength();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result, 0.0);
+        assertEquals(WRONG_WORD_AVG_LENGTH_ERR_MSG, expected, result, 0.0);
     }
 }

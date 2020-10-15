@@ -14,7 +14,7 @@ public class UniqueWordCounterTest {
 
     private static final List<String> stopWords = Arrays.asList("aa", "the", "on", "off");
 
-    private static final String WRONG_WORD_CNT_ERR_MSG = "Wrong word count.";
+    private static final String WRONG_UNIQUE_WORD_CNT_ERR_MSG = "Wrong unique word count.";
     private WordCounter wordCounter = new WordCounterImpl(stopWords);
 
     @Test
@@ -24,7 +24,7 @@ public class UniqueWordCounterTest {
         int expected = 1;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class UniqueWordCounterTest {
         int expected = 1;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class UniqueWordCounterTest {
         int expected = 2;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class UniqueWordCounterTest {
         int expected = 0;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class UniqueWordCounterTest {
         int expected = 0;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class UniqueWordCounterTest {
         int expected = 1;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class UniqueWordCounterTest {
         int expected = 5;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class UniqueWordCounterTest {
         int expected = 0;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 
     @Test
@@ -105,6 +105,6 @@ public class UniqueWordCounterTest {
         int expected = 6;
         int result = wordCounter.processInput(testText).getUniqueWordCount();
 
-        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+        assertEquals(WRONG_UNIQUE_WORD_CNT_ERR_MSG, expected, result);
     }
 }

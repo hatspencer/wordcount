@@ -1,5 +1,6 @@
 import model.Input;
 import model.Output;
+import service.LineReader;
 import service.impl.WordCounterImpl;
 import service.WordCounter;
 import service.impl.LineReaderImpl;
@@ -33,7 +34,7 @@ public class Application {
     private Input readInput() {
         Input input;
         if (this.inputFileName != null) {
-            service.LineReader lineReader = new LineReaderImpl(this.inputFileName);
+            LineReader lineReader = new LineReaderImpl(this.inputFileName);
             input = new Input(lineReader.readLinesFromFile());
         } else {
             Scanner scanner = new Scanner(System.in);
@@ -44,7 +45,7 @@ public class Application {
     }
 
     private Output calculateOutput(Input input) {
-        service.LineReader lineReader = new LineReaderImpl(STOPWORDS_FILENAME);
+        LineReader lineReader = new LineReaderImpl(STOPWORDS_FILENAME);
         WordCounter wordCounter = new WordCounterImpl(lineReader.readLinesFromFile());
 
         return wordCounter.processInput(input.getInputText());
