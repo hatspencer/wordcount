@@ -28,7 +28,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCount1WordExample() {
+    public void testUniqueWordLength1WordExample() {
 
         String testText = "Mary";
         int expected = 1;
@@ -38,7 +38,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCountMaryWithNegativeWordExample() {
+    public void testUniqueWordLengthMaryWithNegativeWordExample() {
 
         String testText = "Mar2y Marie Mary Mary Mary Mary";
         int expected = 2;
@@ -48,7 +48,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCountWithOnlyWhiteSpace() {
+    public void testUniqueWordLengthWithOnlyWhiteSpace() {
 
         String testText = "      ";
         int expected = 0;
@@ -58,7 +58,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCountEmpty() {
+    public void testUniqueWordLengthEmpty() {
 
         String testText = "";
         int expected = 0;
@@ -68,7 +68,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCountNewLineInText() {
+    public void testUniqueWordLengthNewLineInText() {
 
         String testText = "Mary\nMary";
         int expected = 1;
@@ -78,7 +78,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCountStopWordsNotIncluded() {
+    public void testUniqueWordLengthStopWordsNotIncluded() {
 
         String testText = "Mary had two little lambs";
         int expected = 5;
@@ -88,7 +88,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCountAllStopWordsIncluded() {
+    public void testUniqueWordLengthAllStopWordsIncluded() {
 
         String testText = "the aa on off";
         int expected = 0;
@@ -98,7 +98,7 @@ public class UniqueWordCounterTest {
     }
 
     @Test
-    public void testWordCountWithDash() {
+    public void testUniqueWordLengthWithDash() {
 
         String testText = "Humpty-Dumpty sat on aa wall. Humpty-Dumpty had aa great fall.";
 

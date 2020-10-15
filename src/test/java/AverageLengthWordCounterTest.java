@@ -18,7 +18,7 @@ public class AverageLengthWordCounterTest {
     private WordCounter wordCounter = new WordCounterImpl(stopWords);
 
     @Test
-    public void testUniqueWordCountMaryExample() {
+    public void testAvgWordCountMaryExample() {
 
         String testText = "Mary Mary Mary Mary Mary";
         double expected = 4;
@@ -28,7 +28,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCount1WordExample() {
+    public void testAvgWordCount1WordExample() {
 
         String testText = "Mary";
         double expected = 4;
@@ -38,7 +38,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCountMaryWithNegativeWordExample() {
+    public void testAvgWordCountMaryWithNegativeWordExample() {
 
         String testText = "Mar2y Marie Mary Mary Mary Mary";
         double expected = 4.2;
@@ -48,7 +48,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCountWithOnlyWhiteSpace() {
+    public void testAvgWordCountWithOnlyWhiteSpace() {
 
         String testText = "      ";
         double expected = 0;
@@ -58,7 +58,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCountEmpty() {
+    public void testAvgWordCountEmpty() {
 
         String testText = "";
         double expected = 0;
@@ -68,7 +68,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCountNewLineInText() {
+    public void testAvgWordCountNewLineInText() {
 
         String testText = "Mary\nMary";
         double expected = 4;
@@ -78,7 +78,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCountStopWordsNotIncluded() {
+    public void testAvgWordCountStopWordsNotIncluded() {
 
         String testText = "Mary had two little lambs";
         double expected = 4.2;
@@ -88,7 +88,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCountAllStopWordsIncluded() {
+    public void testAvgWordCountAllStopWordsIncluded() {
 
         String testText = "the aa on off";
         double expected = 0;
@@ -98,7 +98,7 @@ public class AverageLengthWordCounterTest {
     }
 
     @Test
-    public void testWordCountWithDash() {
+    public void testAvgWordCountWithDash() {
 
         String testText = "Humpty-Dumpty satsats on aa wall. Humpty-Dumpty had aa great fall.";
 
