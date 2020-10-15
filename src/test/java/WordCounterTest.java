@@ -3,6 +3,9 @@ import solver.WordCounter;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests for the word counter class.
+ */
 public class WordCounterTest {
 
     private WordCounter wordCounter = new WordCounter();
@@ -52,6 +55,16 @@ public class WordCounterTest {
 
         String testText = "";
         int expected = 0;
+        int result = wordCounter.countWords(testText);
+
+        assertEquals("Wrong word count.", expected, result);
+    }
+
+    @Test
+    public void testWordCountNewLineInText() {
+
+        String testText = "Mary\nHad";
+        int expected = 2;
         int result = wordCounter.countWords(testText);
 
         assertEquals("Wrong word count.", expected, result);
