@@ -95,4 +95,15 @@ public class UniqueWordCounterTest {
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
+
+    @Test
+    public void testWordCountWithDash() {
+
+        String testText = "Humpty-Dumpty sat on aa wall. Humpty-Dumpty had aa great fall.";
+
+        int expected = 7;
+        int result = wordCounter.solve(testText).getUniqueWordCount();
+
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+    }
 }

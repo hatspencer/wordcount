@@ -97,4 +97,17 @@ public class WordCounterTest {
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
     }
+
+    // ITERATION 4
+
+    @Test
+    public void testWordCountWithDash() {
+
+        String testText = "Humpty-Dumpty sat on aa wall. Humpty-Dumpty had aa great fall.";
+
+        int expected = 9;
+        int result = wordCounter.solve(testText).getWordCount();
+
+        assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
+    }
 }

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class WordCounter {
 
-    private static final String WHITESPACE_REGEX = "\\s+";
+    private static final String WHITESPACE_REGEX = "[\\s\\-\\.]+";
     private static final String ALLOWED_WORD_CHARSET_REGEX = "[a-zA-Z]+";
     private final List<String> stopWords;
     private HashSet<String> words = new HashSet<>();

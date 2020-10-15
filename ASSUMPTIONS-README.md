@@ -16,3 +16,6 @@ The order of the words in the stopwords file does not matter.
 Iteration 3
 If the file provided does not exist, an error message will be printed out.
 UPDATED ASSUMPTION: There can be newlines in a text.
+
+Iteration 4
+Dashes and fullstops should be treated like a whitespace.
