@@ -11,7 +11,7 @@ public class Output {
     public Output() {
     }
 
-    public Output(int wordCount, int uniqueWordCount, int avgWordLength) {
+    public Output(int wordCount, int uniqueWordCount, double avgWordLength) {
         this.wordCount = wordCount;
         this.uniqueWordCount = uniqueWordCount;
         this.avgWordLength = avgWordLength;
