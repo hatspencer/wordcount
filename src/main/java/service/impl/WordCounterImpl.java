@@ -8,12 +8,12 @@ import java.util.List;
 
 /**
  * Class for word counting.
- * Assertion: whitespaces are "\\s+" and dashes and fullstops should be viewed as whitespaces;
+ * Assertion: whitespaces are "\\s+" and fullstops should be viewed as whitespaces;
  */
 public class WordCounterImpl implements WordCounterService {
 
-    private static final String WHITESPACE_REGEX = "[\\s\\-\\.]+";
-    private static final String ALLOWED_WORD_CHARSET_REGEX = "[a-zA-Z]+";
+    private static final String WHITESPACE_REGEX = "[\\s\\.]+";
+    private static final String ALLOWED_WORD_CHARSET_REGEX = "[a-zA-Z\\-]+";
     private final List<String> stopWords;
 
     /**

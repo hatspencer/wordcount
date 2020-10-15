@@ -19,3 +19,6 @@ UPDATED ASSUMPTION: There can be newlines in a text.
 
 Iteration 4
 Dashes and fullstops should be treated like a whitespace.
+
+Iteration 5
+Dashes should not be considered a white-space, but as a valid character set.

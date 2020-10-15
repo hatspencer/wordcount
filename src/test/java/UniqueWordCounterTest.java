@@ -102,7 +102,7 @@ public class UniqueWordCounterTest {
 
         String testText = "Humpty-Dumpty sat on aa wall. Humpty-Dumpty had aa great fall.";
 
-        int expected = 7;
+        int expected = 6;
         int result = wordCounterService.processInput(testText).getUniqueWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);

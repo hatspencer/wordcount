@@ -106,7 +106,7 @@ public class WordCounterTest {
 
         String testText = "Humpty-Dumpty sat on aa wall. Humpty-Dumpty had aa great fall.";
 
-        int expected = 9;
+        int expected = 7;
         int result = wordCounterService.processInput(testText).getWordCount();
 
         assertEquals(WRONG_WORD_CNT_ERR_MSG, expected, result);
