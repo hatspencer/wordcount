@@ -14,7 +14,7 @@ public class WordValidator implements IWordValidator {
 
     public WordValidator(FileReader fileReader) {
         try {
-            stopWords = fileReader.readFile(STOP_WORDS_FILE);
+            stopWords = fileReader.readFileLines(STOP_WORDS_FILE);
         } catch (IOException ioException) {
             System.out.println("No stopwords file");
             stopWords = new ArrayList<>();

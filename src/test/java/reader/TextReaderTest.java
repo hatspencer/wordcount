@@ -62,6 +62,6 @@ public class TextReaderTest {
     }
 
     private List<String> initializeStopWordsAndHandleException() throws IOException {
-        return fileReader.readFile("stopwords.txt");
+        return fileReader.readFileLines("stopwords.txt");
     }
 }

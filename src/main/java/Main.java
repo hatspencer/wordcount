@@ -17,7 +17,15 @@ public class Main {
         final ReaderService readerService = new ReaderService(textReader);
         final Scanner systemInScanner = new Scanner(System.in);
 
-        final ReaderController readerController = new ReaderController(readerService, systemInScanner);
-        readerController.readTextAndCountWords();
+        final ReaderController readerController = new ReaderController(readerService, systemInScanner, fileReader);
+        parseText(args, readerController);
+    }
+
+    private static void parseText(final String[] args, final ReaderController readerController) {
+        if (args.length > 0) {
+            readerController.readTextAndCountWords(args[0]);
+        } else {
+            readerController.readTextAndCountWords(null);
+        }
     }
 }
