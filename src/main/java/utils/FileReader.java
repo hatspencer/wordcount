@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileReader {
+public final class FileReader {
     public List<String> readFileLines(final String fileName) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));

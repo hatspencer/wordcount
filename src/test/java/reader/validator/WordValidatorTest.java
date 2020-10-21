@@ -16,7 +16,7 @@ public class WordValidatorTest {
     @Before
     public void initialize() {
         fileReader = new FileReader();
-        wordValidator = new WordValidator(fileReader);
+        wordValidator = new WordValidator();
     }
 
     @Test
@@ -39,6 +39,7 @@ public class WordValidatorTest {
         List<String> stopWords;
         try {
             stopWords = initializeStopWordsAndHandleException();
+            wordValidator.setStopWords(stopWords);
             stopWords.forEach(stopWord -> assertFalse(wordValidator.isValidWord(stopWord)));
         } catch (IOException ioException) {
             ioException.printStackTrace();

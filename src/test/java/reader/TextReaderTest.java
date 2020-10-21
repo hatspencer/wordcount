@@ -13,16 +13,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class TextReaderTest {
+    private WordValidator wordValidator;
     private FileReader fileReader;
     private TextReader textReader;
 
     @Before
     public void initialize() {
         fileReader = new FileReader();
+        wordValidator = new WordValidator();
 
         final WordSplitter wordSplitter = new WordSplitter();
-        final WordValidator wordValidator = new WordValidator(fileReader);
-
         textReader = new TextReader(wordSplitter, wordValidator);
     }
 
@@ -49,6 +49,8 @@ public class TextReaderTest {
         List<String> stopWords;
         try {
             stopWords = initializeStopWordsAndHandleException();
+            wordValidator.setStopWords(stopWords);
+
             stopWords.forEach(this::testTextWithStopWordCount);
         } catch (IOException ioException) {
             ioException.printStackTrace();

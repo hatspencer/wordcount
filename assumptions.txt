@@ -3,3 +3,4 @@ Assumptions:
     - we assume that we do not want to have legacy code ( the iteration 1 word validator ), hence we modify the previous implementation;
     - stopwords will be a file within the project which is read from when the application starts;
     - for simplicity we will assume that the stopwords file will not change during execution;
+    - we assume that if the user supplies an invalid filename an exception is thrown and the program will not continue;
