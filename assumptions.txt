@@ -15,3 +15,4 @@ Assumptions:
     - For iteration 7 we assume that if the argument is not "-index" then it is the name of the text file that can be given as input and the maximum number is 2,
         from which one needs to be "-index"
     - For iteration 8 in case of a word that is present in the stopwords and in the known words that word will not be displayed and will not be counted.
+    - For iteration 8 we assume that without the index arugment we cannot have any dictionary argument and it's name is only composed of letters.
