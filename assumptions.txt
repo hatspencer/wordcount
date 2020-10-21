@@ -1,2 +1,4 @@
 Assumptions:
     - words are separated by one or more spaces (' ');
+    - we assume that we do not want to have legacy code ( the iteration 1 word validator ), hence we modify the previous implementation;
+    - stopwords will be a file within the project which is read from when the application starts;
