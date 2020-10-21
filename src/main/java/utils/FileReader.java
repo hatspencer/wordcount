@@ -11,21 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class FileReader {
-    public List<String> readFileLines(final String fileName) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream(fileName);
-        BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
+    public List<String> readFileLines(final String fileName) {
+        FileInputStream fileInputStream = null;
 
-        final List<String> fileLines = new ArrayList<>();
+        try {
+            fileInputStream = new FileInputStream(fileName);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
 
-        String strLine;
+            final List<String> fileLines = new ArrayList<>();
 
-        while ((strLine = br.readLine()) != null) {
-            fileLines.add(strLine);
+            String strLine;
+
+            while ((strLine = br.readLine()) != null) {
+                fileLines.add(strLine);
+            }
+
+            fileInputStream.close();
+
+            return fileLines;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        fileInputStream.close();
-
-        return fileLines;
+        return new ArrayList<>();
     }
 
     public String readWholeFile(final String fileName) throws IOException {

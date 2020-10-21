@@ -8,7 +8,6 @@ import utils.FileReader;
 import utils.inputresolver.CommandLineInputResolver;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,7 +28,7 @@ public class Main {
     }
 
     private static ReaderController initializeController(final FileReader fileReader) {
-        List<String> stopWords = initializeStopWords(fileReader);
+        List<String> stopWords = fileReader.readFileLines(STOP_WORDS_FILE);
 
         final WordSplitter wordSplitter = new WordSplitter();
         final WordValidator wordValidator = new WordValidator(stopWords);
@@ -48,17 +47,5 @@ public class Main {
         } catch (IOException ioException) {
             throw new RuntimeException("The filename was invalid: " + fileName);
         }
-    }
-
-    private static List<String> initializeStopWords(final FileReader fileReader) {
-        List<String> stopWords;
-
-        try {
-            stopWords = fileReader.readFileLines(STOP_WORDS_FILE);
-        } catch (IOException ioException) {
-            System.out.println("Invalid stopwords file, assuming there are no stopwords");
-            stopWords = new ArrayList<>();
-        }
-        return stopWords;
     }
 }
