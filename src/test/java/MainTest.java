@@ -11,7 +11,7 @@ public class MainTest {
 
     @Test
     public void testWithEmptyArguments() {
-        final ByteArrayInputStream userMockInput = new ByteArrayInputStream("".getBytes());
+        final ByteArrayInputStream userMockInput = new ByteArrayInputStream("Some Mock String".getBytes());
         System.setIn(userMockInput);
         Main.main(new String[]{});
     }
