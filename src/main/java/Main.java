@@ -43,7 +43,7 @@ public class Main {
         try {
             return isStringNullOrEmpty ? null : fileReader.readWholeFile(fileName);
         } catch (IOException ioException) {
-            throw new RuntimeException("The filename was invalid !");
+            throw new RuntimeException("The filename was invalid: " + fileName);
         }
     }
 

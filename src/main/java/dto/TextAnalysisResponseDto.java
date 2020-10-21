@@ -1,19 +1,26 @@
 package dto;
 
+import model.TextAnalysis;
+
 public class TextAnalysisResponseDto {
-    private final int totalCount;
-    private final int totalUnique;
+    private final int totalWords;
+    private final int totalUniqueWords;
 
-    public TextAnalysisResponseDto(int totalCount, int totalUnique) {
-        this.totalCount = totalCount;
-        this.totalUnique = totalUnique;
+    public TextAnalysisResponseDto(int totalWords, int totalUniqueWords) {
+        this.totalWords = totalWords;
+        this.totalUniqueWords = totalUniqueWords;
     }
 
-    public int getTotalCount() {
-        return totalCount;
+    public TextAnalysisResponseDto(final TextAnalysis textAnalysis) {
+        this.totalWords = textAnalysis.getTotalWords();
+        this.totalUniqueWords = textAnalysis.getTotalUniqueWords();
     }
 
-    public int getTotalUnique() {
-        return totalUnique;
+    public int getTotalWords() {
+        return totalWords;
+    }
+
+    public int getTotalUniqueWords() {
+        return totalUniqueWords;
     }
 }

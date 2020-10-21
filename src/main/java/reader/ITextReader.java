@@ -1,7 +1,7 @@
 package reader;
 
-import dto.TextAnalysisResponseDto;
+import model.TextAnalysis;
 
 public interface ITextReader {
-    TextAnalysisResponseDto readTextAndCountWords(final String text);
+    TextAnalysis readTextAndCountWords(final String text);
 }

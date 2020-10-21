@@ -11,6 +11,6 @@ public class ReaderService {
     }
 
     public TextAnalysisResponseDto countWordsInText(final String text) {
-        return textReader.readTextAndCountWords(text);
+        return new TextAnalysisResponseDto(textReader.readTextAndCountWords(text));
     }
 }

@@ -7,3 +7,4 @@ Assumptions:
     - for iteration 4 we assume that the the words can also be spltied by one or more dashes: "-"
             Humpty Dumpty sat on a wall. Humpty Dumpty had a great fall.
     - Here we have 9 words and 7 unique words, taking the stopwords into consideration we assume that now words can also end with exactly one "." ( aka end of sentence)
+      - we assume that the dot "." is part of the word, hence lam and lam. are different words.

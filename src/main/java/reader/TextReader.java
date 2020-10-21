@@ -1,6 +1,6 @@
 package reader;
 
-import dto.TextAnalysisResponseDto;
+import model.TextAnalysis;
 import reader.splitter.IWordSplitter;
 import reader.validator.IWordValidator;
 import reader.validator.WordValidator;
@@ -19,7 +19,7 @@ public class TextReader implements ITextReader {
     }
 
     @Override
-    public TextAnalysisResponseDto readTextAndCountWords(final String text) {
+    public TextAnalysis readTextAndCountWords(final String text) {
         final List<String> totalWords = wordSplitter.splitTextIntoWords(text).stream()
                 .filter(wordValidator::isValidWord)
                 .collect(Collectors.toList());
@@ -27,6 +27,6 @@ public class TextReader implements ITextReader {
         final int count = totalWords.size();
         final int uniqueOccurrenceCount = new TreeSet<>(totalWords).size();
 
-        return new TextAnalysisResponseDto(count, uniqueOccurrenceCount);
+        return new TextAnalysis(count, uniqueOccurrenceCount);
     }
 }

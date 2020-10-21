@@ -24,8 +24,8 @@ public class ReaderController {
         }
 
         final TextAnalysisResponseDto response = readerService.countWordsInText(userTextInput);
-        final int wordsInUserInput = response.getTotalCount();
-        final int uniqueWordsInUserInput = response.getTotalUnique();
+        final int wordsInUserInput = response.getTotalWords();
+        final int uniqueWordsInUserInput = response.getTotalUniqueWords();
 
         System.out.println("Your text has exactly: " + wordsInUserInput + " words and exactly: " + uniqueWordsInUserInput + " unique words !");
     }
