@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Main {
 
     private static final String STOP_WORDS_FILE = "stopwords.txt";
+    private static final String KNOWN_WORDS_FILE = "dict.txt";
 
     public static void main(String[] args) {
         final CommandLineInputResolver commandLineInputResolver = new CommandLineInputResolver();
@@ -29,10 +30,11 @@ public class Main {
 
     private static ReaderController initializeController(final FileReader fileReader) {
         List<String> stopWords = fileReader.readFileLines(STOP_WORDS_FILE);
+        List<String> knownWords = fileReader.readFileLines(KNOWN_WORDS_FILE);
 
         final WordSplitter wordSplitter = new WordSplitter();
         final WordValidator wordValidator = new WordValidator(stopWords);
-        final TextReader textReader = new TextReader(wordSplitter, wordValidator);
+        final TextReader textReader = new TextReader(wordSplitter, wordValidator, knownWords);
 
         final ReaderService readerService = new ReaderService(textReader);
         final Scanner systemInScanner = new Scanner(System.in);

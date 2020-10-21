@@ -4,13 +4,31 @@ public class TextAnalysis {
     private int totalWords;
     private int totalUniqueWords;
     private double averageWordLength;
+    private int numberOfUnknownWords;
     private String index;
+    private String indexWithUnknownWords;
 
-    public TextAnalysis(final int totalWords, final int totalUniqueWords, final double averageWordLength, final String index) {
+    public TextAnalysis(
+            final int totalWords,
+            final int totalUniqueWords,
+            final double averageWordLength,
+            final String index,
+            final int numberOfUnknownWords,
+            final String indexWithUnknownWords) {
         this.totalWords = totalWords;
         this.totalUniqueWords = totalUniqueWords;
         this.averageWordLength = averageWordLength;
         this.index = index;
+        this.numberOfUnknownWords = numberOfUnknownWords;
+        this.indexWithUnknownWords = indexWithUnknownWords;
+    }
+
+    public String getIndexWithUnknownWords() {
+        return indexWithUnknownWords;
+    }
+
+    public int getNumberOfUnknownWords() {
+        return numberOfUnknownWords;
     }
 
     public String getIndex() {
