@@ -24,13 +24,6 @@ public class ReaderController {
         }
 
         final TextAnalysisResponseDto response = readerService.countWordsInText(userTextInput);
-        final int wordsInUserInput = response.getTotalWords();
-        final int uniqueWordsInUserInput = response.getTotalUniqueWords();
-        final double averageWordLength = response.getAverageWordLength();
-
-        System.out.println(
-                "Number of words: " + wordsInUserInput +
-                        ", unique: " + uniqueWordsInUserInput +
-                        ", average word length: " + averageWordLength);
+        System.out.println(response);
     }
 }

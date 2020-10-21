@@ -24,4 +24,8 @@ public class TextAnalysisResponseDto {
     public double getAverageWordLength() {
         return averageWordLength;
     }
+
+    public String toString() {
+        return String.format("Number of words: %d, unique: %d, average word length: %f", totalWords, totalUniqueWords, averageWordLength);
+    }
 }
