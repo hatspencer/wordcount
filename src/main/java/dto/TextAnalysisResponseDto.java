@@ -8,7 +8,6 @@ public class TextAnalysisResponseDto {
     private final double averageWordLength;
     private int numberOfUnknownWords;
     private final String index;
-    private String indexWithUnknownWords;
 
     public TextAnalysisResponseDto(final TextAnalysis textAnalysis) {
         this.totalWords = textAnalysis.getTotalWords();
@@ -16,7 +15,6 @@ public class TextAnalysisResponseDto {
         this.averageWordLength = textAnalysis.getAverageWordLength();
         this.index = textAnalysis.getIndex();
         this.numberOfUnknownWords = textAnalysis.getNumberOfUnknownWords();
-        this.indexWithUnknownWords = textAnalysis.getIndexWithUnknownWords();
     }
 
     public int getTotalWords() {
@@ -36,6 +34,6 @@ public class TextAnalysisResponseDto {
     }
 
     public String toStringWithIndex() {
-        return String.format("Number of words: %d, unique: %d, average word length: %f. \nIndex(unknown %d):\n%s", totalWords, totalUniqueWords, averageWordLength, numberOfUnknownWords, indexWithUnknownWords);
+        return String.format("Number of words: %d, unique: %d, average word length: %f. \nIndex(unknown %d):\n%s", totalWords, totalUniqueWords, averageWordLength, numberOfUnknownWords, index);
     }
 }

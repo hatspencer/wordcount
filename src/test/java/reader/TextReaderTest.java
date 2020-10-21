@@ -104,6 +104,20 @@ public class TextReaderTest {
         }
     }
 
+    @Test
+    public void testReadCountUnknownWordsWithNoKnownWordsFile() {
+        final String STRING_WITH_STOPWORD = "titus    titus   Titus";
+        assertEquals(2, textReader.readTextAndCountWords(STRING_WITH_STOPWORD).getNumberOfUnknownWords());
+    }
+
+    @Test
+    public void testReadCountUnknownWordsWithKnownWordsFile() {
+        final List<String> knownWords = fileReader.readFileLines("dict.txt");
+        textReader.setKnownWords(knownWords);
+        final String STRING_WITH_STOPWORD = "titus dog";
+        assertEquals(1, textReader.readTextAndCountWords(STRING_WITH_STOPWORD).getNumberOfUnknownWords());
+    }
+
     private void testTextWithStopWordCount(final String stopword) {
         final String STRING_WITH_STOPWORD = "titus    titus   " + stopword;
         assertEquals(2, textReader.readTextAndCountWords(STRING_WITH_STOPWORD).getTotalWords());

@@ -29,8 +29,7 @@ public final class FileReader {
             fileInputStream.close();
 
             return fileLines;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
 
         return new ArrayList<>();

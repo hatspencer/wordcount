@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class TextReader implements ITextReader {
     private final IWordSplitter wordSplitter;
     private final IWordValidator wordValidator;
-    private final List<String> knownWords;
+    private List<String> knownWords;
 
     public TextReader(final IWordSplitter wordSplitter, final WordValidator wordValidator) {
         this.wordSplitter = wordSplitter;
@@ -49,14 +49,17 @@ public class TextReader implements ITextReader {
                 .collect(Collectors.toList());
         final int numberOfUnknownWords = unknownWords.size();
 
-        final String index = String.join("\n", uniqueWordsSet);
         final String indexWithUnknownWords = uniqueWordsSet
                 .stream()
                 .sorted(String::compareToIgnoreCase)
                 .map(mapWordToIndexWithUnknownWordsFormat())
                 .collect(Collectors.joining());
 
-        return new TextAnalysis(count, uniqueOccurrenceCount, averageWordLength, index, numberOfUnknownWords, indexWithUnknownWords);
+        return new TextAnalysis(count, uniqueOccurrenceCount, averageWordLength, indexWithUnknownWords, numberOfUnknownWords);
+    }
+
+    public void setKnownWords(final List<String> knownWords) {
+        this.knownWords = knownWords;
     }
 
     private Function<String, String> mapWordToIndexWithUnknownWordsFormat() {
