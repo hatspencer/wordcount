@@ -5,6 +5,7 @@ import org.junit.Test;
 import utils.FileReader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,6 +18,7 @@ public class WordValidatorTest {
     public void initialize() {
         fileReader = new FileReader();
         wordValidator = new WordValidator();
+        wordValidator.setStopWords(new ArrayList<>());
     }
 
     @Test
@@ -35,6 +37,12 @@ public class WordValidatorTest {
 
         final String VALID_WORD_ENDING_WITH_DOT = "Claus.";
         assertTrue(wordValidator.isValidWord(VALID_WORD_ENDING_WITH_DOT));
+
+        final String VALID_WORD_CONTAINING_HYPHENS = "Claus-Christian";
+        assertTrue(wordValidator.isValidWord(VALID_WORD_CONTAINING_HYPHENS));
+
+        final String INVALID_WORD_CONTAINING_HYPHENS = "-Claus-Christian";
+        assertFalse(wordValidator.isValidWord(INVALID_WORD_CONTAINING_HYPHENS));
 
         final String INVALID_WORD_ENDING_WITH_TWO_DOTS = "Claus..";
         assertFalse(wordValidator.isValidWord(INVALID_WORD_ENDING_WITH_TWO_DOTS));

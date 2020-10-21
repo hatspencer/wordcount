@@ -31,6 +31,6 @@ public class WordSplitterTest {
 
         final String THREE_WORDS_TEXT_WITH_DASH = "Mary ha$-lamb";
         final List<String> threeWordsWithDash = wordSplitter.splitTextIntoWords(THREE_WORDS_TEXT_WITH_DASH);
-        assertEquals(3, threeWordsWithDash.size());
+        assertEquals(2, threeWordsWithDash.size());
     }
 }

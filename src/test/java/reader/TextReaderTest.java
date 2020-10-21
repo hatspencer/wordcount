@@ -8,6 +8,7 @@ import reader.validator.WordValidator;
 import utils.FileReader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -25,6 +26,8 @@ public class TextReaderTest {
 
         final WordSplitter wordSplitter = new WordSplitter();
         textReader = new TextReader(wordSplitter, wordValidator);
+
+        wordValidator.setStopWords(new ArrayList<>());
     }
 
     @Test
@@ -50,8 +53,8 @@ public class TextReaderTest {
         final String NINE_WORDS_SEVEN_UNIQUE_TEST = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
         final TextAnalysis response = textReader.readTextAndCountWords(NINE_WORDS_SEVEN_UNIQUE_TEST);
 
-        assertEquals(12, response.getTotalWords());
-        assertEquals(9, response.getTotalUniqueWords());
+        assertEquals(10, response.getTotalWords());
+        assertEquals(8, response.getTotalUniqueWords());
     }
 
     @Test
@@ -64,8 +67,8 @@ public class TextReaderTest {
             final String NINE_WORDS_SEVEN_UNIQUE_TEST = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
             final TextAnalysis response = textReader.readTextAndCountWords(NINE_WORDS_SEVEN_UNIQUE_TEST);
 
-            assertEquals(9, response.getTotalWords());
-            assertEquals(7, response.getTotalUniqueWords());
+            assertEquals(7, response.getTotalWords());
+            assertEquals(6, response.getTotalUniqueWords());
         } catch (IOException ioException) {
             ioException.printStackTrace();
             fail();

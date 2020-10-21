@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordValidator implements IWordValidator {
-    private final static String VALID_WORD_REGEX = "[A-Za-z][a-zA-Z\\-]+[A-Za-z]\\.?$";
+    private final static String VALID_WORD_REGEX = "^[A-Za-z]+((-[A-Za-z]+)+)?\\.?$";
 
     private List<String> stopWords;
 
