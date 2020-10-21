@@ -20,7 +20,7 @@ public class TextReader implements ITextReader {
         final List<String> wordCandidates = wordSplitter.splitTextIntoWords(text);
 
         return (int) wordCandidates.stream()
-            .filter(wordValidator::isValidWord)
+                .filter(wordValidator::isValidWord)
                 .count();
     }
 }

@@ -2,7 +2,6 @@ package reader.splitter;
 
 import org.junit.Before;
 import org.junit.Test;
-import reader.splitter.WordSplitter;
 
 import java.util.List;
 

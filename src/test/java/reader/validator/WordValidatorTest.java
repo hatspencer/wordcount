@@ -5,21 +5,17 @@ import org.junit.Test;
 import utils.FileReader;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class WordValidatorTest {
-    private List<String> stopWords;
     private FileReader fileReader;
     private WordValidator wordValidator;
 
     @Before
     public void initialize() {
         fileReader = new FileReader();
-        initializeStopWordsAndHandleException();
         wordValidator = new WordValidator(fileReader);
     }
 
@@ -36,16 +32,21 @@ public class WordValidatorTest {
 
         final String INVALID_WORD_WITH_ANOTHER_CHARACTER = "Claus$";
         assertFalse(wordValidator.isValidWord(INVALID_WORD_WITH_ANOTHER_CHARACTER));
-
-        stopWords.forEach(stopWord -> assertFalse(wordValidator.isValidWord(stopWord)));
     }
 
-    private void initializeStopWordsAndHandleException() {
+    @Test
+    public void testReadCountWithStopwordsFile() {
+        List<String> stopWords;
         try {
-            stopWords = fileReader.readFile("stopwords.txt");
+            stopWords = initializeStopWordsAndHandleException();
+            stopWords.forEach(stopWord -> assertFalse(wordValidator.isValidWord(stopWord)));
         } catch (IOException ioException) {
-            System.out.println("No stopwords file");
-            stopWords = new ArrayList<>();
+            ioException.printStackTrace();
+            fail();
         }
+    }
+
+    private List<String> initializeStopWordsAndHandleException() throws IOException {
+        return fileReader.readFile("stopwords.txt");
     }
 }

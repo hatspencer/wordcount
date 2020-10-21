@@ -10,19 +10,19 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 public class TextReaderTest {
-    private WordSplitter wordSplitter;
-    private WordValidator wordValidator;
     private FileReader fileReader;
     private TextReader textReader;
 
     @Before
     public void initialize() {
         fileReader = new FileReader();
-        wordSplitter = new WordSplitter();
-        wordValidator = new WordValidator(fileReader);
+
+        final WordSplitter wordSplitter = new WordSplitter();
+        final WordValidator wordValidator = new WordValidator(fileReader);
+
         textReader = new TextReader(wordSplitter, wordValidator);
     }
 
@@ -46,13 +46,13 @@ public class TextReaderTest {
 
     @Test
     public void testReadCountWithStopwordsFile() {
-        List<String> stopWords = null;
+        List<String> stopWords;
         try {
             stopWords = initializeStopWordsAndHandleException();
             stopWords.forEach(this::testTextWithStopWordCount);
         } catch (IOException ioException) {
             ioException.printStackTrace();
-            assertFalse(true);
+            fail();
         }
     }
 
