@@ -26,7 +26,12 @@ public class TextReader implements ITextReader {
 
         final int count = totalWords.size();
         final int uniqueOccurrenceCount = new TreeSet<>(totalWords).size();
+        final double averageWordLength = totalWords
+                .stream()
+                .mapToInt(String::length)
+                .average()
+                .orElse(0.0);
 
-        return new TextAnalysis(count, uniqueOccurrenceCount);
+        return new TextAnalysis(count, uniqueOccurrenceCount, averageWordLength);
     }
 }

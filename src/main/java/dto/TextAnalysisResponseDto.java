@@ -5,15 +5,12 @@ import model.TextAnalysis;
 public class TextAnalysisResponseDto {
     private final int totalWords;
     private final int totalUniqueWords;
-
-    public TextAnalysisResponseDto(int totalWords, int totalUniqueWords) {
-        this.totalWords = totalWords;
-        this.totalUniqueWords = totalUniqueWords;
-    }
+    private final double averageWordLength;
 
     public TextAnalysisResponseDto(final TextAnalysis textAnalysis) {
         this.totalWords = textAnalysis.getTotalWords();
         this.totalUniqueWords = textAnalysis.getTotalUniqueWords();
+        this.averageWordLength = textAnalysis.getAverageWordLength();
     }
 
     public int getTotalWords() {
@@ -22,5 +19,9 @@ public class TextAnalysisResponseDto {
 
     public int getTotalUniqueWords() {
         return totalUniqueWords;
+    }
+
+    public double getAverageWordLength() {
+        return averageWordLength;
     }
 }

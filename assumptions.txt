@@ -10,3 +10,4 @@ Assumptions:
                              BUT they may not begin or end with hyphen
     - Here we have 9 words and 7 unique words, taking the stopwords into consideration we assume that now words can also end with exactly one "." ( aka end of sentence)
       - we assume that the dot "." is part of the word, hence lam and lam. are different words.
+    - For iteration 6 since we assumed that dot "." is part of the word it will contribute to the length of the word hence: fall. is 5 characters long.

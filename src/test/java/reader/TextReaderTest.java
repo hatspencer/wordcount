@@ -33,19 +33,34 @@ public class TextReaderTest {
     @Test
     public void testReadAndCount() {
         final String TWO_WORDS_TEXT = "Titus had";
-        assertEquals(2, textReader.readTextAndCountWords(TWO_WORDS_TEXT).getTotalWords());
+        final TextAnalysis textAnalysis1 = textReader.readTextAndCountWords(TWO_WORDS_TEXT);
+        assertEquals(2, textAnalysis1.getTotalWords());
+        assertEquals(2, textAnalysis1.getTotalUniqueWords());
+        assertEquals(0, Double.compare(4.0, textAnalysis1.getAverageWordLength()));
 
         final String THREE_WORDS_TEXT = "Titus had lamb";
-        assertEquals(3, textReader.readTextAndCountWords(THREE_WORDS_TEXT).getTotalWords());
+        final TextAnalysis textAnalysis2 = textReader.readTextAndCountWords(THREE_WORDS_TEXT);
+        assertEquals(3, textAnalysis2.getTotalWords());
+        assertEquals(3, textAnalysis2.getTotalUniqueWords());
+        assertEquals(0, Double.compare(4.0, textAnalysis2.getAverageWordLength()));
 
         final String THREE_WORDS_WITH_INVALID_WORD = "Titus had lamb lam4";
-        assertEquals(3, textReader.readTextAndCountWords(THREE_WORDS_WITH_INVALID_WORD).getTotalWords());
+        final TextAnalysis textAnalysis3 = textReader.readTextAndCountWords(THREE_WORDS_WITH_INVALID_WORD);
+        assertEquals(3, textAnalysis3.getTotalWords());
+        assertEquals(3, textAnalysis3.getTotalUniqueWords());
+        assertEquals(0, Double.compare(4.0, textAnalysis3.getAverageWordLength()));
 
         final String THREE_WORDS_WITH_MULTIPLE_SPACES = "Titus                 had   lamb";
-        assertEquals(3, textReader.readTextAndCountWords(THREE_WORDS_WITH_MULTIPLE_SPACES).getTotalWords());
+        final TextAnalysis textAnalysis4 = textReader.readTextAndCountWords(THREE_WORDS_WITH_MULTIPLE_SPACES);
+        assertEquals(3, textAnalysis4.getTotalWords());
+        assertEquals(3, textAnalysis4.getTotalUniqueWords());
+        assertEquals(0, Double.compare(4.0, textAnalysis4.getAverageWordLength()));
 
         final String TWO_IDENTICAL_WORDS_WITH_MULTIPLE_SPACES_AND_INVALID_WORD = "titus    titus   ruco$la";
-        assertEquals(2, textReader.readTextAndCountWords(TWO_IDENTICAL_WORDS_WITH_MULTIPLE_SPACES_AND_INVALID_WORD).getTotalWords());
+        final TextAnalysis textAnalysis5 = textReader.readTextAndCountWords(TWO_IDENTICAL_WORDS_WITH_MULTIPLE_SPACES_AND_INVALID_WORD);
+        assertEquals(2, textAnalysis5.getTotalWords());
+        assertEquals(1, textAnalysis5.getTotalUniqueWords());
+        assertEquals(0, Double.compare(5.0, textAnalysis5.getAverageWordLength()));
     }
 
     @Test
