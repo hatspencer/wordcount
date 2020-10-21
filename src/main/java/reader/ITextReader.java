@@ -1,5 +1,7 @@
 package reader;
 
+import dto.TextAnalysisResponseDto;
+
 public interface ITextReader {
-    int readTextAndCountWords(final String text);
+    TextAnalysisResponseDto readTextAndCountWords(final String text);
 }

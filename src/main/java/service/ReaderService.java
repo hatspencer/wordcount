@@ -1,5 +1,6 @@
 package service;
 
+import dto.TextAnalysisResponseDto;
 import reader.ITextReader;
 
 public class ReaderService {
@@ -9,7 +10,7 @@ public class ReaderService {
         this.textReader = textReader;
     }
 
-    public int countWordsInText(final String text) {
+    public TextAnalysisResponseDto countWordsInText(final String text) {
         return textReader.readTextAndCountWords(text);
     }
 }

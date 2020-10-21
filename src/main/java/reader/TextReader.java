@@ -1,10 +1,13 @@
 package reader;
 
+import dto.TextAnalysisResponseDto;
 import reader.splitter.IWordSplitter;
 import reader.validator.IWordValidator;
 import reader.validator.WordValidator;
 
 import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class TextReader implements ITextReader {
     private final IWordSplitter wordSplitter;
@@ -16,11 +19,14 @@ public class TextReader implements ITextReader {
     }
 
     @Override
-    public int readTextAndCountWords(final String text) {
-        final List<String> wordCandidates = wordSplitter.splitTextIntoWords(text);
-
-        return (int) wordCandidates.stream()
+    public TextAnalysisResponseDto readTextAndCountWords(final String text) {
+        final List<String> totalWords = wordSplitter.splitTextIntoWords(text).stream()
                 .filter(wordValidator::isValidWord)
-                .count();
+                .collect(Collectors.toList());
+
+        final int count = totalWords.size();
+        final int uniqueOccurrenceCount = new TreeSet<>(totalWords).size();
+
+        return new TextAnalysisResponseDto(count, uniqueOccurrenceCount);
     }
 }

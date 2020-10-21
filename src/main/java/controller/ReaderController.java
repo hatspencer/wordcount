@@ -1,5 +1,6 @@
 package controller;
 
+import dto.TextAnalysisResponseDto;
 import service.ReaderService;
 
 import java.util.Scanner;
@@ -22,8 +23,10 @@ public class ReaderController {
             userTextInput = scanner.nextLine();
         }
 
-        final int wordsInUserInput = readerService.countWordsInText(userTextInput);
+        final TextAnalysisResponseDto response = readerService.countWordsInText(userTextInput);
+        final int wordsInUserInput = response.getTotalCount();
+        final int uniqueWordsInUserInput = response.getTotalUnique();
 
-        System.out.println("Your text has exactly: " + wordsInUserInput + " words!");
+        System.out.println("Your text has exactly: " + wordsInUserInput + " words and exactly: " + uniqueWordsInUserInput + " unique words !");
     }
 }
