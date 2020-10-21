@@ -4,8 +4,8 @@ Assumptions:
     - stopwords will be a file within the project which is read from when the application starts;
     - for simplicity we will assume that the stopwords file will not change during execution;
     - we assume that if the user supplies an invalid filename an exception is thrown and the program will not continue;
-    - for iteration 4 we assume that the the words can also be spltied by one or more dashes: "-"
+    - for iteration 4 we assume that the the words can also be spltied by one or more hyphen: "-"
             Humpty Dumpty sat on a wall. Humpty Dumpty had a great fall.
-         - Past iteration 5: Words are no longer separated by dash "-", but words can contain a dash, hence Humpty-Dumpty is considered one word
+         - Past iteration 5: Words are no longer separated by hyphen "-", but words can contain a hyphen, hence Humpty-Dumpty is considered one word BUT they may not begin or end with hyphen
     - Here we have 9 words and 7 unique words, taking the stopwords into consideration we assume that now words can also end with exactly one "." ( aka end of sentence)
       - we assume that the dot "." is part of the word, hence lam and lam. are different words.
