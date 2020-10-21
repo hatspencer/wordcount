@@ -28,5 +28,9 @@ public class WordSplitterTest {
         final String THREE_WORDS_TEXT_WITH_ONE_FALSE_WORDS = "Mary ha$ lamb";
         final List<String> twoWordsWithFalseWordsTextSplit = wordSplitter.splitTextIntoWords(THREE_WORDS_TEXT_WITH_ONE_FALSE_WORDS);
         assertEquals(3, twoWordsWithFalseWordsTextSplit.size());
+
+        final String THREE_WORDS_TEXT_WITH_DASH = "Mary ha$-lamb";
+        final List<String> threeWordsWithDash = wordSplitter.splitTextIntoWords(THREE_WORDS_TEXT_WITH_DASH);
+        assertEquals(3, threeWordsWithDash.size());
     }
 }

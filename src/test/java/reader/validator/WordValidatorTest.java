@@ -32,6 +32,12 @@ public class WordValidatorTest {
 
         final String INVALID_WORD_WITH_ANOTHER_CHARACTER = "Claus$";
         assertFalse(wordValidator.isValidWord(INVALID_WORD_WITH_ANOTHER_CHARACTER));
+
+        final String VALID_WORD_ENDING_WITH_DOT = "Claus.";
+        assertTrue(wordValidator.isValidWord(VALID_WORD_ENDING_WITH_DOT));
+
+        final String INVALID_WORD_ENDING_WITH_TWO_DOTS = "Claus..";
+        assertFalse(wordValidator.isValidWord(INVALID_WORD_ENDING_WITH_TWO_DOTS));
     }
 
     @Test
