@@ -16,7 +16,7 @@ public class FileReaderTest {
         assertNotEquals(0, strings.size());
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void testReadValidFileName() {
         final List<String> strings = new FileReader().readFileLines("invalid file");
         assertEquals(0, strings.size());
