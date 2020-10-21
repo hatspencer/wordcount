@@ -4,11 +4,21 @@ public class TextAnalysis {
     private int totalWords;
     private int totalUniqueWords;
     private double averageWordLength;
+    private String index;
 
-    public TextAnalysis(final int totalWords, final int totalUniqueWords, final double averageWordLength) {
+    public TextAnalysis(final int totalWords, final int totalUniqueWords, final double averageWordLength, final String index) {
         this.totalWords = totalWords;
         this.totalUniqueWords = totalUniqueWords;
         this.averageWordLength = averageWordLength;
+        this.index = index;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(final String index) {
+        this.index = index;
     }
 
     public double getAverageWordLength() {

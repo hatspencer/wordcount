@@ -31,7 +31,17 @@ public class ReaderControllerTest {
     }
 
     @Test
-    public void testReadTextIfNoFileIsGiven() {
-        readerController.readTextAndCountWords(null);
+    public void testReadTextWithNoIndexIfNoFileIsGiven() {
+        readerController.readTextAndCountWords(null, false);
+    }
+
+    @Test
+    public void testReadTextWithIndexIfNoFileIsGiven() {
+        readerController.readTextAndCountWords(null, true);
+    }
+
+    @Test
+    public void testReadTextWithIndexAndFileGiven() {
+        readerController.readTextAndCountWords("Some mock  text", true);
     }
 }

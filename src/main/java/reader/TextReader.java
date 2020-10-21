@@ -25,13 +25,16 @@ public class TextReader implements ITextReader {
                 .collect(Collectors.toList());
 
         final int count = totalWords.size();
-        final int uniqueOccurrenceCount = new TreeSet<>(totalWords).size();
         final double averageWordLength = totalWords
                 .stream()
                 .mapToInt(String::length)
                 .average()
                 .orElse(0.0);
 
-        return new TextAnalysis(count, uniqueOccurrenceCount, averageWordLength);
+        final TreeSet<String> uniqueWordsSet = new TreeSet<>(totalWords);
+        final int uniqueOccurrenceCount = uniqueWordsSet.size();
+        final String index = String.join("\n", uniqueWordsSet);
+
+        return new TextAnalysis(count, uniqueOccurrenceCount, averageWordLength, index);
     }
 }

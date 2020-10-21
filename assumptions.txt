@@ -12,3 +12,5 @@ Assumptions:
       - we assume that the dot "." is part of the word, hence lam and lam. are different words.
     - For iteration 6 since we assumed that dot "." is part of the word it will contribute to the length of the word hence: fall. is 5 characters long.
     - For iteration 7 we assume the index is the list of all the unique words
+    - For iteration 7 we assume that if the argument is not "-index" then it is the name of the text file that can be given as input and the maximum number is 2,
+        from which one needs to be "-index"

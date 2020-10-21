@@ -14,7 +14,7 @@ public class ReaderController {
         this.scanner = scanner;
     }
 
-    public void readTextAndCountWords(final String textFromFile) {
+    public void readTextAndCountWords(final String textFromFile, final boolean withIndex) {
         String userTextInput = textFromFile;
 
         final boolean isTextFromFileNullOrEmpty = textFromFile == null || textFromFile.isEmpty();
@@ -24,6 +24,7 @@ public class ReaderController {
         }
 
         final TextAnalysisResponseDto response = readerService.countWordsInText(userTextInput);
-        System.out.println(response);
+        final String userOutput = withIndex ? response.toStringWithIndex() : response.toString();
+        System.out.println(userOutput);
     }
 }

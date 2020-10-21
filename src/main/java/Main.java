@@ -1,9 +1,11 @@
 import controller.ReaderController;
+import dto.inputresolver.CommandLineInputResolverResponseDto;
 import reader.TextReader;
 import reader.splitter.WordSplitter;
 import reader.validator.WordValidator;
 import service.ReaderService;
 import utils.FileReader;
+import utils.inputresolver.CommandLineInputResolver;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,14 +17,15 @@ public class Main {
     private static final String STOP_WORDS_FILE = "stopwords.txt";
 
     public static void main(String[] args) {
-        final FileReader fileReader = new FileReader();
+        final CommandLineInputResolver commandLineInputResolver = new CommandLineInputResolver();
+        final CommandLineInputResolverResponseDto commandLineInputResolverResponseDto =
+                commandLineInputResolver.resolveCommandLineArguments(args);
 
+        final FileReader fileReader = new FileReader();
         final ReaderController readerController = initializeController(fileReader);
 
-        final String fileName = args.length > 0 ? args[0] : null;
-        final String fileTextInput = initializeFileContent(fileName, fileReader);
-
-        readerController.readTextAndCountWords(fileTextInput);
+        final String fileTextInput = initializeFileContent(commandLineInputResolverResponseDto.getFileName(), fileReader);
+        readerController.readTextAndCountWords(fileTextInput, commandLineInputResolverResponseDto.isWithIndex());
     }
 
     private static ReaderController initializeController(final FileReader fileReader) {
