@@ -1,1 +1,2 @@
 Assumptions:
+    - words are separated by one or more spaces (' ');
