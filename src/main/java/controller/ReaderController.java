@@ -14,6 +14,10 @@ public class ReaderController {
     }
 
     public void readTextAndCountWords() {
+        final String userTextInput = scanner.nextLine();
 
+        final int wordsInUserInput = readerService.countWordsInText(userTextInput);
+        
+        System.out.println("Your text has exactly: " + wordsInUserInput + " words!");
     }
 }

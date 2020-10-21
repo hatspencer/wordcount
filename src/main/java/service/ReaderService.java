@@ -3,7 +3,7 @@ package service;
 import reader.ITextReader;
 
 public class ReaderService {
-    private ITextReader textReader;
+    private final ITextReader textReader;
 
     public ReaderService(ITextReader textReader) {
         this.textReader = textReader;
