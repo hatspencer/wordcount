@@ -16,6 +16,7 @@ public class WordCounterTest {
     @Test
     public void givenEmptyString_returnOneElementArray() {
         String text = "";
+
         String[] expected = new String[1];
         expected[0] = "";
         String[] actual = wordCounter.splitText(text);
@@ -27,6 +28,7 @@ public class WordCounterTest {
     public void givenOneWord_returnOne() {
         String[] words = new String[1];
         words[0] = "word";
+
         long expected = 1;
         long actual = wordCounter.countWords(words);
 
@@ -36,6 +38,7 @@ public class WordCounterTest {
     @Test
     public void givenInvalidWord_returnZero() {
         String[] words = new String[]{"wo3rd", "234"};
+
         long expected = 0;
         long actual = wordCounter.countWords(words);
 
@@ -45,6 +48,7 @@ public class WordCounterTest {
     @Test
     public void givenDuplicateWords_returnTwo() {
         String[] words = new String[]{"word", "word"};
+
         long expected = 2;
         long actual = wordCounter.countWords(words);
 
@@ -54,6 +58,7 @@ public class WordCounterTest {
     @Test
     public void givenExampleInput_returnFour() {
         String[] words = new String[]{"Mary", "had", "a", "little", "lamb"};
+
         long expected = 4;
         long actual = wordCounter.countWords(words);
 
@@ -63,6 +68,7 @@ public class WordCounterTest {
     @Test
     public void givenStopWordsOnlyInput_returnZero() {
         String[] words = new String[]{"a", "off", "a", "the", "on"};
+
         long expected = 0;
         long actual = wordCounter.countWords(words);
 
