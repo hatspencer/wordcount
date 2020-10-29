@@ -1,0 +1,9 @@
+assumptions:
+
+word count
+1. split input by whitespace
+2.
+	word		1
+	word word	2
+	wo2rd		0
+3. input is one line
