@@ -2,13 +2,15 @@ import java.util.Arrays;
 
 public class WordCounter {
 
-    private StopWordReader stopWordReader;
+    private final StopWordReader stopWordReader;
+
+    private final String WORD_PATTERN = "[A-Za-z]+";
 
     public WordCounter(StopWordReader stopWordReader) {
         this.stopWordReader = stopWordReader;
     }
 
-    public String[] splitText(String text) {
+    public String[] splitTextAtWhitespace(String text) {
         return text.split(" ");
     }
 

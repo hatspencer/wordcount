@@ -15,19 +15,17 @@ public class WordCounterTest {
 
     @Test
     public void givenEmptyString_returnOneElementArray() {
-        String text = "";
+        String textMock = "";
 
-        String[] expected = new String[1];
-        expected[0] = "";
-        String[] actual = wordCounter.splitText(text);
+        String[] expected = new String[]{""};
+        String[] actual = wordCounter.splitTextAtWhitespace(textMock);
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
     public void givenOneWord_returnOne() {
-        String[] words = new String[1];
-        words[0] = "word";
+        String[] words = new String[]{"word"};
 
         long expected = 1;
         long actual = wordCounter.countWords(words);

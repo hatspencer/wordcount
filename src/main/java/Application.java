@@ -13,14 +13,14 @@ public class Application {
                 inputFile = new File(args[0]);
                 wordInputReader = new WordInputFileReader(inputFile);
             } else {
-                wordInputReader = new ConsoleInputReader();
+                wordInputReader = new WordInputConsoleReader();
             }
 
             String text = wordInputReader.processInput();
-            System.out.println("Number of words: " + wordCounter.countWords(wordCounter.splitText(text)));
+            System.out.println("Number of words: " + wordCounter.countWords(wordCounter.splitTextAtWhitespace(text)));
 
         } catch (IOException e) {
-            System.out.println("IOError");
+            System.out.println("IOError occurred");
             System.exit(1);
         }
     }

@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class ConsoleInputReader implements WordInputReader {
+public class WordInputConsoleReader implements WordInputReader {
 
     private final Scanner scanner;
 
-    public ConsoleInputReader() {
+    public WordInputConsoleReader() {
         scanner = new Scanner(System.in);
     }
 
