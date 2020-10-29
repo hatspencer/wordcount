@@ -72,4 +72,14 @@ public class WordCounterTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void givenInputWithDuplications_returnCountOfDistinct() {
+        String[] words = new String[]{"Humpty-Dumpty", "sat", "on", "a", "wall.", "Humpty-Dumpty", "had", "a", "great", "fall."};
+
+        long expected = 9;
+        long actual = wordCounter.countWords(words);
+
+        assertEquals(expected, actual);
+    }
 }

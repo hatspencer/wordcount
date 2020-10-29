@@ -21,4 +21,12 @@ public class WordCounter {
                 .count();
     }
 
+    public long countUniqueWords(String[] words) {
+        return Arrays.stream(words)
+                .filter(word -> word.matches("[A-Za-z]+"))
+                .filter(word -> !stopWordReader.readStopWords().contains(word))
+                .distinct()
+                .count();
+    }
+
 }
