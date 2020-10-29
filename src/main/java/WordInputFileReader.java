@@ -7,7 +7,7 @@ public class WordInputFileReader implements WordInputReader{
 
     private final File inputFile;
 
-    public WordInputFileReader(File inputFile) {
+    public WordInputFileReader(File inputFile)  {
         this.inputFile = inputFile;
     }
 

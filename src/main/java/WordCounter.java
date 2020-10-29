@@ -8,9 +8,6 @@ public class WordCounter {
         this.stopWordReader = stopWordReader;
     }
 
-    public WordCounter() {
-    }
-
     public String[] splitText(String text) {
         return text.split(" ");
     }

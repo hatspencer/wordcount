@@ -4,10 +4,6 @@ public class ConsoleInputReader implements WordInputReader {
 
     private final Scanner scanner;
 
-    public ConsoleInputReader(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
     public ConsoleInputReader() {
         scanner = new Scanner(System.in);
     }
