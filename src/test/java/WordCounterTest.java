@@ -35,7 +35,7 @@ public class WordCounterTest {
 
     @Test
     public void givenInvalidWord_returnZero() {
-        String[] words = new String[]{"wo3rd","234"};
+        String[] words = new String[]{"wo3rd", "234"};
         long expected = 0;
         long actual = wordCounter.countWords(words);
 
@@ -44,10 +44,20 @@ public class WordCounterTest {
 
     @Test
     public void givenDuplicateWords_returnTwo() {
-        String[] words = new String[]{"word","word"};
+        String[] words = new String[]{"word", "word"};
         long expected = 2;
         long actual = wordCounter.countWords(words);
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void givenFiveWords_returnFive() {
+        String[] words = new String[]{"Mary", "had", "a", "little", "lamb"};
+        long expected = 5;
+        long actual = wordCounter.countWords(words);
+
+        assertEquals(expected, actual);
+    }
+
 }
