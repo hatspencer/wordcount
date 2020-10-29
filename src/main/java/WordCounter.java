@@ -10,7 +10,7 @@ public class WordCounter {
         this.stopWordReader = stopWordReader;
     }
 
-    public String[] splitTextAtWhitespaceAndHyphen(String text) {
+    public String[] splitText(String text) {
         return text.split("[ -]");
     }
 

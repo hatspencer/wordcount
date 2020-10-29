@@ -18,7 +18,7 @@ public class WordCounterTest {
         String textMock = "";
 
         String[] expected = new String[]{""};
-        String[] actual = wordCounter.splitTextAtWhitespaceAndHyphen(textMock);
+        String[] actual = wordCounter.splitText(textMock);
 
         assertArrayEquals(expected, actual);
     }
@@ -78,7 +78,7 @@ public class WordCounterTest {
         String textMock = "Humpty-Dumpty";
 
         String[] expected = new String[]{"Humpty", "Dumpty"};
-        String[] actual = wordCounter.splitTextAtWhitespaceAndHyphen(textMock);
+        String[] actual = wordCounter.splitText(textMock);
 
         assertArrayEquals(expected, actual);
     }
@@ -89,7 +89,7 @@ public class WordCounterTest {
         String textMock = "Humpty-Dumpty sat";
 
         String[] expected = new String[]{"Humpty", "Dumpty", "sat"};
-        String[] actual = wordCounter.splitTextAtWhitespaceAndHyphen(textMock);
+        String[] actual = wordCounter.splitText(textMock);
 
         assertArrayEquals(expected, actual);
     }
