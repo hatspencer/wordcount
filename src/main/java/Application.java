@@ -17,7 +17,10 @@ public class Application {
             }
 
             String text = wordInputReader.processInput();
-            System.out.println("Number of words: " + wordCounter.countWords(wordCounter.splitTextAtWhitespace(text)));
+            String[] words = wordCounter.splitTextAtWhitespaceAndHyphen(text);
+            System.out.printf("Number of words: %d, unique: %d",
+                    wordCounter.countWords(words),
+                    wordCounter.countDistinctWords(words));
 
         } catch (IOException e) {
             System.out.println("IOError occurred");

@@ -18,7 +18,7 @@ public class WordCounterTest {
         String textMock = "";
 
         String[] expected = new String[]{""};
-        String[] actual = wordCounter.splitTextAtWhitespace(textMock);
+        String[] actual = wordCounter.splitTextAtWhitespaceAndHyphen(textMock);
 
         assertArrayEquals(expected, actual);
     }
@@ -74,11 +74,43 @@ public class WordCounterTest {
     }
 
     @Test
-    public void givenInputWithDuplications_returnCountOfDistinct() {
-        String[] words = new String[]{"Humpty-Dumpty", "sat", "on", "a", "wall.", "Humpty-Dumpty", "had", "a", "great", "fall."};
+    public void givenStringWithHyphen_returnTwoElementArray() {
+        String textMock = "Humpty-Dumpty";
+
+        String[] expected = new String[]{"Humpty", "Dumpty"};
+        String[] actual = wordCounter.splitTextAtWhitespaceAndHyphen(textMock);
+
+        assertArrayEquals(expected, actual);
+    }
+
+
+    @Test
+    public void givenStringWithHyphenAndSpace_returnThreeElementArray() {
+        String textMock = "Humpty-Dumpty sat";
+
+        String[] expected = new String[]{"Humpty", "Dumpty", "sat"};
+        String[] actual = wordCounter.splitTextAtWhitespaceAndHyphen(textMock);
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void givenInputWithDots_returnCountOfNonStopWords() {
+        String[] words = new String[]{"Humpty", "Dumpty", "sat", "on", "a", "wall.", "Humpty", "Dumpty", "had", "a", "great", "fall."};
 
         long expected = 9;
         long actual = wordCounter.countWords(words);
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void givenInputWithDuplicates_returnCountOfDistinctNonStopWords() {
+        String[] words = new String[]{"Humpty", "Dumpty", "sat", "on", "a", "wall.", "Humpty", "Dumpty", "had", "a", "great", "fall."};
+
+        long expected = 7;
+        long actual = wordCounter.countDistinctWords(words);
 
         assertEquals(expected, actual);
     }
