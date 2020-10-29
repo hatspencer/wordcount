@@ -12,4 +12,8 @@ iteration-1
 iteration-2
 
 iteration-3
-4. if the filename is invalid, than print an error message
+4. if the filename is invalid, throw a runtime exception with a message
+
+iteration-4
+5. dots are considered valid characters
+6. hyphens are considered delimiters beside spaces
