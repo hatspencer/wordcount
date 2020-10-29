@@ -4,26 +4,27 @@ public class WordCounter {
 
     private final StopWordReader stopWordReader;
 
-    private final String WORD_PATTERN = "[A-Za-z.]+";
+    private final static String WORD_PATTERN = "[A-Za-z.]+";
+
+    private final static String WORD_DELIMITER = "[ -]";
 
     public WordCounter(StopWordReader stopWordReader) {
         this.stopWordReader = stopWordReader;
     }
 
-    public String[] splitText(String text) {
-        return text.split("[ -]");
+    private String[] splitText(String text) {
+        return text.split(WORD_DELIMITER);
     }
 
-    public long countWords(String[] words) {
-        return Arrays.stream(words)
+    public long countWords(String text) {
+        return Arrays.stream(this.splitText(text))
                 .filter(word -> word.matches(WORD_PATTERN))
                 .filter(word -> !stopWordReader.readStopWords().contains(word))
                 .count();
     }
 
-    public long countDistinctWords(String[] words) {
-        return Arrays.stream(words)
-                .filter(word -> word.matches(WORD_PATTERN))
+    public long countUniqueWords(String text) {
+        return Arrays.stream(this.splitText(text)).filter(word -> word.matches(WORD_PATTERN))
                 .filter(word -> !stopWordReader.readStopWords().contains(word))
                 .distinct()
                 .count();

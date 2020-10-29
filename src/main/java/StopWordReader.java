@@ -1,20 +1,21 @@
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StopWordReader {
 
-    private final String FILE_PATH = "src/main/resources/stopwords.txt";
+    private static final String FILE_PATH = "stopwords.txt";
 
     public List<String> readStopWords() {
         try {
-            return Files.lines(Paths.get(FILE_PATH)).collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
+            Path path = Paths.get(this.getClass().getClassLoader().getResource(FILE_PATH).toURI());
+            return Files.lines(path).collect(Collectors.toList());
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException("Invalid file");
         }
     }
 }

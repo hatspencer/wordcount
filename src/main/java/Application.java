@@ -6,9 +6,8 @@ public class Application {
         WordInputReader wordInputReader = wordInputReaderFactory.create(args);
 
         String text = wordInputReader.processInput();
-        String[] words = wordCounter.splitText(text);
         System.out.printf("Number of words: %d, unique: %d",
-                wordCounter.countWords(words),
-                wordCounter.countDistinctWords(words));
+                wordCounter.countWords(text),
+                wordCounter.countUniqueWords(text));
     }
 }
