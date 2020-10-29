@@ -9,14 +9,13 @@ import static org.junit.Assert.assertEquals;
 
 public class StopWordReaderTest {
 
-
     @Before
     public void init() {
     }
 
     @Test
     public void givenFile_returnListOfWords() {
-        StopWordReader stopWordReader = new StopWordReader("src/main/resources/stopwords.txt");
+        StopWordReader stopWordReader = new StopWordReader();
 
         List<String> actual = stopWordReader.readStopWords();
         List<String> expected = new ArrayList<>(Arrays.asList("the", "a", "on", "off"));

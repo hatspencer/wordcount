@@ -7,15 +7,11 @@ import java.util.stream.Collectors;
 
 public class StopWordReader {
 
-    private String filePath;
-
-    public StopWordReader(String filePath) {
-        this.filePath = filePath;
-    }
+    private final String FILE_PATH = "src/main/resources/stopwords.txt";
 
     public List<String> readStopWords() {
         try {
-            return Files.lines(Paths.get(filePath)).collect(Collectors.toList());
+            return Files.lines(Paths.get(FILE_PATH)).collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();

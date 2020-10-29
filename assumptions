@@ -1,9 +1,15 @@
 assumptions:
 
 word count
+iteration-1
 1. split input by whitespace
 2.
 	word		1
 	word word	2
 	wo2rd		0
 3. input is one line
+
+iteration-2
+
+iteration-3
+4. if an invalid filename/filepath is passed, than the user is prompted to give text input

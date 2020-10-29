@@ -10,7 +10,7 @@ public class WordCounterTest {
 
     @Before
     public void init() {
-        wordCounter = new WordCounter(new StopWordReader("src/main/resources/stopwords.txt"));
+        wordCounter = new WordCounter(new StopWordReader());
     }
 
     @Test
