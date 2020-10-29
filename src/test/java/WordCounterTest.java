@@ -10,7 +10,7 @@ public class WordCounterTest {
 
     @Before
     public void init() {
-        wordCounter = new WordCounter();
+        wordCounter = new WordCounter(new StopWordReader("src/main/resources/stopwords.txt"));
     }
 
     @Test
@@ -52,12 +52,20 @@ public class WordCounterTest {
     }
 
     @Test
-    public void givenFiveWords_returnFive() {
+    public void givenExampleInput_returnFour() {
         String[] words = new String[]{"Mary", "had", "a", "little", "lamb"};
-        long expected = 5;
+        long expected = 4;
         long actual = wordCounter.countWords(words);
 
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void givenStopWordsOnlyInput_returnZero() {
+        String[] words = new String[]{"a", "off", "a", "the", "on"};
+        long expected = 0;
+        long actual = wordCounter.countWords(words);
+
+        assertEquals(expected, actual);
+    }
 }
