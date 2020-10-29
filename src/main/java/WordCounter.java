@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 public class WordCounter {
 
-
     public String[] splitText(String text) {
         return text.split(" ");
     }
