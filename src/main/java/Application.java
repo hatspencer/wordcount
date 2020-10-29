@@ -4,10 +4,9 @@ public class Application {
         WordCounter wordCounter = new WordCounter(new StopWordReader());
         WordInputReaderFactory wordInputReaderFactory = new WordInputReaderFactory();
         WordInputReader wordInputReader = wordInputReaderFactory.create(args);
+        WordOutputPrinter wordOutputPrinter = new WordOutputPrinter();
 
         String text = wordInputReader.processInput();
-        System.out.printf("Number of words: %d, unique: %d",
-                wordCounter.countWords(text),
-                wordCounter.countUniqueWords(text));
+        wordOutputPrinter.printResult(text, wordCounter);
     }
 }
