@@ -65,6 +65,8 @@ public class TestDictionary {
         emptyDictionary.printData(countedWords);
 
         Assert.assertEquals("Index (unknown: 1)ersteblesk*", console.toString());
+
+        new DictionaryServiceImpl(ersteDictionary).print("Test");
     }
 
 }

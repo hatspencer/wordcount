@@ -10,7 +10,8 @@ import java.util.Set;
 public class ErsteWordCounterApp {
 
     public static void main(String[] args) {
-        String sentence;
+        String sentence = null;
+        boolean isFile = false;
 
         LoadConfigProperties confiService = new LoadConfigPropertiesImpl();
         ConfigProperties properties = confiService.loadConfiguration(args);
@@ -21,22 +22,32 @@ public class ErsteWordCounterApp {
             System.out.println("Reading file");
             String pathToFile = args[0];
             sentence = fileReader.readContentOfFile(pathToFile);
-        } else {
-            System.out.print("Enter text:");
-            Scanner scanner = new Scanner(System.in);
-            sentence = scanner.nextLine();
+            isFile = true;
         }
+        boolean isLoop = true;
+        while (isLoop) {
+            if (!isFile) {
+                System.out.print("Enter text:");
+                Scanner scanner = new Scanner(System.in);
+                sentence = scanner.nextLine();
+                if (sentence == null || "".equalsIgnoreCase(sentence)) {
+                    break;
+                }
+            } else {
+                isLoop = false;
+            }
 
-        SplitWordCounterUtil.setStopWordsProvider(new StopWordsProviderImpl());
-        SentenceInformation sentenceInformation = SplitWordCounterUtil.getSentenceInformation(sentence);
+            SplitWordCounterUtil.setStopWordsProvider(new StopWordsProviderImpl());
+            SentenceInformation sentenceInformation = SplitWordCounterUtil.getSentenceInformation(sentence);
 
-        Set<String> dictionary = new HashSet<>();
-        if (properties.getDictionaryPath() != null) {
-            dictionary = fileReader.getDictionary(properties.getDictionaryPath());
+            Set<String> dictionary = new HashSet<>();
+            if (properties.getDictionaryPath() != null) {
+                dictionary = fileReader.getDictionary(properties.getDictionaryPath());
+            }
+
+            DictionaryService dictionaryService = new DictionaryServiceImpl(dictionary);
+            System.out.println(String.format("Number of words: %d, unique: %d; average word length: %.2f", sentenceInformation.getWords(), sentenceInformation.getUnique(), sentenceInformation.getAverage()));
+            dictionaryService.printData(sentenceInformation.getCountedWords());
         }
-
-        DictionaryService dictionaryService = new DictionaryServiceImpl(dictionary);
-        System.out.println(String.format("Number of words: %d, unique: %d; average word length: %.2f", sentenceInformation.getWords(), sentenceInformation.getUnique(), sentenceInformation.getAverage()));
-        dictionaryService.printData(sentenceInformation.getCountedWords());
     }
 }
