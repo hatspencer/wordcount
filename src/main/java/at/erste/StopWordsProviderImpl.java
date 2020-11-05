@@ -14,7 +14,7 @@ public class StopWordsProviderImpl implements StopWordsProvider {
 
     private static List<String> lowerCasedStopWords;
 
-    private static String filename = "/stopwords.txt";
+    private String filename = "/stopwords.txt";
 
     @Override
     public List<String> getLowerCaseStopWords() {
@@ -60,7 +60,7 @@ public class StopWordsProviderImpl implements StopWordsProvider {
         }
     }
 
-    public static void setFilename(String filename) {
-        StopWordsProviderImpl.filename = filename;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

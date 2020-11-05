@@ -27,7 +27,7 @@ public class FileReaderImpl implements FileReader {
     private void processLine(String path, Consumer<String> consumer ) {
         FileInputStream fileInputStream ;
         try {
-            File fileToCheck = new File(path);
+            File fileToCheck = getFile(path);
             if (!fileToCheck.exists()) {
                 System.out.println("The file does not exists.");
                 throw new FileNotFoundException("File does not exist");
@@ -50,6 +50,10 @@ public class FileReaderImpl implements FileReader {
             e.printStackTrace();
             throw new IllegalStateException(e.getMessage());
         }
+    }
+
+    protected File getFile(String path) {
+        return new File(path);
     }
 
 }

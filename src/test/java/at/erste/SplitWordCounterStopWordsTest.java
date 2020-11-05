@@ -3,6 +3,8 @@ package at.erste;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.UUID;
+
 public class SplitWordCounterStopWordsTest extends AbstractWordTest {
 
     @Test
@@ -29,6 +31,13 @@ public class SplitWordCounterStopWordsTest extends AbstractWordTest {
     public void testSentenceForIteration4() {
         Integer actualCount = countSentence("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
         Assert.assertEquals("The count is not invalid " , (Integer) 7,actualCount);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testNotExistingFile() {
+        StopWordsProviderImpl stopWordsProvider = new StopWordsProviderImpl();
+        stopWordsProvider.setFilename(UUID.randomUUID() + ".txt");
+        stopWordsProvider.readAllLinesFromFile();
     }
 
 

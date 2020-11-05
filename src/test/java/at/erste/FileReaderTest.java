@@ -15,7 +15,6 @@ public class FileReaderTest {
         FileReaderImpl fileReader = new FileReaderImpl();
 
         fileReader.readContentOfFile("nonexisting" + UUID.randomUUID() + ".txt");
-
     }
 
     @Test
@@ -53,9 +52,27 @@ public class FileReaderTest {
                file.delete();
             }
         }
+    }
 
+    @Test(expected = IllegalStateException.class)
+    public void testFileNotAccessible() {
+        FileReaderImpl reader = new FileReaderImpl() {
+            @Override
+            protected File getFile(String path) {
+                return new File(path) {
+                    @Override
+                    public boolean canRead() {
+                        return false;
+                    }
 
-
+                    @Override
+                    public boolean canWrite() {
+                        return true;
+                    }
+                };
+            }
+        };
+        reader.getDictionary("test");
     }
 
 
