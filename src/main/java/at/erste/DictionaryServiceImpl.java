@@ -28,4 +28,20 @@ public class DictionaryServiceImpl implements DictionaryService {
         }
         return result;
     }
+
+    @Override
+    public void printData(Set<String> countedWords) {
+        if (countedWords != null) {
+            Integer countOfUnknown = calculateUnknown(countedWords);
+            print(String.format("Index (unknown: %d)", countOfUnknown));
+            for (String entry : countedWords) {
+                String textToPrint = getTextToPrint(entry);
+                print(textToPrint);
+            }
+        }
+    }
+
+    protected void print(String text) {
+        System.out.println(text);
+    }
 }

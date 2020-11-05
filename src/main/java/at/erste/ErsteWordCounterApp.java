@@ -37,13 +37,6 @@ public class ErsteWordCounterApp {
 
         DictionaryService dictionaryService = new DictionaryServiceImpl(dictionary);
         System.out.println(String.format("Number of words: %d, unique: %d; average word length: %.2f", sentenceInformation.getWords(), sentenceInformation.getUnique(), sentenceInformation.getAverage()));
-        if (sentenceInformation.getCountedWords() != null) {
-            Integer countOfUnknown= dictionaryService.calculateUnknown(sentenceInformation.getCountedWords());
-            System.out.println(String.format("Index (unknown: %d)", countOfUnknown));
-            for (String entry : sentenceInformation.getCountedWords()) {
-                String textToPrint = dictionaryService.getTextToPrint(entry);
-                System.out.println(textToPrint);
-            }
-        }
+        dictionaryService.printData(sentenceInformation.getCountedWords());
     }
 }

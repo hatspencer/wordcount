@@ -48,4 +48,23 @@ public class TestDictionary {
         Assert.assertEquals((Integer) 1, emptyDictionary.calculateUnknown(wordsToCheck));
     }
 
+    @Test
+    public void testPrintData() {
+        Set<String> ersteDictionary = new HashSet<>();
+        ersteDictionary.add("erste");
+        StringBuilder console = new StringBuilder();
+        DictionaryServiceImpl emptyDictionary = new DictionaryServiceImpl(ersteDictionary) {
+            @Override
+            protected void print(String text) {
+                console.append(text);
+            }
+        };
+        HashSet<String> countedWords = new HashSet<>();
+        countedWords.add("erste");
+        countedWords.add("blesk");
+        emptyDictionary.printData(countedWords);
+
+        Assert.assertEquals("Index (unknown: 1)ersteblesk*", console.toString());
+    }
+
 }

@@ -7,4 +7,6 @@ public interface DictionaryService {
     String getTextToPrint(String entry);
 
     Integer calculateUnknown(Set<String> countedWords);
+
+    void printData(Set<String> countedWords);
 }
