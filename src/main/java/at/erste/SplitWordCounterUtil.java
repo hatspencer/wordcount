@@ -23,6 +23,7 @@ public final class SplitWordCounterUtil {
 
     public static SentenceInformation getSentenceInformation(String originalSentence) {
         HashSet<String> uniqueWords = new HashSet<>();
+        int sum = 0;
         int result = 0;
         String sentence = originalSentence;
         if (sentence != null) {
@@ -35,11 +36,18 @@ public final class SplitWordCounterUtil {
                     if (!getLowerCaseStopWords().contains(lowerCasedSplit)) {
                         result++;
                         uniqueWords.add(split);
+                        sum = sum + split.length();
                     }
                 }
             }
         }
-        return new SentenceInformation(result, uniqueWords.size());
+
+        Double average = 0d;
+        if (result != 0) {
+            average =  sum/(double)result;
+        }
+
+        return new SentenceInformation(result, uniqueWords.size(), average);
     }
 
     public static Integer countWords(String originalSentence) {

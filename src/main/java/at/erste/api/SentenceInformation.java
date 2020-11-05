@@ -6,9 +6,12 @@ public class SentenceInformation {
 
     private Integer unique;
 
-    public SentenceInformation(Integer words, Integer unique) {
+    private Double average;
+
+    public SentenceInformation(Integer words, Integer unique, Double average) {
         this.words = words;
         this.unique = unique;
+        this.average = average;
     }
 
     public Integer getWords() {
@@ -19,4 +22,7 @@ public class SentenceInformation {
         return unique;
     }
 
+    public Double getAverage() {
+        return average;
+    }
 }

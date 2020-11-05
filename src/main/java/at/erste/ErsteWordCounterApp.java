@@ -23,7 +23,7 @@ public class ErsteWordCounterApp {
         SplitWordCounterUtil.setStopWordsProvider(new StopWordsProviderImpl());
         SentenceInformation sentenceInformation = SplitWordCounterUtil.getSentenceInformation(sentence);
 
-        System.out.println(String.format("Number of words: %d, unique: %d", sentenceInformation.getWords(), sentenceInformation.getUnique()));
+        System.out.println(String.format("Number of words: %d, unique: %d; average word length: %.2f", sentenceInformation.getWords(), sentenceInformation.getUnique(), sentenceInformation.getAverage()));
     }
 
 }
