@@ -6,30 +6,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StopWordsProviderImpl implements StopWordsProvider {
 
-    private static List<String> loweredStopWords;
+    private static List<String> lowerCasedStopWords;
+
+    private static String filename = "/stopwords.txt";
 
     @Override
     public List<String> getLowerCardStopWords() {
-        if (loweredStopWords == null) {
-
+        if (lowerCasedStopWords == null) {
             List<String> strings = readAllLinesFromFile();
-            loweredStopWords = strings
+            List<String> lowerCasedFileEntries = strings
                     .stream()
                     .filter(t -> t != null)
                     .map(t -> t.toLowerCase())
                     .collect(Collectors.toList());
+            lowerCasedStopWords = Collections.unmodifiableList(lowerCasedFileEntries);
         }
 
-        return loweredStopWords;
+        return lowerCasedStopWords;
     }
 
     public List<String> readAllLinesFromFile() {
-        String filename = "/stopwords.txt";
         InputStream inputStream = null;
         InputStreamReader inputStreamReader  = null;
         BufferedReader bufferedReader  = null;
@@ -39,7 +41,7 @@ public class StopWordsProviderImpl implements StopWordsProvider {
             bufferedReader = new BufferedReader(inputStreamReader);
             return bufferedReader.lines().collect(Collectors.toList());
         } catch (Exception e) {
-            System.out.println("Error openin file " + filename + e);
+            System.out.println("Error opening file " + filename + e);
             throw new IllegalStateException("Unable to read file " + filename);
         } finally {
             closeSilently(inputStream);
@@ -58,4 +60,7 @@ public class StopWordsProviderImpl implements StopWordsProvider {
         }
     }
 
+    public static void setFilename(String filename) {
+        StopWordsProviderImpl.filename = filename;
+    }
 }
