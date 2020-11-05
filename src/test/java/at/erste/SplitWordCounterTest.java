@@ -65,6 +65,12 @@ public class SplitWordCounterTest {
         Assert.assertEquals("The count is not invalid " , (Integer) 1, actualCount);
     }
 
+    @Test
+    public void testSignleLetter() {
+        Integer actualCount = countSentence("w b c");
+        Assert.assertEquals("The count is not invalid " , (Integer) 3, actualCount);
+    }
+
     private Integer countSentence(String sentence) {
         return SplitWordCounterUtil.countWords(sentence);
     }
