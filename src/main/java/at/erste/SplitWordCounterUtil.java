@@ -2,6 +2,7 @@ package at.erste;
 
 import java.util.regex.Pattern;
 
+
 public final class SplitWordCounterUtil {
 
     public static final Pattern PATTERN_TO_MATCH = Pattern.compile("[a-z]+");
