@@ -5,3 +5,5 @@ We need to separate by whitespace.
 Stopwords are case insensitive
 
 Stopwords does not contains any other character than a-z or A-Z.
+
+Full path or relative to the execution

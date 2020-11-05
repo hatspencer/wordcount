@@ -30,7 +30,7 @@ public class SplitWordCounterStopWordsTest {
     private Integer countSentence(String sentence) {
         SplitWordCounterUtil.setStopWordsProvider(new StopWordsProvider() {
             @Override
-            public List<String> getLowerCardStopWords() {
+            public List<String> getLowerCaseStopWords() {
                 return Arrays.asList("the", "ballot", "apple");
             }
         });

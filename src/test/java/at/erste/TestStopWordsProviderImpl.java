@@ -17,7 +17,7 @@ public class TestStopWordsProviderImpl {
             }
         };
 
-        List<String> stopWords = stopWordsProvider.getLowerCardStopWords();
+        List<String> stopWords = stopWordsProvider.getLowerCaseStopWords();
 
         Assert.assertNotNull(stopWords);
         Assert.assertEquals("The stopwords list has bad size. ", 4, stopWords.size());

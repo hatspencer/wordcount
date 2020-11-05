@@ -10,8 +10,6 @@ public final class SplitWordCounterUtil {
 
     private static StopWordsProvider stopWordsProvider;
 
-    private static List<String> stopWords = null;
-
     private SplitWordCounterUtil() {
         //Hide default constructor for UTIL class
     }
@@ -20,15 +18,17 @@ public final class SplitWordCounterUtil {
         SplitWordCounterUtil.stopWordsProvider = stopWordsProvider;
     }
 
-    public static Integer countWords(String sentence) {
+    public static Integer countWords(String originalSentence) {
         int result = 0;
+        String sentence = originalSentence;
         if (sentence != null) {
+            sentence = sentence.replaceAll("\n", "");
             String[] splits = sentence.split(" ");
             for (String split : splits) {
                 boolean matches = ONLY_ALPHABET.matcher(split).matches();
                 if (matches) {
                     String lowerCasedSplit = split.toLowerCase();
-                    if (!getLowerCardStopWords().contains(lowerCasedSplit)) {
+                    if (!getLowerCaseStopWords().contains(lowerCasedSplit)) {
                         result++;
                     }
                 }
@@ -37,8 +37,8 @@ public final class SplitWordCounterUtil {
         return result;
     }
 
-    private static List<String> getLowerCardStopWords() {
-        return stopWordsProvider.getLowerCardStopWords();
+    private static List<String> getLowerCaseStopWords() {
+        return stopWordsProvider.getLowerCaseStopWords();
     }
 
 }

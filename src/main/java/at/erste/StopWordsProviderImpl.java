@@ -17,7 +17,7 @@ public class StopWordsProviderImpl implements StopWordsProvider {
     private static String filename = "/stopwords.txt";
 
     @Override
-    public List<String> getLowerCardStopWords() {
+    public List<String> getLowerCaseStopWords() {
         if (lowerCasedStopWords == null) {
             List<String> strings = readAllLinesFromFile();
             List<String> lowerCasedFileEntries = strings
