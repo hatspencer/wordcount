@@ -1,5 +1,7 @@
 package at.erste;
 
+import at.erste.api.SentenceInformation;
+
 import java.util.Scanner;
 
 public class ErsteWordCounterApp {
@@ -19,9 +21,9 @@ public class ErsteWordCounterApp {
 
 
         SplitWordCounterUtil.setStopWordsProvider(new StopWordsProviderImpl());
-        Integer wordCount = SplitWordCounterUtil.countWords(sentence);
+        SentenceInformation sentenceInformation = SplitWordCounterUtil.getSentenceInformation(sentence);
 
-        System.out.println(String.format("Number of words: %d", wordCount));
+        System.out.println(String.format("Number of words: %d, unique: %d", sentenceInformation.getWords(), sentenceInformation.getUnique()));
     }
 
 }

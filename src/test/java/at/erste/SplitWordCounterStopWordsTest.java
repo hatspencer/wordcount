@@ -3,38 +3,36 @@ package at.erste;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class SplitWordCounterStopWordsTest {
+public class SplitWordCounterStopWordsTest extends AbstractWordTest {
 
     @Test
     public void testStopWords() {
-        Integer actualCount = countSentence("The Ballot APPLE word");
+        Integer actualCount = countSentence("The on a word");
         Assert.assertEquals("The count is not invalid " , (Integer) 1,actualCount);
     }
 
     @Test
     public void testOnlyStopWord() {
-        Integer actualCount = countSentence("Ballot");
+        Integer actualCount = countSentence("on");
         Assert.assertEquals("The count is not invalid " , (Integer) 0,actualCount);
     }
 
     @Test
     public void testSentenceWithStopWordAndMixed() {
-        Integer actualCount = countSentence("Ballot are counted in the USA and apple is good");
+        Integer actualCount = countSentence("on are counted in the a and apple is good");
         Assert.assertEquals("The count is not invalid " , (Integer) 7,actualCount);
     }
 
 
-    private Integer countSentence(String sentence) {
-        SplitWordCounterUtil.setStopWordsProvider(new StopWordsProvider() {
-            @Override
-            public List<String> getLowerCaseStopWords() {
-                return Arrays.asList("the", "ballot", "apple");
-            }
-        });
-        return SplitWordCounterUtil.countWords(sentence);
+
+    @Test
+    public void testSentenceForIteration4() {
+        Integer actualCount = countSentence("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
+        Assert.assertEquals("The count is not invalid " , (Integer) 9,actualCount);
     }
+
+
+
+
 
 }

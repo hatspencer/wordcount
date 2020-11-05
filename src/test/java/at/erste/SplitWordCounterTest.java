@@ -62,9 +62,9 @@ public class SplitWordCounterTest {
     }
 
     @Test
-    public void ignoreWordWithDotAtTheEnd() {
+    public void testWordWithDotAtTheEnd() {
         Integer actualCount = countSentence("Word wo.");
-        Assert.assertEquals("The count is not invalid " , (Integer) 1, actualCount);
+        Assert.assertEquals("The count is not invalid " , (Integer) 2, actualCount);
     }
 
     @Test

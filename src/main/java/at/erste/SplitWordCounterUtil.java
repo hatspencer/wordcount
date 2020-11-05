@@ -1,12 +1,15 @@
 package at.erste;
 
+import at.erste.api.SentenceInformation;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
 
 public final class SplitWordCounterUtil {
 
-    private static final Pattern ONLY_ALPHABET = Pattern.compile("[a-zA-Z]+");
+    private static final Pattern ONLY_ALPHABET = Pattern.compile("[-a-zA-Z\\.]+");
 
     private static StopWordsProvider stopWordsProvider;
 
@@ -18,23 +21,30 @@ public final class SplitWordCounterUtil {
         SplitWordCounterUtil.stopWordsProvider = stopWordsProvider;
     }
 
-    public static Integer countWords(String originalSentence) {
+    public static SentenceInformation getSentenceInformation(String originalSentence) {
+        HashSet<String> uniqueWords = new HashSet<>();
         int result = 0;
         String sentence = originalSentence;
         if (sentence != null) {
             sentence = sentence.replaceAll("\n", "");
-            String[] splits = sentence.split(" ");
+            String[] splits = sentence.split("( |\\-)");
             for (String split : splits) {
                 boolean matches = ONLY_ALPHABET.matcher(split).matches();
                 if (matches) {
                     String lowerCasedSplit = split.toLowerCase();
                     if (!getLowerCaseStopWords().contains(lowerCasedSplit)) {
                         result++;
+                        uniqueWords.add(split);
                     }
                 }
             }
         }
-        return result;
+        return new SentenceInformation(result, uniqueWords.size());
+    }
+
+    public static Integer countWords(String originalSentence) {
+        SentenceInformation sentenceInformation = getSentenceInformation(originalSentence);
+        return sentenceInformation.getWords();
     }
 
     private static List<String> getLowerCaseStopWords() {
