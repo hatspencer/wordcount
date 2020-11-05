@@ -3,6 +3,8 @@ package at.erste;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class SplitWordCounterTest {
 
     @Test
@@ -72,6 +74,7 @@ public class SplitWordCounterTest {
     }
 
     private Integer countSentence(String sentence) {
+        SplitWordCounterUtil.setStopWordsProvider(() -> new ArrayList<>());
         return SplitWordCounterUtil.countWords(sentence);
     }
 
