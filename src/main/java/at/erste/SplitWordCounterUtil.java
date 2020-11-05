@@ -27,7 +27,7 @@ public final class SplitWordCounterUtil {
         String sentence = originalSentence;
         if (sentence != null) {
             sentence = sentence.replaceAll("\n", "");
-            String[] splits = sentence.split("( |\\-)");
+            String[] splits = sentence.split(" ");
             for (String split : splits) {
                 boolean matches = ONLY_ALPHABET.matcher(split).matches();
                 if (matches) {

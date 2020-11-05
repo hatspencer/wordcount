@@ -28,7 +28,7 @@ public class SplitWordCounterStopWordsTest extends AbstractWordTest {
     @Test
     public void testSentenceForIteration4() {
         Integer actualCount = countSentence("Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.");
-        Assert.assertEquals("The count is not invalid " , (Integer) 9,actualCount);
+        Assert.assertEquals("The count is not invalid " , (Integer) 7,actualCount);
     }
 
 
