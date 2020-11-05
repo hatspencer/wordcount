@@ -1,5 +1,6 @@
 package at.erste;
 
+import at.erste.api.SentenceInformation;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -62,9 +63,9 @@ public class TestDictionary {
         HashSet<String> countedWords = new HashSet<>();
         countedWords.add("erste");
         countedWords.add("blesk");
-        emptyDictionary.printData(countedWords);
+        emptyDictionary.printData(new SentenceInformation(1,1,1d, countedWords));
 
-        Assert.assertEquals("Index (unknown: 1)ersteblesk*", console.toString());
+        Assert.assertEquals("Number of words: 1, unique: 1; average word length: 1,00Index (unknown: 1)ersteblesk*", console.toString());
 
         new DictionaryServiceImpl(ersteDictionary).print("Test");
     }

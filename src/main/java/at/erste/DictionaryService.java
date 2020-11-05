@@ -1,5 +1,7 @@
 package at.erste;
 
+import at.erste.api.SentenceInformation;
+
 import java.util.Set;
 
 public interface DictionaryService {
@@ -8,5 +10,5 @@ public interface DictionaryService {
 
     Integer calculateUnknown(Set<String> countedWords);
 
-    void printData(Set<String> countedWords);
+    void printData(SentenceInformation sentenceInformation);
 }
