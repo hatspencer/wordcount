@@ -1,5 +1,7 @@
 package at.erste.api;
 
+import java.util.Set;
+
 public class SentenceInformation {
 
     private Integer words;
@@ -8,10 +10,17 @@ public class SentenceInformation {
 
     private Double average;
 
-    public SentenceInformation(Integer words, Integer unique, Double average) {
+    private Set<String> countedWords;
+
+    public SentenceInformation(Integer words, Integer unique, Double average, Set<String> countedWords) {
         this.words = words;
         this.unique = unique;
         this.average = average;
+        this.countedWords = countedWords;
+    }
+
+    public Set<String> getCountedWords() {
+        return countedWords;
     }
 
     public Integer getWords() {

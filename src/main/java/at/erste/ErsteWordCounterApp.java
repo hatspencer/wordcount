@@ -24,6 +24,12 @@ public class ErsteWordCounterApp {
         SentenceInformation sentenceInformation = SplitWordCounterUtil.getSentenceInformation(sentence);
 
         System.out.println(String.format("Number of words: %d, unique: %d; average word length: %.2f", sentenceInformation.getWords(), sentenceInformation.getUnique(), sentenceInformation.getAverage()));
+        if (sentenceInformation.getCountedWords() != null) {
+            for (String entry : sentenceInformation.getCountedWords()) {
+                System.out.println(entry);
+            }
+        }
+
     }
 
 }

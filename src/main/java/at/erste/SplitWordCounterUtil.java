@@ -2,8 +2,9 @@ package at.erste;
 
 import at.erste.api.SentenceInformation;
 
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 
@@ -22,9 +23,10 @@ public final class SplitWordCounterUtil {
     }
 
     public static SentenceInformation getSentenceInformation(String originalSentence) {
-        HashSet<String> uniqueWords = new HashSet<>();
+        Set<String> uniqueWords = new TreeSet<>(((o1, o2) -> o1.compareToIgnoreCase(o2)));
         int sum = 0;
         int result = 0;
+
         String sentence = originalSentence;
         if (sentence != null) {
             sentence = sentence.replaceAll("\n", "");
@@ -47,7 +49,7 @@ public final class SplitWordCounterUtil {
             average =  sum/(double)result;
         }
 
-        return new SentenceInformation(result, uniqueWords.size(), average);
+        return new SentenceInformation(result, uniqueWords.size(), average, uniqueWords);
     }
 
     public static Integer countWords(String originalSentence) {
