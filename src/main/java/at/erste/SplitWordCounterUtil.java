@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 
 public final class SplitWordCounterUtil {
 
-    public static final Pattern PATTERN_TO_MATCH = Pattern.compile("[a-z]+");
-
+    private static final Pattern ONLY_ALPHABET = Pattern.compile("[a-zA-Z]+");
 
     private SplitWordCounterUtil() {
         //Hide default constructor for UTIL class
@@ -15,10 +14,9 @@ public final class SplitWordCounterUtil {
     public static Integer countWords(String sentence) {
         int result = 0;
         if (sentence != null) {
-            String lowered = sentence.toLowerCase();
-            String[] splits = lowered.split(" ");
+            String[] splits = sentence.split(" ");
             for (String split : splits) {
-                boolean matches = PATTERN_TO_MATCH.matcher(split).matches();
+                boolean matches = ONLY_ALPHABET.matcher(split).matches();
                 if (matches) {
                     result++;
                 }
