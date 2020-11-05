@@ -20,6 +20,11 @@ public class FileReaderImpl implements FileReader {
                 throw new FileNotFoundException("File does not exist");
             }
 
+            if (!fileToCheck.canRead()){
+                System.out.println("The file is not readable for the program");
+                throw new IllegalStateException("File is not accessible by the program");
+            }
+
             fileInputStream = new FileInputStream(path);
 
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream))) {
