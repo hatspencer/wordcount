@@ -23,7 +23,7 @@ public final class SplitWordCounterUtil {
     }
 
     public static SentenceInformation getSentenceInformation(String originalSentence) {
-        Set<String> uniqueWords = new TreeSet<>(((o1, o2) -> o1.compareToIgnoreCase(o2)));
+        Set<String> uniqueWords = new TreeSet<>();
         int sum = 0;
         int result = 0;
 
@@ -49,7 +49,9 @@ public final class SplitWordCounterUtil {
             average =  sum/(double)result;
         }
 
-        return new SentenceInformation(result, uniqueWords.size(), average, uniqueWords);
+        Set<String> sortedLowered = new TreeSet<>(((o1, o2) -> o1.compareToIgnoreCase(o2)));
+        sortedLowered.addAll(uniqueWords);
+        return new SentenceInformation(result, uniqueWords.size(), average, sortedLowered);
     }
 
     public static Integer countWords(String originalSentence) {

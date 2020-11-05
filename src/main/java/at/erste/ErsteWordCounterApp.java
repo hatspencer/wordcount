@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ErsteWordCounterApp {
 
     public static void main(String[] args) {
-        String sentence = null;
+        String sentence;
         if (args.length == 0) {
             System.out.print("Enter text:");
             Scanner scanner = new Scanner(System.in);
@@ -18,7 +18,6 @@ public class ErsteWordCounterApp {
             FileReaderImpl fileReader = new FileReaderImpl();
             sentence = fileReader.readContentOfFile(pathToFile);
         }
-
 
         SplitWordCounterUtil.setStopWordsProvider(new StopWordsProviderImpl());
         SentenceInformation sentenceInformation = SplitWordCounterUtil.getSentenceInformation(sentence);
