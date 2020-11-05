@@ -10,6 +10,7 @@ public class ErsteWordCounterApp {
 
         String sentence = scanner.nextLine();
 
+        SplitWordCounterUtil.setStopWordsProvider(new StopWordsProviderImpl());
         Integer wordCount = SplitWordCounterUtil.countWords(sentence);
 
         System.out.println(String.format("Number of words: %d", wordCount));

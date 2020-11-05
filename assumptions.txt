@@ -1,3 +1,7 @@
 We want to count only valid words matching pattern a-z or A-Z no any other word with digits or other characters.
 
 We need to separate by whitespace.
+
+Stopwords are case insensitive
+
+Stopwords does not contains any other character than a-z or A-Z.
