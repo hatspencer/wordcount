@@ -6,12 +6,25 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
 
 public class FileReaderImpl implements FileReader {
 
     public String readContentOfFile(String path) {
-        StringBuilder resultStringBuilder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
+        processLine(path, t -> builder.append(t).append("\n"));
+        return builder.toString();
+    }
 
+    public Set<String> getDictionary(String pathToFile) {
+        Set<String> dictionary = new HashSet<>();
+        processLine(pathToFile, t -> dictionary.add(t));
+        return dictionary;
+    }
+
+    private void processLine(String path, Consumer<String> consumer ) {
         FileInputStream fileInputStream ;
         try {
             File fileToCheck = new File(path);
@@ -30,14 +43,13 @@ public class FileReaderImpl implements FileReader {
             try (BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream))) {
                 String line;
                 while ((line = br.readLine()) != null) {
-                    resultStringBuilder.append(line).append("\n");
+                    consumer.accept(line);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
             throw new IllegalStateException(e.getMessage());
         }
-        System.out.println("Readed line \n" + resultStringBuilder.toString());
-        return resultStringBuilder.toString();
     }
+
 }
