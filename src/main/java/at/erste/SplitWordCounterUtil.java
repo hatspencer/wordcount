@@ -1,6 +1,5 @@
 package at.erste;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class SplitWordCounterUtil {
@@ -9,16 +8,15 @@ public final class SplitWordCounterUtil {
 
     public static Integer countWords(String sentence) {
         int result = 0;
-        if (sentence == null) {
-            return result;
-        }
-
-        String lowered = sentence.toLowerCase();
-        lowered = lowered.replaceAll(" ", "");
-        Matcher matcher = PATTERN_TO_MATCH.matcher(lowered);
-        while (matcher.find()) {
-            String group = matcher.group();
-            result++;
+        if (sentence != null) {
+            String lowered = sentence.toLowerCase();
+            String[] splits = lowered.split(" ");
+            for (String split : splits) {
+                boolean matches = PATTERN_TO_MATCH.matcher(split).matches();
+                if (matches) {
+                    result++;
+                }
+            }
         }
         return result;
     }
