@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class ProcessUserInputImpl implements ProcessUserInput {
 
+    private static final String PATH_STOP_WORD = "src/resources/stopwords.txt";
     private static final String DELIMETER = "\\s+";
     private static final String MATCH_PATERN =  "[a-zA-Z]+";
 
@@ -13,7 +14,7 @@ public class ProcessUserInputImpl implements ProcessUserInput {
         List<String> wordList = new ArrayList<>();
         List<String> validWordList = new ArrayList<>();
         StopWordDictionaryImpl stopWordDictionary = new StopWordDictionaryImpl();
-        Set<String> stopWordDictionarySet = stopWordDictionary.getStopWordDictionary();
+        Set<String> stopWordDictionarySet = stopWordDictionary.getStopWordDictionary(PATH_STOP_WORD);
         if (input != null) {
             String[] words = input.split(DELIMETER);
             Collections.addAll(wordList, words);

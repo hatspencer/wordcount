@@ -10,17 +10,15 @@ import java.util.stream.Collectors;
 
 public class StopWordDictionaryImpl implements StopWordDictionary {
 
-    private static final String PATH_STOP_WORD = "src/resources/stopwords.txt";
     private static LoadStopWordInputImpl loadStopWordInput = new LoadStopWordInputImpl();
 
     @Override
-    public Set<String> getStopWordDictionary() {
+    public Set<String> getStopWordDictionary(String path) {
         try {
-            BufferedReader bufferedReader = loadStopWordInput.getStopWordFileByPath(PATH_STOP_WORD);
+            BufferedReader bufferedReader = loadStopWordInput.getStopWordFileByPath(path);
             return Collections.unmodifiableSet(bufferedReader.lines().collect(Collectors.toSet()));
         } catch (IOException e) {
             System.out.println("Failed to load the Stop word dictionary. Stop word dictionary is therefore empty");
-            e.printStackTrace();
         }
         return new HashSet<>();
     }

@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 public class LoadStopWordInputTest {
 
     private static final String INVALID_PATH_TEST_STOP_WORD_FILE = "XXXX";
-
     private LoadStopWordInputImpl loadStopWordInput;
 
     @Before

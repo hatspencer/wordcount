@@ -3,5 +3,5 @@ import java.util.Set;
 
 public interface StopWordDictionary {
 
-    Set<String> getStopWordDictionary();
+    Set<String> getStopWordDictionary(String path);
 }
