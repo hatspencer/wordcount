@@ -1,9 +1,10 @@
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+
+import static org.junit.Assert.*;
 
 public class UserInputTest {
 
@@ -20,6 +21,15 @@ public class UserInputTest {
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
-        Assert.assertEquals(input, userInputl.receiveSystemInput());
+        assertEquals(input, userInputl.receiveSystemInput());
+    }
+
+    @Test
+    public void receiveEmptyInputTest(){
+        String input = "";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        assertNull(userInputl.receiveSystemInput());
     }
 }
