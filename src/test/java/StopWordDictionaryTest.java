@@ -1,7 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class StopWordDictionaryTest {
 
@@ -14,9 +14,6 @@ public class StopWordDictionaryTest {
 
     @Test
     public void receiveInputTextTest(){
-        String input = "       Test USER given input ";
-        assertEquals("Word count only containing only valid word doesn't match",4, processInput.processUserInput(input).size());
-        input = "Test user gi6ven input";
-        assertEquals("Word count only containing only invalid word with number returns incorrect size",3, processInput.processUserInput(input).size());
+
     }
 }

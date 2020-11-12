@@ -18,6 +18,8 @@ public class ProcessUserInputTest {
         assertEquals("Word count only containing only valid word doesn't match",4, processInput.processUserInput(input).size());
         input = "Test user gi6ven input";
         assertEquals("Word count only containing only invalid word with number returns incorrect size",3, processInput.processUserInput(input).size());
+        input = "Test user stop word input";
+        assertEquals("Word count only containing stop word returns incorrect size",3, processInput.processUserInput(input).size());
     }
 
     @Test

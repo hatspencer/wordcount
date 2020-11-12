@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class ProcessUserInputImpl implements ProcessUserInput {
@@ -11,13 +12,15 @@ public class ProcessUserInputImpl implements ProcessUserInput {
     public List<String> processUserInput(String input) {
         List<String> wordList = new ArrayList<>();
         List<String> validWordList = new ArrayList<>();
-        StopWordDictionaryImpl stopWordDictionary = new StopWordDictionaryImpl(new LoadStopWordInputImpl());
-        List<String> stopWordDictionaryList = stopWordDictionary.getStopWordDictionary();
+        StopWordDictionaryImpl stopWordDictionary = new StopWordDictionaryImpl();
+        Set<String> stopWordDictionarySet = stopWordDictionary.getStopWordDictionary();
         if (input != null) {
             String[] words = input.split(DELIMETER);
             Collections.addAll(wordList, words);
             for (String word: wordList) {
-                if(!word.isEmpty() && word.matches(MATCH_PATERN)){
+                if(!word.isEmpty()
+                        && word.matches(MATCH_PATERN)
+                        && !stopWordDictionarySet.contains(word)){
                  validWordList.add(word);
                 }
             }

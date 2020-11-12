@@ -1,6 +1,7 @@
 import java.util.List;
+import java.util.Set;
 
 public interface StopWordDictionary {
 
-    List<String> getStopWordDictionary();
+    Set<String> getStopWordDictionary();
 }
