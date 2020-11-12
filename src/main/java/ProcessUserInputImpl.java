@@ -6,15 +6,20 @@ import java.util.regex.Pattern;
 public class ProcessUserInputImpl implements ProcessUserInput {
 
     private static final String DELIMETER = "\\s+";
-    private static final Pattern MATCH_PATERN =  Pattern.compile("^[a-zA-z]+");
+    private static final String MATCH_PATERN =  "[a-zA-Z]+";
 
     public List<String> processUserInput(String input) {
-        List<String> wordList = new ArrayList<String>();
+        List<String> wordList = new ArrayList<>();
+        List<String> validWordList = new ArrayList<>();
         if (input != null) {
             String[] words = input.split(DELIMETER);
             Collections.addAll(wordList, words);
-            wordList.removeIf(MATCH_PATERN.asPredicate());
+            for (String word: wordList) {
+                if(!word.isEmpty() && word.matches(MATCH_PATERN)){
+                 validWordList.add(word);
+                }
+            }
         }
-        return wordList;
+        return validWordList;
     }
 }
