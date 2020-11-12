@@ -10,6 +10,7 @@ public class ProcessUserInputImpl implements ProcessUserInput {
     private static final String DELIMETER = "\\s+";
     private static final String MATCH_PATERN =  "[a-zA-Z]+";
 
+    @Override
     public List<String> processUserInput(String input) {
         List<String> wordList = new ArrayList<>();
         List<String> validWordList = new ArrayList<>();

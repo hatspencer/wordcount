@@ -1,3 +1,4 @@
 - white spaces split the words (for example "wor2b" is not to be counted)
 - if the stop words file fails to load, program continue without stop word dictionary and inform the user
 - the stop word file is handled as the format is correct
+- in this version we assume that user is giving proper file name, if user gives incorrect path is informed to console
