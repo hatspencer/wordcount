@@ -11,6 +11,8 @@ public class ProcessUserInputImpl implements ProcessUserInput {
     public List<String> processUserInput(String input) {
         List<String> wordList = new ArrayList<>();
         List<String> validWordList = new ArrayList<>();
+        StopWordDictionaryImpl stopWordDictionary = new StopWordDictionaryImpl(new LoadStopWordInputImpl());
+        List<String> stopWordDictionaryList = stopWordDictionary.getStopWordDictionary();
         if (input != null) {
             String[] words = input.split(DELIMETER);
             Collections.addAll(wordList, words);
