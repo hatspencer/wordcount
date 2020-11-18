@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class WordCounterWithStopWordsImpl implements WordCounter {
 
-    private static final String STOPWORDS_FILE_PATH = "src/main/resources/stopwords.txt";
+    private static final String STOPWORDS_FILE_PATH = "stopwords.txt";
 
     private StopWords stopWords;
 
