@@ -6,15 +6,24 @@ import java.io.IOException;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class StopWordReaderTest {
 
     @Test
-    public void whenTestfileThenCollectionWithSize4() throws IOException {
-        StopWordReader stopWordReader = new StopWordReader("src/test/resources/stopwords.txt");
-        Set<String> stopWords = stopWordReader.readStopWords();
+    public void when_testFile_then_collectionWithSize4() throws IOException {
+        Set<String> stopWords = StopWordReader.readStopWords("src/test/resources/stopwords.txt");
 
         assertEquals(4, stopWords.size());
+    }
+
+    @Test
+    public void when_invalid_input_then_illegal_argument_exception() {
+        try {
+            StopWordReader.readStopWords(null);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
     }
 
 }

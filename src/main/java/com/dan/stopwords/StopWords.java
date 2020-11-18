@@ -21,9 +21,9 @@ public class StopWords {
         return stopWords.contains(word);
     }
 
-    public static StopWords fromFile(String fileName) {
+    public static StopWords fromFile(String filePath) {
         try {
-            Set<String> stopWords = new StopWordReader(fileName).readStopWords();
+            Set<String> stopWords = StopWordReader.readStopWords(filePath);
             return new StopWords(Collections.unmodifiableSet(stopWords));
         } catch (IOException e) {
             throw new RuntimeException(e);

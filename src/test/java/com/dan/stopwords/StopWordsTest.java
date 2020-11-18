@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 public class StopWordsTest {
 
     @Test
-    public void when_contains_word_Then_returns_true() {
+    public void when_contains_word_then_returns_true() {
         StopWords stopWords = StopWords.fromWords("one", "two");
 
         boolean output = stopWords.contains("one");
@@ -17,7 +17,7 @@ public class StopWordsTest {
     }
 
     @Test
-    public void when_null_passed_Then_returns_true() {
+    public void when_null_passed_then_returns_true() {
         StopWords stopWords = StopWords.fromWords("one", "two");
 
         boolean output = stopWords.contains(null);
@@ -26,7 +26,7 @@ public class StopWordsTest {
     }
 
     @Test
-    public void when_empty_string_in_set_Then_returns_false() {
+    public void when_empty_string_in_set_then_returns_false() {
         StopWords stopWords = StopWords.fromWords("");
 
         boolean output = stopWords.contains("");
@@ -35,12 +35,21 @@ public class StopWordsTest {
     }
 
     @Test
-    public void when_stopwords_empty_Then_returns_false() {
+    public void when_stopwords_empty_then_returns_false() {
         StopWords stopWords = StopWords.fromWords();
 
         boolean output = stopWords.contains("one");
 
         assertFalse(output);
+    }
+
+    @Test
+    public void when_stopwords_from_file_then_returns_false() {
+        StopWords stopWords = StopWords.fromFile("src/test/resources/stopwords.txt");
+
+        boolean output = stopWords.contains("the");
+
+        assertTrue(output);
     }
 
 }
