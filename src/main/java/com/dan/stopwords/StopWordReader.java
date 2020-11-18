@@ -1,6 +1,6 @@
 package com.dan.stopwords;
 
-import com.dan.io.FileReader;
+import com.dan.util.FileReader;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -9,16 +9,18 @@ import java.util.Set;
 
 class StopWordReader {
 
-    private String filePath;
-
-    public StopWordReader(String filePath) {
-        this.filePath = filePath;
+    private StopWordReader() {
+        //prevent init
     }
 
-    public Set<String> readStopWords() throws IOException {
+    public static Set<String> readStopWords(String filePath) throws IOException {
+        if (filePath == null) {
+            throw new IllegalArgumentException("The stopwords file path cannot be null!");
+        }
+
         Set<String> stopWords = new HashSet<>();
 
-        List<String> lines = FileReader.readLines(this.filePath);
+        List<String> lines = FileReader.readLines(filePath);
 
         for (String stopWord : lines) {
             if (!stopWord.isEmpty()) {

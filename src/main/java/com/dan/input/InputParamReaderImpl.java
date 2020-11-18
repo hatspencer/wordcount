@@ -1,10 +1,13 @@
-package com.dan.io;
+package com.dan.input;
+
+import com.dan.util.FileReader;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class InputReader {
+public class InputParamReaderImpl implements InputParamReader {
 
+    @Override
     public String readInput(String[] args) {
         if (args.length > 0) {
             String filePath = args[0];
