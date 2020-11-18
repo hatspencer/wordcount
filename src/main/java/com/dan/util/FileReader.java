@@ -22,6 +22,10 @@ public class FileReader {
     }
 
     public static List<String> readLinesFromClassPath(String filePath) {
+        if (filePath == null || filePath.trim().isEmpty()) {
+            throw new IllegalArgumentException("The filePath cannot be null");
+        }
+
         InputStream inputStream = FileReader.class.getClassLoader().getResourceAsStream(filePath);
 
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);

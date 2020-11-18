@@ -21,6 +21,8 @@ public class StopWordReaderTest {
     public void when_invalid_input_then_illegal_argument_exception() {
         try {
             StopWordReader.readStopWords(null);
+
+            assertTrue("An exception was expected!", false);
         } catch (Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }

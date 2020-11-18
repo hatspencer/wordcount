@@ -1,6 +1,5 @@
 package com.dan.stopwords;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,12 +21,8 @@ public class StopWords {
     }
 
     public static StopWords fromFile(String filePath) {
-        try {
-            Set<String> stopWords = StopWordReader.readStopWords(filePath);
-            return new StopWords(Collections.unmodifiableSet(stopWords));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Set<String> stopWords = StopWordReader.readStopWords(filePath);
+        return new StopWords(Collections.unmodifiableSet(stopWords));
     }
 
     public static StopWords fromWords(String... stopWords) {

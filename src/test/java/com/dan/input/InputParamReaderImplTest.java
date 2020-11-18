@@ -4,6 +4,7 @@ import com.dan.testutil.SystemInMock;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class InputParamReaderImplTest {
 
@@ -20,6 +21,20 @@ public class InputParamReaderImplTest {
                 " \r\n" +
                 "lamb";
         assertEquals(expectedFileContents, output);
+    }
+
+    @Test
+    public void when_invalid_file_input_then_throws_exception() {
+        String[] inputArgs = new String[] { "does_not_exist" };
+
+        InputParamReader inputParamReader = new InputParamReaderImpl();
+        try {
+            inputParamReader.readInput(inputArgs);
+
+            assertTrue("An exception was expected!", false);
+        } catch (Exception e) {
+            assertTrue(e instanceof RuntimeException);
+        }
     }
 
     @Test
