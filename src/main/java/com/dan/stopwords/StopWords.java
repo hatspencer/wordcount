@@ -1,7 +1,6 @@
 package com.dan.stopwords;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,8 +31,13 @@ public class StopWords {
     }
 
     public static StopWords fromWords(String... stopWords) {
-        Set<String> stopWordsSet = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(stopWords)));
-        return new StopWords(stopWordsSet);
+        HashSet<String> set = new HashSet<>();
+
+        for (String stopWord : stopWords) {
+            if (stopWord != null && !stopWord.isEmpty()) set.add(stopWord);
+        }
+
+        return new StopWords(Collections.unmodifiableSet(set));
     }
 
 }
