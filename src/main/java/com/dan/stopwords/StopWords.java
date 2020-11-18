@@ -1,6 +1,6 @@
 package com.dan.stopwords;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +25,7 @@ public class StopWords {
         try {
             Set<String> stopWords = new StopWordReader(fileName).readStopWords();
             return new StopWords(Collections.unmodifiableSet(stopWords));
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
