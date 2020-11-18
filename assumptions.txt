@@ -1,0 +1,2 @@
+- The input does not have linebreaks.
+- Its assumed that words are separated by whitespace chars
