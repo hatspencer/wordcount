@@ -1,9 +1,7 @@
 package com.dan.wordcounter;
 
-public class WordCounter {
+public interface WordCounter {
 
-    public int countWords(String input) {
-        return 0;
-    }
+    int countWords(String input);
 
 }
