@@ -1,7 +1,7 @@
 package com.dan.application;
 
 import com.dan.wordcounter.WordCounter;
-import com.dan.wordcounter.WordCounterImpl;
+import com.dan.wordcounter.WordCounterWithStopWordsImpl;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
 
-        WordCounter counter = new WordCounterImpl();
+        WordCounter counter = new WordCounterWithStopWordsImpl();
 
         int wordCount = counter.countWords(line);
 
