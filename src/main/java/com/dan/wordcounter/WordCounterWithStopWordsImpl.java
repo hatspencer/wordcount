@@ -1,9 +1,7 @@
 package com.dan.wordcounter;
 
 import com.dan.stopwords.StopWords;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.dan.words.WordMatcher;
 
 public class WordCounterWithStopWordsImpl implements WordCounter {
 
@@ -23,14 +21,19 @@ public class WordCounterWithStopWordsImpl implements WordCounter {
     public int countWords(String input) {
         if (input == null) return 0;
 
-        final String[] parts = input.split("\\s");
-        final Pattern pattern = Pattern.compile("[a-zA-Z]+");
+        final String[] parts = input.split("[\\s-]");
+
+        final WordMatcher wordMatcher = WordMatcher.forPattern("[a-zA-Z]+\\.?");
 
         int wordCount = 0;
         for (String part : parts) {
-            Matcher matcher = pattern.matcher(part);
+            if (wordMatcher.isValid(part)) {
+                part = part.replaceFirst("\\.", "");
 
-            if (matcher.matches() && !stopWords.contains(part)) wordCount++;
+                if (!stopWords.contains(part)) {
+                    wordCount++;
+                }
+            }
         }
 
         return wordCount;

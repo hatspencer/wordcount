@@ -6,3 +6,8 @@ Iteration 1:
 Iteration 3:
 
 - The application input file can consist of multiple lines
+
+Iteration 4:
+
+- Stretches of text which contain - are considered separate words
+- Words which end with a . are accepted as words
