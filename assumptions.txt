@@ -1,2 +1,8 @@
+Iteration 1:
+
 - The input does not have linebreaks.
 - Its assumed that words are separated by whitespace chars
+
+Iteration 3:
+
+- The application input file can consist of multiple lines

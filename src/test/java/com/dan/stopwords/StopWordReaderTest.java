@@ -1,15 +1,16 @@
 package com.dan.stopwords;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Set;
 
-public class StopWordReaderTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class StopWordReaderTest {
 
     @Test
-    public void whenTestfileThenCollectionWithSize4() throws FileNotFoundException {
+    public void whenTestfileThenCollectionWithSize4() throws IOException {
         StopWordReader stopWordReader = new StopWordReader("src/test/resources/stopwords.txt");
         Set<String> stopWords = stopWordReader.readStopWords();
 

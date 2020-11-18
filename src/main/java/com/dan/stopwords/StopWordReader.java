@@ -1,40 +1,29 @@
 package com.dan.stopwords;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import com.dan.io.FileReader;
+
+import java.io.IOException;
 import java.util.HashSet;
-import java.util.Scanner;
+import java.util.List;
 import java.util.Set;
 
-public class StopWordReader {
+class StopWordReader {
 
-    private String filename;
+    private String filePath;
 
-    public StopWordReader(String filename) {
-        this.filename = filename;
+    public StopWordReader(String filePath) {
+        this.filePath = filePath;
     }
 
-    public Set<String> readStopWords() throws FileNotFoundException {
-        File file = new File(this.filename);
-
+    public Set<String> readStopWords() throws IOException {
         Set<String> stopWords = new HashSet<>();
 
-        Scanner sc = null;
-        try {
-            sc = new Scanner(file);
+        List<String> lines = FileReader.readLines(this.filePath);
 
-            while (sc.hasNextLine()) {
-                String stopWord = sc.nextLine();
-                if (!stopWord.isEmpty()) {
-                    stopWords.add(stopWord);
-                }
+        for (String stopWord : lines) {
+            if (!stopWord.isEmpty()) {
+                stopWords.add(stopWord);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-
-            throw e;
-        } finally {
-            if (sc != null) sc.close();
         }
 
         return stopWords;
