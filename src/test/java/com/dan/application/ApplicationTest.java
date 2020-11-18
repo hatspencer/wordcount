@@ -41,6 +41,8 @@ public class ApplicationTest {
 
         try {
             Application.main(args);
+
+            assertTrue("An exception was expected!", false);
         } catch (Exception e) {
             assertTrue(e instanceof RuntimeException);
         }

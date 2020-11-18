@@ -52,4 +52,26 @@ public class StopWordsTest {
         assertTrue(output);
     }
 
+    @Test
+    public void when_blank_file_path_then_throws_exception() {
+        try {
+            StopWords.fromFile(" ");
+
+            assertTrue("An exception was expected!", false);
+        } catch (Exception e) {
+            assertTrue(e instanceof IllegalArgumentException);
+        }
+    }
+
+    @Test
+    public void when_non_existing_file_then_throws_exception() {
+        try {
+            StopWords.fromFile("some.txt");
+
+            assertTrue("An exception was expected!", false);
+        } catch (Exception e) {
+            assertTrue(e instanceof RuntimeException);
+        }
+    }
+
 }
