@@ -19,8 +19,32 @@ public class WordCounterWithStopWordsImplTest {
     }
 
     @Test
+    public void when_iter_4_input_then_output_is_9() {
+        String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+
+        StopWords stopWords = StopWords.fromWords("the", "a", "on", "off");
+        counter = new WordCounterWithStopWordsImpl(stopWords);
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(9, countWords);
+    }
+
+    @Test
     public void when_Mary_had_a_little_lamb_then_output_is_4() {
         String input = "Mary had a little lamb";
+
+        StopWords stopWords = StopWords.fromWords("the", "a", "on", "off");
+        counter = new WordCounterWithStopWordsImpl(stopWords);
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(4, countWords);
+    }
+
+    @Test
+    public void when_Mary_had_a_little_lamb_with_dot_then_output_is_4() {
+        String input = "Mary had a. little lamb";
 
         StopWords stopWords = StopWords.fromWords("the", "a", "on", "off");
         counter = new WordCounterWithStopWordsImpl(stopWords);
@@ -61,6 +85,24 @@ public class WordCounterWithStopWordsImplTest {
     }
 
     @Test
+    public void when_wo_dash_rd_word_word_then_output_is_4() {
+        String input = "wo-rd word word";
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(4, countWords);
+    }
+
+    @Test
+    public void when_dash_word_word_word_then_output_is_3() {
+        String input = "-word word word";
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(3, countWords);
+    }
+
+    @Test
     public void when_word_word2word_word_then_output_is_2() {
         String input = "word word2word word";
 
@@ -75,7 +117,7 @@ public class WordCounterWithStopWordsImplTest {
 
         final int countWords = counter.countWords(input);
 
-        assertEquals(1, countWords);
+        assertEquals(2, countWords);
     }
 
     @Test
