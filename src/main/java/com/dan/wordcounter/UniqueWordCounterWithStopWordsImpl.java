@@ -3,8 +3,9 @@ package com.dan.wordcounter;
 import com.dan.stopwords.StopWords;
 import com.dan.words.WordMatcher;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
+import static com.dan.wordcounter.streamoperation.DotRemover.removeDots;
+import static com.dan.wordcounter.streamoperation.InputSplitter.splitInput;
+import static com.dan.wordcounter.streamoperation.WordFilter.isValidWord;
 
 public class UniqueWordCounterWithStopWordsImpl implements WordCounter {
 
@@ -26,13 +27,13 @@ public class UniqueWordCounterWithStopWordsImpl implements WordCounter {
     public int countWords(String input) {
         if (input == null) return 0;
 
-        return (int) filterWords(input).distinct().count();
-    }
+        Long count = splitInput(input)
+                .map(removeDots())
+                .filter(isValidWord(wordMatcher, stopWords))
+                .distinct()
+                .count();
 
-    private Stream<String> filterWords(String input) {
-        return Arrays.stream(input.split("[\\s-]"))
-                .map(part -> part.replaceFirst("\\.", ""))
-                .filter(part -> wordMatcher.isValid(part) && !stopWords.contains(part));
+        return count.intValue();
     }
 
 }
