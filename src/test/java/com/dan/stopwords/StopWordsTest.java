@@ -45,7 +45,7 @@ public class StopWordsTest {
 
     @Test
     public void when_stopwords_from_file_then_returns_false() {
-        StopWords stopWords = StopWords.fromFile("src/test/resources/stopwords.txt");
+        StopWords stopWords = StopWords.fromFile("stopwords.txt");
 
         boolean output = stopWords.contains("the");
 

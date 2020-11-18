@@ -20,7 +20,7 @@ class StopWordReader {
 
         Set<String> stopWords = new HashSet<>();
 
-        List<String> lines = FileReader.readLines(filePath);
+        List<String> lines = FileReader.readLinesFromClassPath(filePath);
 
         for (String stopWord : lines) {
             if (!stopWord.isEmpty()) {

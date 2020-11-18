@@ -1,11 +1,14 @@
 package com.dan.util;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FileReader {
 
@@ -18,9 +21,11 @@ public class FileReader {
         return new String(encoded, StandardCharsets.UTF_8);
     }
 
-    public static List<String> readLines(String filePath) throws IOException {
-        File file = new File(filePath);
-        return Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+    public static List<String> readLinesFromClassPath(String filePath) {
+        InputStream inputStream = FileReader.class.getClassLoader().getResourceAsStream(filePath);
+
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        return new BufferedReader(inputStreamReader).lines().collect(Collectors.toList());
     }
 
 }

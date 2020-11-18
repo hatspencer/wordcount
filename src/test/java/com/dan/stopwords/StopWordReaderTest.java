@@ -12,7 +12,7 @@ public class StopWordReaderTest {
 
     @Test
     public void when_testFile_then_collectionWithSize4() throws IOException {
-        Set<String> stopWords = StopWordReader.readStopWords("src/test/resources/stopwords.txt");
+        Set<String> stopWords = StopWordReader.readStopWords("stopwords.txt");
 
         assertEquals(4, stopWords.size());
     }
