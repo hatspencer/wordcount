@@ -3,6 +3,7 @@ package com.dan.application;
 import com.dan.input.InputParamReader;
 import com.dan.input.InputParamReaderImpl;
 import com.dan.wordcounter.WordCounter;
+import com.dan.wordcounter.UniqueWordCounterWithStopWordsImpl;
 import com.dan.wordcounter.WordCounterWithStopWordsImpl;
 
 public class Application {
@@ -14,7 +15,10 @@ public class Application {
         WordCounter counter = new WordCounterWithStopWordsImpl();
         int wordCount = counter.countWords(input);
 
-        System.out.println("Number of words: " + wordCount);
+        WordCounter uniqueCounter = new UniqueWordCounterWithStopWordsImpl();
+        int uniqueWordCount = uniqueCounter.countWords(input);
+
+        System.out.println("Number of words: " + wordCount + ", unique: " + uniqueWordCount);
     }
 
 }
