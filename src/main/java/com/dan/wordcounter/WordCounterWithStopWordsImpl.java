@@ -3,15 +3,16 @@ package com.dan.wordcounter;
 import com.dan.stopwords.StopWords;
 import com.dan.words.WordMatcher;
 
-import java.util.Arrays;
+import static com.dan.wordcounter.streamoperation.DotRemover.removeDots;
+import static com.dan.wordcounter.streamoperation.InputSplitter.splitInput;
+import static com.dan.wordcounter.streamoperation.WordFilter.isValidWord;
 
 public class WordCounterWithStopWordsImpl implements WordCounter {
 
     private static final String STOPWORDS_FILE_PATH = "stopwords.txt";
 
     private StopWords stopWords;
-
-    final WordMatcher wordMatcher = WordMatcher.forPattern("[a-zA-Z]+\\.?");
+    private WordMatcher wordMatcher;
 
     public WordCounterWithStopWordsImpl() {
         this(StopWords.fromFile(STOPWORDS_FILE_PATH));
@@ -19,18 +20,19 @@ public class WordCounterWithStopWordsImpl implements WordCounter {
 
     WordCounterWithStopWordsImpl(StopWords stopWords) {
         this.stopWords = stopWords;
+        this.wordMatcher = WordMatcher.forPattern("[a-zA-Z]+\\.?");
     }
 
     @Override
     public int countWords(String input) {
         if (input == null) return 0;
 
-        final WordMatcher wordMatcher = WordMatcher.forPattern("[a-zA-Z]+\\.?");
-
-        return (int) Arrays.stream(input.split("[\\s-]"))
-                .map(part -> part.replaceFirst("\\.", ""))
-                .filter(part -> wordMatcher.isValid(part) && !stopWords.contains(part))
+        Long count = splitInput(input)
+                .map(removeDots())
+                .filter(isValidWord(wordMatcher, stopWords))
                 .count();
+
+        return count.intValue();
     }
 
 }
