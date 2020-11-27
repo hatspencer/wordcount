@@ -23,10 +23,17 @@ public class InputSplitterTest {
     }
 
     @Test
-    public void when_empty_string_then_returns_1() {
+    public void when_empty_string_then_returns_0() {
         Stream<String> stream = InputSplitter.splitInput("");
 
-        assertEquals(1, stream.count());
+        assertEquals(0, stream.count());
+    }
+
+    @Test
+    public void when_null_then_returns_0() {
+        Stream<String> stream = InputSplitter.splitInput(null);
+
+        assertEquals(0, stream.count());
     }
 
 }

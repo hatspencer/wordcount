@@ -10,6 +10,10 @@ class InputSplitter {
     }
 
     public static Stream<String> splitInput(String input) {
+        if (input == null || input.isEmpty()) {
+            return Stream.empty();
+        }
+
         return Arrays.stream(input.split("[\\s]"));
     }
 

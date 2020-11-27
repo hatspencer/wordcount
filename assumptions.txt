@@ -11,3 +11,9 @@ Iteration 4:
 
 - Stretches of text which contain - are considered separate words
 - Words which end with a . are accepted as words
+
+Iteration 6:
+
+- Average will be rounded HALF_UP and will be printed with two decimal places
+- Hypens are part of the word length
+- Stopwords are filtered also for statistics

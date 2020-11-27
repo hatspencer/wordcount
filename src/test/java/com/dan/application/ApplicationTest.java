@@ -32,7 +32,7 @@ public class ApplicationTest {
 
         Application.main(args);
 
-        assertSystemOut("Number of words: 4, unique: 4");
+        assertSystemOut("Number of words: 4, unique: 4, average word length: 4.25 characters");
     }
 
     @Test
@@ -56,7 +56,7 @@ public class ApplicationTest {
 
         Application.main(args);
 
-        assertSystemOut("Number of words: 2, unique: 2");
+        assertSystemOut("Number of words: 2, unique: 2, average word length: 5.50 characters");
     }
 
     private void assertSystemOut(String expectedOutput) {
