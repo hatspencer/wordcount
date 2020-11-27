@@ -1,10 +1,10 @@
 package com.dan.application;
 
-import com.dan.testutil.SystemInMock;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import testutil.SystemInMock;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

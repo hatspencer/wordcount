@@ -1,12 +1,13 @@
-package com.dan.wordcounter;
+package com.dan.words.counter;
 
+import com.dan.stopwords.StopWords;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WordCounterTest {
+public class WordCounterImplTest {
 
-    WordCounter counter = new WordCounterImpl();
+    WordCounterImpl counter = new WordCounterImpl(StopWords.fromWords("the", "a", "on", "off"));
 
     @Test
     public void when_word_then_output_is_1() {
@@ -18,12 +19,39 @@ public class WordCounterTest {
     }
 
     @Test
-    public void when_Mary_had_a_little_lamb_then_output_is_5() {
+    public void when_iter_4_input_then_output_is_9() {
+        String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(9, countWords);
+    }
+
+    @Test
+    public void when_Mary_had_a_little_lamb_then_output_is_4() {
         String input = "Mary had a little lamb";
 
         final int countWords = counter.countWords(input);
 
-        assertEquals(5, countWords);
+        assertEquals(4, countWords);
+    }
+
+    @Test
+    public void when_Mary_had_a_little_lamb_with_dot_then_output_is_4() {
+        String input = "Mary had a. little lamb";
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(4, countWords);
+    }
+
+    @Test
+    public void when_on_off_and_then_output_is_1() {
+        String input = "on off and";
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(1, countWords);
     }
 
     @Test
@@ -45,6 +73,24 @@ public class WordCounterTest {
     }
 
     @Test
+    public void when_wo_dash_rd_word_word_then_output_is_4() {
+        String input = "wo-rd word word";
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(4, countWords);
+    }
+
+    @Test
+    public void when_dash_word_word_word_then_output_is_3() {
+        String input = "-word word word";
+
+        final int countWords = counter.countWords(input);
+
+        assertEquals(3, countWords);
+    }
+
+    @Test
     public void when_word_word2word_word_then_output_is_2() {
         String input = "word word2word word";
 
@@ -59,7 +105,7 @@ public class WordCounterTest {
 
         final int countWords = counter.countWords(input);
 
-        assertEquals(1, countWords);
+        assertEquals(2, countWords);
     }
 
     @Test

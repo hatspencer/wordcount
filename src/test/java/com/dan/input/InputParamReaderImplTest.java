@@ -1,6 +1,6 @@
 package com.dan.input;
 
-import com.dan.testutil.SystemInMock;
+import testutil.SystemInMock;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

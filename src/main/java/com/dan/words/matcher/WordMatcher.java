@@ -1,4 +1,4 @@
-package com.dan.words;
+package com.dan.words.matcher;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

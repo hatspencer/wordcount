@@ -1,9 +1,9 @@
-package com.dan.wordcounter.streamoperation;
+package com.dan.words.reader;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class InputSplitter {
+class InputSplitter {
 
     private InputSplitter() {
         // prevent init

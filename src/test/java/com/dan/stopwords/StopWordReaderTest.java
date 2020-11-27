@@ -2,7 +2,6 @@ package com.dan.stopwords;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -11,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class StopWordReaderTest {
 
     @Test
-    public void when_testFile_then_collectionWithSize4() throws IOException {
+    public void when_testFile_then_collectionWithSize4() {
         Set<String> stopWords = StopWordReader.readStopWords("stopwords.txt");
 
         assertEquals(4, stopWords.size());

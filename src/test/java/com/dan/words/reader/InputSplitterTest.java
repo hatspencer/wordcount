@@ -1,4 +1,4 @@
-package com.dan.wordcounter.streamoperation;
+package com.dan.words.reader;
 
 import org.junit.Test;
 

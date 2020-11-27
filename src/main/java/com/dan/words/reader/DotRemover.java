@@ -1,8 +1,8 @@
-package com.dan.wordcounter.streamoperation;
+package com.dan.words.reader;
 
 import java.util.function.Function;
 
-public class DotRemover {
+class DotRemover {
 
     private DotRemover() {
         // prevent init

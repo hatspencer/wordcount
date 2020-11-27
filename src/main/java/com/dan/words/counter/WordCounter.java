@@ -1,4 +1,4 @@
-package com.dan.wordcounter;
+package com.dan.words.counter;
 
 public interface WordCounter {
 

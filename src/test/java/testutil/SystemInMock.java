@@ -1,4 +1,4 @@
-package com.dan.testutil;
+package testutil;
 
 import java.io.ByteArrayInputStream;
 

@@ -6,6 +6,8 @@ import java.util.Set;
 
 public class StopWords {
 
+    private static final String STOPWORDS_FILE_PATH = "stopwords.txt";
+
     private Set<String> stopWords;
 
     StopWords(Set<String> stopWords) {
@@ -20,8 +22,8 @@ public class StopWords {
         return stopWords.contains(word);
     }
 
-    public static StopWords fromFile(String filePath) {
-        Set<String> stopWords = StopWordReader.readStopWords(filePath);
+    public static StopWords fromFile() {
+        Set<String> stopWords = StopWordReader.readStopWords(STOPWORDS_FILE_PATH);
         return new StopWords(Collections.unmodifiableSet(stopWords));
     }
 

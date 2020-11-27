@@ -1,20 +1,17 @@
-package com.dan.wordcounter;
+package com.dan.words.counter;
 
 import com.dan.stopwords.StopWords;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class UniqueWordCounterWithStopWordsImplTest {
+public class UniqueWordCounterImplTest {
 
-    WordCounter counter = new UniqueWordCounterWithStopWordsImpl(StopWords.fromWords());
+    UniqueWordCounterImpl counter = new UniqueWordCounterImpl(StopWords.fromWords("the", "a", "on", "off"));
 
     @Test
     public void when_iter_4_input_then_output_is_7() {
         String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
-
-        StopWords stopWords = StopWords.fromWords("the", "a", "on", "off");
-        counter = new UniqueWordCounterWithStopWordsImpl(stopWords);
 
         final int countWords = counter.countWords(input);
 
@@ -23,7 +20,7 @@ public class UniqueWordCounterWithStopWordsImplTest {
 
     @Test
     public void when_a_a_a_input_then_output_is_1() {
-        String input = "a a a";
+        String input = "b b b";
 
         final int countWords = counter.countWords(input);
 
@@ -31,8 +28,8 @@ public class UniqueWordCounterWithStopWordsImplTest {
     }
 
     @Test
-    public void when_a_a_dot_a_input_then_output_is_1() {
-        String input = "a a. a";
+    public void when_b_b_dot_b_input_then_output_is_1() {
+        String input = "b b. b";
 
         final int countWords = counter.countWords(input);
 
@@ -40,8 +37,8 @@ public class UniqueWordCounterWithStopWordsImplTest {
     }
 
     @Test
-    public void when_a_a_dash_a_a_input_then_output_is_1() {
-        String input = "a a-a a";
+    public void when_b_b_dash_b_b_input_then_output_is_1() {
+        String input = "b b-b b";
 
         final int countWords = counter.countWords(input);
 
