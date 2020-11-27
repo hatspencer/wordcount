@@ -17,3 +17,11 @@ Iteration 6:
 - Average will be rounded HALF_UP and will be printed with two decimal places
 - Hypens are part of the word length
 - Stopwords are filtered also for statistics
+
+Iteration 7:
+
+- The index is sorted alphabetically, but not case sensitive
+- Duplicate words are counted as one, and casing will stay untouched
+- Two words which are the same but with different casing, will be listed as two separate words
+- Stopwords are filtered also for the index
+- From the supplied arguments only the first two valid ones will be taken, others will be ignored

@@ -2,6 +2,6 @@ package com.dan.input;
 
 public interface InputParamReader {
 
-    String readInput(String[] args);
+    Input readInput(String[] args);
 
 }

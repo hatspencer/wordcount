@@ -1,7 +1,6 @@
 package com.dan.application;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import testutil.SystemInMock;
@@ -10,11 +9,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertTrue;
+import static testutil.SystemInMock.assertSystemOut;
 
 public class ApplicationTest {
 
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     @Before
     public void setUp() {
@@ -32,12 +34,18 @@ public class ApplicationTest {
 
         Application.main(args);
 
-        assertSystemOut("Number of words: 4, unique: 4, average word length: 4.25 characters");
+        assertSystemOut(outputStreamCaptor,
+                new StringBuilder("Number of words: 4, unique: 4, average word length: 4.25 characters").append(LINE_SEPARATOR)
+                        .append("Index:").append(LINE_SEPARATOR)
+                        .append("had").append(LINE_SEPARATOR)
+                        .append("lamb").append(LINE_SEPARATOR)
+                        .append("little").append(LINE_SEPARATOR)
+                        .append("Mary").toString());
     }
 
     @Test
     public void when_provided_file_does_not_exist_then_exits_with_error() {
-        String[] args = { "   " };
+        String[] args = { "does not exist" };
 
         try {
             Application.main(args);
@@ -50,17 +58,17 @@ public class ApplicationTest {
 
     @Test
     public void when_user_input_then_exits_without_error() {
-        String[] args = {  };
+        String[] args = { };
 
         SystemInMock.mockSystemIn("System input");
 
         Application.main(args);
 
-        assertSystemOut("Number of words: 2, unique: 2, average word length: 5.50 characters");
-    }
-
-    private void assertSystemOut(String expectedOutput) {
-        Assert.assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
+        assertSystemOut(outputStreamCaptor,
+                new StringBuilder("Number of words: 2, unique: 2, average word length: 5.50 characters").append(LINE_SEPARATOR)
+                        .append("Index:").append(LINE_SEPARATOR)
+                        .append("input").append(LINE_SEPARATOR)
+                        .append("System").toString());
     }
 
 }

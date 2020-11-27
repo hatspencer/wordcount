@@ -1,26 +1,38 @@
 package com.dan.input;
 
-import testutil.SystemInMock;
 import org.junit.Test;
+import testutil.SystemInMock;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class InputParamReaderImplTest {
 
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+
     @Test
-    public void when_file_input_then_returns_contents_correctly() {
+    public void when_file_input_then_returns_correct_input_obj() {
         String[] inputArgs = new String[] { "src/test/resources/mytext.txt" };
 
         InputParamReader inputParamReader = new InputParamReaderImpl();
-        String output = inputParamReader.readInput(inputArgs);
+        Input input = inputParamReader.readInput(inputArgs);
 
-        String expectedFileContents = "Mary had\r\n" +
-                " \r\n" +
-                "a little\r\n" +
-                " \r\n" +
-                "lamb";
-        assertEquals(expectedFileContents, output);
+        String expectedFileContents = getExpectedFileContents();
+
+        assertEquals(expectedFileContents, input.getText());
+        assertNull(input.getParam());
+    }
+
+    @Test
+    public void when_file_input_and_param_then_returns_correct_input_obj() {
+        String[] inputArgs = new String[] { "-param", "src/test/resources/mytext.txt" };
+
+        InputParamReader inputParamReader = new InputParamReaderImpl();
+        Input input = inputParamReader.readInput(inputArgs);
+
+        String expectedFileContents = getExpectedFileContents();
+
+        assertEquals(expectedFileContents, input.getText());
+        assertEquals("param", input.getParam());
     }
 
     @Test
@@ -38,16 +50,38 @@ public class InputParamReaderImplTest {
     }
 
     @Test
-    public void when_nofile_input_then_reads_from_system_in() {
-        String[] inputArgs = new String[] { };
+    public void when_no_file_input_but_param_present_then_reads_from_system_in() {
+        String[] inputArgs = new String[] { "-param" };
 
-        String input = "System input";
-        SystemInMock.mockSystemIn(input);
+        String consoleInput = "System input";
+        SystemInMock.mockSystemIn(consoleInput);
 
         InputParamReader inputParamReader = new InputParamReaderImpl();
-        String output = inputParamReader.readInput(inputArgs);
+        Input input1 = inputParamReader.readInput(inputArgs);
 
-        assertEquals(input, output);
+        assertEquals(consoleInput, input1.getText());
+        assertEquals("param", input1.getParam());
+    }
+
+    @Test
+    public void when_no_file_input_then_reads_from_system_in() {
+        String[] inputArgs = new String[] { };
+
+        String consoleInput = "System input";
+        SystemInMock.mockSystemIn(consoleInput);
+
+        InputParamReader inputParamReader = new InputParamReaderImpl();
+        Input input1 = inputParamReader.readInput(inputArgs);
+
+        assertEquals(consoleInput, input1.getText());
+    }
+
+    private String getExpectedFileContents() {
+        return new StringBuilder("Mary had").append(LINE_SEPARATOR)
+                .append(" ").append(LINE_SEPARATOR)
+                .append("a little").append(LINE_SEPARATOR)
+                .append(" ").append(LINE_SEPARATOR)
+                .append("lamb").toString();
     }
 
 }
