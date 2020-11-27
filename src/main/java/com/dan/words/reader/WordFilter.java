@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 class WordFilter {
 
-    private static final WordMatcher WORD_MATCHER = WordMatcher.forPattern("[a-zA-Z]+\\.?");
+    private static final WordMatcher WORD_MATCHER = WordMatcher.forPattern("[a-zA-Z-]+\\.?");
 
     private WordFilter() {
         // prevent init

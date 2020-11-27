@@ -10,12 +10,12 @@ public class UniqueWordCounterImplTest {
     UniqueWordCounterImpl counter = new UniqueWordCounterImpl(StopWords.fromWords("the", "a", "on", "off"));
 
     @Test
-    public void when_iter_4_input_then_output_is_7() {
+    public void when_iter_4_input_then_output_is_6() {
         String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
 
         final int countWords = counter.countWords(input);
 
-        assertEquals(7, countWords);
+        assertEquals(6, countWords);
     }
 
     @Test
@@ -37,12 +37,12 @@ public class UniqueWordCounterImplTest {
     }
 
     @Test
-    public void when_b_b_dash_b_b_input_then_output_is_1() {
+    public void when_b_b_dash_b_b_input_then_output_is_2() {
         String input = "b b-b b";
 
         final int countWords = counter.countWords(input);
 
-        assertEquals(1, countWords);
+        assertEquals(2, countWords);
     }
 
     @Test

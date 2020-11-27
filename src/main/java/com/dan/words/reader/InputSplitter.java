@@ -10,7 +10,7 @@ class InputSplitter {
     }
 
     public static Stream<String> splitInput(String input) {
-        return Arrays.stream(input.split("[\\s-]"));
+        return Arrays.stream(input.split("[\\s]"));
     }
 
 }

@@ -19,7 +19,7 @@ public class InputSplitterTest {
     public void when_a_b_dash_c_then_returns_3() {
         Stream<String> stream = InputSplitter.splitInput("a b-c");
 
-        assertEquals(3, stream.count());
+        assertEquals(2, stream.count());
     }
 
     @Test

@@ -19,12 +19,12 @@ public class WordCounterImplTest {
     }
 
     @Test
-    public void when_iter_4_input_then_output_is_9() {
+    public void when_iter_4_input_then_output_is_7() {
         String input = "Humpty-Dumpty sat on a wall. Humpty-Dumpty had a great fall.";
 
         final int countWords = counter.countWords(input);
 
-        assertEquals(9, countWords);
+        assertEquals(7, countWords);
     }
 
     @Test
@@ -73,12 +73,12 @@ public class WordCounterImplTest {
     }
 
     @Test
-    public void when_wo_dash_rd_word_word_then_output_is_4() {
+    public void when_wo_dash_rd_word_word_then_output_is_3() {
         String input = "wo-rd word word";
 
         final int countWords = counter.countWords(input);
 
-        assertEquals(4, countWords);
+        assertEquals(3, countWords);
     }
 
     @Test
