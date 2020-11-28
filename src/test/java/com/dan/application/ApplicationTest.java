@@ -56,7 +56,7 @@ public class ApplicationTest {
 
         Application.main(args);
 
-        assertSystemOut("Number of words: 2, unique: 2");
+        assertSystemOut("Enter text: Number of words: 2, unique: 2");
     }
 
     private void assertSystemOut(String expectedOutput) {
