@@ -18,6 +18,7 @@ public class InputParamReaderImpl implements InputParamReader {
                 throw new RuntimeException(e);
             }
         } else {
+            System.out.print("Enter text: ");
             Scanner scanner = new Scanner(System.in);
             return scanner.nextLine();
         }

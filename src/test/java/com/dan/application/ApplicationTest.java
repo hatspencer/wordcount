@@ -56,7 +56,7 @@ public class ApplicationTest {
 
         Application.main(args);
 
-        assertSystemOut("Number of words: 2, unique: 2, average word length: 5.50 characters");
+        assertSystemOut("Enter text: Number of words: 2, unique: 2, average word length: 5.50 characters");
     }
 
     private void assertSystemOut(String expectedOutput) {
