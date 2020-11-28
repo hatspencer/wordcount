@@ -3,27 +3,28 @@ package com.dan.words.counter;
 import com.dan.stopwords.StopWords;
 import com.dan.words.reader.WordReader;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 public class UniqueWordCounterImpl implements WordCounter {
 
+    private String input;
     private StopWords stopWords;
 
-    public UniqueWordCounterImpl() {
-        this(StopWords.fromFile());
+    public UniqueWordCounterImpl(String input) {
+        this(input, StopWords.fromFile());
     }
 
-    UniqueWordCounterImpl(StopWords stopWords) {
+    UniqueWordCounterImpl(String input, StopWords stopWords) {
+        this.input = input;
         this.stopWords = stopWords;
     }
 
     @Override
-    public int countWords(String input) {
-        if (input == null) return 0;
-
-        Long count = WordReader.readWords(input, stopWords)
+    public Collection<String> getWords() {
+        return WordReader.readWords(input, stopWords)
                 .distinct()
-                .count();
-
-        return count.intValue();
+                .collect(Collectors.toList());
     }
 
 }

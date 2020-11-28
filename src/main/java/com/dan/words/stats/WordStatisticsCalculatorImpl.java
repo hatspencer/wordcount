@@ -7,18 +7,20 @@ import java.util.OptionalDouble;
 
 public class WordStatisticsCalculatorImpl implements WordStatisticsCalculator {
 
+    private String input;
     private StopWords stopWords;
 
-    public WordStatisticsCalculatorImpl() {
-        this(StopWords.fromFile());
+    public WordStatisticsCalculatorImpl(String input) {
+        this(input, StopWords.fromFile());
     }
 
-    WordStatisticsCalculatorImpl(StopWords stopWords) {
+    WordStatisticsCalculatorImpl(String input, StopWords stopWords) {
+        this.input = input;
         this.stopWords = stopWords;
     }
 
     @Override
-    public Statistics calculateStatistics(String input) {
+    public Statistics calculateStatistics() {
         OptionalDouble average = WordReader.readWords(input, stopWords)
                 .mapToInt(value -> value.length())
                 .average();

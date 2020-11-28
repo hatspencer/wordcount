@@ -1,9 +1,9 @@
 package com.dan.words.index;
 
-import java.util.List;
+import com.dan.dictionary.Dictionary;
 
 public interface WordIndexCreator {
 
-    List<String> createIndex(String input);
+    Dictionary createIndex();
 
 }

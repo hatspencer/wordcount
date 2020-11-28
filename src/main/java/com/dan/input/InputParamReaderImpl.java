@@ -1,12 +1,15 @@
 package com.dan.input;
 
 import com.dan.input.Input.InputBuilder;
-import com.dan.util.FileReader;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class InputParamReaderImpl implements InputParamReader {
+
+    private static final String INDEX_PARAM = "-index";
+    private static final String DICTIONARY_PARAM = "-dictionaryPath=";
+
+    private boolean hasIndex = false;
 
     @Override
     public Input readInput(String[] args) {
@@ -16,7 +19,9 @@ public class InputParamReaderImpl implements InputParamReader {
     }
 
     private Input processArguments(String[] args) {
+        hasIndex = checkIndex(args);
         InputBuilder inputBuilder = Input.builder();
+        if (hasIndex) inputBuilder.withIndex();
         if (args.length > 0) {
             for (String arg : args) {
                 processArgument(inputBuilder, arg);
@@ -28,35 +33,42 @@ public class InputParamReaderImpl implements InputParamReader {
         return inputBuilder.build();
     }
 
+    private boolean checkIndex(String[] args) {
+        for (String arg : args) {
+            if (isIndexParam(arg)) return true;
+        }
+
+        return false;
+    }
+
     private void processArgument(InputBuilder inputBuilder, String arg) {
-        if (isFilePath(arg)) {
-            inputBuilder.withText(readFile(arg));
-        } else if (isParam(arg)) {
-            inputBuilder.withParam(arg.substring(1));
+        if (hasIndex && isDictionaryPathParam(arg)) {
+            String dictionaryPath = arg.replaceFirst(DICTIONARY_PARAM, "");
+            inputBuilder.withDictionaryFile(dictionaryPath);
+        } else if (isTextFilePath(arg)) {
+            inputBuilder.withTextFile(arg);
         }
     }
 
-    private boolean isFilePath(String arg) {
-        return arg.endsWith(".txt");
+    private boolean isIndexParam(String arg) {
+        return arg.equalsIgnoreCase(INDEX_PARAM);
     }
 
-    private boolean isParam(String arg) {
-        return arg.startsWith("-");
+    private boolean isDictionaryPathParam(String arg) {
+        return arg.startsWith(DICTIONARY_PARAM);
     }
 
-    private String readFile(String filePath) {
-        try {
-            return FileReader.readFile(filePath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private boolean isTextFilePath(String arg) {
+        return !arg.startsWith("-") && arg.endsWith(".txt");
     }
 
     private Input readUserInput(Input previousInput) {
+        System.out.print("Enter text: ");
+
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
         return Input.builder(previousInput)
-                .withText(line)
+                .withTextContent(line)
                 .build();
     }
 

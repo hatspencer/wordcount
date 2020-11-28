@@ -17,7 +17,7 @@ public class StopWordsTest {
     }
 
     @Test
-    public void when_null_passed_then_returns_true() {
+    public void when_null_passed_then_returns_false() {
         StopWords stopWords = StopWords.fromWords("one", "two");
 
         boolean output = stopWords.contains(null);

@@ -1,5 +1,7 @@
 package com.dan.words.index;
 
+import com.dan.dictionary.Dictionary;
+import com.dan.dictionary.DictionaryBuilder;
 import com.dan.stopwords.StopWords;
 import com.dan.words.reader.WordReader;
 
@@ -8,21 +10,26 @@ import java.util.stream.Collectors;
 
 public class WordIndexCreatorImpl implements WordIndexCreator {
 
+    private String input;
     private StopWords stopWords;
 
-    public WordIndexCreatorImpl() {
-        this(StopWords.fromFile());
+    public WordIndexCreatorImpl(String input) {
+        this(input, StopWords.fromFile());
     }
 
-    WordIndexCreatorImpl(StopWords stopWords) {
+    WordIndexCreatorImpl(String input, StopWords stopWords) {
+        this.input = input;
         this.stopWords = stopWords;
     }
 
     @Override
-    public List<String> createIndex(String input) {
-        return WordReader.readWords(input, stopWords)
+    public Dictionary createIndex() {
+        List<String> index = WordReader.readWords(input, stopWords)
                 .distinct()
                 .sorted(String::compareToIgnoreCase)
                 .collect(Collectors.toList());
+
+        return DictionaryBuilder.fromCollection(index);
     }
+
 }

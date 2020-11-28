@@ -1,22 +1,35 @@
 package com.dan.input;
 
+import com.dan.util.FileReader;
+
+import java.io.IOException;
+
 public class Input {
 
-    private String text;
-    private String param;
+    private String textContents;
+    private Boolean buildIndex;
+    private String dictionaryContents;
 
     private Input() { }
 
-    public String getText() {
-        return text;
-    }
-
-    public String getParam() {
-        return param;
+    public String getTextContents() {
+        return textContents;
     }
 
     public boolean hasText() {
-        return (text != null);
+        return (textContents != null);
+    }
+
+    public boolean hasIndex() {
+        return buildIndex;
+    }
+
+    public String getDictionaryContents() {
+        return dictionaryContents;
+    }
+
+    public boolean hasDictionary() {
+        return (dictionaryContents != null);
     }
 
     public static InputBuilder builder() {
@@ -33,22 +46,43 @@ public class Input {
 
         private InputBuilder(Input input) { this.input = input; };
 
-        public InputBuilder withText(String text) {
-            input.text = text;
+        public InputBuilder withTextContent(String text) {
+            input.textContents = text;
             return this;
         }
 
-        public InputBuilder withParam(String param) {
-            input.param = param;
+        public InputBuilder withTextFile(String filePath) {
+            input.textContents = readFile(filePath);
+            return this;
+        }
+
+        public InputBuilder withIndex() {
+            input.buildIndex = Boolean.TRUE;
+            return this;
+        }
+
+        public InputBuilder withDictionaryFile(String filePath) {
+            input.dictionaryContents = readFile(filePath);
             return this;
         }
 
         public boolean isComplete() {
-            return this.input.text != null && this.input.param != null;
+            return this.input.textContents != null &&
+                    this.input.buildIndex != null &&
+                    this.input.dictionaryContents != null;
         }
 
         public Input build() {
+            if (input.buildIndex == null) input.buildIndex = Boolean.FALSE;
             return input;
+        }
+
+        private String readFile(String filePath) {
+            try {
+                return FileReader.readFile(filePath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

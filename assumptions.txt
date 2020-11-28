@@ -25,3 +25,7 @@ Iteration 7:
 - Two words which are the same but with different casing, will be listed as two separate words
 - Stopwords are filtered also for the index
 - From the supplied arguments only the first two valid ones will be taken, others will be ignored
+
+Iteration 8:
+- If the index argument is not passed, the dictionary argument does not have an effect
+- The dictionary is case insensitive

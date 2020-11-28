@@ -16,20 +16,29 @@ public class FileReader {
         // prevent init
     }
 
-    public static String readFile(String path) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
+    public static String readFile(String filePath) throws IOException {
+        if (isBlank(filePath)) {
+            throw new IllegalArgumentException("The filePath cannot be blank");
+        }
+
+        byte[] encoded = Files.readAllBytes(Paths.get(filePath));
         return new String(encoded, StandardCharsets.UTF_8);
     }
 
-    public static List<String> readLinesFromClassPath(String filePath) {
-        if (filePath == null || filePath.trim().isEmpty()) {
-            throw new IllegalArgumentException("The filePath cannot be null");
+    public static List<String> readLinesFromClassPath(String fileName) throws IOException {
+        if (isBlank(fileName)) {
+            throw new IllegalArgumentException("The fileName cannot be blank");
         }
 
-        InputStream inputStream = FileReader.class.getClassLoader().getResourceAsStream(filePath);
-
+        InputStream inputStream = FileReader.class.getClassLoader().getResourceAsStream(fileName);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-        return new BufferedReader(inputStreamReader).lines().collect(Collectors.toList());
+        try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+            return bufferedReader.lines().collect(Collectors.toList());
+        }
+    }
+
+    private static boolean isBlank(String fileName) {
+        return fileName == null || fileName.trim().isEmpty();
     }
 
 }

@@ -1,40 +1,39 @@
 package com.dan.stopwords;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import com.dan.dictionary.Dictionary;
+import com.dan.dictionary.DictionaryBuilder;
+import com.dan.util.FileReader;
+
+import java.io.IOException;
+import java.util.List;
 
 public class StopWords {
 
     private static final String STOPWORDS_FILE_PATH = "stopwords.txt";
 
-    private Set<String> stopWords;
+    private Dictionary dictionary;
 
-    StopWords(Set<String> stopWords) {
-        this.stopWords = stopWords;
+    StopWords(Dictionary dictionary) {
+        this.dictionary = dictionary;
     }
 
     public boolean contains(String word) {
-        if (word == null) {
-            return false;
-        }
-
-        return stopWords.contains(word);
+        return dictionary.contains(word);
     }
 
     public static StopWords fromFile() {
-        Set<String> stopWords = StopWordReader.readStopWords(STOPWORDS_FILE_PATH);
-        return new StopWords(Collections.unmodifiableSet(stopWords));
+        try {
+            List<String> words = FileReader.readLinesFromClassPath(STOPWORDS_FILE_PATH);
+            Dictionary dictionary = DictionaryBuilder.fromCollection(true, words);
+            return new StopWords(dictionary);
+        } catch (IOException e) {
+            throw new RuntimeException("An error occurred while reading \"" + STOPWORDS_FILE_PATH + "\"");
+        }
     }
 
-    public static StopWords fromWords(String... stopWords) {
-        HashSet<String> set = new HashSet<>();
-
-        for (String stopWord : stopWords) {
-            if (stopWord != null && !stopWord.isEmpty()) set.add(stopWord);
-        }
-
-        return new StopWords(Collections.unmodifiableSet(set));
+    public static StopWords fromWords(String... words) {
+        Dictionary dictionary = DictionaryBuilder.fromWords(true, words);
+        return new StopWords(dictionary);
     }
 
 }
