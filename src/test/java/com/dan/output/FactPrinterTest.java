@@ -1,9 +1,10 @@
 package com.dan.output;
 
 import com.dan.input.Input;
+import com.dan.io.SystemIOTest;
 import org.junit.Test;
 
-public class FactPrinterTest extends SystemOutTest {
+public class FactPrinterTest extends SystemIOTest {
 
     @Test
     public void when_text_file_then_prints_correct_output() {

@@ -1,9 +1,10 @@
 package com.dan.output;
 
 import com.dan.input.Input;
+import com.dan.io.SystemIOTest;
 import org.junit.Test;
 
-public class IndexPrinterTest extends SystemOutTest {
+public class IndexPrinterTest extends SystemIOTest {
 
     @Test
     public void when_index_with_dictionary_then_prints_correct_output() {

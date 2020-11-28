@@ -29,3 +29,8 @@ Iteration 7:
 Iteration 8:
 - If the index argument is not passed, the dictionary argument does not have an effect
 - The dictionary is case insensitive
+
+Iteration 9:
+- Repeated input only applies for user input and not file input
+- The index and dictionary parameters can be specified only once
+- The processing is started right after submitting a user input

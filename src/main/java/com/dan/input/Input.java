@@ -3,6 +3,7 @@ package com.dan.input;
 import com.dan.util.FileReader;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class Input {
 
@@ -17,7 +18,7 @@ public class Input {
     }
 
     public boolean hasText() {
-        return (textContents != null);
+        return (textContents != null) && !textContents.isEmpty();
     }
 
     public boolean hasIndex() {
@@ -40,6 +41,10 @@ public class Input {
         return new InputBuilder(input);
     }
 
+    public void process(Consumer<Input> consumer) {
+        consumer.accept(this);
+    }
+
     public static class InputBuilder {
 
         private Input input;
@@ -56,9 +61,17 @@ public class Input {
             return this;
         }
 
-        public InputBuilder withIndex() {
-            input.buildIndex = Boolean.TRUE;
+        public InputBuilder withIndex(boolean hasIndex) {
+            input.buildIndex = hasIndex;
             return this;
+        }
+
+        public InputBuilder withIndex() {
+            return withIndex(true);
+        }
+
+        public boolean hasIndex() {
+            return (input.buildIndex != null) && input.buildIndex;
         }
 
         public InputBuilder withDictionaryFile(String filePath) {
