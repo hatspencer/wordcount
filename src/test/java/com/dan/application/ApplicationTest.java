@@ -35,6 +35,16 @@ public class ApplicationTest {
         Application.main(args);
 
         assertSystemOut(outputStreamCaptor,
+                new StringBuilder("Number of words: 4, unique: 4, average word length: 4.25 characters").toString());
+    }
+
+    @Test
+    public void when_called_with_existing_file_and_index_then_exits_without_error() {
+        String[] args = { "src/test/resources/mytext.txt" , "-index" };
+
+        Application.main(args);
+
+        assertSystemOut(outputStreamCaptor,
                 new StringBuilder("Number of words: 4, unique: 4, average word length: 4.25 characters").append(LINE_SEPARATOR)
                         .append("Index:").append(LINE_SEPARATOR)
                         .append("had").append(LINE_SEPARATOR)
@@ -65,7 +75,19 @@ public class ApplicationTest {
         Application.main(args);
 
         assertSystemOut(outputStreamCaptor,
-                new StringBuilder("Number of words: 2, unique: 2, average word length: 5.50 characters").append(LINE_SEPARATOR)
+                new StringBuilder("Enter text: Number of words: 2, unique: 2, average word length: 5.50 characters").toString());
+    }
+
+    @Test
+    public void when_user_input_with_index_then_exits_without_error() {
+        String[] args = { "-index" };
+
+        SystemInMock.mockSystemIn("System input");
+
+        Application.main(args);
+
+        assertSystemOut(outputStreamCaptor,
+                new StringBuilder("Enter text: Number of words: 2, unique: 2, average word length: 5.50 characters").append(LINE_SEPARATOR)
                         .append("Index:").append(LINE_SEPARATOR)
                         .append("input").append(LINE_SEPARATOR)
                         .append("System").toString());

@@ -53,6 +53,7 @@ public class InputParamReaderImpl implements InputParamReader {
     }
 
     private Input readUserInput(Input previousInput) {
+        System.out.print("Enter text: ");
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
         return Input.builder(previousInput)

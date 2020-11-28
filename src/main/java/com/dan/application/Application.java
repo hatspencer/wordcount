@@ -21,20 +21,27 @@ public class Application {
     public static void main(String[] args) {
         Input input = readInput(args);
 
-        int wordCount = getWordCount(input);
-        int uniqueWordCount = getUniqueWordCount(input);
-        Statistics statistics = getStats(input);
-
-        printFacts(wordCount, uniqueWordCount, statistics);
-
-        List<String> index = getIndex(input);
-
-        printIndex(index);
+        printFacts(input);
+        printIndex(input);
     }
 
     private static Input readInput(String[] args) {
         InputParamReader inputReader = new InputParamReaderImpl();
         return inputReader.readInput(args);
+    }
+
+    private static void printFacts(Input input) {
+        int wordCount = getWordCount(input);
+        int uniqueWordCount = getUniqueWordCount(input);
+        Statistics statistics = getStats(input);
+
+        String averageWordLength = BigDecimal.valueOf(statistics.getAverageWordLength())
+                .setScale(2, RoundingMode.HALF_UP)
+                .toPlainString();
+
+        System.out.println("Number of words: " + wordCount +
+                ", unique: " + uniqueWordCount +
+                ", average word length: " + averageWordLength + " characters");
     }
 
     private static int getWordCount(Input input) {
@@ -52,26 +59,19 @@ public class Application {
         return statsCalculator.calculateStatistics(input.getText());
     }
 
+    private static void printIndex(Input input) {
+        if (input.hasIndex()) {
+            List<String> index = getIndex(input);
+            System.out.println("Index:");
+            for (String word : index) {
+                System.out.println(word);
+            }
+        }
+    }
+
     private static List<String> getIndex(Input input) {
         WordIndexCreator indexCreator = new WordIndexCreatorImpl();
         return indexCreator.createIndex(input.getText());
-    }
-
-    private static void printFacts(int wordCount, int uniqueWordCount, Statistics statistics) {
-        String averageWordLength = BigDecimal.valueOf(statistics.getAverageWordLength())
-                .setScale(2, RoundingMode.HALF_UP)
-                .toPlainString();
-
-        System.out.println("Number of words: " + wordCount +
-                ", unique: " + uniqueWordCount +
-                ", average word length: " + averageWordLength + " characters");
-    }
-
-    private static void printIndex(List<String> index) {
-        System.out.println("Index:");
-        for (String word : index) {
-            System.out.println(word);
-        }
     }
 
 }

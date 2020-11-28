@@ -19,6 +19,10 @@ public class Input {
         return (text != null);
     }
 
+    public boolean hasIndex() {
+        return "index".equalsIgnoreCase(param);
+    }
+
     public static InputBuilder builder() {
         return builder(new Input());
     }
