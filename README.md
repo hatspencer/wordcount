@@ -1,1 +1,1 @@
-https://ccd-school.de/coding-dojo/agility-katas/word-count-i/
+https://ccd-school.de/coding-dojo/agility-katas/word-count-vi/
