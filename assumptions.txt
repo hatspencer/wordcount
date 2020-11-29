@@ -32,5 +32,5 @@ Iteration 8:
 
 Iteration 9:
 - Repeated input only applies for user input and not file input
-- The index and dictionary parameters can be specified only once
+- The index and dictionary parameters can be specified only once (and they are applied for all the inputs)
 - The processing is started right after submitting a user input
