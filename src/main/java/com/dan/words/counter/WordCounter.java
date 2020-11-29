@@ -1,13 +1,19 @@
 package com.dan.words.counter;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public interface WordCounter {
 
-    Collection<String> getWords();
+    Stream<String> getWordStream();
+
+    default Collection<String> getWords() {
+        return getWordStream().collect(Collectors.toList());
+    }
 
     default int countWords() {
-        return getWords().size();
+        return (int) getWordStream().count();
     }
 
 }

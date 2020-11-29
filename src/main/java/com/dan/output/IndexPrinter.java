@@ -4,7 +4,6 @@ import com.dan.dictionary.Dictionary;
 import com.dan.dictionary.DictionaryBuilder;
 import com.dan.input.Input;
 import com.dan.words.counter.UnknownWordCounterImpl;
-import com.dan.words.counter.WordCounter;
 import com.dan.words.index.WordIndexCreator;
 import com.dan.words.index.WordIndexCreatorImpl;
 

@@ -2,8 +2,7 @@ package com.dan.words.counter;
 
 import com.dan.dictionary.Dictionary;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UnknownWordCounterImpl implements WordCounter {
 
@@ -16,10 +15,8 @@ public class UnknownWordCounterImpl implements WordCounter {
     }
 
     @Override
-    public Collection<String> getWords() {
-        return index.stream()
-                .filter(word -> !knownWords.contains(word))
-                .collect(Collectors.toList());
+    public Stream<String> getWordStream() {
+        return index.stream().filter(word -> !knownWords.contains(word));
     }
 
 }

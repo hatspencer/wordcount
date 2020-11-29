@@ -2,14 +2,14 @@ package com.dan.words.counter;
 
 import com.dan.stopwords.StopWords;
 import com.dan.words.reader.WordReader;
+import com.dan.words.reader.WordReaderImpl;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WordCounterImpl implements WordCounter {
 
     private String input;
-    private StopWords stopWords;
+    private WordReader wordReader;
 
     public WordCounterImpl(String input) {
         this(input, StopWords.fromFile());
@@ -17,13 +17,12 @@ public class WordCounterImpl implements WordCounter {
 
     WordCounterImpl(String input, StopWords stopWords) {
         this.input = input;
-        this.stopWords = stopWords;
+        this.wordReader = new WordReaderImpl(stopWords);
     }
 
     @Override
-    public Collection<String> getWords() {
-        return WordReader.readWords(input, stopWords)
-                .collect(Collectors.toList());
+    public Stream<String> getWordStream() {
+        return wordReader.readWords(input);
     }
 
 }
